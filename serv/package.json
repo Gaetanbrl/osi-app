@@ -13,6 +13,7 @@
     "body-parser": "*",
     "cors": "^2.8.4",
     "express": "*",
+    "node-pandoc": "^0.3.0",
     "path": "*",
     "pg-promise": "*"
   }

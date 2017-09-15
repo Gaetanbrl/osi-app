@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 
-import logo from './components/logo.png'
-
 export default class Navbar extends Component {
   constructor() {
     super()
@@ -13,7 +11,7 @@ export default class Navbar extends Component {
 
   toggleCollapse() {
     const collapsed = !this.state.collapsed;
-    this.setState({collapsed});
+    this.setState({ collapsed });
   }
 
   render() {
@@ -23,11 +21,11 @@ export default class Navbar extends Component {
         <nav className="navbar navbar-inverse">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a href="http://www.risques-cotiers.fr" className="navbar-brand"><img src={ logo } alt="logo Osirisc"/></a>
+              <a href="http://www.risques-cotiers.fr" className="navbar-brand"><img src='http://localhost:3001/img/logo.png' alt="logo Osirisc"/></a>
             </div>
+            
             <div className="navbar-header">
               <NavLink exact to="/" className="navbar-brand"><h3>Démonstrateur Osirisc</h3></NavLink>
-
             </div>
 
               <ul className="nav navbar-nav">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Carousel from './components/Carousel'
+import Osistory from './components/Osistory';
 
 export default class Osi extends Component {
 
@@ -10,10 +10,10 @@ export default class Osi extends Component {
             <div className="jumbotron container-fluid text-center">
               <h1>Bienvenue sur Osi</h1>
               <p>Prototype destiné aux chercheurs et aux gestionnaires du projet Osirisc, 
-              l'Observatoire Intégré des Risques Côtier.</p>
+              l'Observatoire Intégré des Risques Côtiers.</p>
             </div>
             
-            <Carousel />
+            <Osistory />
 
         </div>
     )

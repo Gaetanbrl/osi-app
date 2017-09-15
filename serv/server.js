@@ -1,17 +1,18 @@
 const express = require('express');
-const cors = require('cors')
-const db = require('./connect');
+const cors = require('cors');
+const db = require('./db');
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.set('port', (process.env.PORT || 3001));
+app.use(express.static('../public'));
 
+GET('/fiche', () => db.any('SELECT * FROM fiche ORDER BY theme_fiche DESC')); 
+GET('/fiche/id/:id', req => db.queries.findById(req.params.id));
+GET('/fiche/acro/:acro', req => db.queries.findByAcro(req.params.acro));
 
-GET('/fiche', () => db.any('SELECT * FROM fiche'));
-
-GET('/fiche/id/:id', req => db.fiche.findById(req.params.id));
-GET('/fiche/acro/:acro', req => db.fiche.findByAcro(req.params.acro));
+GET('/score/:acro', req => db.queries.findScoreByAcro(req.params.acro));
 
 
 function GET(url, handler) {
