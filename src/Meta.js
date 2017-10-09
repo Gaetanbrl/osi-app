@@ -65,7 +65,7 @@ export default class Meta extends Component {
     epci = { epci } 
     dbficheCount = { dbficheCount }/>
 
-    <h3 className="text-primary"> 1. Choisir une méthode </h3>
+    <h3 className="text-primary"> 1. Classer </h3>
 
 		<Methode 
     dbfiche = { dbfiche } 
