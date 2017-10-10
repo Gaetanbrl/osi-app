@@ -9,7 +9,7 @@ export default class Osi extends Component {
         <div>
             <div className="jumbotron container-fluid text-center">
               <h1>Bienvenue sur Osi</h1>
-              <p>Prototype destiné aux chercheurs et aux gestionnaires du projet Osirisc, 
+              <p className="text-muted">Prototype destiné aux chercheurs et aux gestionnaires du projet Osirisc, 
               l'Observatoire Intégré des Risques Côtiers.</p>
             </div>
             
