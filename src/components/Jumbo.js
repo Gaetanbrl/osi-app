@@ -16,25 +16,25 @@ export default class Jumbo extends Component {
 	open() { this.setState({ showModal: true }) }
 
 	render() {
-		var style = {
-			height: '200px',
+		let style = {
+			height: '150px',
 			padding : '20px'
 		};
 
 		return (
 			<div className="jumbotron container-fluid " style={style}>
 				<h2>{this.props.epci}</h2>
-				<p> Explorez ses {this.props.dbficheCount} indicateurs</p>
-				
-
 				<Button
-				  bsStyle="default"
+				  bsStyle="primary"
 				  bsSize="sm"
 				  className="pull-right"
 				  onClick={this.open}
 				>
 				  A propos
 				</Button>
+				<p> Explorez ses {this.props.dbficheCount} indicateurs</p>
+				
+
 
 				<Modal show={this.state.showModal} onHide={this.close}>
 				  <Modal.Header closeButton>

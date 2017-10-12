@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-//import { withRouter } from 'react-router-dom';
 import ol from "openlayers";
 
-export default class Geoselect extends Component {
+export default class Local extends Component {
 
   componentDidMount() {
     let styleDefault = new ol.style.Style({
@@ -49,7 +48,7 @@ export default class Geoselect extends Component {
         new ol.control.ScaleLine()
       ]),
       view: new ol.View({
-        center: ol.proj.fromLonLat([-2.9, 48]),
+        center: ol.proj.fromLonLat([-1, 49]),
         zoom: 6,
         minZoom: 5,
         maxZoom: 9
@@ -91,29 +90,31 @@ export default class Geoselect extends Component {
 
     map.on('click', function(e) {
       let feature = map.forEachFeatureAtPixel(e.pixel, function(feature) {
-        let idEpci = feature.get('siren_epci');
-        //this.props.history.push("/data");
-        window.open('/data');
+        let id_epci = feature.get('siren_epci');
+        let nom_epci = feature.get('nom_epci');
+        console.log(id_epci + " : " + nom_epci)
           })
     });
 
   }
 
   render() {
+    let style = {
+      height: '350px'
+    };
+
     return (
       <div>
-        <h3 className="text-primary"> Les territoires potentiellement partenaires de l'observatoire</h3>
-
         <section className="panel-map">
-          <div className="map" ref="map">
+          <div className="map" ref="map" style={style}>
             <div className="olTool" ref="olTool"></div>
           </div>
         </section>
 
         <div className="alert alert-info">
           <strong>Avertissement : </strong> Osi est actuellement au stade de prototype. 
-          Si les territoires cartographiés ci-dessus ont d'ores et déjà manifesté leur intérêt pour cet outil expérimental, 
-          les données ne sont pas encore produites. Les liens renvoient donc systématiquement à un même territoire fictif qui a servi au développement de cette application.
+          Les territoires cartographiés ci-dessus sont les partenaires potentiels de l'observatoire. 
+          Les données n'étant pas encore produites, les liens renvoient donc systématiquement à un même territoire fictif qui a servi au développement de cette application.
         </div>
       </div>
     );

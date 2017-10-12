@@ -80,7 +80,7 @@ export default class Valid extends Component {
 					</div>
 					</div>
 
-					<h3 className="text-primary"> 4. Visualiser</h3>
+					<h3 className="text-primary"><span className="glyphicon glyphicon-eye-open" /> 5. Visualiser</h3>
 
 					{/* L'élément suivant permet d'ajouter plusieurs modules de visualisation */}
 					<div id="Visu" className="container-fluid well well-sm">		

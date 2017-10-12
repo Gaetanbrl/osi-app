@@ -115,3 +115,16 @@ ul.nav-tabs li {
 .col-bottom {
   vertical-align: bottom;
 }
+
+
+/* Elements OL3 */
+.olTool {
+  position: relative;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  opacity: 0.7;
+  white-space: nowrap;
+  font: 10pt sans-serif;
+}
+

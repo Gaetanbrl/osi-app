@@ -62,7 +62,7 @@ Un indicateur est une donnée dont la variation spatiale ou temporelle est corr�
 La liste présentée dans ce démonstrateur est un instantané au 6 juillet 2017 d'une procédure d'identification et de tri de variables, travail collectif au long cours. 
 							</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 							<Tableau
 							dbfiche = { this.props.dbfiche }
 							dataSend = { this.props.dataSend }
@@ -77,7 +77,7 @@ La cohérence de ces ensembles se fonde sur une lecture systémique de la vulné
 Les thématiques listée ici sont des sous-ensembles des composantes.
 							</p>
 
-          	              <h3 className="text-primary"> 2. Sélectionner</h3>
+          	              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 							<Tableau
 							dbfiche = { this.props.dbfiche }
@@ -93,7 +93,7 @@ La cohérence de ces ensembles se fonde sur une lecture systémique de la vulné
 Les 4 composantes sont les piliers de l'approche proposée par le projet Osirisc.
 							</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 							<Tableau
 							dbfiche = { this.props.dbfiche }
@@ -105,42 +105,42 @@ Les 4 composantes sont les piliers de l'approche proposée par le projet Osirisc
 				        <Tab.Pane eventKey={31}>
 				          <p className="text-muted text-center">Description des méthodes transverses</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 				        </Tab.Pane>
 
 				        <Tab.Pane eventKey={32}>
 				          <p className="text-muted text-center">Description des méthodes transverses</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 				        </Tab.Pane>
 
 				        <Tab.Pane eventKey={33}>
 				          <p className="text-muted text-center">Description des méthodes transverses</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 				        </Tab.Pane>
 
 				        <Tab.Pane eventKey={34}>
 				          <p className="text-muted text-center">Description des méthodes transverses</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 				        </Tab.Pane>
 
 				        <Tab.Pane eventKey={41}>
 				          <p className="text-muted text-center">Description des méthodes globales</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 
 				        </Tab.Pane>
 
 				        <Tab.Pane eventKey={42}>
 				          <p className="text-muted text-center">Description des méthodes globales</p>
 
-			              <h3 className="text-primary"> 2. Sélectionner</h3>
+			              <h3 className="text-primary"><span className="glyphicon glyphicon-shopping-cart" /> 3. Sélectionner</h3>
 				          
 				        </Tab.Pane>
 

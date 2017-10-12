@@ -26,8 +26,8 @@ export default class Cartograph extends Component {
 		let choixMenu = [
 			<li key={ input.length + 3} className="divider"></li>,
 			<h6 key={ input.length + 4 }> >  Agrégations</h6>,
-			<MenuItem eventKey={"a"} key={ input.length } onSelect={ this.handleInput } bsSize="xsmall" disabled> Moyenne </MenuItem>,
-			<MenuItem eventKey={"b"} key={ input.length + 1 } onSelect={ this.handleInput } bsSize="xsmall" disabled> Maximum </MenuItem>,
+			<MenuItem eventKey={"a"} key={ input.length } onSelect={ this.handleInput } bsSize="xsmall"> Moyenne </MenuItem>,
+			<MenuItem eventKey={"b"} key={ input.length + 1 } onSelect={ this.handleInput } bsSize="xsmall"> Maximum </MenuItem>,
 			<MenuItem eventKey={"c"} key={ input.length + 2 } onSelect={ this.handleInput } bsSize="xsmall" disabled> ... </MenuItem>
 		]
 		if (input.length === 1) {
