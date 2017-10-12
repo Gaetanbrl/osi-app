@@ -16,24 +16,24 @@ export default class Footer extends Component {
             </div>
             <div className="col-md-6 text-right">
                     <p><a href="http://www.ensg.eu/Master-2-Carthageo"> 
-                        <img height="70px" src='http://localhost:3001/img/carthageo.png' alt="logo Carthagéo" />
+                        <img height="70px" src='/img/carthageo.png' alt="logo Carthagéo" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     
                     <a href="https://www.fondationdefrance.org/"> 
-                        <img height="70px" src="http://localhost:3001/img/fondationfr.png" alt="logo Fondation de France" />
+                        <img height="70px" src="/img/fondationfr.png" alt="logo Fondation de France" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="http://www.cnrs.fr/"> 
-                        <img height="70px"  src="http://localhost:3001/img/logoCNRS.jpg" alt="logo CNRS" />
+                        <img height="70px"  src="/img/logoCNRS.jpg" alt="logo CNRS" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
                     <br/>
 
                     <p><a href="https://www.labexmer.eu"> 
-                        <img height="70px"  src="http://localhost:3001/img/labexmer.png" alt="logo Labex Mer" />
+                        <img height="70px"  src="/img/labexmer.png" alt="logo Labex Mer" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <a href="https://www-iuem.univ-brest.fr/logo.png"> 
-                        <img  height="70px" src="http://localhost:3001/img/iuem.png" alt="logo IUEM" />
+                    <a href="https://www-iuem.univ-brest.fr/"> 
+                        <img  height="70px" src="/img/iuem.png" alt="logo IUEM" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             </div>
             </div>

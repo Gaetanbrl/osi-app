@@ -8,7 +8,6 @@ import {
 import { Provider } from 'react-redux';
 
 import Footer from "./Footer"; 
-import Geoselect from "./Geoselect"; 
 import Meta from "./Meta"; 
 import Navbar from "./Navbar"; 
 import Osi from "./Osi"; 
@@ -20,7 +19,6 @@ const Routes = ({ store }) => (
 				<Navbar />
 				<Switch>	
 					<Route exact path="/" component={ Osi } />
-					<Route path="/select" component={ Geoselect } />
 					<Route path="/data" component={ Meta } />
 					<Route render={function () {
 						return <p className="lead pull-center"> Une bouteille à la mer... </p>

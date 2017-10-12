@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 
+import Emploi from "./components/Emploi"; 
 import Local from "./components/Local"; 
 import Jumbo from "./components/Jumbo"; 
 import Methode from "./components/Methode"; 
@@ -69,7 +70,9 @@ export default class Meta extends Component {
   render() {
 	return (
 	<div>
-    <h3 className="text-primary"><span className="glyphicon glyphicon-map-marker" /> 1. Localiser </h3>
+    <Emploi />
+
+    <h4 className="text-primary"><span className="glyphicon glyphicon-map-marker" /> Choisir un site d'observation</h4>
 
     <Local 
     epciSend = { this.epciSend }/>
@@ -78,14 +81,14 @@ export default class Meta extends Component {
     epci = { this.state.nom_epci } 
     dbficheCount = { dbficheCount }/>
 
-    <h3 className="text-primary"><span className="glyphicon glyphicon-equalizer" /> 2. Classer </h3>
+    <h4 className="text-primary"><span className="glyphicon glyphicon-equalizer" /> Classer </h4>
 
 		<Methode 
     dbfiche = { dbfiche } 
     dataSend = { this.dataSend }/>
 
     <br/>
-    <h3 className="text-primary"><span className="glyphicon glyphicon-filter" /> 4. Composer </h3>
+    <h4 className="text-primary"><span className="glyphicon glyphicon-filter" /> Composer </h4>
 
     <Valid 
     dbfiche = { dbfiche } 

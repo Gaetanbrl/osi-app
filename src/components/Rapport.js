@@ -5,6 +5,12 @@ import { Button, Panel, PanelGroup, ResponsiveEmbed } from 'react-bootstrap';
 export default class Rapport extends Component {
   
   render() {
+    const titre =(
+      <h3 className="text-center">Documentation sur le prototypage 
+        <span className="glyphicon glyphicon-book pull-right" />
+      </h3>
+      );
+
     const pdf =(
       <small className="text-muted"><b>Citation :</b> Marcel O., <i>Prototypage d'une interface WEB-SIG pour l'Observatoire Intégré des Risques Côtiers</i>, Master 2 Carthagéo : Université Panthéon-Sorbonne / Université Paris-Diderot / ENSG (Brest, 2017), 64p.
       <Button 
@@ -17,9 +23,9 @@ export default class Rapport extends Component {
       );
 
     const panelGroupInstance = (
-      <PanelGroup defaultActiveKey="0" accordion>
+      <PanelGroup defaultActiveKey="1" accordion>
         <Panel 
-        header="Documentation sur le prototypage (cliquer pour ouvrir)" 
+        header={ titre } 
         footer={ pdf }
         bsStyle="info" 
         eventKey="1">

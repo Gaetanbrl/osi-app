@@ -116,6 +116,29 @@ ul.nav-tabs li {
   vertical-align: bottom;
 }
 
+/* Carousel */
+.carouselImg {
+  width: auto;
+  height: 500px;
+  max-height: 500px;
+  margin: auto;
+}
+
+.carousel .item {
+  height: 500px;
+  background-color: #E0E0E0;
+}
+
+.item img {
+  max-height: 100%;  
+  max-width: 100%; 
+  position: absolute;  
+  top: 0;  
+  bottom: 0;  
+  left: 0;  
+  right: 0;  
+  margin: auto;
+}
 
 /* Elements OL3 */
 .olTool {

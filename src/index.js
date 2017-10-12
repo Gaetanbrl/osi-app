@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-yeti.min.css';
+// Pour changer l'apparence de l'appli, charger un template bootstrap dans le répertoire node_modules/bootstrap/dist/css/ et adapter la ligne ci-dessus
 import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';

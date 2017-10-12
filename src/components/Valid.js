@@ -70,7 +70,7 @@ export default class Valid extends Component {
 							overlay={(<Tooltip id="tooltip">Ajouter un module de visualisation</Tooltip>)}>
 								<div>
 									<button 
-									className="btn btn-lg btn-primary glyphicon glyphicon-eye-open"
+									className="btn btn-lg btn-primary glyphicon glyphicon-send"
 									onClick={ this.click }>
 									</button>
 								</div>
@@ -80,7 +80,7 @@ export default class Valid extends Component {
 					</div>
 					</div>
 
-					<h3 className="text-primary"><span className="glyphicon glyphicon-eye-open" /> 5. Visualiser</h3>
+					<h4 className="text-primary"><span className="glyphicon glyphicon-eye-open" /> Visualiser</h4>
 
 					{/* L'élément suivant permet d'ajouter plusieurs modules de visualisation */}
 					<div id="Visu" className="container-fluid well well-sm">		

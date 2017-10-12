@@ -21,7 +21,6 @@ export default class Cartograph extends Component {
 	handleInput(e) {
 		this.setState({ input: e });
 	}
-
 	triSource(input) {
 		let choixMenu = [
 			<li key={ input.length + 3} className="divider"></li>,
@@ -42,6 +41,7 @@ export default class Cartograph extends Component {
 
 	      	    </div>			)
 		} else {
+			// Ajoute au début de l'array chaque élément source
 			choixMenu.unshift(
 				input.map((source, idx) =>
 					<MenuItem eventKey={ idx } key={ idx } onSelect={ this.handleInput } bsSize="xsmall"> { source } </MenuItem>
@@ -67,11 +67,28 @@ export default class Cartograph extends Component {
 	}
 
 	render() {
+		let scores = this.props.scores;
+		let input = this.state.input;
+		let nbcar = scores[0].length;
+		console.log(nbcar);
+
+		let codeScore = []; // stockage du résultat
+		
+		/* COMBINAISON DES SOURCES */
+
+
+		/* Moyenne des sources sous forme d'arrays clé:valeur */
+		if (input === "a") {
+
+		/* Maximum des sources sous forme d'arrays clé:valeur */
+		} else if (input === "b") {
+
+		} else {
 		/* Données complètes sous forme d'arrays clé:valeur */
-		let codeScore = [];
-		  this.props.scores[this.state.input].map((obj, idx) => (
+		  scores[input].map((obj, idx) => (
 		  	codeScore.push([obj.id_car200, obj.score_indicateur, obj.date_indicateur])
-		  	));
+		  	));			
+		};
 
 		/* Attribution du titre */	
 		let epci = this.props.epci;
