@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# security
+/serv/db.js
+
 # dependencies
 /node_modules
 !/node_modules/bootstrap/dist/css/
