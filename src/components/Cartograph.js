@@ -18,9 +18,13 @@ export default class Cartograph extends Component {
 	}
 
 	/* Fonctions pour les options de visualisation */
+	
+	/* Choix utilisateur */
 	handleInput(e) {
 		this.setState({ input: e });
 	}
+
+	/* Génère la liste des options en fonction du nombre d'indicateurs validés */
 	triSource(input) {
 		let choixMenu = [
 			<li key={ input.length + 3} className="divider"></li>,
@@ -67,24 +71,48 @@ export default class Cartograph extends Component {
 	}
 
 	render() {
-		let scores = this.props.scores;
 		let input = this.state.input;
-		let nbcar = scores[0].length;
-		console.log(nbcar);
+		let scores = this.props.scores;
 
-		let codeScore = []; // stockage du résultat
-		
+		let codeScore = []; // résultat utilisé par la carte
+
 		/* COMBINAISON DES SOURCES */
+		if (input === "a" || input === "b") {
+		// Concaténation des objets sources
+		const result = [...[].concat(...scores).reduce((accu, curr) => {
+			// Réduction des scores en fonction de la geom
+			const item = accu.get(curr.id_car200) || { id_car200: curr.id_car200, date_indicateur: [], score_indicateur: [], id_fiche: [] }; 
+			// Récapitulation des données
+			item.date_indicateur.push(curr.date_indicateur);
+			item.score_indicateur.push(curr.score_indicateur);
+			item.id_fiche.push(curr.id_fiche);
+			// Relie l'accumulateur à la géom et associe chaque item.
+			return accu.set(curr.id_car200, item); 
+		}, new Map).values()]; 
 
+			/* Moyenne des sources*/
+			if (input === "a") {
+				let score;
+				let sum;
+				let avg;
+				let rnd;
 
-		/* Moyenne des sources sous forme d'arrays clé:valeur */
-		if (input === "a") {
+				result.map((obj, idx) => {
+					score = obj.score_indicateur;
+					sum = score.reduce(function(a, b) { return a + b; });
+					avg = sum / score.length;
+					rnd = Math.round(avg);
+					codeScore.push([obj.id_car200, rnd, obj.date_indicateur])
+					});
 
-		/* Maximum des sources sous forme d'arrays clé:valeur */
-		} else if (input === "b") {
-
+			/* Maximum des sources*/
+			} else {
+				result.map((obj, idx) => (
+					codeScore.push([obj.id_car200, Math.max(...obj.score_indicateur), obj.date_indicateur])
+					));
+			}
+		/* Indicateur individuel sous forme d'arrays clé:valeur */
 		} else {
-		/* Données complètes sous forme d'arrays clé:valeur */
 		  scores[input].map((obj, idx) => (
 		  	codeScore.push([obj.id_car200, obj.score_indicateur, obj.date_indicateur])
 		  	));			

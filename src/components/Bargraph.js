@@ -11,15 +11,15 @@ export default class Bargraph extends Component {
 		        type: 'column'
 		    },
 		    title: {
-		        text: 'Stacked column chart'
+		        text: 'Profils de vulnérabilité'
 		    },
 		    xAxis: {
-		        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+		        categories: ['St-Catherine', 'Plonévez', 'Keralain', 'Lantourloup', 'Trézalouest', 'Plouvieux', 'Locatom']
 		    },
 		    yAxis: {
 		        min: 0,
 		        title: {
-		            text: 'Total fruit consumption'
+		            text: 'Scores combinés'
 		        },
 		        stackLabels: {
 		            enabled: true,
@@ -53,16 +53,23 @@ export default class Bargraph extends Component {
 		            }
 		        }
 		    },
-		    series: [{
-		        name: 'John',
-		        data: [5, 3, 4, 7, 2]
-		    }, {
-		        name: 'Jane',
-		        data: [2, 2, 3, 2, 1]
-		    }, {
-		        name: 'Joe',
-		        data: [3, 4, 4, 2, 5]
-		    }]
+			series: [{
+			    name: 'Représentation',
+			    data: [2, 5, 1, 2, 5, 3, 3],
+			    color: '#42A968'
+		    },{
+			    name: 'Gestion',
+			    data: [1, 5, 1, 3, 5, 2, 3],
+			    color: '#E88F02'
+			},{
+			    name: 'Enjeux',
+			    data: [4, 5, 5, 4, 2, 3, 5],
+			    color: '#FF0000'
+			}, {
+			    name: 'Aléas',
+			    data: [1, 5, 4, 3, 2, 3, 5],
+			    color: '#5BC0DE'
+			}]
 		}
 
 		return(

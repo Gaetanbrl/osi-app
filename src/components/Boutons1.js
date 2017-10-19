@@ -6,7 +6,7 @@ export default class Boutons1 extends Component {
 
   render() {
 
-      let dbliste = this.props.dbfiche;
+    let dbliste = this.props.dbfiche;
     let btncolor = ["info", "danger", "warning", "success", "default disabled"];
     let btncompo = classNames({
       btn: true,

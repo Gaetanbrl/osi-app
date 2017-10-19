@@ -5,7 +5,6 @@ export default class Tableau extends Component {
 
   render() {
     const comp = ["alea", "enjeu", "gestion", "representation"];
-
     if (!this.props.dbfiche) {
       return <div className="lead text-center">La marée monte ...</div>
     }

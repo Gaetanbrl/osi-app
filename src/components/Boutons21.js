@@ -17,31 +17,37 @@ export default class Boutons21 extends Component {
 
         let indicompo = [];
         let popover = [];
-        let subtheme = [];
-        let theme = null;
+        
+        // Les thèmes par composantes
+        let themes = [...dbliste];
+        themes = themes.filter((obj) => {
+            return (obj.id_fiche > 99 && obj.id_fiche < 199)
+        });
 
-        dbliste.map((obj, idx) => {
-            if (obj.theme === theme && obj.composante_fiche === this.props.nomcomp && obj.id_fiche < 100) { 
-            /* < 100 pour ne garder que les indicateurs de 1er ordre */
-                return(
-                    subtheme.push(    
+        let theme = [];
+
+        themes.map((obj, idx) => {
+        console.log(idx +' : '+obj.id_fiche);
+            if (obj.composante_fiche === this.props.nomcomp && obj.id_fiche < 100) { 
+                dbliste.map((o) => {
+                    return(
+                        indicompo.push(    
                             <button 
                             className={ btncompo } 
-                            onClick={ this.props.dataSend } 
-                            value={ obj.theme_fiche }>{ obj.acronyme_fiche }</button>
+                            value={ o.acronyme_fiche }>{ o.acronyme_fiche }</button>
+                        )
                     )
-                );
+                });
             } else if (obj.composante_fiche === this.props.nomcomp && obj.id_fiche > 99 && obj.id_fiche < 199) {
                 return(
-                    theme = obj.theme_fiche,
 
                     popover = (
                         <Popover id="popover-trigger-hover-focus" title={ obj.id_fiche + " : " + obj.acronyme_fiche }>
-                            <span className="lead">{ obj.description_fiche }</span> <br/><br/>
+                            <span className="lead">{ obj.description_fiche }</span>
                         </Popover>
                     ),
 
-                    indicompo.push(
+                    theme.push(
                         <OverlayTrigger 
                         key={ idx } 
                         trigger={['hover', 'focus']} 
@@ -51,7 +57,7 @@ export default class Boutons21 extends Component {
                             className={ btncompo } 
                             onClick={ this.props.dataSend } 
                             value={ obj.acronyme_fiche }>
-                                { subtheme }
+                                { indicompo }
                             </button>
                         </OverlayTrigger>
                     )
@@ -63,7 +69,7 @@ export default class Boutons21 extends Component {
         })
 
         return (
-            <div>{ indicompo }</div>
+            <div>{ theme }</div>
             )
     }
 }

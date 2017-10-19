@@ -12,15 +12,15 @@ export default class Stackgraph extends Component {
 			},
 
 			title: {
-			    text: 'Historic and Estimated Worldwide Population Growth by Region'
+			    text: 'Trajectoire de vulnérabilité'
 			},
 
 			subtitle: {
-			    text: 'Source: Wikipedia.org'
+			    text: 'Source: Données fictives'
 			},
 
 			xAxis: {
-			    categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
+			    categories: ['1990', '1995', '2000', '2005', '2010', '2015'],
 			    tickmarkPlacement: 'on',
 			    title: {
 			        enabled: false
@@ -29,18 +29,18 @@ export default class Stackgraph extends Component {
 
 			yAxis: {
 			    title: {
-			        text: 'Billions'
+			        text: 'Scores combinés'
 			    },
 			    labels: {
 			        formatter: function () {
-			            return this.value / 1000;
+			            return this.value;
 			        }
 			    }
 			},
 
 			tooltip: {
 			    split: true,
-			    valueSuffix: ' millions'
+			    valueSuffix: ''
 			},
 
 			plotOptions: {
@@ -56,21 +56,22 @@ export default class Stackgraph extends Component {
 			},
 
 			series: [{
-			    name: 'Asia',
-			    data: [502, 635, 809, 947, 1402, 3634, 5268]
+			    name: 'Représentation',
+			    data: [1, 2, 3, 2, 4, 5],
+			    color: '#5BC0DE'
+		    },{
+			    name: 'Gestion',
+			    data: [1, 1, 1, 2, 3, 4],
+			    color: '#E88F02'
+			},{
+			    name: 'Enjeux',
+			    data: [1, 2, 3, 4, 4, 5],
+			    color: '#FF0000'
 			}, {
-			    name: 'Africa',
-			    data: [106, 107, 111, 133, 221, 767, 1766]
-			}, {
-			    name: 'Europe',
-			    data: [163, 203, 276, 408, 547, 729, 628]
-			}, {
-			    name: 'America',
-			    data: [18, 31, 54, 156, 339, 818, 1201]
-		    }, {
-		        name: 'Oceania',
-		        data: [2, 2, 2, 6, 13, 30, 46]
-		    }]
+			    name: 'Aléas',
+			    data: [3, 3, 4, 4, 4, 5],
+			    color: '#42A968'
+			}]
 		}
 
 		return(
