@@ -1,24 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-
-
-# security
-/serv/db.js
-
 # dependencies
 /node_modules
-!/node_modules/bootstrap/dist/css/
 
 # testing
 /coverage
 
 # production
 /build
-package-lock.json
-serv/node_modules/.bin/mime
-serv/node_modules/.bin/semver
-serv/node_modules/mime/cli.js
-serv/node_modules/semver/bin/semver
 
 # misc
 .DS_Store

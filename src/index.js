@@ -1,25 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-yeti.min.css';
-// Pour changer l'apparence de l'appli, charger un template bootstrap dans le répertoire node_modules/bootstrap/dist/css/ et adapter la ligne ci-dessus
-import './index.css';
+import rootReducer from './reducers/rootReducer';
+import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
+import './index.css';
 
-import history from './history';
-import Routes from './routes';
+const store = createStore(rootReducer,
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ );
 
-import epciStore from './components/epciStore';
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>
+	, document.getElementById('root')
+);
 
-let store = createStore(epciStore)
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
+    render(
+		<Provider store={store}>
+			<NextApp />
+		</Provider>
+		, document.getElementById('root'));
+  });
+}
 
-const root = document.getElementById('root')
-
-ReactDOM.render(
-	<Routes history={history} store={store} />, root
-	);
 registerServiceWorker();
-

@@ -1,153 +1,57 @@
 body {
-  padding-left: 14%;
-  padding-right: 14%;
+  margin: 0px;
+  padding: 0px 5%;
+  font-family: sans-serif;
 }
 
-
-ul.nav-tabs {
-  text-align: center;
-}
-ul.nav-tabs li {
-  float: none;
-  display: inline-block;
+.list-group-item {
+    padding: 5px 8px;
 }
 
-
-
- .navbar {
-  min-height: 80px;
+.panel .panel-body {
+    padding: 1px 0px;
 }
 
-.navbar-brand {
-  padding: 0px;
-  margin-right: 10px;
-
-}
-.navbar-brand>img {
-  height: 80px;
-  padding: 0px;
-  padding-right: 10px;
-  width: auto;
-
+.panel-group {
+	margin: 5px 0px;
 }
 
-.navbar-toggle {
-  /* (80px - button height 34px) / 2 = 23px */
-  margin-top: 16px;
-  padding: 9px 10px !important;
+.col-md-3 {
+	padding: 8px;
 }
 
-@media (min-width: 768px) {
-  .navbar-nav > li > a {
-    /* (80px - line-height of 27px) / 2 = 26.5px */
-    padding-top: 20px;
-    padding-bottom: 23px;
-    line-height: 27px;
-  }
-}
-
-
-
-/* columns of same height styles */
-.container-xs-height {
-    display:table;
-    padding-left:0px;
-    padding-right:0px;
-}
-.row-xs-height {
-    display:table-row;
-}
-.col-xs-height {
-    display:table-cell;
-    float:none;
-}
-@media (min-width: 768px) {
-    .container-sm-height {
-        display:table;
-        padding-left:0px;
-        padding-right:0px;
-    }
-    .row-sm-height {
-        display:table-row;
-    }
-    .col-sm-height {
-        display:table-cell;
-        float:none;
-    }
-}
-@media (min-width: 992px) {
-    .container-md-height {
-        display:table;
-        padding-left:0px;
-        padding-right:0px;
-    }
-    .row-md-height {
-        display:table-row;
-    }
-    .col-md-height {
-        display:table-cell;
-        float:none;
-    }
-}
-@media (min-width: 1200px) {
-    .container-lg-height {
-        display:table;
-        padding-left:0px;
-        padding-right:0px;
-    }
-    .row-lg-height {
-        display:table-row;
-    }
-    .col-lg-height {
-        display:table-cell;
-        float:none;
-    }
-}
-
-
-/* vertical alignment styles */
-.col-top {
-  vertical-align: top;
-}
-.col-middle {
-  vertical-align: middle;
-}
-.col-bottom {
-  vertical-align: bottom;
-}
-
-/* Carousel */
-.carouselImg {
-  width: auto;
-  height: 500px;
-  max-height: 500px;
-  margin: auto;
-}
-
-.carousel .item {
-  height: 500px;
-  background-color: #E0E0E0;
-}
-
-.item img {
-  max-height: 100%;  
-  max-width: 100%; 
-  position: absolute;  
-  top: 0;  
-  bottom: 0;  
-  left: 0;  
-  right: 0;  
-  margin: auto;
-}
-
-/* Elements OL3 */
 .olTool {
   position: relative;
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  opacity: 0.7;
+  background-color: rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px rgba(255, 255, 255, 0.5);
+  bottom: 12px;
+  left: -50px;
+  min-width: 150px;
   white-space: nowrap;
-  font: 10pt sans-serif;
+  font: 12pt sans-serif;
 }
 
+.olTool:after, .olTool:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.olTool:after {
+  border-top-color: rgba(255, 255, 255, 0.5);
+  border-width: 10px;
+  left: 40px;
+  margin-left: -10px;
+}
+.olTool:before {
+  border-top-color: rgba(255, 255, 255, 0.5);
+  border-width: 11px;
+  left: 40px;
+  margin-left: -11px;
+}
