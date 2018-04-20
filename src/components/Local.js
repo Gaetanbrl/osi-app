@@ -1,123 +1,233 @@
-import React, { Component } from "react";
-import ol from "openlayers";
+import React, { Component } from 'react'
+import ol from 'openlayers'
 
-export default class Local extends Component {
+class Local extends Component {
 
-  componentDidMount() {
-    let styleDefault = new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: '#008CBA',
-          width: 0
-        }),
-        fill: new ol.style.Fill({
-          color: '#008CBA'
-        })
-      });
+	map = null;
+	overlay = null;
 
-    let styleHover = new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: 'white',
-          width: 0
-        }),
-        fill: new ol.style.Fill({
-          color: 'rgba(91, 192, 222, 1)'
-        })
-      });
+	moveHandler(event) {
+		let feature = this.map.forEachFeatureAtPixel(event.pixel, (feature) => {
+			let nom = feature.get('nom')
+			let code = feature.get('insee')
 
-    let base = new ol.layer.Tile({ 
-        name: 'base',
-        opacity: 1,
-        source: new ol.source.XYZ({ 
-          url:'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-          attributions: "<h6>OSIRISC, Labex Mer / Fondation de France, 2017</h6>",
-        })
-    });
+			this.overlay.setPosition(event.coordinate);
 
-    let epci = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        url: 'http://localhost:3001/json/OSI_EPCI.geojson',
-        format: new ol.format.GeoJSON()
-      }),
-      style: styleDefault
-    });
+			this.overlay.getElement().innerHTML = code ? '<h6><strong>' + nom + '</strong> (' + code + ')</h6>' 
+														: '<h4 style="color:rgba(0, 140, 186, 0.8)"><strong>' + nom + '</strong></h4>';			
+			return feature;
+		});
 
-    let map = new ol.Map({
-      target: this.refs.map,
-      layers: [base, epci],
-      controls: ol.control.defaults().extend([
-        new ol.control.ScaleLine()
-      ]),
-      view: new ol.View({
-        center: ol.proj.fromLonLat([-1, 49]),
-        zoom: 6,
-        minZoom: 5,
-        maxZoom: 9
-      })
-    });
+		this.overlay.getElement().style.display = feature ? '' : 'none';
+		document.body.style.cursor = feature ? 'pointer' : '';
+	}
 
-    let overlay = new ol.Overlay({
-      element: this.refs.olTool,
-      offset: [10, -5],
-      positioning: 'bottom-left'
-    });
-    overlay.setMap(map);
+	clickHandler(event) {
+		let {onEpciClick} = this.props
+		let {onCommClick} = this.props
 
-    let hover = new ol.interaction.Select({
-      condition: ol.events.condition.pointerMove,    
-      style: styleHover
-    });
+		this.map.forEachFeatureAtPixel(event.pixel, (feature) => {
+			let nom = feature.get('nom')
+			let insee = feature.get('insee')
+			let siren = feature.get('siren_epci')
 
-    map.addInteraction(hover);
+			let epci = {siren: siren, nom: nom}
+			let comm = {insee: insee, nom: nom}
 
-    map.on('pointermove', function(e) {
-      let feature = map.forEachFeatureAtPixel(e.pixel, function(feature) {
-        // Propriétés du tooltip
-        let nom_epci = feature.get('nom_epci');
-        let ptot_epci = feature.get('ptot_epci');
-        let surf = feature.get('surf_km2');
-
-        overlay.setPosition(e.coordinate);
-        overlay.getElement().innerHTML = '<h3>' + nom_epci + '</h3>' +
-          '<strong>Population : </strong>' + ptot_epci + '</br>' +
-          '<strong>Superficie : </strong>' + surf + ' km2' ;
-        return feature;
-      });
-      overlay.getElement().style.display = feature ? '' : 'none';
-      document.body.style.cursor = feature ? 'pointer' : '';
-    });
+			insee ? onCommClick(comm) : onEpciClick(epci) 
+			
+			this.map.getView().fit(feature.getGeometry(), {duration: 500})
+			return true
+	  })
+	}
 
 
+	componentDidMount() {
 
-    map.on('click', function(e) {
-      let feature = map.forEachFeatureAtPixel(e.pixel, function(feature) {
-        let id_epci = feature.get('siren_epci');
-        let nom_epci = feature.get('nom_epci');
-        console.log(id_epci + " : " + nom_epci)
-          })
-    });
+		// STYLES
+		function setStyle(feature, resolution) {
+		    const prop = feature.getProperties()
+		    if (prop.siren_epci !== this.props.territoire.epci.siren)
+		       return;
 
-  }
+		    return styleComm
+		}
 
-  render() {
-    let style = {
-      height: '350px'
-    };
+		let styleBaseEpci = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [255, 255, 255, 0.3],
+					width: 3
+				}),
+				fill: new ol.style.Fill({
+					color: [100, 100, 100, 0.1]
+				}),
+			});
 
-    return (
-      <div>
-        <section className="panel-map">
-          <div className="map" ref="map" style={style}>
-            <div className="olTool" ref="olTool"></div>
-          </div>
-        </section>
+		let styleEpci = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [100, 100, 100, 0.8],
+					width: 0.8
+				}),
+				fill: new ol.style.Fill({
+					color: [100, 100, 100, 0.4]
+				}),
+			});
 
-        <div className="alert alert-info">
-          <strong>Avertissement : </strong> Osi est actuellement au stade de prototype. 
-          Les territoires cartographiés ci-dessus sont les partenaires potentiels de l'observatoire. 
-          Les données n'étant pas encore produites, les liens renvoient donc systématiquement à un même territoire fictif qui a servi au développement de cette application.
-        </div>
-      </div>
-    );
-  }
+		let styleEpciHover = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [50, 50, 50, 0.8],
+					width: 0.8
+				}),
+				fill: new ol.style.Fill({
+					color: [80, 200, 255, 0.6]
+				}),
+			});
+
+		let styleComm = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [50, 50, 50, 0.8],
+					width: 1
+				}),
+				fill: new ol.style.Fill({
+					color: [70, 70, 70, 0.4]
+				}),
+			});
+
+		let styleCommHover = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [15, 15, 15, 0.8],
+					width: 1
+				}),
+				fill: new ol.style.Fill({
+					color: [80, 200, 255, 0.6]					
+				}),
+			});
+
+		let styleCommSelect = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [15, 15, 15, 0.8],
+					width: 2
+				}),
+				fill: new ol.style.Fill({
+					color: [80, 200, 255, 1]	
+				}),
+			});
+
+
+		// LAYERS
+		let base = new ol.layer.Tile({ 
+				name: 'base',
+				opacity: 1,
+				source: new ol.source.XYZ({ 
+					url:'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+					attributions: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ </br> <h6 style="color:rgba(0, 140, 186, 0.8)"><strong>Territoires partenaires d\'OSIRISC</strong></h6>'
+				}),
+		});
+
+		let baseepci = new ol.layer.Vector({
+			name: 'baseepci',
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'epci3857.json'
+			}),
+			style: styleBaseEpci,
+			minResolution: 0,
+			maxResolution: 20000,
+			zIndex: 0
+		});
+
+		let epci = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'epci3857.json'
+			}),
+			style: styleEpci,
+			minResolution: 500,
+			maxResolution: 20000,
+			zIndex: 1
+		});
+
+		let comm = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'comm3857.json'
+			}),
+			style: setStyle.bind(this),
+			minResolution: 0,
+			maxResolution: 500,
+			zIndex: 10
+		});
+
+		// MAP
+		this.map = new ol.Map({
+			target: this.refs.map,
+			layers: [base, baseepci, epci, comm],
+			controls: ol.control.defaults({collapsible: false}).extend([
+				new ol.control.ScaleLine()
+			]),
+			interactions: ol.interaction.defaults({mouseWheelZoom:false}),
+			view: new ol.View({
+				center: ol.proj.fromLonLat([-3, 48.15]),
+				zoom: 7,
+				maxZoom: 10,
+				minZoom: 5
+			})
+		});
+
+
+
+		// INTERACTIONS
+		let zoomToExtentControl = new ol.control.ZoomToExtent({
+		  extent: this.map.getView().calculateExtent(this.map.getSize())
+		})
+		this.map.addControl(zoomToExtentControl);
+
+		let epciHover = new ol.interaction.Select({
+			condition: ol.events.condition.pointerMove,
+			style: styleEpciHover,
+			layers: [epci],
+		})
+		this.map.addInteraction(epciHover);
+
+		let commHover = new ol.interaction.Select({
+			condition: ol.events.condition.pointerMove,
+			style: styleCommHover,
+			layers: [comm]
+		})
+		this.map.addInteraction(commHover);
+
+		let commSelect = new ol.interaction.Select({
+			condition: ol.events.condition.click,
+			style: styleCommSelect,
+			layers: [comm]
+		})
+		this.map.addInteraction(commSelect)
+
+		this.overlay = new ol.Overlay({
+			element: this.refs.olTool,
+			offset: [10, -5],
+			positioning: 'bottom-left',
+		})
+		this.map.addOverlay(this.overlay)
+
+		this.map.on('pointermove', this.moveHandler, this) 
+
+		this.map.on('click', this.clickHandler, this)
+
+	}
+
+	render() {
+		let style = {
+			height: '300px',
+		};
+
+		return (
+			<div className="map col-md-8" ref="map" style={style}>
+				<div className="olTool" ref="olTool"></div>
+			</div>
+		);
+	}
 
 }
+
+export default Local
