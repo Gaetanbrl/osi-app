@@ -701,7 +701,7 @@ export default() => {
     nom: "Association",
     service: "",
     thematique: "DISO"
-  }
+  },
   R207: {
     id: "R207",
     composante: "RE",
@@ -711,7 +711,7 @@ export default() => {
     nom: "Activités",
     service: "",
     thematique: "DISO"
-  }
+  },
   R3: {
     id: "R3",
     composante: "RE",
