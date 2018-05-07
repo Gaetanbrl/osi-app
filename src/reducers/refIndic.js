@@ -6,7 +6,7 @@ export default() => {
     niveau: 3,
     acronyme: "AL",
     nom: "AL",
-    service: "http://"
+    service: ""
   },
   A1: {
     id: "A1",
@@ -15,7 +15,7 @@ export default() => {
     niveau: 2,
     acronyme: "ERO",
     nom: "ERO",
-    service: "http://"
+    service: ""
   },
   A101: {
     id: "A101",
@@ -24,7 +24,7 @@ export default() => {
     niveau: 1,
     acronyme: "DIST",
     nom: "Distance",
-    service: "http://",
+    service: "",
     thematique: "ERO"
   },
   A102: {
@@ -34,7 +34,7 @@ export default() => {
     niveau: 1,
     acronyme: "SURF",
     nom: "Surface",
-    service: "http://",
+    service: "",
     thematique: "ERO"
   },
   A103: {
@@ -44,7 +44,7 @@ export default() => {
     niveau: 1,
     acronyme: "VOL",
     nom: "Volume",
-    service: "http://",
+    service: "",
     thematique: "ERO"
   },
   A2: {
@@ -54,7 +54,7 @@ export default() => {
     niveau: 2,
     acronyme: "SUB",
     nom: "SUB",
-    service: "http://"
+    service: ""
   },
   A201: {
     id: "A201",
@@ -63,7 +63,7 @@ export default() => {
     niveau: 1,
     acronyme: "HAUT",
     nom: "Hauteur",
-    service: "http://",
+    service: "",
     thematique: "SUB"
   },
   A202: {
@@ -73,7 +73,7 @@ export default() => {
     niveau: 1,
     acronyme: "PAQ",
     nom: "Paquets de mer",
-    service: "http://",
+    service: "",
     thematique: "SUB"
   },
   A3: {
@@ -83,7 +83,7 @@ export default() => {
     niveau: 2,
     acronyme: "MIGR",
     nom: "MIGR",
-    service: "http://"
+    service: ""
   },
   A301: {
     id: "A301",
@@ -92,7 +92,7 @@ export default() => {
     niveau: 1,
     acronyme: "VIT",
     nom: "Vitesse",
-    service: "http://",
+    service: "",
     thematique: "MIGR"
   },
   E: {
@@ -101,7 +101,7 @@ export default() => {
     niveau: 3,
     acronyme: "EN",
     nom: "EN",
-    service: "http://"
+    service: ""
   },
   E1: {
     id: "E1",
@@ -110,7 +110,7 @@ export default() => {
     niveau: 2,
     acronyme: "HUM",
     nom: "HUM",
-    service: "http://"
+    service: ""
   },
   E101: {
     id: "E101",
@@ -119,7 +119,7 @@ export default() => {
     niveau: 1,
     acronyme: "POP",
     nom: "Population",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E102: {
@@ -129,7 +129,7 @@ export default() => {
     niveau: 1,
     acronyme: "BATI",
     nom: "Logements",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E103: {
@@ -139,7 +139,7 @@ export default() => {
     niveau: 1,
     acronyme: "ERP",
     nom: "Capacité d'accueil",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E104: {
@@ -149,7 +149,7 @@ export default() => {
     niveau: 1,
     acronyme: "PERVUL-NB",
     nom: "Population vulnérable (nombre)",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E105: {
@@ -159,7 +159,7 @@ export default() => {
     niveau: 1,
     acronyme: "PERVUL-PCT",
     nom: "Population vulnérable (%)",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E106: {
@@ -169,7 +169,7 @@ export default() => {
     niveau: 1,
     acronyme: "BAREV-NB",
     nom: "Population pauvre (nombre)",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E107: {
@@ -179,7 +179,7 @@ export default() => {
     niveau: 1,
     acronyme: "BAREV-PCT",
     nom: "Population pauvre (%)",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E108: {
@@ -189,7 +189,7 @@ export default() => {
     niveau: 1,
     acronyme: "SECOND",
     nom: "Population temporaire",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
   E109: {
@@ -199,19 +199,10 @@ export default() => {
     niveau: 1,
     acronyme: "TOURIST",
     nom: "Tourisme",
-    service: "http://",
+    service: "",
     thematique: "HUM"
   },
-  E304: {
-    id: "E304",
-    composante: "EN",
-    description: "Localisation du bâti résidentiel sans étage refuge",
-    niveau: 1,
-    acronyme: "REFUG",
-    nom: "Logements à risque",
-    service: "http://",
-    thematique: "STR"
-  },
+
   E2: {
     id: "E2",
     composante: "EN",
@@ -219,7 +210,7 @@ export default() => {
     niveau: 2,
     acronyme: "ECO",
     nom: "ECO",
-    service: "http://"
+    service: ""
   },
   E201: {
     id: "E201",
@@ -228,7 +219,7 @@ export default() => {
     niveau: 1,
     acronyme: "TRAV",
     nom: "Emploi",
-    service: "http://",
+    service: "",
     thematique: "ECO"
   },
   E202: {
@@ -238,7 +229,7 @@ export default() => {
     niveau: 1,
     acronyme: "VIMMO",
     nom: "Immobilier",
-    service: "http://",
+    service: "",
     thematique: "ECO"
   },
   E203: {
@@ -248,7 +239,7 @@ export default() => {
     niveau: 1,
     acronyme: "DIV",
     nom: "Résilience économique",
-    service: "http://",
+    service: "",
     thematique: "ECO"
   },
   E204: {
@@ -258,7 +249,17 @@ export default() => {
     niveau: 1,
     acronyme: "TOUR-TX",
     nom: "Tourisme",
-    service: "http://",
+    service: "",
+    thematique: "ECO"
+  },
+  E205: {
+    id: "E205",
+    composante: "EN",
+    description: "Surface occupée par l'agriculture",
+    niveau: 1,
+    acronyme: "AGRI",
+    nom: "Agriculture",
+    service: "",
     thematique: "ECO"
   },
   E3: {
@@ -268,7 +269,7 @@ export default() => {
     niveau: 2,
     acronyme: "STR",
     nom: "STR",
-    service: "http://"
+    service: ""
   },
   E301: {
     id: "E301",
@@ -277,7 +278,7 @@ export default() => {
     niveau: 1,
     acronyme: "INDRISQ",
     nom: "Suraccident",
-    service: "http://",
+    service: "",
     thematique: "STR"
   },
   E302: {
@@ -287,7 +288,7 @@ export default() => {
     niveau: 1,
     acronyme: "NEVRAL",
     nom: "Sensiblité du réseau",
-    service: "http://",
+    service: "",
     thematique: "STR"
   },
   E303: {
@@ -297,7 +298,37 @@ export default() => {
     niveau: 1,
     acronyme: "DIG",
     nom: "Artificialisation",
-    service: "http://",
+    service: "",
+    thematique: "STR"
+  },
+  E304: {
+    id: "E304",
+    composante: "EN",
+    description: "Localisation du bâti résidentiel sans étage refuge",
+    niveau: 1,
+    acronyme: "REFUG",
+    nom: "Logements à risque",
+    service: "",
+    thematique: "STR"
+  },
+  E305: {
+    id: "E305",
+    composante: "EN",
+    description: "Proximité d'établissements de secours",
+    niveau: 1,
+    acronyme: "SECOUR",
+    nom: "Secours",
+    service: "",
+    thematique: "STR"
+  },
+  E306: {
+    id: "E306",
+    composante: "EN",
+    description: "Localisation du patrimoine culturel",
+    niveau: 1,
+    acronyme: "PATRIM",
+    nom: "Patrimoine culturel",
+    service: "",
     thematique: "STR"
   },
   G: {
@@ -306,252 +337,234 @@ export default() => {
     niveau: 3,
     acronyme: "GE",
     nom: "GE",
-    service: "http://"
+    service: ""
   },
   G1: {
     id: "G1",
     composante: "GE",
-    description: "Locale",
+    description: "Prévention et Anticipation",
     niveau: 2,
-    acronyme: "LOC",
-    nom: "LOC",
-    service: "http://"
+    acronyme: "CO",
+    nom: "CO",
+    service: ""
   },
   G101: {
     id: "G101",
-    composante: "GE",
-    description: "Démarche locale de gestion des risques",
-    niveau: 1,
-    acronyme: "STRATE",
-    nom: "Démarche locale",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G102: {
-    id: "G102",
-    composante: "GE",
-    description: "Etat de la stratégie locale (relocalisation)",
-    niveau: 1,
-    acronyme: "RELOC",
-    nom: "Stratégie locale",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G103: {
-    id: "G103",
-    composante: "GE",
-    description: "Actions dans chaque axe du PAPI",
-    niveau: 1,
-    acronyme: "PAPI1",
-    nom: "Actions",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G104: {
-    id: "G104",
-    composante: "GE",
-    description: "Mise en œuvre des actions du PAPI",
-    niveau: 1,
-    acronyme: "PAPI2",
-    nom: "Mise en œuvre",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G105: {
-    id: "G105",
-    composante: "GE",
-    description: "Intégration différents acteurs de la démarche locale",
-    niveau: 1,
-    acronyme: "ACTEUR",
-    nom: "Intégration des acteurs",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G106: {
-    id: "G106",
-    composante: "GE",
-    description: "Investissement humain sur les risques côtiers",
-    niveau: 1,
-    acronyme: "HUM",
-    nom: "Investissement humain",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G107: {
-    id: "G107",
-    composante: "GE",
-    description: "Intégration extraterritoriale",
-    niveau: 1,
-    acronyme: "EXTRA",
-    nom: "Intégration extraterritoriale",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G108: {
-    id: "G108",
-    composante: "GE",
-    description: "Publications scientifiques sur les risques côtiers",
-    niveau: 1,
-    acronyme: "PUBLI",
-    nom: "Publications scientifiques",
-    service: "http://",
-    thematique: "LOC"
-  },
-  G2: {
-    id: "G2",
-    composante: "GE",
-    description: "Prévention",
-    niveau: 2,
-    acronyme: "PREV",
-    nom: "PREV",
-    service: "http://"
-  },
-  G201: {
-    id: "G201",
-    composante: "GE",
-    description: "Etat du PPRL",
-    niveau: 1,
-    acronyme: "PPRL",
-    nom: "PPRL",
-    service: "http://",
-    thematique: "PREV"
-  },
-  G202: {
-    id: "G202",
     composante: "GE",
     description: "Contraintes de constructibilité en zone d’aléas",
     niveau: 1,
     acronyme: "URBA",
     nom: "Urbanisme",
-    service: "http://",
-    thematique: "PREV"
+    service: "",
+    thematique: "PRE"
   },
-  G3: {
-    id: "G3",
+  G102: {
+    id: "G102",
     composante: "GE",
-    description: "Trait de côte",
-    niveau: 2,
-    acronyme: "TDC",
-    nom: "TDC",
-    service: "http://"
+    description: "Etat du PPRL",
+    niveau: 1,
+    acronyme: "PPRL",
+    nom: "PPRL",
+    service: "",
+    thematique: "PRE"
   },
-  G301: {
-    id: "G301",
+ G103: {
+    id: "G103",
     composante: "GE",
     description: "Mise en place de la compétence",
     niveau: 1,
     acronyme: "GEMAPI1",
     nom: "Compétence GEMAPI",
-    service: "http://",
-    thematique: "TDC"
+    service: "",
+    thematique: "PRE"
   },
-  G302: {
-    id: "G302",
+  G104: {
+    id: "G104",
     composante: "GE",
     description: "Etat des ouvrages",
     niveau: 1,
     acronyme: "GEMAPI2",
     nom: "Etat des ouvrages",
-    service: "http://",
-    thematique: "TDC"
+    service: "",
+    thematique: "PRE"
   },
-  G4: {
-    id: "G4",
+  G105: {
+    id: "G105",
     composante: "GE",
-    description: "Gestion de crise",
-    niveau: 2,
-    acronyme: "CRISE",
-    nom: "CRISE",
-    service: "http://"
-  },
-  G401: {
-    id: "G401",
-    composante: "GE",
-    description: "Mise à jour du PCS",
+    description: "Investissement humain sur les risques côtiers",
     niveau: 1,
-    acronyme: "PCS",
-    nom: "Plan Communal de Sauvegarde",
-    service: "http://",
-    thematique: "CRISE"
+    acronyme: "HUM",
+    nom: "Investissement humain",
+    service: "",
+    thematique: "PRE"
   },
-  G402: {
-    id: "G402",
+  G106: {
+    id: "G106",
     composante: "GE",
-    description: "Intégration du SDIS dans le PCS",
+    description: "Démarche locale de gestion des risques",
     niveau: 1,
-    acronyme: "SDIS",
-    nom: "Intégration",
-    service: "http://",
-    thematique: "CRISE"
+    acronyme: "STRATE",
+    nom: "Démarche locale",
+    service: "",
+    thematique: "PRE"
   },
-  G403: {
-    id: "G403",
+  G107: {
+    id: "G107",
     composante: "GE",
-    description: "Mode d’alerte de la population",
+    description: "Intégration différents acteurs de la démarche locale",
     niveau: 1,
-    acronyme: "ALERTE",
-    nom: "Alerte",
-    service: "http://",
-    thematique: "CRISE"
+    acronyme: "ACTEUR",
+    nom: "Intégration des acteurs",
+    service: "",
+    thematique: "PRE"
   },
-  G5: {
-    id: "G5",
+  G108: {
+    id: "G108",
+    composante: "GE",
+    description: "Intégration extraterritoriale",
+    niveau: 1,
+    acronyme: "EXTRA",
+    nom: "Intégration extraterritoriale",
+    service: "",
+    thematique: "PRE"
+  },
+  G109: {
+    id: "G109",
+    composante: "GE",
+    description: "Actions dans chaque axe du PAPI",
+    niveau: 1,
+    acronyme: "PAPI1",
+    nom: "Actions",
+    service: "",
+    thematique: "PRE"
+  },
+  G110: {
+    id: "G110",
+    composante: "GE",
+    description: "Mise en œuvre des actions du PAPI",
+    niveau: 1,
+    acronyme: "PAPI2",
+    nom: "Mise en œuvre",
+    service: "",
+    thematique: "PRE"
+  },
+  G111: {
+    id: "G111",
+    composante: "GE",
+    description: "Etat de la stratégie locale (relocalisation)",
+    niveau: 1,
+    acronyme: "RELOC",
+    nom: "Stratégie locale",
+    service: "",
+    thematique: "PRE"
+  },
+  G2: {
+    id: "G2",
     composante: "GE",
     description: "Sensibilisation",
     niveau: 2,
     acronyme: "SEN",
     nom: "SEN",
-    service: "http://"
+    service: ""
   },
-  G501: {
-    id: "G501",
-    composante: "GE",
-    description: "Repères inondation et de recul du trait de côte",
-    niveau: 1,
-    acronyme: "REP",
-    nom: "Repères",
-    service: "http://",
-    thematique: "SEN"
-  },
-  G502: {
-    id: "G502",
-    composante: "GE",
-    description: "Présence d’associations sur les risques côtiers",
-    niveau: 1,
-    acronyme: "ASSO",
-    nom: "Association",
-    service: "http://",
-    thematique: "SEN"
-  },
-  G503: {
-    id: "G503",
+  G201: {
+    id: "G201",
     composante: "GE",
     description: "Evènements de sensibilisation dans les établissements scolaires",
     niveau: 1,
     acronyme: "SCOL",
     nom: "Scolaires",
-    service: "http://",
+    service: "",
     thematique: "SEN"
   },
-  G504: {
-    id: "G504",
+  G202: {
+    id: "G202",
+    composante: "GE",
+    description: "Présence d’associations sur les risques côtiers",
+    niveau: 1,
+    acronyme: "ASSO",
+    nom: "Association",
+    service: "",
+    thematique: "SEN"
+  },
+  G203: {
+    id: "G203",
+    composante: "GE",
+    description: "Publications scientifiques sur les risques côtiers",
+    niveau: 1,
+    acronyme: "PUBLI",
+    nom: "Publications scientifiques",
+    service: "",
+    thematique: "SEN"
+  },
+  G204: {
+    id: "G204",
+    composante: "GE",
+    description: "Repères inondation et de recul du trait de côte",
+    niveau: 1,
+    acronyme: "REP",
+    nom: "Repères",
+    service: "",
+    thematique: "SEN"
+  },
+  G205: {
+    id: "G205",
     composante: "GE",
     description: "Modes de diffusion du DICRIM ",
     niveau: 1,
     acronyme: "DICRIM1",
     nom: "Diffusion",
-    service: "http://",
+    service: "",
     thematique: "SEN"
   },
-  G505: {
-    id: "G505",
+  G206: {
+    id: "G206",
     composante: "GE",
     description: "Analyse pédagogique du DICRIM",
     niveau: 1,
     acronyme: "DICRIM2",
     nom: "Pédagogie",
-    service: "http://",
+    service: "",
     thematique: "SEN"
+  },
+  G3: {
+    id: "G3",
+    composante: "GE",
+    description: "Gestion de crise",
+    niveau: 2,
+    acronyme: "CRI",
+    nom: "CRI",
+    service: ""
+  },
+  G301: {
+    id: "G301",
+    composante: "GE",
+    description: "Mode d’alerte de la population",
+    niveau: 1,
+    acronyme: "ALERTE",
+    nom: "Alerte",
+    service: "",
+    thematique: "CRI"
+  },
+  G302: {
+    id: "G302",
+    composante: "GE",
+    description: "Intégration du SDIS dans le PCS",
+    niveau: 1,
+    acronyme: "SDIS",
+    nom: "Intégration",
+    service: "",
+    thematique: "CRI"
+  },
+  G303: {
+    id: "G303",
+    composante: "GE",
+    description: "Mise à jour du PCS",
+    niveau: 1,
+    acronyme: "PCS",
+    nom: "Plan Communal de Sauvegarde",
+    service: "",
+    thematique: "CRI"
   },
   R: {
     id: "R",
@@ -559,192 +572,183 @@ export default() => {
     niveau: 3,
     acronyme: "RE",
     nom: "RE",
-    service: "http://"
+    service: ""
   },
   R1: {
     id: "R1",
     composante: "RE",
-    description: "",
+    description: "Conscience des aléas",
     niveau: 2,
-    acronyme: "",
-    nom: "",
-    service: "http://"
+    acronyme: "COAL",
+    nom: "COAL",
+    service: ""
   },
   R101: {
     id: "R101",
-    composante: "RE",
-    description: "Vie associative en lien avec les risques côtiers",
-    niveau: 1,
-    acronyme: "ASSORIS",
-    nom: "Association",
-    service: "http://",
-    thematique: ""
-  },
-  R102: {
-    id: "R102",
     composante: "RE",
     description: "Sources d'information dont disposent les individus",
     niveau: 1,
     acronyme: "COM",
     nom: "Information",
-    service: "http://",
-    thematique: ""
+    service: "",
+    thematique: "COAL"
+  },
+  R102: {
+    id: "R102",
+    composante: "RE",
+    description: "Expérience des risques",
+    niveau: 1,
+    acronyme: "ER",
+    nom: "Expérience",
+    service: "",
+    thematique: "COAL"
   },
   R103: {
     id: "R103",
+    composante: "RE",
+    description: "Information active",
+    niveau: 1,
+    acronyme: "IA",
+    nom: "Information",
+    service: "",
+    thematique: "COAL"
+  },
+  R104: {
+    id: "R104",
+    composante: "RE",
+    description: "Identification des risques côtiers ",
+    niveau: 1,
+    acronyme: "IR",
+    nom: "Identification",
+    service: "",
+    thematique: "COAL"
+  },
+  R105: {
+    id: "R105",
+    composante: "RE",
+    description: "Niveau d’inquiétude",
+    niveau: 1,
+    acronyme: "NI",
+    nom: "Inquiétude",
+    service: "",
+    thematique: "COAL"
+  },
+  R2: {
+    id: "R2",
+    composante: "RE",
+    description: "Dimension sociale du lieu",
+    niveau: 2,
+    acronyme: "DISO",
+    nom: "DISO",
+    service: ""
+  },
+  R201: {
+    id: "R201",
+    composante: "RE",
+    description: "Dépendance au lieu",
+    niveau: 1,
+    acronyme: "DP",
+    nom: "Dépendance",
+    service: "",
+    thematique: "DISO"
+    },
+  R202: {
+    id: "R202",
+    composante: "RE",
+    description: "Attachement au lieu",
+    niveau: 1,
+    acronyme: "PA",
+    nom: "Attachement",
+    service: "",
+    thematique: "DISO"
+  },
+  R203: {
+    id: "R203",
+    composante: "RE",
+    description: "Identité du lieu",
+    niveau: 1,
+    acronyme: "PI",
+    nom: "Identité",
+    service: "",
+    thematique: "DISO"
+  },
+  R204: {
+    id: "R204",
+    composante: "RE",
+    description: "Identification personnelle",
+    niveau: 1,
+    acronyme: "IP",
+    nom: "Identification personnelle",
+    service: "",
+    thematique: "DISO"
+  },
+  R205: {
+    id: "R205",
     composante: "RE",
     description: "Valorisation sociale du cadre de vie littorale",
     niveau: 1,
     acronyme: "VALOR",
     nom: "Valorisation",
-    service: "http://",
-    thematique: ""
+    service: "",
+    thematique: "DISO"
   },
-  R2: {
-    id: "R2",
+  R206: {
+    id: "R206",
     composante: "RE",
-    description: "Représentation sociale",
-    niveau: 2,
-    acronyme: "RISCOT",
-    nom: "RISCOT",
-    service: "http://"
-  },
- R201: {
-   id: "R201",
-   composante: "RE",
-   description: "Niveau d’inquiétude",
-   niveau: 1,
-   acronyme: "NI",
-   nom: "Inquiétude",
-   service: "http://",
-   thematique: "RISCOT"
-  },
- R202: {
-   id: "R202",
-   composante: "RE",
-   description: "Identification des risques côtiers ",
-   niveau: 1,
-   acronyme: "IR",
-   nom: "Identification",
-   service: "http://",
-   thematique: "RISCOT"
-  },
- R203: {
-   id: "R203",
-   composante: "RE",
-   description: "Identification personnelle",
-   niveau: 1,
-   acronyme: "IP",
-   nom: "Identification personnelle",
-   service: "http://",
-   thematique: "RISCOT"
-  },
- R204: {
-   id: "R204",
-   composante: "RE",
-   description: "Information active",
-   niveau: 1,
-   acronyme: "IA",
-   nom: "Information",
-   service: "http://",
-   thematique: "RISCOT"
-  },
- R205: {
-   id: "R205",
-   composante: "RE",
-   description: "Expérience des risques",
-   niveau: 1,
-   acronyme: "ER",
-   nom: "Expérience",
-   service: "http://",
-   thematique: "RISCOT"
-  },
- R3: {
-   id: "R3",
-   composante: "RE",
-   description: "Pratiques",
-   niveau: 2,
-   acronyme: "PRAT",
-   nom: "PRAT",
-   service: "http://"
-  },
- R301: {
-   id: "R3",
-   composante: "RE",
-   description: "Pratiques individuelles de prévention et/ou de protection",
-   niveau: 1,
-   acronyme: "IND",
-   nom: "Pratiques individuelles",
-   service: "http://",
-   thematique: "PRAT"
-  },
- R302: {
-   id: "R302",
-   composante: "RE",
-   description: "Pratiques collectives de prévention et/ou de protection",
-   niveau: 1,
-   acronyme: "CO",
-   nom: "Pratiques collectives",
-   service: "http://",
-   thematique: "PRAT"
-  },
- R4: {
-   id: "R4",
-   composante: "RE",
-   description: "Sens du lieu",
-   niveau: 2,
-   acronyme: "LIEU",
-   nom: "LIEU",
-   service: "http://"
-  },
- R401: {
-   id: "R401",
-   composante: "RE",
-   description: "Dépendance au lieu",
-   niveau: 1,
-   acronyme: "DEP",
-   nom: "Dépendance",
-   service: "http://",
-   thematique: "LIEU"
-  },
- R402: {
-   id: "R402",
-   composante: "RE",
-   description: "Identité du lieu",
-   niveau: 1,
-   acronyme: "ID",
-   nom: "Identité",
-   service: "http://",
-   thematique: "LIEU"
-  },
- R404: {
-   id: "R404",
-   composante: "RE",
-   description: "Attachement au lieu",
-   niveau: 1,
-   acronyme: "ATT",
-   nom: "Attachement",
-   service: "http://",
-   thematique: "LIEU"
-  },
- R501: {
-   id: "R501",
-   composante: "RE",
-   description: "Confiance et légitimité dans la gestion des risques côtiers",
-   niveau: 1,
-   acronyme: "GES",
-   nom: "Confiance et légitimité",
-   service: "http://",
-   thematique: ""
-  },
- R502: {
-   id: "R502",
-   composante: "RE",
-   description: "Activités en lien avec la mer",
-   niveau: 1,
-   acronyme: "ACTMER",
-   nom: "Activités",
-   service: "http://",
-   thematique: ""
+    description: "Vie associative en lien avec les risques côtiers",
+    niveau: 1,
+    acronyme: "ASSORIS",
+    nom: "Association",
+    service: "",
+    thematique: "DISO"
   }
+  R207: {
+    id: "R207",
+    composante: "RE",
+    description: "Activités en lien avec la mer",
+    niveau: 1,
+    acronyme: "ACTMER",
+    nom: "Activités",
+    service: "",
+    thematique: "DISO"
+  }
+  R3: {
+    id: "R3",
+    composante: "RE",
+    description: "Perception de la gestion",
+    niveau: 2,
+    acronyme: "GEST",
+    nom: "GEST",
+    service: ""
+  }, 
+  R301: {
+    id: "R3",
+    composante: "RE",
+    description: "Pratiques individuelles de prévention et/ou de protection",
+    niveau: 1,
+    acronyme: "IND",
+    nom: "Pratiques individuelles",
+    service: "",
+    thematique: "GEST"
+  },
+  R302: {
+    id: "R302",
+    composante: "RE",
+    description: "Pratiques collectives de prévention et/ou de protection",
+    niveau: 1,
+    acronyme: "CO",
+    nom: "Pratiques collectives",
+    service: "",
+    thematique: "GEST"
+  },
+  R303: {
+    id: "R303",
+    composante: "RE",
+    description: "Confiance et légitimité dans la gestion des risques côtiers",
+    niveau: 1,
+    acronyme: "GES",
+    nom: "Confiance et légitimité",
+    service: "",
+    thematique: "GEST"
+  },
 }};
