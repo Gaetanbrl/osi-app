@@ -342,10 +342,10 @@ export default() => {
   G1: {
     id: "G1",
     composante: "GE",
-    description: "Prévention et Anticipation",
+    description: "Prévention et anticipation",
     niveau: 2,
-    acronyme: "CO",
-    nom: "CO",
+    acronyme: "PRE",
+    nom: "PRE",
     service: ""
   },
   G101: {
@@ -722,7 +722,7 @@ export default() => {
     service: ""
   }, 
   R301: {
-    id: "R3",
+    id: "R301",
     composante: "RE",
     description: "Pratiques individuelles de prévention et/ou de protection",
     niveau: 1,

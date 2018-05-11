@@ -5,11 +5,11 @@ export default class Carlitto extends Component {
 
 	componentDidMount() {
 
-
+/*
 		let joinData = new ol.layer.Image({
 			source: new ol.source.ImageWMS({
-				url: 'http://localhost:8080/geoserver/__temp/wms',
-				params: {LAYERS: 'F14472180_INDICALL_530087'},
+				url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
+				params: {LAYERS: 'ositest'},
 				serverType: 'geoserver',
 				crossOrigin: 'anonymous',
 				attributions: ''
@@ -22,15 +22,14 @@ export default class Carlitto extends Component {
 					 return '';
 				return (`id_com=56116`)
 		}
-
+*/
 		let carlitto = new ol.layer.Image({
 			source: new ol.source.ImageWMS({
-				url: 'http://portail.indigeo.fr/geoserver/LETG-BREST/wms',
+				url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
 				params: {
-					layers: 'carlitto',
-					cql_filter: setQuery,
-					// cql_filter: !comm ? '' : `id_com=${ comm.comm }`,
-					styles: '',
+					'layers': 'ositest',
+					'cql_filter': 'id_com=56116',
+					'styles': 'style=e203'
 				},
 				serverType: 'geoserver',
 				crossOrigin: 'anonymous',
