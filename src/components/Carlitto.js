@@ -39,18 +39,28 @@ class Carlitto extends Component {
 
 		let scaleLineControl = new ol.control.ScaleLine();
 
-		proj4.defs(
-		  'EPSG:3035',
-		  '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
-		);
-
-		// let projection = ol.proj.get('EPSG:3035');
-		let extent = [1896628.62, 1507846.05, 4656644.57, 6827128.02];
-		// let center = ol.proj.transform([8.23, 46.86], 'EPSG:4326', 'EPSG:3035')
-
 // -16.1, 32.88, 39.65, 84.17 
 // 1896628.62, 1507846.05, 4656644.57, 6827128.02
-// let epsg3035 = proj4.defs("EPSG:3035","+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+
+		
+		let projCode = 'EPSG:3035';
+		
+		proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+		
+		let epsg3035 = new ol.proj.Projection({
+		    code: projCode,
+		    // extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
+
+		    // extent: [-2250105.88, 4558488.66, 1235090.03, 8902692.39]
+		    extent: [-170.0, -80.0, 170.0, 80.0]
+		  });
+		
+		if ( ol.proj.get(projCode) ) {
+		  console.log("ol.proj.get().getCode: " + ol.proj.get(projCode).getCode())
+		} else {
+			console.log("FAILED ol.proj.get(): " + projCode);
+		}
+
 
 		this.carMap = new ol.Map({
 			target: this.refs.map,
@@ -60,9 +70,9 @@ class Carlitto extends Component {
 			]),
 			interactions: ol.interaction.defaults({mouseWheelZoom:false}),
 			view: new ol.View({
-			    // projection: projection,
-				center: ol.proj.fromLonLat([-3, 48.15]),
-			    // center: center,
+			    projection: epsg3035,
+			    center: [0, 0],
+				//center: ol.proj.transform((ol.proj.fromLonLat([-3, 48.15])), 'EPSG:3857', 'EPSG:3035'),
 			    // extent: extent,
 				zoom: 8
 			})

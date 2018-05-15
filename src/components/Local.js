@@ -232,3 +232,7 @@ class Local extends Component {
 }
 
 export default Local
+
+
+
+
