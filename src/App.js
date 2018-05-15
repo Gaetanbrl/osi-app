@@ -1,10 +1,10 @@
 import React from 'react';
+import Carto from './containers/Carto'
 import Tableau from './containers/Tableau';
 import Meta from './containers/Meta';
 import Territoire from './containers/Territoire';
 import Jumbo from './components/Jumbo';
 import Footer from './components/Footer';
-import Carlitto from './components/Carlitto'
 
 
 const App = () => (
@@ -13,7 +13,7 @@ const App = () => (
     <Territoire /> 
     <Meta /> <br/>
     <Tableau /> <br/>
-	<Carlitto/> <br/>
+	<Carto/> <br/>
     <Footer />
   </div>
 )

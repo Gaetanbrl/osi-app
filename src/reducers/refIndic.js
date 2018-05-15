@@ -589,7 +589,7 @@ export default() => {
     description: "Sources d'information dont disposent les individus",
     niveau: 1,
     acronyme: "COM",
-    nom: "Information",
+    nom: "Sources d'information",
     service: "",
     thematique: "COAL"
   },
@@ -609,7 +609,7 @@ export default() => {
     description: "Information active",
     niveau: 1,
     acronyme: "IA",
-    nom: "Information",
+    nom: "Information active",
     service: "",
     thematique: "COAL"
   },

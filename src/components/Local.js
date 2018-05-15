@@ -30,9 +30,10 @@ class Local extends Component {
 			let nom = feature.get('nom')
 			let insee = feature.get('insee')
 			let siren = feature.get('siren_epci')
+			let geom = feature.getGeometry()
 
 			let epci = {siren: siren, nom: nom}
-			let comm = {insee: insee, nom: nom}
+			let comm = {insee: insee, nom: nom, geom: geom}
 
 			insee ? onCommClick(comm) : onEpciClick(epci) 
 			
