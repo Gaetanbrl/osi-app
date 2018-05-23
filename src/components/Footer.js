@@ -4,6 +4,7 @@ import fondationfr from '../data/img/fondationfr.png';
 import logoCNRS from '../data/img/logoCNRS.jpg';
 import labexmer from '../data/img/labexmer.png';
 import iuem from '../data/img/iuem.png';
+import ubo from '../data/img/ubo.png';
 
 export default class Footer extends Component {
 
@@ -12,12 +13,12 @@ export default class Footer extends Component {
         <div id="Footer"><br/>
         <div className="container-fluid well">
             <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5">
                 <p><small className="text-muted"><i>Application conçue et développée à l'Institut Universitaire Européen de la Mer dans le cadre du projet <a href="https://www-iuem.univ-brest.fr/pops/projects/osirisc-vers-un-observatoire-integre-des-risques-cotiers-d-erosion-submersion"><strong>OSIRISC</strong></a>, avec le soutien de la Fondation de France et la DREAL Bretagne.</i>
                 <br/> 
                 <strong>Réalisation : </strong><a href="mailto:oliv.marcel@gmail.com"> Olivier Marcel</a>, 2018</small></p>
             </div>
-            <div className="col-md-6 text-right">
+            <div className="col-md-7 text-right">
                     <p><a href="http://www.bretagne.developpement-durable.gouv.fr/"> 
                         <img height="70px" src={dreal} alt="logo DREAL Bretagne" />
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -34,6 +35,9 @@ export default class Footer extends Component {
 
                     <a href="https://www-iuem.univ-brest.fr/"> 
                         <img  height="70px" src={iuem} alt="logo IUEM" />
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://www.univ-brest.fr/"> 
+                        <img  height="70px" src={ubo} alt="logo UBO" />
                     </a>
                     </p>
 
