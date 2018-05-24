@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const MetaBox = ({ refIndic, setRef, territoire }) => {
 	
+
 	let style = {
 		height: '300px',
 	}
@@ -10,7 +11,7 @@ const MetaBox = ({ refIndic, setRef, territoire }) => {
 	let i = refIndic[setRef]
 	let epci = territoire.epci
 	let comm = territoire.comm
-				
+	
 		return(
 		<div className="col-md-4" style={style}>
 

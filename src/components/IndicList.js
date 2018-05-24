@@ -1,18 +1,22 @@
 import React from 'react'
 import Indic from './Indic'
 import { Grid, Row } from 'react-bootstrap';
+import meta_com from '../data/meta_com.json';
 
 
 const getKeys = ( obj ) => (
     Object.keys(obj).map(i => (obj[i]))
 )
-
 const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
 const IndicList = ({ refIndic, onIndicClick, territoire }) => {
-	if(!territoire){
+
+	console.log(meta_com[Object.keys(meta_com)[0]][0].id_com);
+	territoire.comm ? console.log(meta_com[territoire.comm.insee][0].id_com) : console.log('zob')			
+
+	if(!territoire.comm){
 		return(null)	
 	} else {
 		return(
