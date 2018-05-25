@@ -3,7 +3,6 @@ import Indic from './Indic'
 import { Grid, Row } from 'react-bootstrap';
 import meta_com from '../data/meta_com.json';
 
-
 const getKeys = ( obj ) => (
     Object.keys(obj).map(i => (obj[i]))
 )
@@ -13,12 +12,15 @@ const mapKeys = ( obj ) => (
 
 const IndicList = ({ refIndic, onIndicClick, territoire }) => {
 
-	console.log(meta_com[Object.keys(meta_com)[0]][0].id_com);
-	territoire.comm ? console.log(meta_com[territoire.comm.insee][0].id_com) : console.log('zob')			
-
 	if(!territoire.comm){
 		return(null)	
 	} else {
+
+		let id_meta = []
+		meta_com[territoire.comm.insee].map(i => (
+			id_meta.push(i.id_meta)
+		))
+
 		return(
 			<Grid fluid>
 			<Row>
@@ -33,6 +35,7 @@ const IndicList = ({ refIndic, onIndicClick, territoire }) => {
 				niveau1 = {mapKeys(refIndic).filter((i1) => (
 					i1.niveau === 1 && i1.composante === i3.nom)).map(i1 => ({...i1}))
 				}
+				ableList = {id_meta}
 			    />
 			))}
 			</Row>

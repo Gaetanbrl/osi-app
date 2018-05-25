@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Panel, PanelGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
+//import meta_com from '../data/meta_com.json';
 
 export default class Indic extends Component{
 constructor(props){
@@ -15,6 +16,11 @@ handleSelect(activeKey) {
 }
 
 render(){
+
+//	let id_meta = []
+//	meta_com[this.props.comm.insee].map(i => (id_meta.push(i.id_meta)))
+	//territoire.comm ? console.log(meta_com[territoire.comm.insee].length) : console.log('zobi')			
+
 	const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info"}
 
     return(
@@ -58,7 +64,9 @@ render(){
    						 <Panel.Body key={i1.nom} collapsible>
 	   						<ListGroupItem
 							bsStyle={bsCol[i1.composante]}
-							onClick={() => this.props.onClick(i1.id)}>
+							onClick={() => this.props.onClick(i1.id)}
+							disabled= {!this.props.ableList.includes(i1.id)}
+							>
 
 								<strong>{i1.nom}</strong><br/>
 								<small>{i1.description}</small>
