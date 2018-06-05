@@ -3,7 +3,7 @@ import MetaBox from '../components/MetaBox'
 
 const mapStateToProps = (state) => ({	
 	refIndic: state.refIndic,
-	setRef: state.setRef,
+	setRef: state.setRef.ref,
 	territoire: state.setTerritoire
 })
 

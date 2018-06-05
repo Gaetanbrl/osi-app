@@ -1,6 +1,5 @@
 import React from 'react'
 import Indic from './Indic'
-import { Grid, Row } from 'react-bootstrap';
 import meta_com from '../data/meta_com.json';
 
 const getKeys = ( obj ) => (
@@ -10,21 +9,26 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
-const IndicList = ({ refIndic, onIndicClick, territoire }) => {
+const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 
 	if(!territoire.comm){
 		return(null)	
 	} else {
 
-		let id_meta = []
-		meta_com[territoire.comm.insee].map(i => (
-			id_meta.push(i.id_meta)
+		let array_meta = null
+		meta_com.map(com => (
+			com.id_com === String(territoire.comm.insee) ? array_meta = com.stats : null 
 		))
+		
+		let id_meta = []
+		array_meta.map(i => (
+			id_meta.push(i.id_meta)
+			))
 
 		return(
-			<Grid fluid>
-			<Row>
-			{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
+
+			<div>
+			{mapKeys(refIndic).filter((i3) => (i3.niveau === 3 && i3.id === setCompo)).map(i3 => (
 				<Indic
 				key = {i3.nom}
 				onClick={onIndicClick}
@@ -38,8 +42,7 @@ const IndicList = ({ refIndic, onIndicClick, territoire }) => {
 				ableList = {id_meta}
 			    />
 			))}
-			</Row>
-			</Grid>
+			</div>
 		)
 	}
 }

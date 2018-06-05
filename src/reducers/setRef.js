@@ -1,7 +1,23 @@
-const setRef = (state = null, action) => {
+const initialState = {
+  compo: null,
+  ref: null
+};
+
+
+const setRef = (state = initialState, action) => {
 	switch(action.type) {
+		case 'SET_COMPO':
+			return {
+				...state,
+				compo: action.compo,
+				ref: state.ref
+			}
 		case 'SET_REF':
-			return action.ref
+			return {
+				...state,
+				compo: state.compo,
+				ref: action.ref
+			}
 		default:
 			return state
 	}

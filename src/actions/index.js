@@ -12,9 +12,16 @@ export const setComm = (comm) => {
 }
 
 export const setRef = (ref) => {
+  return {
+    type: 'SET_REF',
+    ref
+  }
+}
+
+export const setCompo = (compo) => {
 	return {
-		type: 'SET_REF',
-		ref
+		type: 'SET_COMPO',
+		compo
 	}
 }
 

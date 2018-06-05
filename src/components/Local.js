@@ -223,7 +223,7 @@ class Local extends Component {
 		};
 
 		return (
-			<div className="map col-md-8" ref="map" style={style}>
+			<div className="map" ref="map" style={style}>
 				<div className="olTool" ref="olTool"></div>
 			</div>
 		);
