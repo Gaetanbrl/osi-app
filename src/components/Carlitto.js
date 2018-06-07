@@ -19,6 +19,16 @@ class Carlitto extends Component {
 		//     extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
 		//   });
 
+
+		function setStyle(feature, resolution) {
+		    const prop = feature.getProperties()
+		    if (prop.siren_epci !== this.props.territoire.epci.siren)
+		       return;
+
+		    return styleComm
+		}
+
+
 		this.base = new ol.layer.Tile({ 
 			name: 'base',
 			opacity: 1,
@@ -33,7 +43,7 @@ class Carlitto extends Component {
 			attributions: 'CARLITTO (carroyage littoral - 200m - CRS 3035)',
 			params: {
 				LAYERS: 'ositest',
-				STYLES: '',
+				STYLE: ''
 			},
 			serverType: 'geoserver',
 			crossOrigin: 'anonymous',
@@ -44,6 +54,28 @@ class Carlitto extends Component {
 			name: 'carLayer',
 			source: carSource,
 			opacity: 0.7,
+		})
+
+
+		let styleComm = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [50, 50, 50, 0.8],
+					width: 1
+				}),
+				fill: new ol.style.Fill({
+					color: [70, 70, 70, 0.4]
+				}),
+			})
+		
+		let comm = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'comm3857.json'
+			}),
+			style: setStyle.bind(this),
+			minResolution: 0,
+			maxResolution: 500,
+			zIndex: 10
 		})
 
 		let scaleLineControl = new ol.control.ScaleLine();
@@ -99,7 +131,7 @@ class Carlitto extends Component {
 
 	render() {
 		let style = {
-			height: '600px'
+			height: '500px'
 		};
 
 		const { error, loading, infos } = this.props;

@@ -11,8 +11,14 @@ const mapKeys = ( obj ) => (
 
 const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 
-	if(!territoire.comm){
-		return(null)	
+	if(!setCompo){
+		return(
+			<blockquote className="blockquote text-center">
+				<h3> Info ? </h3>
+				<p className="mb-0">Présentation d'Osirisc <br/><br/> <strong>ou</strong> <br/><br/> Indication sur l'utilisation de l'appli ?</p>
+				<footer className="blockquote-footer"> Source </footer>
+			</blockquote>
+		)	
 	} else {
 
 		let array_meta = null
