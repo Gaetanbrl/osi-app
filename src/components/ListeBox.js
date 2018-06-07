@@ -11,7 +11,7 @@ const ListeBox = ({ refIndic, setRef, territoire }) => {
 
 		<FormGroup controlId="formControlsSelect">
 		     <FormControl componentClass="select" placeholder="select">
-		       <option value="select">Choisir un territoire</option>
+		       <option value="select">Territoires partenaires</option>
 		       <option value="other">...</option>
 		     </FormControl>
 	   </FormGroup>

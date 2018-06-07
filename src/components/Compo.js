@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 const getKeys = ( obj ) => (
     Object.keys(obj).map(i => (obj[i]))
@@ -8,7 +8,7 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
-const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info", "IC":""}
+const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info", "IC":"default"}
 
 
 const Compo = ({refIndic, onCompoClick, territoire}) => {
@@ -17,7 +17,7 @@ const Compo = ({refIndic, onCompoClick, territoire}) => {
 		<div>
 		<Row>
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
-			<Col className="col-md-5ths">
+			<Col key = {i3.nom} className="col-md-5ths">
 			<Button 
 			key = {i3.nom}
 			bsSize="large" 

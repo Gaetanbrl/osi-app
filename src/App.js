@@ -33,17 +33,11 @@ const App = () => (
 			<Col md={9}>
 				<Titre />
 				<Carto /> 
+				<Meta />
 			</Col>
 			
 		</Row>
-		<Row>
-			<Col md={3}>
-			</Col>
-	
-			<Col md={9}>
-				<Meta />
-			</Col>
-		</Row>
+		
 	</Grid>
     <Footer />
   </div>

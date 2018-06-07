@@ -9,26 +9,22 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
+
 const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
+	// let id_meta = []
+	// meta_com[this.props.comm.insee].map(i => (id_meta.push(i.id_meta)))
+	// territoire.comm ? console.log(meta_com[territoire.comm.insee].length) : console.log('zobi')			
 
-	if(!setCompo){
-		return(
-			<blockquote className="blockquote text-center">
-				<h3> Info ? </h3>
-				<p className="mb-0">Présentation d'Osirisc <br/><br/> <strong>ou</strong> <br/><br/> Indication sur l'utilisation de l'appli ?</p>
-				<footer className="blockquote-footer"> Source </footer>
-			</blockquote>
-		)	
-	} else {
+	if (setCompo && territoire.comm){
 
-		let array_meta = null
+		let array_able = null
 		meta_com.map(com => (
-			com.id_com === String(territoire.comm.insee) ? array_meta = com.stats : null 
+			com.id_com === String(territoire.comm.insee) ? array_able = com.stats : null 
 		))
 		
-		let id_meta = []
-		array_meta.map(i => (
-			id_meta.push(i.id_meta)
+		let id_able = ["I102", "I105", "I106"]
+		array_able.map(i => (
+			id_able.push(i.id_meta)
 			))
 
 		return(
@@ -45,10 +41,30 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 				niveau1 = {mapKeys(refIndic).filter((i1) => (
 					i1.niveau === 1 && i1.composante === i3.nom)).map(i1 => ({...i1}))
 				}
-				ableList = {id_meta}
+				ableList = {id_able}
 			    />
 			))}
 			</div>
+		)
+	} else if (!setCompo && territoire.comm){
+		let nbIndic = 0
+		meta_com.map(com => (
+			com.id_com === String(territoire.comm.insee) ? nbIndic = com.stats.length : null 
+		))
+		
+		return(
+			<blockquote className="blockquote text-center">
+				<p className="mb-0">Indicateurs disponibles : <strong>{nbIndic}</strong></p>
+			</blockquote>
+		)	
+	} else {
+		return(
+			<blockquote className="blockquote text-center">
+				<p className="mb-0">Présentation d'Osirisc
+					<br/><br/> 
+					ou Mode d'emploi... ?
+				</p>
+			</blockquote>			
 		)
 	}
 }

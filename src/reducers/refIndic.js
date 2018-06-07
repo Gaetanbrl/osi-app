@@ -762,7 +762,6 @@ export default() => {
     },
     I: {
       id: "I",
-      nom: "Indices",
       description: "Indices",
       niveau: 3,
       acronyme: "IC",

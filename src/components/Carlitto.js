@@ -42,7 +42,7 @@ class Carlitto extends Component {
 			url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
 			attributions: 'CARLITTO (carroyage littoral - 200m - CRS 3035)',
 			params: {
-				LAYERS: 'ositest',
+				LAYERS: 'osialltest',
 				STYLE: ''
 			},
 			serverType: 'geoserver',
