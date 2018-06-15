@@ -1096,6 +1096,14 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
+bootstrap-slider@9.9.0:
+  version "9.9.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-slider/-/bootstrap-slider-9.9.0.tgz#4e14ecc6401901da1ddf7681aa24e33b00dadce8"
+
+bootstrap@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.1.tgz#3aec85000fa619085da8d2e4983dfd67cf2114cb"
+
 boxen@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/boxen/-/boxen-0.6.0.tgz#8364d4248ac34ff0ef1b2f2bf49a6c60ce0d81b6"
@@ -2286,6 +2294,10 @@ es6-weak-map@^2.0.1:
     es6-iterator "^2.0.1"
     es6-symbol "^3.1.1"
 
+es6bindall@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/es6bindall/-/es6bindall-0.0.9.tgz#71e00afa69f8dd59ac5ac898a0d31c978df817d5"
+
 escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
@@ -3173,6 +3185,10 @@ hawk@~6.0.2:
 he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
+
+highcharts@^6.0.4, highcharts@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.1.0.tgz#115a6ee10ad36a53d9913f1030c6d46da16c7cb5"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -5543,6 +5559,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-bootstrap-slider@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-slider/-/react-bootstrap-slider-2.1.5.tgz#2f79e57b69ddf2b5bd23310bddbd2de0c6bdfef3"
+  dependencies:
+    bootstrap-slider "9.9.0"
+    es6bindall "^0.0.9"
+
 react-bootstrap@^0.32.1:
   version "0.32.1"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.32.1.tgz#60624c1b48a39d773ef6cce6421a4f33ecc166bb"
@@ -5595,6 +5618,12 @@ react-dom@^16.2.0:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
+
+react-highcharts@^16.0.2:
+  version "16.0.2"
+  resolved "https://registry.yarnpkg.com/react-highcharts/-/react-highcharts-16.0.2.tgz#7bdae039f9abb3f753ba88b6578d52630c18537a"
+  dependencies:
+    highcharts "^6.0.4"
 
 react-overlays@^0.8.0:
   version "0.8.3"

@@ -58,14 +58,7 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 			</blockquote>
 		)	
 	} else {
-		return(
-			<blockquote className="blockquote text-center">
-				<p className="mb-0">Présentation d'Osirisc
-					<br/><br/> 
-					ou Mode d'emploi... ?
-				</p>
-			</blockquote>			
-		)
+		return( null )
 	}
 }
 

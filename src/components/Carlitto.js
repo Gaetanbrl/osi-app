@@ -6,6 +6,12 @@ class Carlitto extends Component {
 
   	base = null
   	carLayer = null
+  	baseTopo = null
+
+	commGeom = null
+  	commSource = null
+  	commLayer = null
+
   	carMap = null
 
 	componentDidMount() {
@@ -19,70 +25,68 @@ class Carlitto extends Component {
 		//     extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
 		//   });
 
-
-		function setStyle(feature, resolution) {
-		    const prop = feature.getProperties()
-		    if (prop.siren_epci !== this.props.territoire.epci.siren)
-		       return;
-
-		    return styleComm
-		}
-
-
 		this.base = new ol.layer.Tile({ 
 			name: 'base',
 			opacity: 1,
 			source: new ol.source.XYZ({ 
 				name: 'base',
 				url:'http://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+
 			}),
 		})
 
-		let carSource = new ol.source.ImageWMS({
-			url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
-			attributions: 'CARLITTO (carroyage littoral - 200m - CRS 3035)',
-			params: {
-				LAYERS: 'osialltest',
-				STYLE: ''
-			},
-			serverType: 'geoserver',
-			crossOrigin: 'anonymous',
-			projection: "EPSG:3035",
+		this.baseTopo = new ol.layer.Tile({
+			name: 'baseTopo',
+			opacity: 1,
+			source: new ol.source.XYZ({
+				name: 'baseTopo',
+				url:'http://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
+			})
 		})
 
 		this.carLayer = new ol.layer.Image({
 			name: 'carLayer',
-			source: carSource,
-			opacity: 0.7,
+			source: new ol.source.ImageWMS({
+				url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
+				params: {
+					LAYERS: 'osialltest',
+					STYLE: undefined
+				},
+				serverType: 'geoserver',
+				crossOrigin: 'anonymous'
+			}),
+			opacity: .8,
+			minResolution: 0,
+			maxResolution: 500
 		})
 
+		this.commSource = new ol.source.Vector({
+		}) 
 
-		let styleComm = new ol.style.Style({
+		this.commLayer = new ol.layer.Vector({
+		source: this.commSource,
+		style: new ol.style.Style({
 				stroke: new ol.style.Stroke({
 					color: [50, 50, 50, 0.8],
-					width: 1
+					width: 2.5
 				}),
 				fill: new ol.style.Fill({
-					color: [70, 70, 70, 0.4]
+					color: [255, 255, 255, .5]
 				}),
 			})
-		
-		let comm = new ol.layer.Vector({
-			source: new ol.source.Vector({
-				format: new ol.format.GeoJSON(),
-				url: 'comm3857.json'
-			}),
-			style: setStyle.bind(this),
-			minResolution: 0,
-			maxResolution: 500,
-			zIndex: 10
 		})
 
 		let scaleLineControl = new ol.control.ScaleLine();
 
 		this.carMap = new ol.Map({
 			target: this.refs.map,
-			layers: [this.base, this.carLayer],
+			layers: [
+				this.base, 
+				this.carLayer,
+				this.commLayer,
+				this.baseTopo
+			],
 			controls: ol.control.defaults({collapsible: false}).extend([
 				scaleLineControl
 			]),
@@ -91,8 +95,14 @@ class Carlitto extends Component {
 			    // projection: epsg3035,
 				// center: ol.proj.transform([-3, 48.15], 'EPSG:4326', 'EPSG:3035'),
 				center: ol.proj.fromLonLat([-3, 48.15]),
-				zoom: 8
+				zoom: 8,
+				maxZoom: 16,
+				minZoom: 6
 			})
+		});
+
+		this.carMap.on('precompose', function(evt) {
+		  evt.context.globalCompositeOperation = "multiply";
 		});
 
 		this.setState({ 
@@ -103,26 +113,45 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-   		let layer = this.state.carLayer
 		let {territoire, setRef} = this.props
+   		let carLayer = this.state.carLayer
+		
 		let wmsStyle = null
 		let cqlFilter = null
 
+
 		if (prevProps.setRef !== setRef) {
 			wmsStyle = setRef.toLowerCase()
-			layer.getSource().updateParams({
+			carLayer.getSource().updateParams({
 				STYLES: wmsStyle
 			})
+
 		} else { 
 			wmsStyle = null
 		}
 
 		if (prevProps.territoire !== territoire && !!territoire) {
+			
 			cqlFilter = `id_com=${territoire.insee}`
-			layer.getSource().updateParams({
+			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter
 			})
-			this.carMap.getView().fit(territoire.geom)
+
+			this.carMap.getView().fit(territoire.geom, {duration: 500})
+
+			this.commGeom = new ol.Feature({
+				geometry: territoire.geom,
+				name: 'commName'
+				})
+
+			let feat = this.commLayer.getSource().getFeatures()
+
+			feat.length > 0 ? 
+	   			(
+   				this.commSource.removeFeature(feat[0]),
+	   			this.commSource.addFeature(this.commGeom)
+	   			)
+				: this.commSource.addFeature(this.commGeom)
 
 		} else { 
 			cqlFilter = null
@@ -131,8 +160,19 @@ class Carlitto extends Component {
 
 	render() {
 		let style = {
-			height: '500px'
+			height: '450px'
 		};
+
+		let refLow;
+		let {setRef} = this.props
+		setRef ?  refLow = setRef.toLowerCase() : null;
+		let leg = `http://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
+		&VERSION=1.0.0&FORMAT=image/png
+		&WIDTH=12&HEIGHT=12
+		&LAYER=osialltest
+		&STYLE=${refLow}
+		&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
+		&TRANSPARENT=true`
 
 		const { error, loading, infos } = this.props;
 		if (error) {
@@ -148,6 +188,7 @@ class Carlitto extends Component {
 
 				<section className="panel-map">
 					<div className="map" ref="map" style={style}></div>
+					<div id="legende"><img src={leg}></img></div>
 				</section>
 				<div>
 					{infos}

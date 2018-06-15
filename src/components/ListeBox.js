@@ -1,21 +1,19 @@
 import React from 'react'
 import { FormGroup, FormControl } from 'react-bootstrap';
 
-const ListeBox = ({ refIndic, setRef, territoire }) => {
+const ListeBox = ({ territoire }) => {
 	
-	let i = refIndic[setRef]
-	let epci = territoire.epci
 	let comm = territoire.comm
 	
 	return(
-
-		<FormGroup controlId="formControlsSelect">
+		<div id="deroulant">
+		<FormGroup controlId="formControlsSelect" inline-block>
 		     <FormControl componentClass="select" placeholder="select">
-		       <option value="select">Territoires partenaires</option>
+		       <option value="select"><strong>Territoires partenaires</strong></option>
 		       <option value="other">...</option>
 		     </FormControl>
 	   </FormGroup>
-
+	   </div>
 	)	
 	
 }

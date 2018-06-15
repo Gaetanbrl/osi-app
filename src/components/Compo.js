@@ -14,7 +14,6 @@ const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info", "IC":
 const Compo = ({refIndic, onCompoClick, territoire}) => {
 
 	return(
-		<div>
 		<Row>
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
 			<Col key = {i3.nom} className="col-md-5ths">
@@ -30,7 +29,6 @@ const Compo = ({refIndic, onCompoClick, territoire}) => {
 			</Col>
 		))}
 		</Row>
-		</div>
 	)
 }
 

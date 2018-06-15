@@ -14,7 +14,7 @@ class Local extends Component {
 			this.overlay.setPosition(event.coordinate);
 
 			this.overlay.getElement().innerHTML = code ? '<h6><strong>' + nom + '</strong> (' + code + ')</h6>' 
-														: '<h4 style="color:rgba(0, 140, 186, 0.8)"><strong>' + nom + '</strong></h4>';			
+														: '<h6 style="color:rgba(0, 140, 186, 0.8)"><strong>' + nom + '</strong></h6>';			
 			return feature;
 		});
 
@@ -118,10 +118,10 @@ class Local extends Component {
 		// LAYERS
 		let base = new ol.layer.Tile({ 
 				name: 'base',
-				opacity: 1,
+				opacity: 0.7,
 				source: new ol.source.XYZ({ 
 					url:'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-					attributions: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ </br> <h6 style="color:rgba(0, 140, 186, 0.8)"><strong>Territoires partenaires d\'OSIRISC</strong></h6>'
+					attributions: 'Tiles: Esri, HERE, Garmin, NGA, USGS'
 				}),
 		});
 
@@ -143,7 +143,7 @@ class Local extends Component {
 				url: 'epci3857.json'
 			}),
 			style: styleEpci,
-			minResolution: 500,
+			minResolution: 800,
 			maxResolution: 20000,
 			zIndex: 1
 		});
@@ -155,7 +155,7 @@ class Local extends Component {
 			}),
 			style: setStyle.bind(this),
 			minResolution: 0,
-			maxResolution: 500,
+			maxResolution: 800,
 			zIndex: 10
 		});
 
@@ -163,13 +163,15 @@ class Local extends Component {
 		this.map = new ol.Map({
 			target: this.refs.map,
 			layers: [base, baseepci, epci, comm],
-			controls: ol.control.defaults({collapsible: false}).extend([
+			controls: ol.control.defaults({
+				collapsible: false,
+				zoom : false,}).extend([
 				new ol.control.ScaleLine()
 			]),
 			interactions: ol.interaction.defaults({mouseWheelZoom:false}),
 			view: new ol.View({
 				center: ol.proj.fromLonLat([-3, 48.15]),
-				zoom: 7,
+				zoom: 6,
 				maxZoom: 10,
 				minZoom: 5
 			})

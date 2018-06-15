@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Jumbo from './components/Jumbo';
 import Liste from './containers/Liste';
 import Meta from './containers/Meta';
+import Slide from './containers/Slide';
 import Systemic from './containers/Systemic';
 import Tableau from './containers/Tableau';
 import Territoire from './containers/Territoire';
@@ -16,16 +17,15 @@ import { Grid, Row, Col } from 'react-bootstrap';
 const App = () => (
   <div>
     <Jumbo />
-    <Territoire /> 
 	<Grid fluid>
 		<Row>
-    	<br/>
 		    <Systemic />
-	    <br/>
+		    <br/>
 		</Row>
-		<Row>
 
+		<Row>
 			<Col md={3}>
+			    <Territoire /> 
 				<Liste />
 				<Tableau />
 			</Col>
@@ -33,6 +33,7 @@ const App = () => (
 			<Col md={9}>
 				<Titre />
 				<Carto /> 
+				<Slide />
 				<Meta />
 			</Col>
 			
