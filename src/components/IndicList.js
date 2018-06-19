@@ -11,21 +11,18 @@ const mapKeys = ( obj ) => (
 
 
 const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
-	// let id_meta = []
-	// meta_com[this.props.comm.insee].map(i => (id_meta.push(i.id_meta)))
-	// territoire.comm ? console.log(meta_com[territoire.comm.insee].length) : console.log('zobi')			
 
 	if (setCompo && territoire.comm){
 
-		let array_able = null
+		let array_able = null;
 		meta_com.map(com => (
 			com.id_com === String(territoire.comm.insee) ? array_able = com.stats : null 
-		))
+		));
 		
-		let id_able = ["I102", "I105", "I106"]
+		let id_able = Object.keys(refIndic).filter(k => k.substring(0, 1) === "I");
 		array_able.map(i => (
 			id_able.push(i.id_meta)
-			))
+			));
 
 		return(
 
@@ -36,10 +33,10 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 				onClick={onIndicClick}
 				{...i3}
 				niveau2 = {mapKeys(refIndic).filter((i2) => (
-					i2.niveau === 2 && i2.composante === i3.nom)).map(i2 => ({...i2}))
+					i2.niveau === 2 && i2.composante === i3.composante)).map(i2 => ({...i2}))
 				}
 				niveau1 = {mapKeys(refIndic).filter((i1) => (
-					i1.niveau === 1 && i1.composante === i3.nom)).map(i1 => ({...i1}))
+					i1.niveau === 1 && i1.composante === i3.composante)).map(i1 => ({...i1}))
 				}
 				ableList = {id_able}
 			    />

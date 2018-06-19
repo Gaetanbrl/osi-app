@@ -4,6 +4,7 @@ export const setEpci = (epci) => {
     epci
   }
 }
+
 export const setComm = (comm) => {
 	return {
 		type: 'SET_COMM',
@@ -25,26 +26,32 @@ export const setCompo = (compo) => {
 	}
 }
 
+export const setCar = (url) => {
+  return {
+    type: 'SET_CAR',
+    url
+  }
+}
 
-export const fetchInfo = () => {
+export const fetchInfo = (url) => {
   return dispatch => {
     dispatch(fetchInfoBegin());
-    return fetch("https://www.reddit.com/r/reactjs.json")
+    fetch(url)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        dispatch(fetchInfoSuccess(json));
+        dispatch(fetchInfoSuccess(json["features"]["0"]["properties"]));
         return json;
       })
       .catch(error => dispatch(fetchInfoError(error)));
   };
 }
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
+function handleErrors(res) {
+  if (!res.ok) {
+    throw Error(res.statusText);
   }
-  return response;
+  return res;
 }
 
 
@@ -52,12 +59,12 @@ export const fetchInfoBegin = () => ({
   type: 'FETCH_INFO_BEGIN'
 });
 
-export const fetchInfoSuccess = infos => ({
+export const fetchInfoSuccess = (infos) => ({
   type: 'FETCH_INFO_SUCCESS',
-  payload: { infos }
+  infos
 });
 
-export const fetchInfoError = error => ({
+export const fetchInfoError = (error) => ({
   type: 'FETCH_INFO_ERROR',
-  payload: { error }
+  error
 });

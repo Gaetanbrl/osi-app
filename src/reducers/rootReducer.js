@@ -1,13 +1,15 @@
 import setTerritoire from './setTerritoire';
 import setRef from './setRef';
+import setCar from './setCar';
 import refIndic from './refIndic';
 import infoReducer from './infoReducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
 	setTerritoire,
-	refIndic,
 	setRef,
+	setCar,
+	refIndic,
 	infoReducer
 });
 

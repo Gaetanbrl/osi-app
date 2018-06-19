@@ -1,6 +1,5 @@
 import React, { Component }  from 'react';
 import { ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
-import ReactHighcharts from 'react-highcharts';
 
 import meta_com from '../data/meta_com.json';
 
@@ -49,10 +48,20 @@ render() {
 
 		(s.dates.length === 0) ? (sobso = 0) : (sobso = s.date_obso - yyyy);
 
-		(sobso > 1) ? (prog = "success", recom = "A jour pendant :")
-			: (sobso >= 0 && s.dates.length > 0) ? (prog = "warning", recom = "A remettre à jour dans :")
-				: (sobso < 0 && s.dates.length > 0) ? (prog = "danger", recom = "Donnée dépassée depuis :") 
-					: (prog = "danger", recom = "Donnée indisponible", obso = 0);
+		if (sobso > 1) {
+			prog = "success";
+			recom = "A jour pendant :";
+		} else if (sobso >= 0 && s.dates.length > 0) {
+			prog = "warning";
+			recom = "A remettre à jour dans :";
+		} else if (sobso < 0 && s.dates.length > 0) {
+			prog = "danger";
+			recom = "Donnée dépassée depuis :";
+		} else {
+			prog = "danger";
+			recom = "Donnée indisponible";
+			obso = 0;
+		}
 
 		return(
 			<ListGroup>

@@ -132,3 +132,21 @@ body {
 #formControlsSelect{
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+.loader {
+    text-align:center;
+    border: 16px solid #f3f3f3; 
+    border-top: 16px solid rgba(201, 48, 44);
+    border-right: 16px solid rgba(236, 151, 31);
+    border-bottom: 16px solid rgba(68, 157, 68);
+    border-left: 16px solid rgba(49, 176, 213);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

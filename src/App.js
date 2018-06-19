@@ -1,8 +1,8 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
 
-import Carto from './containers/Carto'
-import Footer from './components/Footer';
-import Jumbo from './components/Jumbo';
+import Carto from './containers/Carto';
+import Feature from './containers/Feature';
 import Liste from './containers/Liste';
 import Meta from './containers/Meta';
 import Slide from './containers/Slide';
@@ -11,7 +11,9 @@ import Tableau from './containers/Tableau';
 import Territoire from './containers/Territoire';
 import Titre from './containers/Titre';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import Footer from './components/Footer';
+import Jumbo from './components/Jumbo';
+
 
 
 const App = () => (
@@ -32,7 +34,8 @@ const App = () => (
 		
 			<Col md={9}>
 				<Titre />
-				<Carto /> 
+				<Carto />
+				<Feature /> 
 				<Slide />
 				<Meta />
 			</Col>

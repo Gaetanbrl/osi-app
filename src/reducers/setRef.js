@@ -10,7 +10,7 @@ const setRef = (state = initialState, action) => {
 			return {
 				...state,
 				compo: action.compo,
-				ref: state.ref
+				ref: action.compo
 			}
 		case 'SET_REF':
 			return {

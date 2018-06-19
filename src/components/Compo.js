@@ -8,7 +8,7 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
-const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info", "IC":"default"}
+const bsCol = {"A":"danger", "E":"warning", "G":"success", "R":"info", "I":"default"}
 
 
 const Compo = ({refIndic, onCompoClick, territoire}) => {
@@ -16,11 +16,11 @@ const Compo = ({refIndic, onCompoClick, territoire}) => {
 	return(
 		<Row>
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
-			<Col key = {i3.nom} className="col-md-5ths">
+			<Col key = {i3.id} className="col-md-5ths">
 			<Button 
-			key = {i3.nom}
+			key = {i3.id}
 			bsSize="large" 
-			bsStyle={bsCol[i3.nom]}
+			bsStyle={bsCol[i3.id]}
 			disabled={!territoire.comm}
 			block
 			onClick={() => onCompoClick(i3.id)}>

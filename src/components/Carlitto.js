@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ol from "openlayers";
-import proj4 from "proj4";
+// import proj4 from "proj4";
 
 class Carlitto extends Component {
 
@@ -12,18 +12,10 @@ class Carlitto extends Component {
   	commSource = null
   	commLayer = null
 
+  	url = null
   	carMap = null
 
 	componentDidMount() {
-
-		// ol.proj.setProj4(proj4);
-		// let projCode = 'EPSG:3035';
-		// proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-		
-		// let epsg3035 = new ol.proj.Projection({
-		//     code: projCode,
-		//     extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
-		//   });
 
 		this.base = new ol.layer.Tile({ 
 			name: 'base',
@@ -32,7 +24,6 @@ class Carlitto extends Component {
 				name: 'base',
 				url:'http://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-
 			}),
 		})
 
@@ -45,17 +36,18 @@ class Carlitto extends Component {
 			})
 		})
 
+		let carSource = new ol.source.ImageWMS({
+			url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
+			params: {
+				LAYERS: 'osialltest',
+				STYLE: undefined
+			},
+			serverType: 'geoserver',
+			crossOrigin: 'anonymous'
+		})
 		this.carLayer = new ol.layer.Image({
 			name: 'carLayer',
-			source: new ol.source.ImageWMS({
-				url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
-				params: {
-					LAYERS: 'osialltest',
-					STYLE: undefined
-				},
-				serverType: 'geoserver',
-				crossOrigin: 'anonymous'
-			}),
+			source: carSource,
 			opacity: .8,
 			minResolution: 0,
 			maxResolution: 500
@@ -78,6 +70,12 @@ class Carlitto extends Component {
 		})
 
 		let scaleLineControl = new ol.control.ScaleLine();
+		let view = new ol.View({
+			center: ol.proj.fromLonLat([-3, 48.15]),
+			zoom: 8,
+			maxZoom: 16,
+			minZoom: 6
+			})
 
 		this.carMap = new ol.Map({
 			target: this.refs.map,
@@ -91,18 +89,24 @@ class Carlitto extends Component {
 				scaleLineControl
 			]),
 			interactions: ol.interaction.defaults({mouseWheelZoom:false}),
-			view: new ol.View({
-			    // projection: epsg3035,
-				// center: ol.proj.transform([-3, 48.15], 'EPSG:4326', 'EPSG:3035'),
-				center: ol.proj.fromLonLat([-3, 48.15]),
-				zoom: 8,
-				maxZoom: 16,
-				minZoom: 6
-			})
+			view: view
 		});
 
 		this.carMap.on('precompose', function(evt) {
 		  evt.context.globalCompositeOperation = "multiply";
+		});
+
+		let {onCarClick} = this.props
+		this.carMap.on('singleclick', function(evt) {
+			let viewResolution = /** @type {number} */ (view.getResolution());
+			this.url = carSource.getGetFeatureInfoUrl(
+				evt.coordinate, viewResolution, 'EPSG:3857',
+				{
+					'INFO_FORMAT': 'application/json',
+					// 'propertyName': 'id_car'
+				});
+
+			if (this.url) onCarClick(this.url);
 		});
 
 		this.setState({ 
@@ -146,12 +150,12 @@ class Carlitto extends Component {
 
 			let feat = this.commLayer.getSource().getFeatures()
 
-			feat.length > 0 ? 
-	   			(
-   				this.commSource.removeFeature(feat[0]),
-	   			this.commSource.addFeature(this.commGeom)
-	   			)
-				: this.commSource.addFeature(this.commGeom)
+			if (feat.length > 0) { 
+   				this.commSource.removeFeature(feat[0]);
+	   			this.commSource.addFeature(this.commGeom);
+			} else {
+				this.commSource.addFeature(this.commGeom);	
+			} 
 
 		} else { 
 			cqlFilter = null
@@ -164,36 +168,29 @@ class Carlitto extends Component {
 		};
 
 		let refLow;
+		let leg;
+		let img = null;
 		let {setRef} = this.props
-		setRef ?  refLow = setRef.toLowerCase() : null;
-		let leg = `http://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
-		&VERSION=1.0.0&FORMAT=image/png
-		&WIDTH=12&HEIGHT=12
-		&LAYER=osialltest
-		&STYLE=${refLow}
-		&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
-		&TRANSPARENT=true`
+		
+		if (setRef){
+			refLow = setRef.toLowerCase();
 
-		const { error, loading, infos } = this.props;
-		if (error) {
-			return <div>Error! {error.message}</div>;
-		}
+			leg = `http://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
+				&VERSION=1.0.0&FORMAT=image/png
+				&WIDTH=12&HEIGHT=12
+				&LAYER=osialltest
+				&STYLE=${refLow}
+				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
+				&TRANSPARENT=true`;
 
-		if (loading) {
-			return <div>Loading...</div>;
-		}
+			img = <div id="legende"><img src={leg} alt="Légende"></img></div>
+		} 
+
 		return (
-			
-			<div>
-
 				<section className="panel-map">
 					<div className="map" ref="map" style={style}></div>
-					<div id="legende"><img src={leg}></img></div>
+					{img}
 				</section>
-				<div>
-					{infos}
-				</div>
-			</div>
 		)
 	}
 }

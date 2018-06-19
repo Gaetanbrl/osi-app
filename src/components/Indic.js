@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, PanelGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Panel, PanelGroup, ListGroup, ListGroupItem, Button, Glyphicon } from 'react-bootstrap';
 
 export default class Indic extends Component{
 constructor(props){
@@ -38,11 +38,21 @@ render(){
 						<Panel.Title toggle>
    						<ListGroupItem
    						bsStyle={bsCol[i2.composante]}
-   						//onClick={() => this.props.onClick(i2.id)}
    						>
 
-   							<p className="text-center"><strong >{ i2.description }</strong></p>
-						
+   							<p className="pull-center"><strong >{ i2.description }</strong>
+					        <Button 
+					        	onClick={() => this.props.onClick(i2.id)}
+				        		className="pull-right" 
+					        	bsStyle={bsCol[i2.composante]}
+								disabled= {this.props.ableList.includes(i2.id)}
+					        	>
+						        <Glyphicon 
+						        	glyph="chevron-right" 
+					        	/>
+					        </Button>
+   							</p>
+
                         </ListGroupItem>
 						</Panel.Title>
 

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import { setCompo } from '../actions'
+// import { setCompo } from '../actions'
 import SlideBox from '../components/SlideBox'
 
 const mapStateToProps = (state) => ({	
