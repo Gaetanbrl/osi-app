@@ -183,6 +183,8 @@ class Carlitto extends Component {
 				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
 				&TRANSPARENT=true`;
 
+
+
 			img = <div id="legende"><img src={leg} alt="Légende"></img></div>
 		} 
 
