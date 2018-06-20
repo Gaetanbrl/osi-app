@@ -35,7 +35,7 @@ const App = () => (
 			<Col md={9}>
 				<Titre />
 				<Carto />
-				<Feature /> 
+				{/*<Feature /> */}
 				<Slide />
 				<Meta />
 			</Col>
