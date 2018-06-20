@@ -29,15 +29,7 @@ componentDidUpdate(prevProps) {
 
 render(){
 
-	if (!this.props.loading) {
-		return(
-			<ListGroup>
-			<ListGroupItem tag="div">
-				<small>Module expérimental d'interrogation spatiale. Cliquez sur la carte.</small>
-			</ListGroupItem>				
-			</ListGroup>
-		)
-	} else if (this.props.loading) {
+	if (this.props.loading) {
 		return(
 			<ListGroup>
 			<ListGroupItem tag="div">
