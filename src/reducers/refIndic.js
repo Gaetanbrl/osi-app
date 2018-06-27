@@ -108,8 +108,8 @@ export default() => {
       id: "E",
       composante: "EN",
       description: "Enjeux",
-      composition: [ "E1", "E2", "E3" ],
-      methode: "Maximum des indicateurs thématiques (humains, économiques et structurels)",
+      composition: [ "E101",    "E102",    "E103",    "E104",    "E106",    "E108",    "E109",   "E201" ,   "E202",    "E203",   "E204" ,   "E301",    "E303" , "E304",    "E305" ,   "E306" ],
+      methode: "Moyenne géométrique des indicateurs",
       niveau: 3,
       acronyme: "EN",
       nom: "Composante des enjeux",
@@ -688,7 +688,7 @@ export default() => {
       id: "R2",
       composante: "RE",
       description: "Dimension sociale",
-      composition: [ "R201", "R202", "R203", "R206" ], 
+      composition: [ "R201", "R202", "R203" ], 
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "DISO",
@@ -698,35 +698,15 @@ export default() => {
     R201: {
       id: "R201",
       composante: "RE",
-      description: "Dépendance au lieu",
+      description: "Dépendance, attachement et identité du lieu",
       niveau: 1,
       acronyme: "DP",
-      nom: "Dépendance",
+      nom: "Sens du lieu",
       service: "",
       thematique: "DISO"
     },
     R202: {
       id: "R202",
-      composante: "RE",
-      description: "Attachement au lieu",
-      niveau: 1,
-      acronyme: "PA",
-      nom: "Attachement",
-      service: "",
-      thematique: "DISO"
-    },
-    R203: {
-      id: "R203",
-      composante: "RE",
-      description: "Identité du lieu",
-      niveau: 1,
-      acronyme: "PI",
-      nom: "Identité",
-      service: "",
-      thematique: "DISO"
-    },
-    R204: {
-      id: "R204",
       composante: "RE",
       description: "Valorisation sociale du cadre de vie littorale",
       niveau: 1,
@@ -735,8 +715,8 @@ export default() => {
       service: "",
       thematique: "DISO"
     },
-    R205: {
-      id: "R205",
+    R203: {
+      id: "R203",
       composante: "RE",
       description: "Vie associative en lien avec les risques côtiers",
       niveau: 1,
@@ -745,8 +725,8 @@ export default() => {
       service: "",
       thematique: "DISO"
     },
-    R206: {
-      id: "R206",
+    R204: {
+      id: "R204",
       composante: "RE",
       description: "Activités en lien avec la mer",
       niveau: 1,
@@ -758,7 +738,7 @@ export default() => {
     R3: {
       id: "R3",
       composante: "RE",
-      description: "Perception",
+      description: "Perception de la gest°",
       composition: [ "R301", "R302", "R303" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
@@ -820,9 +800,9 @@ export default() => {
       id: "I101",
       composante: "IT",
       nom: "Systémique",
-      description: "Aléas * Enjeux * (5-Gestion + 5-Représentation)",
+      description: "Aléas * Enjeux * (6-Gestion + 6-Représentation)",
       composition: [ "A", "E", "G", "R" ],
-      methode: "Aléas * Enjeux * (5-Gestion + 5-Représentation)",
+      methode: "Aléas * Enjeux * (6-Gestion + 6-Représentation)",
       niveau: 1,
       acronyme: "GLOB",
       service: "",
@@ -854,7 +834,7 @@ export default() => {
       id: "I221",
       composante: "IT",
       nom: "Opérationnel",
-      composition: [ "A", "E202", "E303", "E304", "G104", "G204", "G301", "R101", "R103", "R201" ],
+      composition: [ "A", "E303", "E304", "G104", "G204", "G301", "R101", "R103", "R201" ],
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       description: "Actions possibles dans l'immédiat",
       niveau: 1,
@@ -866,7 +846,7 @@ export default() => {
       id: "I231",
       composante: "IT",
       nom: "Stratégique",
-      composition: [ "A", "E103", "E202", "E203", "E301", "E302", "G101", "G106", "G108", "G302", "R104", "R105", "R203", "R303" ],
+      composition: [ "A", "E103", "E202", "E203", "E301", "E302", "G101", "G106", "G108", "G302", "R104", "R105", "R201", "R303" ],
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       description: "Actions possibles à terme",
       niveau: 1,

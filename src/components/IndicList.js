@@ -19,9 +19,10 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 			com.id_com === String(territoire.comm.insee) ? array_able = com.stats : null 
 		));
 		
-		let id_able = Object.keys(refIndic).filter(k => k.substring(0, 1) === "I");
+		// let id_able = Object.keys(refIndic).filter(k => k.substring(0, 1) === "I");
+		let ableRef = ["I1","I211","I212","I213","I221","I231","I2","I"];
 		array_able.map(i => (
-			id_able.push(i.id_meta)
+			ableRef.push(i.id_meta)
 			));
 
 		return(
@@ -38,7 +39,7 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 				niveau1 = {mapKeys(refIndic).filter((i1) => (
 					i1.niveau === 1 && i1.composante === i3.composante)).map(i1 => ({...i1}))
 				}
-				ableList = {id_able}
+				ableList = {ableRef}
 			    />
 			))}
 			</div>

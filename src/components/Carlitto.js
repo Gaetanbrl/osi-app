@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ol from "openlayers";
-// import proj4 from "proj4";
+import meta_com from '../data/meta_com.json';
 
 class Carlitto extends Component {
 
@@ -40,7 +40,7 @@ class Carlitto extends Component {
 			url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
 			params: {
 				LAYERS: 'osialltest',
-				STYLE: undefined
+				STYLE: 'default'
 			},
 			serverType: 'geoserver',
 			crossOrigin: 'anonymous'
@@ -123,9 +123,16 @@ class Carlitto extends Component {
 		let wmsStyle = null
 		let cqlFilter = null
 
+		let ableRef = ["A1","A2","A3","A","E1","E2","E3","E","G1","G2","G3","G","I1","I211","I212","I213","I221","I231","I2","I","R1","R2","R3","R"];
+		let allRef;
 
 		if (prevProps.setRef !== setRef) {
-			wmsStyle = setRef.toLowerCase()
+
+			meta_com.map(c => (c.id_com === String(territoire.insee) ? allRef = c.stats : null));
+			allRef.map(r => (ableRef.push(r.id_meta)));
+			console.log(ableRef.includes(setRef));
+			ableRef.includes(setRef) ? wmsStyle = setRef.toLowerCase() : wmsStyle = "";
+
 			carLayer.getSource().updateParams({
 				STYLES: wmsStyle
 			})
@@ -170,11 +177,11 @@ class Carlitto extends Component {
 		let refLow;
 		let leg;
 		let img = null;
-		let {setRef} = this.props
-		
-		if (setRef){
-			refLow = setRef.toLowerCase();
+		let {setRef} = this.props;
 
+		if (setRef){
+
+			refLow = setRef.toLowerCase();
 			leg = `http://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
 				&VERSION=1.0.0&FORMAT=image/png
 				&WIDTH=12&HEIGHT=12
@@ -182,8 +189,6 @@ class Carlitto extends Component {
 				&STYLE=${refLow}
 				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
 				&TRANSPARENT=true`;
-
-
 
 			img = <div id="legende"><img src={leg} alt="Légende"></img></div>
 		} 
