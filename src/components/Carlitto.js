@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import ol from "openlayers";
+import proj4 from "proj4";
 import meta_com from '../data/meta_com.json';
 
 class Carlitto extends Component {
+
+  	carMap = null
 
   	base = null
   	carLayer = null
   	baseTopo = null
 
-	commGeom = null
   	commSource = null
+	commGeom = null
   	commLayer = null
 
+  	selSource = null
+  	selGeom = null
+  	selLayer = null
+
   	url = null
-  	carMap = null
 
 	componentDidMount() {
 
@@ -69,6 +75,20 @@ class Carlitto extends Component {
 			})
 		})
 
+		this.selSource = new ol.source.Vector({
+		})
+
+		this.selLayer = new ol.layer.Vector({
+			source: this.selSource,
+			style: new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [255, 255, 255, 1],
+					width: 2.5
+				})
+			})
+		})
+
+
 		let scaleLineControl = new ol.control.ScaleLine();
 		let view = new ol.View({
 			center: ol.proj.fromLonLat([-3, 48.15]),
@@ -83,6 +103,7 @@ class Carlitto extends Component {
 				this.base, 
 				this.carLayer,
 				this.commLayer,
+				this.selLayer,
 				this.baseTopo
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
@@ -93,7 +114,14 @@ class Carlitto extends Component {
 		});
 
 		this.carMap.on('precompose', function(evt) {
-		  evt.context.globalCompositeOperation = "multiply";
+		  evt.context.globalCompositeOperation = 'multiply';
+		});
+
+		this.selLayer.on('precompose', function(evt) {
+			evt.context.globalCompositeOperation = 'normal';
+		});
+		this.selLayer.on('precompose', function(evt) {
+			evt.context.globalCompositeOperation = 'source-over';
 		});
 
 		let {onCarClick} = this.props
@@ -117,20 +145,20 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let {territoire, setRef} = this.props
+		let {territoire, setRef, infos, error} = this.props
    		let carLayer = this.state.carLayer
 		
 		let wmsStyle = null
 		let cqlFilter = null
 
-		let ableRef = ["A1","A2","A3","A","E1","E2","E3","E","G1","G2","G3","G","I1","I211","I212","I213","I221","I231","I2","I","R1","R2","R3","R"];
+		// let ableRef = ["A1","A2","A3","A","E1","E2","E3","E","G1","G2","G3","G","I1","I211","I212","I213","I221","I231","I2","I","R1","R2","R3","R"];
+		let ableRef = ["A1","A2","A3","A","E1","E2","E3","G1","G2","G3","I1","I211","I212","I213","I221","I231","I2","R1","R2","R3","R"];
 		let allRef;
 
 		if (prevProps.setRef !== setRef) {
 
 			meta_com.map(c => (c.id_com === String(territoire.insee) ? allRef = c.stats : null));
 			allRef.map(r => (ableRef.push(r.id_meta)));
-			console.log(ableRef.includes(setRef));
 			ableRef.includes(setRef) ? wmsStyle = setRef.toLowerCase() : wmsStyle = "";
 
 			carLayer.getSource().updateParams({
@@ -166,6 +194,49 @@ class Carlitto extends Component {
 
 		} else { 
 			cqlFilter = null
+		}
+
+		if (infos) {
+			let car = infos["id_car"];
+			let E = Number(car.slice(5,12));
+			let N = Number(car.slice(13,20));
+
+			ol.proj.setProj4(proj4);
+			let projCode = 'EPSG:3035';
+			proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+
+			let epsg3035 = new ol.proj.Projection({
+			    code: projCode,
+			    extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
+			  });
+
+			let wkt = `POLYGON((${E} ${N+200}, ${E+200} ${N+200}, ${E+200} ${N}, ${E} ${N}, ${E} ${N+200}))`
+			let format = new ol.format.WKT();
+	        let carGeom = format.readGeometry(wkt);
+
+	        this.selGeom = new ol.Feature({
+                geometry: carGeom,
+                name: 'selCar'
+            });
+
+	        this.selGeom.getGeometry().transform(epsg3035, 'EPSG:3857');
+
+
+			let oldSel = this.selLayer.getSource().getFeatures()
+			if (oldSel.length > 0) { 
+				this.selSource.removeFeature(oldSel[0]);
+	   			this.selSource.addFeature(this.selGeom);
+			} else {
+				this.selSource.addFeature(this.selGeom);	
+			} 
+
+		}
+
+		if (error || !infos) {
+			let oldSel = this.selLayer.getSource().getFeatures()
+			if (oldSel.length > 0) { 
+				this.selSource.removeFeature(oldSel[0]);
+			}
 		}
 	 }
 

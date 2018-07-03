@@ -27,7 +27,7 @@ const ListeBox = ({ territoire }) => {
 		<div id="deroulant">
 		<FormGroup controlId="formControlsSelect">
 		    <FormControl componentClass="select" placeholder="select">
-				<option value="select">Territoires partenaires</option>
+				<option value="select">Territoires pilotes</option>
 				{liste}
 		    </FormControl>
 	   </FormGroup>

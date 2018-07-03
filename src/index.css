@@ -134,16 +134,16 @@ body {
 }
 
 .loader {
-    text-align:center;
-    border: 16px solid #f3f3f3; 
-    border-top: 16px solid rgba(201, 48, 44);
-    border-right: 16px solid rgba(236, 151, 31);
-    border-bottom: 16px solid rgba(68, 157, 68);
-    border-left: 16px solid rgba(49, 176, 213);
+    margin: 0 auto;
+    border: 25px solid #f3f3f3; 
+    border-top: 25px solid rgba(201, 48, 44,1);
+    border-right: 25px solid rgba(236, 151, 31,1);
+    border-bottom: 25px solid rgba(68, 157, 68,1);
+    border-left: 25px solid rgba(49, 176, 213,1);
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    animation: spin 1s linear infinite;
+    width: 100px;
+    height: 100px;
+    animation: spin 6s linear infinite;
 }
 
 @keyframes spin {

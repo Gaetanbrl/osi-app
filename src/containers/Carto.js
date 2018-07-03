@@ -5,6 +5,7 @@ import { setCar } from '../actions'
 const mapStateToProps = state => ({	
 	territoire: state.setTerritoire.comm,
 	setRef: state.setRef.ref,
+	infos: state.infoReducer.infos
 })
 
 const mapDispatchToProps = dispatch => {

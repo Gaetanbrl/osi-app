@@ -17,6 +17,7 @@ export default function infoReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        error: null,
         infos: action.infos
       };
 
@@ -25,7 +26,7 @@ export default function infoReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error,
-        infos: []
+        infos: null
       };
 
     default:

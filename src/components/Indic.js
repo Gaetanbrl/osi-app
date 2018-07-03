@@ -56,7 +56,7 @@ render(){
                         </ListGroupItem>
 						</Panel.Title>
 
-					{this.props.niveau1.filter((i1) => (i1.thematique === i2.nom)).map(i1 => (
+					{this.props.niveau1.filter((i1) => (i1.thematique === i2.acronyme)).map(i1 => (
    						 <Panel.Body key={i1.nom} collapsible>
 	   						<ListGroupItem
 							bsStyle={bsCol[i1.composante]}

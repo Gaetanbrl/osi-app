@@ -3,7 +3,7 @@ import FeatureBox from '../components/FeatureBox'
 import { fetchInfo } from '../actions'
 
 const mapStateToProps = state => ({	
-	ref: state.setRef.ref,
+	setRef: state.setRef.ref,
 	setCompo: state.setRef.compo,
 	refIndic: state.refIndic,
 	url: state.setCar.url,

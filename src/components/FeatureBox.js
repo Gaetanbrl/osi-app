@@ -4,90 +4,76 @@ import Highcharts from 'react-highcharts';
 
 export default class FeatureBox extends Component{
 
-err = null;
-json = null;
-
 componentDidMount() {
-	let { onLoad, url, error, infos } = this.props;
-	if (url) onLoad(url);
-	if (error) this.err = error.message;
-	if (infos) {
-		this.json = infos;
-		this.err = null;
-	};
+	if (this.props.url) {
+		let { onLoad, url } = this.props;
+		onLoad(url);
+	}
 }
 
+
 componentDidUpdate(prevProps) {
-	let { onLoad, url, error, infos } = this.props;
-	if (url && url !== prevProps.url) onLoad(url);
-	if (error && error !== prevProps.error) this.err = error.message;
-	if (infos && infos !== prevProps.infos) {
-		this.json = infos;
-		this.err = null;
-	} 
+	if (this.props.url && this.props.url !== prevProps.url) {
+		let { onLoad, url } = this.props;
+		onLoad(url);
+	}
 }
 
 render(){
 
-	if (this.props.loading) {
-		return(
-			<ListGroup>
-			<ListGroupItem tag="div">
-				<span ><div className="loader"></div></span>
-			</ListGroupItem>				
-			</ListGroup>
-		)
-	} else if (this.err) {
-		return(
-			<ListGroup>
-			<ListGroupItem tag="div">
-				{this.err}
-			</ListGroupItem>				
-			</ListGroup>)
-	} else if (this.json && this.json.length === 0) {
-		return(
-			<ListGroup>
-			<ListGroupItem tag="div">
-				Pas de donnée sur ce carreau. Choisissez une autre zone.
-			</ListGroupItem>				
-			</ListGroup>
+	const col = {
+		"A":"#c9302c", 
+		"E":"#ec971f", 
+		"G":"#449d44", 
+		"R":"#31b0d5", 
+		"I":"#dedede"
+	}
 
-		)
-	} else if (this.json) {
-		let {refIndic, setCompo} = this.props;
-		
-		const getKeys = ( obj ) => (
-		    Object.keys(obj).map(i => (obj[i]))
-		)
-		const mapKeys = ( obj ) => (
-			getKeys(obj).map(i => ({...i}))
-		)
-		
-		let ref = [];	
-		mapKeys(refIndic).filter((i3) => (i3.composante === setCompo)).map(i3 => (
-			ref.push(i3.id)))
+	let { error, loading, refIndic, setRef, setCompo, infos } = this.props;
+	if (loading) {
+		return <div className="loader"></div>
+	}
+
+    if (error) {
+    	return null
+    	// <div>Error! {error.message}</div>;
+    }
+
+    if (!infos || !setRef) {
+    	return null
+    } else {
+		let composition = (refIndic[setRef].composition);
+
+		if (!composition) {
+			return null
+		} else {
 
 		let indic = [];
-		Object.keys(this.json).map(key => {
-			if (ref.includes(key.toUpperCase())) indic.push(key)
+		Object.keys(infos).map(key => {
+			if (composition.includes(key.toUpperCase())) indic.push(key)
 		});
 		
 		let data = [];
 		indic.map(k => {
-			data.push([String(refIndic[k.toUpperCase()].nom), this.json[k]])
+			data.push(
+				{
+					name: String(refIndic[k.toUpperCase()].nom),
+					color: col[k.charAt(0).toUpperCase()],
+					y: infos[k]
+				}
+			)
 		});
 
-		let kv = data.concat().sort()
-
+		let kv = data.concat().sort();
 		let config = {
 			chart: {
 		        type: 'column'
 		    },
 		    title: {
-		        text: `Synthèse par maille`
+		        text: `Composition de l'indice`
 		    },
 		    subtitle: {
-		        text: ''
+		        text: `sur la maille <i>${infos["id_car"]}</i>`
 		    },
 		    xAxis: {
 		        type: 'category',
@@ -114,7 +100,7 @@ render(){
 		    },
 		    series: [{
 		        name: 'Indicateurs',
-		    	colorByPoint: true,
+		    	colorByPoint: false,
 		        data: kv,
 		        dataLabels: {
 		            enabled: true,
@@ -139,8 +125,8 @@ render(){
 			</ListGroup>
 
 		)
-	} else {
-		return(null)
-	}
+		}
+
+    }
 }
 }

@@ -1,5 +1,5 @@
 import React, { Component }  from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem , Button} from 'react-bootstrap';
 
 class MethodeBox extends Component {
 
@@ -34,7 +34,17 @@ render() {
 					Formule : {ref.methode}
 					<br/> 
 					<br/> 
-					Lien externe : <strong>{ref.service}</strong>
+					Fiche méthodologique : 
+						<Button 
+				        bsSize="xsmall"
+				        bsStyle="danger"  
+				        className="glyphicon glyphicon-save-file"
+				        disabled = {!ref.service}
+				        href={ref.service}>
+				        PDF</Button>
+
+
+					<strong>{ref.service}</strong>
 				</ListGroupItem>				
 			</ListGroup>
 		)
@@ -55,7 +65,14 @@ render() {
 					Nom : <strong>{ref.nom}</strong> ({code})
 					<br/> Composante : <strong>{compo[ref.composante]}</strong>
 					<br/> Description : <strong>{ref.description}</strong>
-					<br/> Lien externe : <strong>{ref.service}</strong>
+					<br/> Fiche méthodologique : 
+						<Button 
+				        bsSize="xsmall"
+				        bsStyle="danger"  
+				        className="glyphicon glyphicon-save-file"
+				        disabled = {!ref.service}
+				        href={ref.service}>
+				        PDF</Button>
 				</ListGroupItem>				
 			</ListGroup>
 		)
@@ -83,7 +100,14 @@ render() {
 					<br/> 
 					Formule : {ref.methode}
 					<br/> 
-					Lien externe : <strong>{ref.service}</strong>
+					Fiche méthodologique : 
+						<Button 
+				        bsSize="xsmall"
+				        bsStyle="danger"  
+				        className="glyphicon glyphicon-save-file"
+				        disabled = {!ref.service}
+				        href={ref.service}>
+				        PDF</Button>
 				</ListGroupItem>				
 			</ListGroup>
 		)

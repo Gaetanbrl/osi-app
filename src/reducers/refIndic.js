@@ -19,7 +19,7 @@ export default() => {
       methode: "Distance érodée par an par 100m linéaires",
       niveau: 2,
       acronyme: "ERO",
-      nom: "ERO",
+      nom: "Erosion",
       service: ""
     },
     A101: {
@@ -60,7 +60,7 @@ export default() => {
       methode: "Maximum des indicateurs (submersion et paquets de mer)",
       niveau: 2,
       acronyme: "SUB",
-      nom: "SUB",
+      nom: "Submersion",
       service: ""
     },
     A201: {
@@ -91,7 +91,7 @@ export default() => {
       methode: "",
       niveau: 2,
       acronyme: "MIGR",
-      nom: "MIGR",
+      nom: "Migration dunaire",
       service: ""
     },
     A301: {
@@ -123,7 +123,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "HUM",
-      nom: "HUM",
+      nom: "Humains",
       service: ""
     },
     E101: {
@@ -224,7 +224,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "ECO",
-      nom: "ECO",
+      nom: "Economiques",
       service: ""
     },
     E201: {
@@ -285,7 +285,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "STR",
-      nom: "STR",
+      nom: "Structurels",
       service: ""
     },
     E301: {
@@ -335,7 +335,7 @@ export default() => {
       niveau: 1,
       acronyme: "SECOUR",
       nom: "Secours",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/656/EN-SECOUR.pdf",
       thematique: "STR"
     },
     E306: {
@@ -367,7 +367,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "PRE",
-      nom: "PRE",
+      nom: "Prévention",
       service: ""
     },
     G101: {
@@ -488,7 +488,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "SEN",
-      nom: "SEN",
+      nom: "Sensibilisation",
       service: ""
     },
     G201: {
@@ -559,7 +559,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "CRI",
-      nom: "CRI",
+      nom: "Gestion de crise",
       service: ""
     },
     G301: {
@@ -611,7 +611,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "COAL",
-      nom: "COAL",
+      nom: "Conscience des aléas",
       service: ""
     },
     R101: {
@@ -692,7 +692,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "DISO",
-      nom: "DISO",
+      nom: "Dimension sociale",
       service: ""
     },
     R201: {
@@ -743,7 +743,7 @@ export default() => {
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "GEST",
-      nom: "GEST",
+      nom: "Perception de la gestion",
       service: ""
     }, 
     R301: {
