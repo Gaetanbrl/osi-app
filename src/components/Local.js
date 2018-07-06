@@ -120,7 +120,7 @@ class Local extends Component {
 				name: 'base',
 				opacity: 0.7,
 				source: new ol.source.XYZ({ 
-					url:'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+					url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
 					attributions: 'Tiles: Esri, HERE, Garmin, NGA, USGS'
 				}),
 		});

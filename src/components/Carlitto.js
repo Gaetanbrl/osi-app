@@ -28,7 +28,7 @@ class Carlitto extends Component {
 			opacity: 1,
 			source: new ol.source.XYZ({ 
 				name: 'base',
-				url:'http://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+				url:'https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 			}),
 		})
@@ -38,12 +38,12 @@ class Carlitto extends Component {
 			opacity: 1,
 			source: new ol.source.XYZ({
 				name: 'baseTopo',
-				url:'http://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
+				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
 			})
 		})
 
 		let carSource = new ol.source.ImageWMS({
-			url: 'http://portail.indigeo.fr/geoserver/TEST/wms',
+			url: 'https://portail.indigeo.fr/geoserver/TEST/wms',
 			params: {
 				LAYERS: 'osialltest',
 				STYLE: 'default'
@@ -253,7 +253,7 @@ class Carlitto extends Component {
 		if (setRef){
 
 			refLow = setRef.toLowerCase();
-			leg = `http://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
+			leg = `https://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
 				&VERSION=1.0.0&FORMAT=image/png
 				&WIDTH=12&HEIGHT=12
 				&LAYER=osialltest
