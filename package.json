@@ -1,6 +1,6 @@
 {
   "name": "plus",
-  "homepage": "https://www-iuem.univ-brest.fr/wapps/osi",
+  "homepage": "http://clapot.univ-brest.fr/html/osi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
