@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import Carlitto from '../components/Carlitto'
-import { setCar } from '../actions'
+import { setEpci, setCar, setComm } from '../actions'
 
-const mapStateToProps = state => ({	
+const mapStateToProps = state => ({
 	territoire: state.setTerritoire.comm,
 	setRef: state.setRef.ref,
 	infos: state.infoReducer.infos
@@ -10,6 +10,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
 	return {
+		onEpciClick: id => {
+			dispatch(setEpci(id))
+		},
+		onCommClick: id => {
+			dispatch(setComm(id))
+		},
 		onCarClick: key => {
 			dispatch(setCar(key))
 		}

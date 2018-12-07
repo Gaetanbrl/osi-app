@@ -12,7 +12,7 @@ class Carlitto extends Component {
   	baseTopo = null
 
   	commSource = null
-	commGeom = null
+  	commGeom = null
   	commLayer = null
 
   	selSource = null
@@ -21,12 +21,34 @@ class Carlitto extends Component {
 
   	url = null
 
+
+
+	clickHandler(event) {
+		let {onEpciClick} = this.props
+		let {onCommClick} = this.props
+
+		this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+			let nom = feature.get('nom')
+			let insee = feature.get('insee')
+			let siren = feature.get('siren_epci')
+			let geom = feature.getGeometry()
+
+			let epci = {siren: siren, nom: nom}
+			let comm = {insee: insee, nom: nom, geom: geom}
+
+			insee ? onCommClick(comm) : onEpciClick(epci)
+
+			this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
+			return true
+	  })
+	}
+
 	componentDidMount() {
 
-		this.base = new ol.layer.Tile({ 
+		this.base = new ol.layer.Tile({
 			name: 'base',
 			opacity: 1,
-			source: new ol.source.XYZ({ 
+			source: new ol.source.XYZ({
 				name: 'base',
 				url:'https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
@@ -60,7 +82,7 @@ class Carlitto extends Component {
 		})
 
 		this.commSource = new ol.source.Vector({
-		}) 
+		})
 
 		this.commLayer = new ol.layer.Vector({
 		source: this.commSource,
@@ -100,16 +122,43 @@ class Carlitto extends Component {
 		this.carMap = new ol.Map({
 			target: this.refs.map,
 			layers: [
-				this.base, 
+				this.base,
 				this.carLayer,
 				this.commLayer,
 				this.selLayer,
-				this.baseTopo
+				this.baseTopo,
+				new ol.layer.Vector({
+					source: new ol.source.Vector({
+						format: new ol.format.GeoJSON(),
+						url: 'epci3857.json'
+					}),
+					style: new ol.style.Style({
+						stroke: new ol.style.Stroke({
+							color: [100, 100, 100, 0.8],
+							width: 0.8
+						}),
+						fill: new ol.style.Fill({
+							color: [100, 100, 100, 0.4]
+						}),
+					}),
+					minResolution: 500,
+					maxResolution: 20000,
+					zIndex: 1
+				}),
+				new ol.layer.Vector({
+					source: new ol.source.Vector({
+						format: new ol.format.GeoJSON(),
+						url: 'comm3857.json'
+					}),
+					minResolution: 0,
+					maxResolution: 500,
+					zIndex: 10
+				}),
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
 				scaleLineControl
 			]),
-			interactions: ol.interaction.defaults({mouseWheelZoom:false}),
+			interactions: ol.interaction.defaults({mouseWheelZoom:true}),
 			view: view
 		});
 
@@ -137,7 +186,9 @@ class Carlitto extends Component {
 			if (this.url) onCarClick(this.url);
 		});
 
-		this.setState({ 
+		this.carMap.on('click', this.clickHandler, this);
+
+		this.setState({
 			carMap: this.carMap,
 			carLayer: this.carLayer
 		});
@@ -147,7 +198,7 @@ class Carlitto extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		let {territoire, setRef, infos, error} = this.props
    		let carLayer = this.state.carLayer
-		
+
 		let wmsStyle = null
 		let cqlFilter = null
 
@@ -165,12 +216,12 @@ class Carlitto extends Component {
 				STYLES: wmsStyle
 			})
 
-		} else { 
+		} else {
 			wmsStyle = null
 		}
 
 		if (prevProps.territoire !== territoire && !!territoire) {
-			
+
 			cqlFilter = `id_com=${territoire.insee}`
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter
@@ -185,14 +236,14 @@ class Carlitto extends Component {
 
 			let feat = this.commLayer.getSource().getFeatures()
 
-			if (feat.length > 0) { 
+			if (feat.length > 0) {
    				this.commSource.removeFeature(feat[0]);
 	   			this.commSource.addFeature(this.commGeom);
 			} else {
-				this.commSource.addFeature(this.commGeom);	
-			} 
+				this.commSource.addFeature(this.commGeom);
+			}
 
-		} else { 
+		} else {
 			cqlFilter = null
 		}
 
@@ -223,18 +274,18 @@ class Carlitto extends Component {
 
 
 			let oldSel = this.selLayer.getSource().getFeatures()
-			if (oldSel.length > 0) { 
+			if (oldSel.length > 0) {
 				this.selSource.removeFeature(oldSel[0]);
 	   			this.selSource.addFeature(this.selGeom);
 			} else {
-				this.selSource.addFeature(this.selGeom);	
-			} 
+				this.selSource.addFeature(this.selGeom);
+			}
 
 		}
 
 		if (error || !infos) {
 			let oldSel = this.selLayer.getSource().getFeatures()
-			if (oldSel.length > 0) { 
+			if (oldSel.length > 0) {
 				this.selSource.removeFeature(oldSel[0]);
 			}
 		}
@@ -262,7 +313,7 @@ class Carlitto extends Component {
 				&TRANSPARENT=true`;
 
 			img = <div id="legende"><img src={leg} alt="Légende"></img></div>
-		} 
+		}
 
 		return (
 				<section className="panel-map">
