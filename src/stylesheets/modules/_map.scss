@@ -53,6 +53,11 @@
     padding: 8px;
     .data-value {
       margin-bottom: 3px;
+      &.min {
+        div + div {
+          font-size: 16px;
+        }
+      }
     }
     .data-value-name { font-size: 20px; }
     .data-value-desc { font-size: 16px; }

@@ -29,11 +29,11 @@ render() {
 					<div className="data-value-name">{desc}</div>
           <div className="data-value">
   				  <div className="data-value-label">Composition</div>
-						<div>{composition}</div>
+						<ul>{composition}</ul>
 					</div>
-          <div className="data-value">
+          <div className="data-value min">
   				  <div className="data-value-label">Formule</div>
-  				  <div>{ref.methode}</div>
+  				  <div >{ref.methode}</div>
   				</div>
 					<Button
 		        bsSize="xsmall"
