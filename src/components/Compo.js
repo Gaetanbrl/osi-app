@@ -10,7 +10,7 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
-const bsCol = {"A":"danger", "E":"warning", "G":"success", "R":"info", "I":"default"}
+const bsCol = {"A":"indicator-menu aleas", "E":"indicator-menu enjeux", "G":"indicator-menu gestion", "R":"indicator-menu reprensation", "I":"default"}
 
 
 const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
@@ -18,15 +18,13 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
 	return(
 		<nav className="indicators-menu">
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
-			<div>
+			<div key = {i3.id} className={bsCol[i3.id]}>
 				<Button
-				key = {i3.id}
-				bsSize="large"
-				bsStyle={bsCol[i3.id]}
 				disabled={!territoire.comm}
 				block
 				onClick={() => onCompoClick(i3.id)}>
-					<strong>{ i3.description.toUpperCase()}</strong>
+					<span>{ i3.description.toUpperCase()}</span>
+					<i class="far fa-angle-right"></i>
 				</Button>
 				{i3.id === setCompo && (
 					<Tableau />

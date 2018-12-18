@@ -26,22 +26,22 @@ render() {
 			<div className="data-block" header="Méthode" tag="div">
 				<div className="data-block-title">Méthode</div>
 				<div className="data-block-container">
-					Description : <strong>{desc}</strong>
-					<br/>
-					<br/>
-					Composition : <ul><li>{composition}</li></ul>
-					<br/>
-					Formule : {ref.methode}
-					<br/>
-					<br/>
-					Fiche méthodologique :
-						<Button
-				        bsSize="xsmall"
-				        bsStyle="danger"
-				        className="glyphicon glyphicon-save-file"
-				        disabled = {!ref.service}
-				        href={ref.service}>
-				        PDF</Button>
+					<div className="data-value-name">{desc}</div>
+          <div className="data-value">
+  				  <div className="data-value-label">Composition</div>
+						<div>{composition}</div>
+					</div>
+          <div className="data-value">
+  				  <div className="data-value-label">Formule</div>
+  				  <div>{ref.methode}</div>
+  				</div>
+					<Button
+		        bsSize="xsmall"
+		        bsStyle="danger"
+		        className="glyphicon glyphicon-save-file"
+		        disabled = {!ref.service}
+		        href={ref.service}>
+		        PDF</Button>
 
 
 					<strong>{ref.service}</strong>

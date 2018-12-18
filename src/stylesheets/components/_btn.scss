@@ -1,3 +1,20 @@
+a, button {
+  // @extend %flexbox;
+  // @include align-items(center);
+  // background: none;
+  // border: none;
+  // border-radius: 0;
+  // text-decoration: none;
+  // color: $first-color;
+  // cursor: pointer;
+  // transition: all 0.2s ease;
+  // font-family: $font-family;
+  // position: relative;
+  &:focus {
+    outline: none;
+  }
+}
+
 .btn-pdf {
   @extend %flexbox;
   @include align-items(center);

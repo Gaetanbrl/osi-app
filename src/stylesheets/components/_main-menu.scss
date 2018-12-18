@@ -1,8 +1,69 @@
 nav#main-menu {
   @include flex(1);
+  overflow: auto;
   .btn {
     &[disabled] {
       display: none;
     }
   }
 }
+
+.indicator-menu {
+  border-radius: $global-radius;
+  margin-bottom: 6px;
+  &.aleas {
+    @include gradient-directional(
+      $deg: 160deg,
+      $start-color: $aleas-color-1,
+      $end-color: $aleas-color-2,
+      $start-percent: 15%,
+      $end-percent: 85%
+    );
+  }
+  &.enjeux {
+    @include gradient-directional(
+      $deg: 160deg,
+      $start-color: $enjeux-color-1,
+      $end-color: $enjeux-color-2,
+      $start-percent: 15%,
+      $end-percent: 85%
+    );
+  }
+  &.gestion {
+    @include gradient-directional(
+      $deg: 160deg,
+      $start-color: $gestion-color-1,
+      $end-color: $gestion-color-2,
+      $start-percent: 15%,
+      $end-percent: 85%
+    );
+  }
+  &.reprensation {
+    @include gradient-directional(
+      $deg: 160deg,
+      $start-color: $reprensation-color-1,
+      $end-color: $reprensation-color-2,
+      $start-percent: 15%,
+      $end-percent: 85%
+    );
+  }
+  .btn {
+    @extend %flexbox;
+    @include align-items(center);
+    @include justify-content(space-between);
+    background: none;
+    border: none;
+    color: #fff;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .panel {
+    background: none;
+    border: none;
+    padding: 6px;
+    margin: 0;
+    color: #fff;
+    box-shadow: none;
+  }
+}
+

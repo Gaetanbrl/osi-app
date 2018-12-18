@@ -2,7 +2,7 @@
   @extend %flexbox;
   @include flex-direction(column);
   @include flex(0 0 $sidebar-width);
-  padding: 18px 12px 6px;
+  padding: 0 12px;
   @include gradient-directional(
     $deg: 160deg,
     $start-color: $second-color,

@@ -22,7 +22,7 @@ render(){
 
 		<div>
 			{this.props.niveau2.map(i2 => (
-			<PanelGroup
+			<div
             id={i2.id}
             key={i2.id}
             activeKey={this.state.activeKey}
@@ -34,45 +34,38 @@ render(){
 				key={i2.nom}
 				bsStyle={bsCol[i2.composante]}>
 
-					<ListGroup>
+					<div>
 						<Panel.Title toggle>
-   						<ListGroupItem
-   						bsStyle={bsCol[i2.composante]}
-   						>
-
-   							<p className="pull-center"><strong >{ i2.description }</strong>
+   						<div bsStyle={bsCol[i2.composante]}>
+   							{ i2.description }
 					        <Button
 					        	onClick={() => this.props.onClick(i2.id)}
 				        		className="pull-right"
 					        	bsStyle={bsCol[i2.composante]}
-								disabled= {this.props.ableList.includes(i2.id)}
+								    disabled= {this.props.ableList.includes(i2.id)}
 					        	>
-						        <Glyphicon
-						        	glyph="chevron-right"
-					        	/>
+						        <Glyphicon glyph="chevron-right"/>
 					        </Button>
-   							</p>
-
-                        </ListGroupItem>
+              </div>
 						</Panel.Title>
 
 					{this.props.niveau1.filter((i1) => (i1.thematique === i2.acronyme)).map(i1 => (
    						 <Panel.Body key={i1.nom} collapsible>
-	   						<ListGroupItem
+	   						<div
 							bsStyle={bsCol[i1.composante]}
 							onClick={() => this.props.onClick(i1.id)}
 							disabled= {!this.props.ableList.includes(i1.id)}
 							>
 
-								<strong>{i1.nom}</strong><br/>
+								{i1.nom}
 								<small>{i1.description}</small>
 
-                            </ListGroupItem>
+                            </div>
 						</Panel.Body>
 					))}
-					</ListGroup>
+					</div>
 				</Panel>
-			</PanelGroup>
+			</div>
 				))}
 		</div>
 	)
