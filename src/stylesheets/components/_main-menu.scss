@@ -1,6 +1,26 @@
 nav#main-menu {
   @include flex(1);
+  margin-right: 6px;
+  padding: 0 4px 12px 12px;
   overflow: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(#000,.2);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background: rgba(#fff,1);
+    &:hover {
+      background: rgba(#fff,1);
+      cursor: pointer;
+    }
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
   .btn {
     &[disabled] {
       display: none;
@@ -56,14 +76,64 @@ nav#main-menu {
     color: #fff;
     border-radius: 0;
     box-shadow: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 6px 12px;
+    &.active {
+      background: rgba(0,0,0,.2);
+    }
   }
-  .panel {
-    background: none;
-    border: none;
-    padding: 6px;
-    margin: 0;
-    color: #fff;
-    box-shadow: none;
+  .submenu {
+    padding: 6px 12px;
+    .panel {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: #fff;
+      box-shadow: none;
+      .panel-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 6px;
+        a {
+          @extend %flexbox;
+          @include align-items(center);
+          @include justify-content(space-between);
+          text-decoration: none;
+          &:hover {
+            text-decoration: none;
+          }
+          button {
+            display: none;
+          }
+        }
+      }
+      .panel-list {
+        margin-bottom: 6px;
+        .panel-body {
+          padding: 0;
+        }
+        .submenu-link {
+          border-left: 3px solid rgba(#fff,.2);
+          padding: 2px 10px;
+          font-size: 16px;
+          font-weight: 400;
+          cursor: pointer;
+          &:hover, &.active {
+            background-color: rgba(#000, .2);
+            border-left: 3px solid #fff;
+          }
+          &[disabled] {
+            color: rgba(#fff, .4);
+            background-color: transparent;
+            border-left: 3px solid rgba(#fff,.2);
+            cursor: default;
+          }
+        }
+      }
+    }
   }
+
 }
 

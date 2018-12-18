@@ -11,7 +11,7 @@ a, button {
   // font-family: $font-family;
   // position: relative;
   &:focus {
-    outline: none;
+    outline: none !important;
   }
 }
 
