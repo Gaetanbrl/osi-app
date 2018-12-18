@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap';
+import { Row, div } from 'react-bootstrap';
 
 import MethodeBox from './MethodeBox'
 import DataBox from './DataBox'
@@ -12,31 +12,24 @@ if (refIndic[setRef]) {
 
 	if (ref.niveau > 1 || ref.composante === "IT") {
 		return(
-				<Row>
-					<Col md={6}>
-						<MethodeBox
-						refIndic = {refIndic}
-						setRef = {setRef}
-						territoire = {territoire}/>
-					</Col>
-				</Row>
-			)
-	} else {
-		return(
-			<Row>
-				<Col md={6}>
+				<div className="data-container">
 					<MethodeBox
 					refIndic = {refIndic}
 					setRef = {setRef}
 					territoire = {territoire}/>
-				</Col>
-
-				<Col md={6}>
-					<DataBox
-					setRef = {setRef}
-					territoire = {territoire}/>
-				</Col>
-			</Row>
+				</div>
+			)
+	} else {
+		return(
+			<div class="data-container">
+				<MethodeBox
+				refIndic = {refIndic}
+				setRef = {setRef}
+				territoire = {territoire}/>
+				<DataBox
+				setRef = {setRef}
+				territoire = {territoire}/>
+			</div>
 		)
 	}
 } else {

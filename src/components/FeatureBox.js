@@ -121,11 +121,11 @@ render(){
 		}
 
 		return(
-			<ListGroup>
+			<div className="charts-container">
 			<ListGroupItem tag="div">
 				<Highcharts config={ config }></Highcharts>
 			</ListGroupItem>
-			</ListGroup>
+			</div>
 
 		)
 		}

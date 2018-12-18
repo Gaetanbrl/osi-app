@@ -30,8 +30,8 @@ render(){
             onSelect={this.handleSelect}>
 
 				<Panel
-				eventKey={i2.nom}			 
-				key={i2.nom}			 
+				eventKey={i2.nom}
+				key={i2.nom}
 				bsStyle={bsCol[i2.composante]}>
 
 					<ListGroup>
@@ -41,14 +41,14 @@ render(){
    						>
 
    							<p className="pull-center"><strong >{ i2.description }</strong>
-					        <Button 
+					        <Button
 					        	onClick={() => this.props.onClick(i2.id)}
-				        		className="pull-right" 
+				        		className="pull-right"
 					        	bsStyle={bsCol[i2.composante]}
 								disabled= {this.props.ableList.includes(i2.id)}
 					        	>
-						        <Glyphicon 
-						        	glyph="chevron-right" 
+						        <Glyphicon
+						        	glyph="chevron-right"
 					        	/>
 					        </Button>
    							</p>
@@ -66,7 +66,7 @@ render(){
 
 								<strong>{i1.nom}</strong><br/>
 								<small>{i1.description}</small>
-							
+
                             </ListGroupItem>
 						</Panel.Body>
 					))}

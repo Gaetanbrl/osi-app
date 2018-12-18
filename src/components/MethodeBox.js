@@ -23,9 +23,9 @@ render() {
 
 		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
 		return(
-			<ListGroup>
-
-				<ListGroupItem header="Méthode" tag="div">
+			<div className="data-block" header="Méthode" tag="div">
+				<div className="data-block-title">Méthode</div>
+				<div className="data-block-container">
 					Description : <strong>{desc}</strong>
 					<br/>
 					<br/>
@@ -45,8 +45,8 @@ render() {
 
 
 					<strong>{ref.service}</strong>
-				</ListGroupItem>
-			</ListGroup>
+				</div>
+			</div>
 		)
 	} else if(setRef
 	&& territoire.comm
@@ -59,22 +59,20 @@ render() {
 				: (ref.composante + "-" + ref.thematique + "-" + ref.acronyme);
 
 		return(
-			<ListGroup>
-
-				<ListGroupItem header="Méthode" tag="div">
-					Nom : <strong>{ref.nom}</strong> ({code})
-					<br/> Composante : <strong>{compo[ref.composante]}</strong>
-					<br/> Description : <strong>{ref.description}</strong>
-					<br/> Fiche méthodologique :
+			<div className="data-block" header="Méthode" tag="div">
+				<div className="data-block-title">Méthode</div>
+				<div className="data-block-container">
+					<div className="data-value data-value-name">{ref.nom} ({code})</div>
+					<div className="data-value data-value-desc">{ref.description}</div>
 						<Button
-				        bsSize="xsmall"
-				        bsStyle="danger"
-				        className="glyphicon glyphicon-save-file"
-				        disabled = {!ref.service}
-				        href={ref.service}>
-				        PDF</Button>
-				</ListGroupItem>
-			</ListGroup>
+			        className="btn-pdf"
+			        disabled = {!ref.service}
+			        href={ref.service}>
+			        <i class="far fa-file-pdf"></i>
+			        <span>Fiche méthodologique</span>
+				    </Button>
+				</div>
+			</div>
 		)
 
 	} else if(setRef
@@ -87,9 +85,9 @@ render() {
 			return composition.push(<li>{refIndic[c].nom}</li>)
 		})
 		return(
-			<ListGroup>
-
-				<ListGroupItem header="Méthode" tag="div">
+			<div className="data-block" header="Méthode" tag="div">
+				<div className="data-block-title">Méthode</div>
+				<div className="data-block-container">
 					Nom : <strong>{ref.nom}</strong> ({code})
 					<br/>
 					Description : <strong>{ref.description}</strong>
@@ -108,8 +106,8 @@ render() {
 				        disabled = {!ref.service}
 				        href={ref.service}>
 				        PDF</Button>
-				</ListGroupItem>
-			</ListGroup>
+				</div>
+			</div>
 		)
 	} else {
 		return(null)

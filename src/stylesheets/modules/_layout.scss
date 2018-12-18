@@ -1,4 +1,4 @@
-body, #root, #layout {
+body, #root, #layout, #map-container {
   min-height: 100vh;
   max-height: 100vh;
 }
@@ -8,8 +8,14 @@ body, #root, #layout {
   main {
     @extend %flexbox;
     @include flex(1);
-    .map-container {
+    // @include align-items(flex-start);
+    // #sidebar {
+    //   position: relative;
+    //   z-index: 1;
+    // }
+    #map-container {
       @include flex(1);
+      // margin-left: -$sidebar-width;
     }
   }
 }
@@ -21,3 +27,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $first-txt-color;
 }
+

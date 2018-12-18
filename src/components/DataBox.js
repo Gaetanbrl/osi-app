@@ -6,7 +6,7 @@ import meta_com from '../data/meta_com.json';
 class DataBox extends Component {
 
 render() {
-	
+
 	let {setRef, territoire} = this.props
 
 	let yyyy = new Date().getFullYear()
@@ -32,14 +32,14 @@ render() {
         "q3": 0,
         "d9": 0
 		}
-	if(setRef 
-	// && String(setRef).substring(0, 1) !== "I" 
+	if(setRef
+	// && String(setRef).substring(0, 1) !== "I"
 	&& territoire.comm){
-		
+
 		meta_com.map(c => (
-			c.id_com === String(territoire.comm.insee) ? m = c.stats : null 
+			c.id_com === String(territoire.comm.insee) ? m = c.stats : null
 		));
-		
+
 		m.map(i => (
 			i.id_meta === String(setRef) ? s = i : null
 		));
@@ -64,22 +64,26 @@ render() {
 		}
 
 		return(
-			<ListGroup>
-				<ListGroupItem header="Métadonnées" tag="div">
-					Auteur(s) : <strong>{s.auteurs}</strong>
-					<br/> Source(s) : <strong>{s.sources}</strong>
-					<br/> Livraison(s) : <strong>{s.dates.join(", ")}</strong> 
-					
-					<br/><br/> <strong>{recom}</strong>
-					{
-					// eslint-disable-next-line
-					}<ProgressBar striped bsStyle={prog} now={obso} label={`${Math.abs(sobso)} année(s)`}/>
-				</ListGroupItem>
-			</ListGroup>
-
+			<div className="data-block" header="Métadonnées" tag="div">
+        <div className="data-block-title">Métadonnées</div>
+        <div className="data-block-container">
+          <div className="data-value">
+  				  <div className="data-value-label">Auteur(s)</div>
+            <div>{s.auteurs}</div>
+          </div>
+          <div className="data-value">
+            <div className="data-value-label">Source(s)</div>
+            <div>{s.sources}</div>
+          </div>
+          <div className="data-value">
+  				  <div className="data-value-label">Livraison(s)</div>
+            <div>{s.dates.join(", ")} {recom}</div>
+          </div>
+        </div>
+			</div>
 		)
 	} else {
-		return(null)		
+		return(null)
 	}
 }
 }

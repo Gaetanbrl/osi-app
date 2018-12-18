@@ -14,13 +14,15 @@ const App = () => (
   <div id="layout">
     <main>
       <section id="sidebar">
-        <div id="sidebar-logo"></div>
-        <Titre />
-        <nav className="main-menu">
+        <div id="sidebar-header">
+          <div id="sidebar-logo"></div>
+          <Titre />
+        </div>
+        <nav id="main-menu">
       	  <Systemic />
         </nav>
       </section>
-      <section className="map-container">
+      <section id="map-container">
     		<Carto />
     		<Feature />
     		<Slide />

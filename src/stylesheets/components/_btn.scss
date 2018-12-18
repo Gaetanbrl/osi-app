@@ -1,0 +1,13 @@
+.btn-pdf {
+  @extend %flexbox;
+  @include align-items(center);
+  @include justify-content(center);
+  width: 100%;
+  color: #fff;
+  border: none;
+  border-radius: $global-radius;
+  background-color: $second-color !important;
+  &[disabled] {
+    display: none !important;
+  }
+}

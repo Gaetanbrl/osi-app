@@ -1,4 +1,4 @@
-nav.main-menu {
+nav#main-menu {
   @include flex(1);
   .btn {
     &[disabled] {
