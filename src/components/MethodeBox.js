@@ -1,5 +1,5 @@
 import React, { Component }  from 'react'
-import { ListGroup, ListGroupItem , Button} from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 
 class MethodeBox extends Component {
 

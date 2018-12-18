@@ -1,5 +1,4 @@
 import React, { Component }  from 'react';
-import { ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 
 import meta_com from '../data/meta_com.json';
 
@@ -10,9 +9,7 @@ render() {
 	let {setRef, territoire} = this.props
 
 	let yyyy = new Date().getFullYear()
-	let obso = 0
 	let sobso = 0
-	let prog = 0
 	let recom = ""
 
 	let m = null
@@ -44,23 +41,17 @@ render() {
 			i.id_meta === String(setRef) ? s = i : null
 		));
 
-		obso = (Math.abs(s.date_obso - yyyy) * 20);
 
 		(s.dates.length === 0) ? (sobso = 0) : (sobso = s.date_obso - yyyy);
 
 		if (sobso > 1) {
-			prog = "success";
 			recom = "A jour pendant :";
 		} else if (sobso >= 0 && s.dates.length > 0) {
-			prog = "warning";
 			recom = "A remettre à jour dans :";
 		} else if (sobso < 0 && s.dates.length > 0) {
-			prog = "danger";
 			recom = "Donnée dépassée depuis :";
 		} else {
-			prog = "danger";
 			recom = "Donnée indisponible";
-			obso = 0;
 		}
 
 		return(

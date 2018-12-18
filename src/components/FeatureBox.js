@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'react-bootstrap';
 import Highcharts from 'react-highcharts';
 
 export default class FeatureBox extends Component{

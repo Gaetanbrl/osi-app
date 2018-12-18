@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, div } from 'react-bootstrap';
+import { div } from 'react-bootstrap';
 
 import MethodeBox from './MethodeBox'
 import DataBox from './DataBox'
