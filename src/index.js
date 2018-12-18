@@ -9,9 +9,10 @@ import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import './stylesheets/app.scss';
 
 const store = createStore(
-	rootReducer 
+	rootReducer
 	, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     , applyMiddleware(thunk)
 );

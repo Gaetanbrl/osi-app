@@ -1,0 +1,21 @@
+.map-wrapper, .map {
+  height: 100%;
+}
+
+.map-wrapper {
+  position: relative;
+}
+
+#map-caption {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 50px;
+  height: 142px;
+  z-index: 10000;
+  overflow: hidden;
+  img {
+    position: absolute;
+    top: -32px;
+  }
+}

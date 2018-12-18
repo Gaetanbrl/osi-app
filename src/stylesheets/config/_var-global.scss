@@ -1,0 +1,39 @@
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+// Global
+$global-radius: 3px;
+$global-padding: 20px;
+$global-weight: 500;
+
+// General
+$first-color: #155e79;
+$second-color: #121e2c;
+$third-color: #de3c30;
+
+// Text
+$first-txt-color: #000;
+$second-txt-color: #fff;
+
+.full-width {width: 100%;}
+.full-height {
+  height: 100%;
+  .flex-0 { @include flex(0); }
+}
+
+.sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
 
 import Carto from './containers/Carto';
 import Feature from './containers/Feature';
@@ -17,32 +16,23 @@ import Jumbo from './components/Jumbo';
 
 
 const App = () => (
-  <div>
-    <Jumbo />
-	<Grid fluid>
-		<Row>
-		    <Systemic />
-		    <br/>
-		</Row>
-
-		<Row>
-			<Col md={3}>
-			    <Territoire /> 
-				<Liste />
-				<Tableau />
-			</Col>
-		
-			<Col md={9}>
-				<Titre />
-				<Carto />
-				<Feature />
-				<Slide />
-				<Meta />
-			</Col>
-			
-		</Row>
-		
-	</Grid>
+  <div id="layout">
+    <main>
+      <section id="sidebar">
+        <div id="sidebar-logo"></div>
+        <Titre />
+        <nav className="main-menu">
+      	  <Systemic />
+      	  <Tableau />
+        </nav>
+      </section>
+      <section className="map-container">
+    		<Carto />
+    		<Feature />
+    		<Slide />
+    		<Meta />
+      </section>
+    </main>
     <Footer />
   </div>
 )

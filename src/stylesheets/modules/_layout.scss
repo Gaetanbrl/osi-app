@@ -1,0 +1,23 @@
+body, #root, #layout {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+#layout {
+  @extend %flexbox;
+  @include flex-direction(column);
+  main {
+    @extend %flexbox;
+    @include flex(1);
+    .map-container {
+      @include flex(1);
+    }
+  }
+}
+
+
+body {
+  font-family: 'Oswald', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $first-txt-color;
+}

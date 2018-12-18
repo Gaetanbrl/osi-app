@@ -14,21 +14,19 @@ const bsCol = {"A":"danger", "E":"warning", "G":"success", "R":"info", "I":"defa
 const Compo = ({refIndic, onCompoClick, territoire}) => {
 
 	return(
-		<Row>
+		<nav class="indicators-menu">
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
-			<Col key = {i3.id} className="col-md-5ths">
-			<Button 
+			<Button
 			key = {i3.id}
-			bsSize="large" 
+			bsSize="large"
 			bsStyle={bsCol[i3.id]}
 			disabled={!territoire.comm}
 			block
 			onClick={() => onCompoClick(i3.id)}>
 				<strong>{ i3.description.toUpperCase()}</strong>
 			</Button>
-			</Col>
 		))}
-		</Row>
+		</nav>
 	)
 }
 
