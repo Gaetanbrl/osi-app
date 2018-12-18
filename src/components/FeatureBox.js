@@ -22,14 +22,14 @@ componentDidUpdate(prevProps) {
 render(){
 
 	const col = {
-		"A":"#c9302c", 
-		"E":"#ec971f", 
-		"G":"#449d44", 
-		"R":"#31b0d5", 
+		"A":"#c9302c",
+		"E":"#ec971f",
+		"G":"#449d44",
+		"R":"#31b0d5",
 		"I":"#dedede"
 	}
 
-	let { error, loading, refIndic, setRef, setCompo, infos } = this.props;
+	let { error, loading, refIndic, setRef, infos } = this.props;
 	if (loading) {
 		return <div className="loader"></div>
 	}
@@ -50,12 +50,15 @@ render(){
 
 		let indic = [];
 		Object.keys(infos).map(key => {
-			if (composition.includes(key.toUpperCase())) indic.push(key)
+			if (composition.includes(key.toUpperCase())) {
+				return indic.push(key);
+			}
+			return null;
 		});
-		
+
 		let data = [];
 		indic.map(k => {
-			data.push(
+			return data.push(
 				{
 					name: String(refIndic[k.toUpperCase()].nom),
 					color: col[k.charAt(0).toUpperCase()],
@@ -119,9 +122,9 @@ render(){
 
 		return(
 			<ListGroup>
-			<ListGroupItem tag="div">				
+			<ListGroupItem tag="div">
 				<Highcharts config={ config }></Highcharts>
-			</ListGroupItem>				
+			</ListGroupItem>
 			</ListGroup>
 
 		)

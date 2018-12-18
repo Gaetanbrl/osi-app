@@ -10,15 +10,15 @@ render() {
 	let code = "";
 	let compo = {"AL":"Aléas", "EN":"Enjeux", "GE":"Gestion", "RE":"Représentation", "IT":"Indices composites"};
 
-	if(setRef 
+	if(setRef
 	&& territoire.comm
 	&& refIndic[setRef].niveau > 1){
 
-			
+
 		ref = refIndic[setRef];
 		let composition = [];
 		ref.composition.map(c => {
-			composition.push(<li>{refIndic[c].description}</li>)
+			return composition.push(<li>{refIndic[c].description}</li>)
 		})
 
 		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
@@ -27,17 +27,17 @@ render() {
 
 				<ListGroupItem header="Méthode" tag="div">
 					Description : <strong>{desc}</strong>
-					<br/> 
-					<br/> 
+					<br/>
+					<br/>
 					Composition : <ul><li>{composition}</li></ul>
-					<br/> 
+					<br/>
 					Formule : {ref.methode}
-					<br/> 
-					<br/> 
-					Fiche méthodologique : 
-						<Button 
+					<br/>
+					<br/>
+					Fiche méthodologique :
+						<Button
 				        bsSize="xsmall"
-				        bsStyle="danger"  
+				        bsStyle="danger"
 				        className="glyphicon glyphicon-save-file"
 				        disabled = {!ref.service}
 				        href={ref.service}>
@@ -45,19 +45,19 @@ render() {
 
 
 					<strong>{ref.service}</strong>
-				</ListGroupItem>				
+				</ListGroupItem>
 			</ListGroup>
 		)
-	} else if(setRef 
+	} else if(setRef
 	&& territoire.comm
 	&& refIndic[setRef].composante !== "IT"){
 
 		ref = refIndic[setRef];
-		
+
 		code =  (ref.niveau === 3) ? ref.acronyme
 				: !ref.thematique ? (ref.composante + "-" + ref.acronyme)
 				: (ref.composante + "-" + ref.thematique + "-" + ref.acronyme);
-	
+
 		return(
 			<ListGroup>
 
@@ -65,54 +65,54 @@ render() {
 					Nom : <strong>{ref.nom}</strong> ({code})
 					<br/> Composante : <strong>{compo[ref.composante]}</strong>
 					<br/> Description : <strong>{ref.description}</strong>
-					<br/> Fiche méthodologique : 
-						<Button 
+					<br/> Fiche méthodologique :
+						<Button
 				        bsSize="xsmall"
-				        bsStyle="danger"  
+				        bsStyle="danger"
 				        className="glyphicon glyphicon-save-file"
 				        disabled = {!ref.service}
 				        href={ref.service}>
 				        PDF</Button>
-				</ListGroupItem>				
+				</ListGroupItem>
 			</ListGroup>
 		)
 
-	} else if(setRef 
+	} else if(setRef
 	&& territoire.comm
 	&& refIndic[setRef].composante === "IT"){
 
 		ref = refIndic[setRef];
 		let composition = [];
 		ref.composition.map(c => {
-			composition.push(<li>{refIndic[c].nom}</li>)
+			return composition.push(<li>{refIndic[c].nom}</li>)
 		})
 		return(
 			<ListGroup>
 
 				<ListGroupItem header="Méthode" tag="div">
 					Nom : <strong>{ref.nom}</strong> ({code})
-					<br/> 
+					<br/>
 					Description : <strong>{ref.description}</strong>
-					<br/> 
-					<br/> 
+					<br/>
+					<br/>
 					Composition : <ul><li>{composition}</li></ul>
-					<br/> 
-					<br/> 
+					<br/>
+					<br/>
 					Formule : {ref.methode}
-					<br/> 
-					Fiche méthodologique : 
-						<Button 
+					<br/>
+					Fiche méthodologique :
+						<Button
 				        bsSize="xsmall"
-				        bsStyle="danger"  
+				        bsStyle="danger"
 				        className="glyphicon glyphicon-save-file"
 				        disabled = {!ref.service}
 				        href={ref.service}>
 				        PDF</Button>
-				</ListGroupItem>				
+				</ListGroupItem>
 			</ListGroup>
 		)
 	} else {
-		return(null)		
+		return(null)
 	}
 }
 }

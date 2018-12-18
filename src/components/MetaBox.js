@@ -6,7 +6,7 @@ import DataBox from './DataBox'
 
 
 const MetaBox = ({ setRef, refIndic, territoire }) => {
-	
+
 if (refIndic[setRef]) {
 	let ref = refIndic[setRef];
 
@@ -14,18 +14,18 @@ if (refIndic[setRef]) {
 		return(
 				<Row>
 					<Col md={6}>
-						<MethodeBox 
+						<MethodeBox
 						refIndic = {refIndic}
 						setRef = {setRef}
 						territoire = {territoire}/>
 					</Col>
-				</Row>		
+				</Row>
 			)
 	} else {
 		return(
 			<Row>
 				<Col md={6}>
-					<MethodeBox 
+					<MethodeBox
 					refIndic = {refIndic}
 					setRef = {setRef}
 					territoire = {territoire}/>
@@ -38,7 +38,7 @@ if (refIndic[setRef]) {
 				</Col>
 			</Row>
 		)
-	} 
+	}
 } else {
 	return null
 }
