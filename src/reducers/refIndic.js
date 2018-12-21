@@ -133,7 +133,7 @@ export default() => {
       niveau: 1,
       acronyme: "POP",
       nom: "Population",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/669/E101_ENHUMPOP.pdf",
       thematique: "HUM"
     },
     E102: {
@@ -143,7 +143,7 @@ export default() => {
       niveau: 1,
       acronyme: "BATI",
       nom: "Logements",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/670/E102_ENHUMBATI.pdf",
       thematique: "HUM"
     },
     E103: {
@@ -153,7 +153,7 @@ export default() => {
       niveau: 1,
       acronyme: "ERP",
       nom: "Capacité d'accueil",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/671/E103_ENHUMERP.pdf",
       thematique: "HUM"
     },
     E104: {
@@ -173,7 +173,7 @@ export default() => {
       niveau: 1,
       acronyme: "PERVUL-PCT",
       nom: "Population vulnérable (%)",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/672/E105_ENHUMPERVUL.pdf",
       thematique: "HUM"
     },
     E106: {
@@ -193,7 +193,7 @@ export default() => {
       niveau: 1,
       acronyme: "BAREV-PCT",
       nom: "Population pauvre (%)",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/673/E107_ENHUMBAREV.pdf",
       thematique: "HUM"
     },
     E108: {
@@ -203,7 +203,7 @@ export default() => {
       niveau: 1,
       acronyme: "SECOND",
       nom: "Population temporaire",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/668/E108_ENHUMSECOND.pdf",
       thematique: "HUM"
     },
     E109: {
@@ -213,7 +213,7 @@ export default() => {
       niveau: 1,
       acronyme: "TOURIST",
       nom: "Tourisme",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/674/E109_ENHUMTOURIS.pdf",
       thematique: "HUM"
     },
     E2: {
@@ -234,7 +234,7 @@ export default() => {
       niveau: 1,
       acronyme: "TRAV",
       nom: "Emploi",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/675/E201_ENECOTRAV.pdf",
       thematique: "ECO"
     },
     E202: {
@@ -274,14 +274,14 @@ export default() => {
       niveau: 1,
       acronyme: "AGRI",
       nom: "Agriculture",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/676/E205_ENECOAGRI.pdf",
       thematique: "ECO"
     },
     E3: {
       id: "E3",
       composante: "EN",
       description: "Structurels",
-      composition: [ "E301", "E302", "E303", "E304", "E305", "E306" ],  
+      composition: [ "E301", "E302", "E303", "E304", "E305"],  
       methode: "Maximum des indicateurs",
       niveau: 2,
       acronyme: "STR",
@@ -295,7 +295,7 @@ export default() => {
       niveau: 1,
       acronyme: "INDRISQ",
       nom: "Suraccident",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/677/E301_ENSTRINDRISQ.pdf",
       thematique: "STR"
     },
     E302: {
@@ -315,7 +315,7 @@ export default() => {
       niveau: 1,
       acronyme: "DIG",
       nom: "Artificialisation",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/698/E303_ENSTRDIG.pdf",
       thematique: "STR"
     },
     E304: {
@@ -335,7 +335,7 @@ export default() => {
       niveau: 1,
       acronyme: "SECOUR",
       nom: "Secours",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/656/EN-SECOUR.pdf",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/678/EN-SECOUR.pdf",
       thematique: "STR"
     },
     E306: {
@@ -345,7 +345,7 @@ export default() => {
       niveau: 1,
       acronyme: "PATRIM",
       nom: "Patrimoine culturel",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/699/E306_ENPATPATRIM.pdf",
       thematique: "STR"
     },
     G: {
@@ -377,7 +377,7 @@ export default() => {
       niveau: 1,
       acronyme: "URBA",
       nom: "Urbanisme",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/697/Urba_G101.pdf",
       thematique: "PRE"
     },
     G102: {
@@ -387,7 +387,7 @@ export default() => {
       niveau: 1,
       acronyme: "PPRL",
       nom: "PPRL",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/693/PPRL_G102.pdf",
       thematique: "PRE"
     },
     G103: {
@@ -397,7 +397,7 @@ export default() => {
       niveau: 1,
       acronyme: "GEMAPI1",
       nom: "Compétence GEMAPI",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/687/GEMAPI_G103.pdf",
       thematique: "PRE"
     },
     G104: {
@@ -407,7 +407,7 @@ export default() => {
       niveau: 1,
       acronyme: "GEMAPI2",
       nom: "Etat des ouvrages",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/700/OUV_GEMAPI2_G104.pdf",
       thematique: "PRE"
     },
     G105: {
@@ -417,7 +417,7 @@ export default() => {
       niveau: 1,
       acronyme: "HUM",
       nom: "Investissement humain",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/682/CapHum_G105.pdf",
       thematique: "PRE"
     },
     G106: {
@@ -427,7 +427,7 @@ export default() => {
       niveau: 1,
       acronyme: "STRATE",
       nom: "Démarche locale",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/696/Strate_G106.pdf",
       thematique: "PRE"
     },
     G107: {
@@ -437,7 +437,7 @@ export default() => {
       niveau: 1,
       acronyme: "ACTEUR",
       nom: "Intégration des acteurs",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/688/IntActDem_G107.pdf",
       thematique: "PRE"
     },
     G108: {
@@ -457,7 +457,7 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI1",
       nom: "Actions",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/679/ActPAPI1_G109.pdf",
       thematique: "PRE"
     },
     G110: {
@@ -467,7 +467,7 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI2",
       nom: "Mise en œuvre",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/690/MeOPAPI2_G110.pdf",
       thematique: "PRE"
     },
     G111: {
@@ -477,7 +477,7 @@ export default() => {
       niveau: 1,
       acronyme: "RELOC",
       nom: "Stratégie locale",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/694/Reloc_G111.pdf",
       thematique: "PRE"
     },
     G2: {
@@ -498,7 +498,7 @@ export default() => {
       niveau: 1,
       acronyme: "SCOL",
       nom: "Scolaires",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/686/EvetScol_G201.pdf",
       thematique: "SEN"
     },
     G202: {
@@ -508,7 +508,7 @@ export default() => {
       niveau: 1,
       acronyme: "ASSO",
       nom: "Association",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/681/Asso_G202.pdf",
       thematique: "SEN"
     },
     G203: {
@@ -518,7 +518,7 @@ export default() => {
       niveau: 1,
       acronyme: "PUBLI",
       nom: "Publications scientifiques",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/692/PblSci_G203.pdf",
       thematique: "SEN"
     },
     G204: {
@@ -528,7 +528,7 @@ export default() => {
       niveau: 1,
       acronyme: "REP",
       nom: "Repères",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/695/Rep_G204.pdf",
       thematique: "SEN"
     },
     G205: {
@@ -538,7 +538,7 @@ export default() => {
       niveau: 1,
       acronyme: "DICRIM1",
       nom: "Diffusion",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/684/DICRIM1_G205.pdf",
       thematique: "SEN"
     },
     G206: {
@@ -548,7 +548,7 @@ export default() => {
       niveau: 1,
       acronyme: "DICRIM2",
       nom: "Pédagogie",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/685/DICRIM2_G206.pdf",
       thematique: "SEN"
     },
     G3: {
@@ -569,7 +569,7 @@ export default() => {
       niveau: 1,
       acronyme: "ALERTE",
       nom: "Alerte",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/680/Alerte_G301.pdf",
       thematique: "CRI"
     },
     G302: {
@@ -579,7 +579,7 @@ export default() => {
       niveau: 1,
       acronyme: "SDIS",
       nom: "Intégration",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/689/IntSDIS_G302.pdf",
       thematique: "CRI"
     },
     G303: {
@@ -589,7 +589,7 @@ export default() => {
       niveau: 1,
       acronyme: "PCS",
       nom: "Plan Communal de Sauvegarde",
-      service: "",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/691/MJ_PCS_G303.pdf",
       thematique: "CRI"
     },
     R: {

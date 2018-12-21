@@ -65,9 +65,9 @@ class Carlitto extends Component {
 		})
 
 		let carSource = new ol.source.ImageWMS({
-			url: 'https://portail.indigeo.fr/geoserver/TEST/wms',
+			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
-				LAYERS: 'osialltest',
+				LAYERS: 'osi',
 				STYLE: 'default'
 			},
 			serverType: 'geoserver',
@@ -303,10 +303,10 @@ class Carlitto extends Component {
 		if (setRef){
 
 			refLow = setRef.toLowerCase();
-			leg = `https://portail.indigeo.fr/geoserver/TEST/wms?Service=WMS&REQUEST=GetLegendGraphic
+			leg = `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 				&VERSION=1.0.0&FORMAT=image/png
 				&WIDTH=12&HEIGHT=12
-				&LAYER=osialltest
+				&LAYER=osi
 				&STYLE=${refLow}
 				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
 				&TRANSPARENT=true`;
