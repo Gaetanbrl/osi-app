@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, } from 'react-bootstrap';
+import { Panel, PanelGroup, Button, } from 'react-bootstrap';
 
 export default class Indic extends Component{
 constructor(props){
@@ -22,7 +22,7 @@ render(){
 
 		<div className="submenu">
 			{this.props.niveau2.map(i2 => (
-			<div
+			<PanelGroup
         id={i2.id}
         key={i2.id}
         activeKey={this.state.activeKey}
@@ -34,14 +34,14 @@ render(){
   				bsStyle={bsCol[i2.composante]}>
 					<Panel.Title toggle>
       			{ i2.description }
-            <i class="far fa-angle-right"></i>
+            <i className="far fa-angle-right"></i>
             <Button
             	onClick={() => this.props.onClick(i2.id)}
           		className="pull-right"
             	bsStyle={bsCol[i2.composante]}
       		    disabled= {this.props.ableList.includes(i2.id)}
             	>
-              <i class="far fa-angle-right"></i>
+              <i className="far fa-angle-right"></i>
             </Button>
 					</Panel.Title>
           <div className="panel-list">
@@ -58,7 +58,7 @@ render(){
   					))}
           </div>
 				</Panel>
-			</div>
+			</PanelGroup>
 				))}
 		</div>
 	)

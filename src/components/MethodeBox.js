@@ -65,10 +65,11 @@ render() {
 					<div className="data-value data-value-name">{ref.nom} ({code})</div>
 					<div className="data-value data-value-desc">{ref.description}</div>
 						<Button
+							target="_blank"
 			        className="btn-pdf"
 			        disabled = {!ref.service}
 			        href={ref.service}>
-			        <i class="far fa-file-pdf"></i>
+			        <i className="far fa-file-pdf"></i>
 			        <span>Fiche méthodologique</span>
 				    </Button>
 				</div>

@@ -21,7 +21,7 @@ if (refIndic[setRef]) {
 			)
 	} else {
 		return(
-			<div class="data-container">
+			<div className="data-container">
 				<MethodeBox
 				refIndic = {refIndic}
 				setRef = {setRef}

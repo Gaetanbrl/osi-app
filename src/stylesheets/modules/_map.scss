@@ -1,5 +1,8 @@
+canvas:active {
+  cursor: move;
+}
 .map-wrapper, .map {
-  height: 100vh;
+  height: 100%;
 }
 #map-container,
 .map-wrapper {
@@ -10,14 +13,15 @@
 #map-caption {
   position: absolute;
   bottom: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 6px;
   right: 14px;
-  width: 50px;
-  height: 142px;
   z-index: 10000;
-  overflow: hidden;
-  img {
-    position: absolute;
-    top: -32px;
+  border-radius: 3px;
+  div {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 8px;
   }
   + ul.list-group {
     display: none;
@@ -25,7 +29,30 @@
 }
 
 .ol-overlaycontainer-stopevent {
-  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  .ol-zoom {
+    @extend %flexbox;
+    @include flex-direction(column);
+    box-shadow: 0 2px 8px -1px rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    button {
+      border: none;
+      width: 30px;
+      font-size: 24px;
+      font-weight: 500;
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+  .ol-rotate,
+  .ol-attribution,
+  .ol-scale-line {
+    display: none;
+  }
 }
 
 .charts-container {

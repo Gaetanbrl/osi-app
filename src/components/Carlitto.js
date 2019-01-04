@@ -305,13 +305,13 @@ class Carlitto extends Component {
 			refLow = setRef.toLowerCase();
 			leg = `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 				&VERSION=1.0.0&FORMAT=image/png
-				&WIDTH=12&HEIGHT=12
+				&WIDTH=10&HEIGHT=10
 				&LAYER=osi
 				&STYLE=${refLow}
-				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:7;dpi:220;
+				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
 				&TRANSPARENT=true`;
 
-			img = <div id="map-caption"><img src={leg} alt="Légende"></img></div>
+			img = <div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 		}
 
 		return (

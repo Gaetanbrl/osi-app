@@ -40,5 +40,7 @@
 }
 
 blockquote {
-  display: none;
-}
+position: absolute;
+background: red;
+top: 0;
+z-index: 9999;}

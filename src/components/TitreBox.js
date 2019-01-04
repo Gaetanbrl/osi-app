@@ -8,7 +8,7 @@ const TitreBox = ({ refIndic, setRef, territoire }) => {
 
 	let t = !c ? <div>Choisir un territoire</div>
 				: !i ? <div>Choisir un indicateur</div>
-				: <div><i class="fas fa-map-marked-alt"></i><span>Indicateurs</span></div>
+				: <div><i className="fas fa-map-marked-alt"></i><span>Indicateurs</span></div>
 
 	return(
 		<div id="sidebar-title">

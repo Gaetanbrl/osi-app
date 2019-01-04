@@ -101,6 +101,14 @@ nav#main-menu {
           @include align-items(center);
           @include justify-content(space-between);
           text-decoration: none;
+          &.collapsed {
+            i {
+              transform: rotate(0deg);
+            }
+          }
+          i {
+            transform: rotate(90deg);
+          }
           &:hover {
             text-decoration: none;
           }

@@ -24,7 +24,14 @@ a, button {
   border: none;
   border-radius: $global-radius;
   background-color: $second-color !important;
+  i {
+    margin-right: 8px;
+  }
   &[disabled] {
     display: none !important;
+  }
+  &:hover {
+    color: #fff;
+    background-color: lighten($second-color, 10%) !important;
   }
 }
