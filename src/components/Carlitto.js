@@ -3,6 +3,13 @@ import ol from "openlayers";
 import proj4 from "proj4";
 import meta_com from '../data/meta_com.json';
 
+const zoomSizes = {
+	min: 0,
+	maxComm: 75,
+	maxEpci: 500,
+	max: 20000,
+};
+
 class Carlitto extends Component {
 
   	carMap = null
@@ -77,16 +84,16 @@ class Carlitto extends Component {
 			name: 'carLayer',
 			source: carSource,
 			opacity: .8,
-			minResolution: 0,
-			maxResolution: 500
+			minResolution: zoomSizes.min,
+			maxResolution: zoomSizes.maxComm,
 		})
 
 		this.commSource = new ol.source.Vector({
 		})
 
 		this.commLayer = new ol.layer.Vector({
-		source: this.commSource,
-		style: new ol.style.Style({
+			source: this.commSource,
+			style: new ol.style.Style({
 				stroke: new ol.style.Stroke({
 					color: [50, 50, 50, 0.8],
 					width: 2.5
@@ -94,7 +101,9 @@ class Carlitto extends Component {
 				fill: new ol.style.Fill({
 					color: [255, 255, 255, .5]
 				}),
-			})
+			}),
+			minResolution: zoomSizes.min,
+			maxResolution: zoomSizes.maxComm,
 		})
 
 		this.selSource = new ol.source.Vector({
@@ -130,6 +139,15 @@ class Carlitto extends Component {
 				new ol.layer.Vector({
 					source: new ol.source.Vector({
 						format: new ol.format.GeoJSON(),
+						url: 'comm3857.json'
+					}),
+					minResolution: zoomSizes.maxComm,
+					maxResolution: zoomSizes.maxEpci,
+					zIndex: 10,
+				}),
+				new ol.layer.Vector({
+					source: new ol.source.Vector({
+						format: new ol.format.GeoJSON(),
 						url: 'epci3857.json'
 					}),
 					style: new ol.style.Style({
@@ -141,18 +159,9 @@ class Carlitto extends Component {
 							color: [100, 100, 100, 0.4]
 						}),
 					}),
-					minResolution: 500,
-					maxResolution: 20000,
-					zIndex: 1
-				}),
-				new ol.layer.Vector({
-					source: new ol.source.Vector({
-						format: new ol.format.GeoJSON(),
-						url: 'comm3857.json'
-					}),
-					minResolution: 0,
-					maxResolution: 500,
-					zIndex: 10
+					minResolution: zoomSizes.maxEpci,
+					maxResolution: zoomSizes.max,
+					zIndex: 1,
 				}),
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
