@@ -1,3 +1,20 @@
+import { compoNeedLogin } from '../data/LoginData';
+
+export const setDisplayLoginForm = (value) => {
+  return {
+    type: 'SET_DISPLAY_LOGIN_FORM',
+    value,
+  }
+}
+
+export const doLogin = (user, password) => {
+  return {
+    type: 'DO_LOGIN',
+    user,
+    password,
+  }
+}
+
 export const setEpci = (epci) => {
   return {
     type: 'SET_EPCI',
@@ -24,6 +41,17 @@ export const setCompo = (compo) => {
 		type: 'SET_COMPO',
 		compo
 	}
+}
+
+export const setCompoIfLogged = (compo) => {
+  return (dispatch, getState) => {
+    const { doLogin } = getState();
+    if (compoNeedLogin.indexOf(compo) === -1 || (doLogin && doLogin.isLogged === true)) {
+      return dispatch(setCompo(compo));
+    } else {
+      return dispatch(setDisplayLoginForm(true));
+    }
+  };
 }
 
 export const setCar = (url) => {

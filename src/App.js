@@ -6,9 +6,9 @@ import Meta from './containers/Meta';
 import Slide from './containers/Slide';
 import Systemic from './containers/Systemic';
 import Titre from './containers/Titre';
+import Login from './containers/Login';
 
 import Footer from './components/Footer';
-
 
 const App = () => (
   <div id="layout">
@@ -30,6 +30,7 @@ const App = () => (
       </section>
     </main>
     <Footer />
+    <Login />
   </div>
 )
 

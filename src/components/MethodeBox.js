@@ -18,7 +18,7 @@ render() {
 		ref = refIndic[setRef];
 		let composition = [];
 		ref.composition.map(c => {
-			return composition.push(<li>{refIndic[c].description}</li>)
+			return composition.push(<li key={refIndic[c].nom}>{refIndic[c].description}</li>)
 		})
 
 		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
@@ -83,7 +83,7 @@ render() {
 		ref = refIndic[setRef];
 		let composition = [];
 		ref.composition.map(c => {
-			return composition.push(<li>{refIndic[c].nom}</li>)
+			return composition.push(<li key={refIndic[c].nom}>{refIndic[c].nom}</li>)
 		})
 		return(
 			<div className="data-block" header="Méthode" tag="div">

@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "crypto-js": "^3.1.9-1",
     "highcharts": "^6.1.0",
     "node-sass": "^4.11.0",
     "openlayers": "^4.6.4",
@@ -14,6 +15,7 @@
     "react-bootstrap-slider": "^2.1.5",
     "react-dom": "^16.2.0",
     "react-highcharts": "^16.0.2",
+    "react-modal": "^3.8.1",
     "react-redux": "^5.0.6",
     "react-scripts": "^2.1.1",
     "redux": "^3.7.2",
