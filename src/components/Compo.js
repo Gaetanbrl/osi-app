@@ -26,7 +26,7 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
 					<span>{ i3.description.toUpperCase()}</span>
 					<i className="far fa-angle-right"></i>
 				</Button>
-				{i3.id === setCompo && (
+				{(!setCompo || i3.id === setCompo) && (
 					<Tableau />
 				)}
 			</div>
