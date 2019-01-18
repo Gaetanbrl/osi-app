@@ -5,26 +5,50 @@ import meta_com from '../data/meta_com.json';
 
 const zoomSizes = {
 	min: 0,
-	maxComm: 75,
-	maxEpci: 500,
+	minComm: 75,
+	minEpci: 500,
 	max: 20000,
 };
+
+const styleEpciComm = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: [50, 50, 50, 0.8],
+		width: 1
+	}),
+	fill: new ol.style.Fill({
+		color: [70, 70, 70, 0.4]
+	}),
+});
+
+const styleEpciCommHover = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: [15, 15, 15, 0.8],
+		width: 1
+	}),
+	fill: new ol.style.Fill({
+		color: [80, 200, 255, 0.6]
+	}),
+});
 
 class Carlitto extends Component {
 
   	carMap = null
 
-  	base = null
-  	carLayer = null
-  	baseTopo = null
-
   	commSource = null
   	commGeom = null
+
+  	base = null
+  	baseTopology = null
   	commLayer = null
+  	carLayer = null
+  	selectedLayer = null
+  	epci = null
+  	comm = null
 
   	selSource = null
   	selGeom = null
-  	selLayer = null
+
+  	overlay = null
 
   	url = null
 
@@ -77,16 +101,33 @@ class Carlitto extends Component {
 			}),
 		})
 
-		this.baseTopo = new ol.layer.Tile({
-			name: 'baseTopo',
+		this.baseTopology = new ol.layer.Tile({
+			name: 'baseTopology',
 			opacity: 1,
 			source: new ol.source.XYZ({
-				name: 'baseTopo',
+				name: 'baseTopology',
 				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
 			})
 		})
 
-		let carSource = new ol.source.ImageWMS({
+		this.commSource = new ol.source.Vector({
+		})
+		this.commLayer = new ol.layer.Vector({
+			source: this.commSource,
+			style: new ol.style.Style({
+				stroke: new ol.style.Stroke({
+					color: [50, 50, 50, 0.8],
+					width: 2.5
+				}),
+				fill: new ol.style.Fill({
+					color: [255, 255, 255, .5]
+				}),
+			}),
+			minResolution: zoomSizes.min,
+			maxResolution: zoomSizes.minComm,
+		})
+
+		const carSource = new ol.source.ImageWMS({
 			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
 				LAYERS: 'osi',
@@ -100,31 +141,12 @@ class Carlitto extends Component {
 			source: carSource,
 			opacity: .8,
 			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.maxComm,
-		})
-
-		this.commSource = new ol.source.Vector({
-		})
-
-		this.commLayer = new ol.layer.Vector({
-			source: this.commSource,
-			style: new ol.style.Style({
-				stroke: new ol.style.Stroke({
-					color: [50, 50, 50, 0.8],
-					width: 2.5
-				}),
-				fill: new ol.style.Fill({
-					color: [255, 255, 255, .5]
-				}),
-			}),
-			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.maxComm,
+			maxResolution: zoomSizes.minComm,
 		})
 
 		this.selSource = new ol.source.Vector({
-		})
-
-		this.selLayer = new ol.layer.Vector({
+		});
+		this.selectedLayer = new ol.layer.Vector({
 			source: this.selSource,
 			style: new ol.style.Style({
 				stroke: new ol.style.Stroke({
@@ -134,6 +156,27 @@ class Carlitto extends Component {
 			})
 		})
 
+		this.comm = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'comm3857.json'
+			}),
+			style: styleEpciComm,
+			minResolution: zoomSizes.minComm,
+			maxResolution: zoomSizes.minEpci,
+			zIndex: 10,
+		})
+
+		this.epci = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'epci3857.json'
+			}),
+			style: styleEpciComm,
+			minResolution: zoomSizes.minEpci,
+			maxResolution: zoomSizes.max,
+			zIndex: 1,
+		})
 
 		let scaleLineControl = new ol.control.ScaleLine();
 		let view = new ol.View({
@@ -147,37 +190,12 @@ class Carlitto extends Component {
 			target: this.refs.map,
 			layers: [
 				this.base,
-				this.carLayer,
+				this.baseTopology,
 				this.commLayer,
-				this.selLayer,
-				this.baseTopo,
-				new ol.layer.Vector({
-					source: new ol.source.Vector({
-						format: new ol.format.GeoJSON(),
-						url: 'comm3857.json'
-					}),
-					minResolution: zoomSizes.maxComm,
-					maxResolution: zoomSizes.maxEpci,
-					zIndex: 10,
-				}),
-				new ol.layer.Vector({
-					source: new ol.source.Vector({
-						format: new ol.format.GeoJSON(),
-						url: 'epci3857.json'
-					}),
-					style: new ol.style.Style({
-						stroke: new ol.style.Stroke({
-							color: [100, 100, 100, 0.8],
-							width: 0.8
-						}),
-						fill: new ol.style.Fill({
-							color: [100, 100, 100, 0.4]
-						}),
-					}),
-					minResolution: zoomSizes.maxEpci,
-					maxResolution: zoomSizes.max,
-					zIndex: 1,
-				}),
+				this.carLayer,
+				this.selectedLayer,
+				this.comm,
+				this.epci,
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
 				scaleLineControl
@@ -190,10 +208,10 @@ class Carlitto extends Component {
 		  evt.context.globalCompositeOperation = 'multiply';
 		});
 
-		this.selLayer.on('precompose', function(evt) {
+		this.selectedLayer.on('precompose', function(evt) {
 			evt.context.globalCompositeOperation = 'normal';
 		});
-		this.selLayer.on('precompose', function(evt) {
+		this.selectedLayer.on('precompose', function(evt) {
 			evt.context.globalCompositeOperation = 'source-over';
 		});
 
@@ -210,6 +228,22 @@ class Carlitto extends Component {
 			if (this.url) onCarClick(this.url);
 		});
 
+		// Add hover style interaction
+		let epciHover = new ol.interaction.Select({
+			condition: ol.events.condition.pointerMove,
+			style: styleEpciCommHover,
+			layers: [this.epci],
+		})
+		this.carMap.addInteraction(epciHover);
+
+		let commHover = new ol.interaction.Select({
+			condition: ol.events.condition.pointerMove,
+			style:  styleEpciCommHover,
+			layers: [this.comm]
+		})
+		this.carMap.addInteraction(commHover);
+
+		// Add Local Name overlay
 		this.overlay = new ol.Overlay({
 			element: this.refs.olTool,
 			offset: [10, -5],
@@ -305,7 +339,7 @@ class Carlitto extends Component {
 	        this.selGeom.getGeometry().transform(epsg3035, 'EPSG:3857');
 
 
-			let oldSel = this.selLayer.getSource().getFeatures()
+			let oldSel = this.selectedLayer.getSource().getFeatures()
 			if (oldSel.length > 0) {
 				this.selSource.removeFeature(oldSel[0]);
 	   			this.selSource.addFeature(this.selGeom);
@@ -316,7 +350,7 @@ class Carlitto extends Component {
 		}
 
 		if (error || !infos) {
-			let oldSel = this.selLayer.getSource().getFeatures()
+			let oldSel = this.selectedLayer.getSource().getFeatures()
 			if (oldSel.length > 0) {
 				this.selSource.removeFeature(oldSel[0]);
 			}
