@@ -29,10 +29,10 @@ canvas:active {
 }
 
 .ol-overlaycontainer-stopevent {
-  position: absolute;
-  top: 14px;
-  right: 14px;
   .ol-zoom {
+    position: absolute;
+    top: 14px;
+    right: 14px;
     @extend %flexbox;
     @include flex-direction(column);
     box-shadow: 0 2px 8px -1px rgba(0,0,0,.2);

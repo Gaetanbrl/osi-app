@@ -28,7 +28,22 @@ class Carlitto extends Component {
 
   	url = null
 
+	moveHandler(event) {
+		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+			let nom = feature.get('nom')
+			let code = feature.get('insee')
+			if (!nom && !code) return null;
 
+			this.overlay.setPosition(event.coordinate);
+
+			this.overlay.getElement().innerHTML = code ? '<h6><strong>' + nom + '</strong> (' + code + ')</h6>'
+														: '<h6 style="color:rgba(0, 140, 186, 0.8)"><strong>' + nom + '</strong></h6>';
+			return feature;
+		});
+
+		this.overlay.getElement().style.display = feature ? '' : 'none';
+		document.body.style.cursor = feature ? 'pointer' : '';
+	}
 
 	clickHandler(event) {
 		let {onEpciClick} = this.props
@@ -195,6 +210,14 @@ class Carlitto extends Component {
 			if (this.url) onCarClick(this.url);
 		});
 
+		this.overlay = new ol.Overlay({
+			element: this.refs.olTool,
+			offset: [10, -5],
+			positioning: 'bottom-left',
+		})
+		this.carMap.addOverlay(this.overlay)
+		this.carMap.on('pointermove', this.moveHandler, this);
+
 		this.carMap.on('click', this.clickHandler, this);
 
 		this.setState({
@@ -325,7 +348,9 @@ class Carlitto extends Component {
 
 		return (
 				<div className="map-wrapper">
-					<div className="map" ref="map" style={style}></div>
+					<div className="map" ref="map" style={style}>
+						<div className="olTool" ref="olTool"></div>
+					</div>
 					{img}
 				</div>
 		)
