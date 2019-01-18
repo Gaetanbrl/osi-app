@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ol from "openlayers";
 import proj4 from "proj4";
+
 import meta_com from '../data/meta_com.json';
 
 const zoomSizes = {
@@ -201,7 +202,7 @@ class Carlitto extends Component {
 			zIndex: 10,
 		})
 
-		let scaleLineControl = new ol.control.ScaleLine();
+		const scaleLineControl = new ol.control.ScaleLine();
 		let view = new ol.View({
 			center: ol.proj.fromLonLat([-3, 48.15]),
 			zoom: 8,
