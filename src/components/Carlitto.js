@@ -212,7 +212,7 @@ class Carlitto extends Component {
 		let cqlFilter = null
 
 		// let ableRef = ["A1","A2","A3","A","E1","E2","E3","E","G1","G2","G3","G","I1","I211","I212","I213","I221","I231","I2","I","R1","R2","R3","R"];
-		let ableRef = ["A1","A2","A3","A","E1","E2","E3","G1","G2","G3","I1","I211","I212","I213","I221","I231","I2","R1","R2","R3","R"];
+		let ableRef = ["A1","A2","A3","E1","E2","E3","G1","G2","G3","I1","I211","I212","I213","I221","I231","I2","R1","R2","R3","R"];
 		let allRef;
 
 		if (prevProps.setRef !== setRef) {

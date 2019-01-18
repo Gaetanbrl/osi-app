@@ -11,13 +11,15 @@ if (refIndic[setRef]) {
 	let ref = refIndic[setRef];
 
 	if (ref.niveau > 1 || ref.composante === "IT") {
-		return(
-				<div className="data-container">
-					<MethodeBox
-					refIndic = {refIndic}
-					setRef = {setRef}
-					territoire = {territoire}/>
-				</div>
+		return (
+				// Hide the MetaBox for root levels
+				null
+				// <div className="data-container">
+				// 	<MethodeBox
+				// 	refIndic = {refIndic}
+				// 	setRef = {setRef}
+				// 	territoire = {territoire}/>
+				// </div>
 			)
 	} else {
 		return(
