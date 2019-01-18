@@ -84,23 +84,36 @@ class Carlitto extends Component {
 	}
 
 	clickHandler(event) {
-		let {onEpciClick} = this.props
-		let {onCommClick} = this.props
+		const { onEpciClick, onCommClick, onCarClick } = this.props;
+		const viewResolution = this.carMap.getView().getResolution();
 
-		this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
-			let nom = feature.get('nom')
-			let insee = feature.get('insee')
-			let siren = feature.get('siren_epci')
-			let geom = feature.getGeometry()
+		if (viewResolution < zoomSizes.minComm) {
+		this.url = this.carSource.getGetFeatureInfoUrl(
+			event.coordinate, viewResolution, 'EPSG:3857',
+			{
+				'INFO_FORMAT': 'application/json',
+				// 'propertyName': 'id_car'
+			});
 
-			let epci = {siren: siren, nom: nom}
-			let comm = {insee: insee, nom: nom, geom: geom}
+			if (this.url) {
+				onCarClick(this.url);
+			}
+		} else {
+			this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+				let nom = feature.get('nom')
+				let insee = feature.get('insee')
+				let siren = feature.get('siren_epci')
+				let geom = feature.getGeometry()
 
-			insee ? onCommClick(comm) : onEpciClick(epci)
+				let epci = {siren: siren, nom: nom}
+				let comm = {insee: insee, nom: nom, geom: geom}
 
-			this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
-			return true
-	  })
+				insee ? onCommClick(comm) : onEpciClick(epci)
+
+				this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
+				return true
+		  });
+		}
 	}
 
 	componentDidMount() {
@@ -141,7 +154,7 @@ class Carlitto extends Component {
 			maxResolution: zoomSizes.minComm,
 		})
 
-		const carSource = new ol.source.ImageWMS({
+		this.carSource = new ol.source.ImageWMS({
 			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
 				LAYERS: 'osi',
@@ -152,7 +165,7 @@ class Carlitto extends Component {
 		})
 		this.carLayer = new ol.layer.Image({
 			name: 'carLayer',
-			source: carSource,
+			source: this.carSource,
 			opacity: .8,
 			minResolution: zoomSizes.min,
 			maxResolution: zoomSizes.minComm,
@@ -238,19 +251,6 @@ class Carlitto extends Component {
 		});
 		this.selectedLayer.on('precompose', function(evt) {
 			evt.context.globalCompositeOperation = 'source-over';
-		});
-
-		let {onCarClick} = this.props
-		this.carMap.on('singleclick', function(evt) {
-			let viewResolution = /** @type {number} */ (view.getResolution());
-			this.url = carSource.getGetFeatureInfoUrl(
-				evt.coordinate, viewResolution, 'EPSG:3857',
-				{
-					'INFO_FORMAT': 'application/json',
-					// 'propertyName': 'id_car'
-				});
-
-			if (this.url) onCarClick(this.url);
 		});
 
 		// Add hover style interaction
