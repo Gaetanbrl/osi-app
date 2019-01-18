@@ -6,9 +6,19 @@ import meta_com from '../data/meta_com.json';
 const zoomSizes = {
 	min: 0,
 	minComm: 75,
-	minEpci: 500,
+	maxComm: 500,
 	max: 20000,
 };
+
+const styleBaseEpci = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: [255, 255, 255, 0.3],
+		width: 3
+	}),
+	fill: new ol.style.Fill({
+		color: [100, 100, 100, 0.1]
+	}),
+});
 
 const styleEpciComm = new ol.style.Style({
 	stroke: new ol.style.Stroke({
@@ -42,6 +52,7 @@ class Carlitto extends Component {
   	commLayer = null
   	carLayer = null
   	selectedLayer = null
+  	baseEpci = null
   	epci = null
   	comm = null
 
@@ -54,6 +65,8 @@ class Carlitto extends Component {
 
 	moveHandler(event) {
 		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+			if (this.carMap.getView().getResolution() < zoomSizes.minComm) return null;
+
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
 			if (!nom && !code) return null;
@@ -156,6 +169,27 @@ class Carlitto extends Component {
 			})
 		})
 
+		const sourceEpci = new ol.source.Vector({
+			format: new ol.format.GeoJSON(),
+			url: 'epci3857.json'
+		})
+		this.baseEpci = new ol.layer.Vector({
+			name: 'baseepci',
+			source: sourceEpci,
+			style: styleBaseEpci,
+			minResolution: zoomSizes.min,
+			maxResolution: zoomSizes.max,
+			zIndex: 0
+		});
+
+		this.epci = new ol.layer.Vector({
+			source: sourceEpci,
+			style: styleEpciComm,
+			minResolution: zoomSizes.maxComm,
+			maxResolution: zoomSizes.max,
+			zIndex: 1,
+		})
+
 		this.comm = new ol.layer.Vector({
 			source: new ol.source.Vector({
 				format: new ol.format.GeoJSON(),
@@ -163,19 +197,8 @@ class Carlitto extends Component {
 			}),
 			style: styleEpciComm,
 			minResolution: zoomSizes.minComm,
-			maxResolution: zoomSizes.minEpci,
+			maxResolution: zoomSizes.maxComm,
 			zIndex: 10,
-		})
-
-		this.epci = new ol.layer.Vector({
-			source: new ol.source.Vector({
-				format: new ol.format.GeoJSON(),
-				url: 'epci3857.json'
-			}),
-			style: styleEpciComm,
-			minResolution: zoomSizes.minEpci,
-			maxResolution: zoomSizes.max,
-			zIndex: 1,
 		})
 
 		let scaleLineControl = new ol.control.ScaleLine();
@@ -194,8 +217,9 @@ class Carlitto extends Component {
 				this.commLayer,
 				this.carLayer,
 				this.selectedLayer,
-				this.comm,
+				this.baseEpci,
 				this.epci,
+				this.comm,
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
 				scaleLineControl
