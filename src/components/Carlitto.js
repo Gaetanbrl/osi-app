@@ -287,7 +287,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let {territoire, setRef, infos, error} = this.props
+		let { territoire, setRef, infos, error } = this.props
    		let carLayer = this.state.carLayer
 
 		let wmsStyle = null

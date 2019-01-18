@@ -16,14 +16,15 @@ const App = () => (
       <section id="sidebar">
         <div id="sidebar-header">
           <div id="sidebar-logo"></div>
-          <Titre />
+          <Titre isSidebar />
         </div>
         <nav id="main-menu">
       	  <Systemic />
         </nav>
       </section>
       <section id="map-container">
-    		<Carto />
+        <Carto />
+        <Titre />
     		<Feature />
     		<Slide />
     		<Meta />
