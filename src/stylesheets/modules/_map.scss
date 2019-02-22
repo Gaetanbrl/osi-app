@@ -80,9 +80,15 @@ canvas{
 
 .data-block {
   .data-block-title {
+    @extend %flexbox;
+    @include align-items(center);
     color: #fff;
     font-size: 22px;
     margin-bottom: 10px;
+    i {
+      margin-right: 10px;
+      font-size: 20px;
+    }
   }
   .data-block-container {
     background-color: #fff;
@@ -114,9 +120,9 @@ canvas{
   }
 }
 
-#comm-title {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 22px;
+
+#map-container {
+  #comm-title {
+    display: none;
+  }
 }

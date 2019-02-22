@@ -45,11 +45,11 @@ render() {
 		(s.dates.length === 0) ? (sobso = 0) : (sobso = s.date_obso - yyyy);
 
 		if (sobso > 1) {
-			recom = "A jour pendant :";
+			recom = "A jour pendant";
 		} else if (sobso >= 0 && s.dates.length > 0) {
-			recom = "A remettre à jour dans :";
+			recom = "A remettre à jour dans";
 		} else if (sobso < 0 && s.dates.length > 0) {
-			recom = "Donnée dépassée depuis :";
+			recom = "Donnée dépassée depuis";
 		} else {
 			recom = "Donnée indisponible";
 		}
@@ -67,8 +67,12 @@ render() {
             <div>{s.sources}</div>
           </div>
           <div className="data-value">
-  				  <div className="data-value-label">Livraison(s)</div>
-            <div>{s.dates.join(", ")} {recom}</div>
+  				  <div className="data-value-label">Données mises à jour en</div>
+            <div>{s.dates.join(", ")}</div>
+          </div>
+          <div className="data-value">
+            <div className="data-value-label">{recom}</div>
+            <div>{sobso} années</div>
           </div>
         </div>
 			</div>

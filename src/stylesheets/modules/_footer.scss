@@ -21,6 +21,9 @@
     @extend %flexbox;
     @include justify-content(flex-end);
     @include align-items(center);
+    a {
+      margin-right: 10px;
+    }
     img {
       max-height: 40px;
     }

@@ -8,8 +8,8 @@ const TitreBox = ({ isSidebar, refIndic, setRef, territoire }) => {
 
 	if (isSidebar) {
 		let t = !c ? <div>Choisir un territoire</div>
-			: !i ? <div>Choisir un indicateur</div>
-			: <div><i className="fas fa-map-marked-alt"></i><span>Indicateurs</span></div>
+			: !i ? <div>{c && c.nom}</div>
+			: <div>{c && c.nom}</div>
 		return(
 			<div id="sidebar-title">
 				{t}

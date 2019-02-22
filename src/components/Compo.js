@@ -19,16 +19,18 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
 		<nav className="indicators-menu">
 		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
 			<div key = {i3.id} className={bsCol[i3.id]}>
-				<Button
-				disabled={!territoire.comm}
-				block
-				onClick={() => onCompoClick(i3.id)}>
-					<span>{ i3.description.toUpperCase()}</span>
-					<i className="far fa-angle-right"></i>
-				</Button>
-				{(!setCompo || i3.id === setCompo) && (
-					<Tableau />
-				)}
+				<div>
+					<Button
+					disabled={!territoire.comm}
+					block
+					onClick={() => onCompoClick(i3.id)}>
+						<span>{ i3.description.toUpperCase()}</span>
+						<i className="far fa-angle-right"></i>
+					</Button>
+					{(!setCompo || i3.id === setCompo) && (
+						<Tableau />
+					)}
+				</div>
 			</div>
 		))}
 		</nav>

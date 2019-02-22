@@ -5,12 +5,31 @@ import logoCNRS from '../data/img/logoCNRS.jpg';
 import labexmer from '../data/img/labexmer.png';
 import iuem from '../data/img/iuem.png';
 import ubo from '../data/img/ubo.png';
+import isblue from '../data/img/logo-isblue.jpg';
 
 export default class Footer extends Component {
 
   render() {
     return(
       <div id="Footer">
+        <div className="footer-partners">
+
+          <a href="https://www.univ-brest.fr/">
+            <img  height="70px" src={ubo} alt="logo UBO" />
+          </a>
+          <a href="https://www-iuem.univ-brest.fr/">
+            <img  height="70px" src={iuem} alt="logo IUEM" />
+          </a>
+          <a href="https://www.cnrs.fr/">
+            <img height="70px"  src={logoCNRS} alt="logo CNRS" />
+          </a>
+          <a href="https://www.labexmer.eu">
+            <img height="70px"  src={labexmer} alt="logo Labex Mer" />
+          </a>
+          <a href="#">
+            <img height="70px"  src={isblue} alt="logo ISblue" />
+          </a>
+        </div>
         <div className="footer-licence">
           <a rel="license" className="licence-logo" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
             <img alt="Licence Creative Commons" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
@@ -23,27 +42,10 @@ export default class Footer extends Component {
         </div>
         <div className="footer-partners">
           <a href="https://www.bretagne.developpement-durable.gouv.fr/">
-              <img height="70px" src={dreal} alt="logo DREAL Bretagne" />
-          </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="https://www.fondationdefrance.org/">
-              <img height="70px" src={fondationfr} alt="logo Fondation de France" />
-          </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="https://www.cnrs.fr/">
-              <img height="70px"  src={logoCNRS} alt="logo CNRS" />
+            <img height="70px" src={dreal} alt="logo DREAL Bretagne" />
           </a>
-
-          <br/>
-          <br/>
-
-          <a href="https://www.labexmer.eu">
-              <img height="70px"  src={labexmer} alt="logo Labex Mer" />
-          </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-          <a href="https://www-iuem.univ-brest.fr/">
-              <img  height="70px" src={iuem} alt="logo IUEM" />
-          </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="https://www.univ-brest.fr/">
-              <img  height="70px" src={ubo} alt="logo UBO" />
+          <a href="https://www.fondationdefrance.org/">
+            <img height="70px" src={fondationfr} alt="logo Fondation de France" />
           </a>
         </div>
       </div>
