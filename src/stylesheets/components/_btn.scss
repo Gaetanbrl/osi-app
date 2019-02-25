@@ -10,8 +10,13 @@ a, button {
   // transition: all 0.2s ease;
   // font-family: $font-family;
   // position: relative;
-  &:focus {
-    outline: none !important;
+  &.btn {
+    line-height: 1;
+    border: none;
+    box-shadow: none;
+    &:focus {
+      outline: none !important;
+    }
   }
 }
 
@@ -34,4 +39,10 @@ a, button {
     color: #fff;
     background-color: lighten($second-color, 10%) !important;
   }
+}
+
+.btn-primary {
+  font-size: 18px;
+  background-color: $first-color;
+  width: 100%;
 }

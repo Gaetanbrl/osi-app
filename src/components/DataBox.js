@@ -71,8 +71,8 @@ render() {
             <div>{s.dates.join(", ")}</div>
           </div>
           <div className="data-value">
-            <div className="data-value-label">{recom}</div>
-            <div>{sobso} années</div>
+            <div className="data-value-label">Mise à jour recommandée en</div>
+            <div>{s.date_obso}</div>
           </div>
         </div>
 			</div>

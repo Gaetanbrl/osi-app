@@ -51,7 +51,7 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 		))
 
 		return(
-			<blockquote className="blockquote text-center">
+			<blockquote className="number-indicator">
 				<p className="mb-0">Indicateurs disponibles : <strong>{nbIndic}</strong></p>
 			</blockquote>
 		)

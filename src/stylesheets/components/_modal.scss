@@ -1,0 +1,49 @@
+.ReactModalPortal {
+  .ReactModal__Overlay {
+    z-index: 2;
+    background-color: rgba(#07111C, .8) !important;
+  }
+}
+.modal-overlay {
+  @extend %flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 20px;
+  .modal-wrapper {
+    background-color: #fff;
+    border-radius: $global-radius;
+    padding: 20px;
+    max-width: 600px;
+    height: 100%;
+    overflow: auto;
+    .login-title {
+      font-size: 26px;
+      color: $first-color;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .modal-logo {
+      width: 198px;
+      height: 44px;
+      margin: 20px auto 10px;
+      background-image: url("../images/logo-osi-modal.png");
+      background-repeat: no-repeat;
+    }
+    .modal-separator {
+      background-color: $first-color;
+      width: 120px;
+      height: 1px;
+      margin: 30px auto 30px;
+    }
+    .text-intro {
+      font-size: 17px;
+      line-height: 24px;
+      margin-bottom: 16px;
+    }
+  }
+}

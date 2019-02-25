@@ -1,0 +1,20 @@
+.field {
+  @extend %flexbox;
+  @include align-items(center);
+  position: relative;
+  margin-bottom: 14px;
+  i {
+    position: absolute;
+    font-size: 24px;
+    margin-right: 14px;
+  }
+  input {
+    padding: 10px 4px 10px 36px;
+    @include flex(1);
+    border-bottom: 1px solid $first-color;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
