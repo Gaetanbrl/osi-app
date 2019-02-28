@@ -7,9 +7,8 @@ const initialState = {
 	isLogged: false,
 };
 
-const checkLoginData = (user, password) =>
-	(SHA512(user).toString() === loginData.user
-	&& SHA512(password).toString() === loginData.password)
+const checkLoginData = (password) =>
+	SHA512(password).toString() === loginData.password
 		? { isLogged: true, displayForm: false }
 		: { isLogged: false, displayForm: true };
 
@@ -23,7 +22,7 @@ export const doLogin = (state = initialState, action) => {
 		case 'DO_LOGIN':
 			return {
 				...state,
-				...checkLoginData(action.user, action.password),
+				...checkLoginData(action.password),
 			}
 		default:
 			return state

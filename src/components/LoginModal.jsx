@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 class LoginModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { user: '', password: '' };
+    this.state = { password: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,13 +17,13 @@ class LoginModal extends React.Component {
   handleSubmit (event) {
     event.preventDefault();
 
-    const { user, password } = this.state;
+    const { password } = this.state;
     const { doLogin } = this.props;
-    doLogin(user, password);
+    doLogin(password);
   }
 
   render () {
-    const { user, password } = this.state;
+    const { password } = this.state;
     const { displayForm, setDisplayLoginForm } = this.props;
 
     return (

@@ -10,7 +10,7 @@ render() {
 
 	let yyyy = new Date().getFullYear()
 	let sobso = 0
-	let recom = ""
+	// let recom = ""
 
 	let m = null
 	let s = {
@@ -45,13 +45,13 @@ render() {
 		(s.dates.length === 0) ? (sobso = 0) : (sobso = s.date_obso - yyyy);
 
 		if (sobso > 1) {
-			recom = "A jour pendant";
+			// recom = "A jour pendant";
 		} else if (sobso >= 0 && s.dates.length > 0) {
-			recom = "A remettre à jour dans";
+			// recom = "A remettre à jour dans";
 		} else if (sobso < 0 && s.dates.length > 0) {
-			recom = "Donnée dépassée depuis";
+			// recom = "Donnée dépassée depuis";
 		} else {
-			recom = "Donnée indisponible";
+			// recom = "Donnée indisponible";
 		}
 
 		return(
