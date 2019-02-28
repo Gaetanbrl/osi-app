@@ -26,7 +26,7 @@ export default class Footer extends Component {
           <a href="https://www.labexmer.eu">
             <img height="70px"  src={labexmer} alt="logo Labex Mer" />
           </a>
-          <a href="#">
+          <a href="/#">
             <img height="70px"  src={isblue} alt="logo ISblue" />
           </a>
         </div>
