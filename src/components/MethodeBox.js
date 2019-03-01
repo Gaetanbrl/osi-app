@@ -60,7 +60,7 @@ render() {
 
 		return(
 			<div className="data-block" header="Méthode" tag="div">
-				<div className="data-block-title"><i className="fas fa-map-marked-alt"></i>Indicateurs</div>
+				<div className="data-block-title"><i className="fas fa-map-marked-alt"></i>Indicateur</div>
 				<div className="data-block-container">
 					<div className="data-value data-value-name">{ref.nom} ({code})</div>
 					<div className="data-value data-value-desc">{ref.description}</div>
