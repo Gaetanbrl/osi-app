@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import dreal from '../data/img/dreal.png';
-import fondationfr from '../data/img/fondationfr.png';
-import logoCNRS from '../data/img/logoCNRS.jpg';
-import labexmer from '../data/img/labexmer.png';
-import iuem from '../data/img/iuem.png';
-import ubo from '../data/img/ubo.png';
-import isblue from '../data/img/logo-isblue.jpg';
+import logo_dreal from '../data/img/dreal.png';
+import logo_fondationfr from '../data/img/fondationfr.png';
+import logo_logoCNRS from '../data/img/logoCNRS.jpg';
+import logo_labexmer from '../data/img/labexmer.png';
+import logo_iuem from '../data/img/iuem.png';
+import logo_ubo from '../data/img/ubo.png';
+import logo_isblue from '../data/img/logo-isblue.jpg';
+import logo_cerema from '../data/img/logo-cerema.jpg';
 
 export default class Footer extends Component {
 
@@ -14,20 +15,23 @@ export default class Footer extends Component {
       <div id="Footer">
         <div className="footer-partners">
 
-          <a href="https://www.univ-brest.fr/">
-            <img  height="70px" src={ubo} alt="logo UBO" />
+          <a target="_blank" href="https://www.univ-brest.fr/">
+            <img  height="70px" src={logo_ubo} alt="logo UBO" />
           </a>
-          <a href="https://www-iuem.univ-brest.fr/">
-            <img  height="70px" src={iuem} alt="logo IUEM" />
+          <a target="_blank" href="https://www-iuem.univ-brest.fr/">
+            <img  height="70px" src={logo_iuem} alt="logo IUEM" />
           </a>
-          <a href="https://www.cnrs.fr/">
-            <img height="70px"  src={logoCNRS} alt="logo CNRS" />
+          <a target="_blank" href="https://www.cnrs.fr/">
+            <img height="70px"  src={logo_logoCNRS} alt="logo CNRS" />
           </a>
-          <a href="https://www.labexmer.eu">
-            <img height="70px"  src={labexmer} alt="logo Labex Mer" />
+          <a target="_blank" href="https://www.labexmer.eu">
+            <img height="70px"  src={logo_labexmer} alt="logo Labex Mer" />
           </a>
-          <a href="/#">
-            <img height="70px"  src={isblue} alt="logo ISblue" />
+          <a target="_blank" href="/#">
+            <img height="70px"  src={logo_isblue} alt="logo ISblue" />
+          </a>
+          <a target="_blank" href="/#">
+            <img height="70px"  src={logo_cerema} alt="logo Cerema" />
           </a>
         </div>
         <div className="footer-licence">
@@ -41,11 +45,11 @@ export default class Footer extends Component {
           </div>
         </div>
         <div className="footer-partners">
-          <a href="https://www.bretagne.developpement-durable.gouv.fr/">
-            <img height="70px" src={dreal} alt="logo DREAL Bretagne" />
+          <a target="_blank" href="https://www.bretagne.developpement-durable.gouv.fr/">
+            <img height="70px" src={logo_dreal} alt="logo DREAL Bretagne" />
           </a>
-          <a href="https://www.fondationdefrance.org/">
-            <img height="70px" src={fondationfr} alt="logo Fondation de France" />
+          <a target="_blank" href="https://www.fondationdefrance.org/">
+            <img height="70px" src={logo_fondationfr} alt="logo Fondation de France" />
           </a>
         </div>
       </div>
