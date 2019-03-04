@@ -23,7 +23,7 @@ render() {
 
 		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
 		return(
-			<div className="data-block" header="Méthode" tag="div">
+			<div className="data-block data-block-methode" header="Méthode" tag="div">
 				<div className="data-block-title"><i class="far fa-chart-bar"></i>Indices</div>
 				<div className="data-block-container">
 					<div className="data-value-name">{desc}</div>
@@ -59,7 +59,7 @@ render() {
 				: (ref.composante + "-" + ref.thematique + "-" + ref.acronyme);
 
 		return(
-			<div className="data-block" header="Méthode" tag="div">
+			<div className="data-block data-block-methode" header="Méthode" tag="div">
 				<div className="data-block-title"><i className="fas fa-map-marked-alt"></i>Indicateur</div>
 				<div className="data-block-container">
 					<div className="data-value data-value-name">{ref.nom} ({code})</div>

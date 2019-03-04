@@ -3,6 +3,7 @@ canvas{
     cursor: move;
   }
   height: 100% !important;
+  max-height: 100% !important;
 }
 .map-wrapper, .map {
   height: 100%;
@@ -75,51 +76,49 @@ canvas{
   background-color: rgba($second-color, .6);
   border-radius: $global-radius;
   padding: 10px;
-  width: 280px;
+  width: 250px;
 }
 
+.data-block-title {
+  @extend %flexbox;
+  @include align-items(center);
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 10px;
+  i {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+}
+.data-block-container {
+  background-color: #fff;
+  border-radius: $global-radius;
+  padding: 8px;
+  .data-value {
+    margin-bottom: 3px;
+    &.min {
+      div + div {
+        font-size: 16px;
+      }
+    }
+  }
+  .data-value-name { font-size: 20px; }
+  .data-value-desc { font-size: 16px; }
+  .data-value-label {
+    opacity: .6;
+    + div {
+      font-size: 18px;
+    }
+  }
+}
+.data-block-methode .data-block-container { border-radius: $global-radius $global-radius 0 0;}
+.data-block-metadonnees .data-block-container { border-radius: 0 0 $global-radius $global-radius;}
+
 .data-block {
-  .data-block-title {
-    @extend %flexbox;
-    @include align-items(center);
-    color: #fff;
-    font-size: 22px;
-    margin-bottom: 10px;
-    i {
-      margin-right: 10px;
-      font-size: 20px;
-    }
-  }
-  .data-block-container {
-    background-color: #fff;
-    border-radius: $global-radius;
-    padding: 8px;
-    .data-value {
-      margin-bottom: 3px;
-      &.min {
-        div + div {
-          font-size: 16px;
-        }
-      }
-    }
-    .data-value-name { font-size: 20px; }
-    .data-value-desc { font-size: 16px; }
-    .data-value-label {
-      opacity: .6;
-      + div {
-        font-size: 18px;
-      }
-    }
-  }
-  margin-bottom: 12px;
-  &:last-child {
-    margin-bottom: 0;
-  }
   .btn[disabled] {
     display: none;
   }
 }
-
 
 #map-container {
   #comm-title {

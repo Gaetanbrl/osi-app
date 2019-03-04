@@ -55,24 +55,25 @@ render() {
 		}
 
 		return(
-			<div className="data-block" header="Métadonnées" tag="div">
-        <div className="data-block-title">Métadonnées</div>
+			<div className="data-block data-block-metadonnees" header="Métadonnées" tag="div">
         <div className="data-block-container">
-          <div className="data-value">
-  				  <div className="data-value-label">Auteur(s)</div>
-            <div>{s.auteurs}</div>
-          </div>
-          <div className="data-value">
-            <div className="data-value-label">Source(s)</div>
-            <div>{s.sources}</div>
-          </div>
-          <div className="data-value">
-  				  <div className="data-value-label">Données mises à jour en</div>
-            <div>{s.dates.join(", ")}</div>
-          </div>
-          <div className="data-value">
-            <div className="data-value-label">Mise à jour recommandée en</div>
-            <div>{s.date_obso}</div>
+          <div className="grid">
+            <div className="col-12">
+    				  <div className="data-value-label">Auteur(s)</div>
+              <div>{s.auteurs}</div>
+            </div>
+            <div className="col-12">
+              <div className="data-value-label">Source(s)</div>
+              <div>{s.sources}</div>
+            </div>
+            <div className="col-12">
+    				  <div className="data-value-label">Données mises à jour en</div>
+              <div>{s.dates.join(", ")}</div>
+            </div>
+            <div className="col-12">
+              <div className="data-value-label">Mise à jour recommandée en</div>
+              <div>{s.date_obso}</div>
+            </div>
           </div>
         </div>
 			</div>

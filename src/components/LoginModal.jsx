@@ -82,12 +82,15 @@ class LoginModal extends React.Component {
           <br/><br/>
           Cet outil est à un stade expérimental. Il est accessible par mot de
           passe.
+          <br/><br/>
+          Vous souhaitez contacter l'équipe OSI ?<br/>
+          Adressez nous votre message à <a href="mailto:contact@risques-cotiers.fr">contact@risques-cotiers.fr</a>
         </div>
         <div class="modal-separator"></div>
+        <div class="login-title">Connectez-vous</div>
         <form onSubmit={this.handleSubmit}>
           <div class="grid-center">
-            <div class="login-title">Connectez-vous</div>
-            <div class="col-6">
+            <div class="col-2_xs-7_sm-5_md-3_lg-3">
               <div class="field">
                 <i class="far fa-lock-alt"></i>
                 <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={this.handleChange} />
