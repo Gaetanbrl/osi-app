@@ -21,13 +21,23 @@ const styleBaseEpci = new ol.style.Style({
 	}),
 });
 
+const styleEpciCommPilote = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: [50, 50, 50, 0.8],
+		width: 1
+	}),
+	fill: new ol.style.Fill({
+		color: [70, 70, 70, 0.8]
+	}),
+});
+
 const styleEpciComm = new ol.style.Style({
 	stroke: new ol.style.Stroke({
 		color: [50, 50, 50, 0.8],
 		width: 1
 	}),
 	fill: new ol.style.Fill({
-		color: [70, 70, 70, 0.4]
+		color: [70, 70, 70, 0.3]
 	}),
 });
 
@@ -198,7 +208,12 @@ class Carlitto extends Component {
 
 		this.epci = new ol.layer.Vector({
 			source: sourceEpci,
-			style: styleEpciComm,
+			style: (feature, resolution) => {
+				if (feature.get('site_pilote') === true) {
+					return styleEpciCommPilote;
+				}
+				return styleEpciComm;
+			},
 			minResolution: zoomSizes.maxComm,
 			maxResolution: zoomSizes.max,
 			zIndex: 1,
