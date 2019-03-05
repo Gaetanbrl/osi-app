@@ -6,10 +6,11 @@ import { keyBy } from 'lodash';
 import meta_com from '../data/meta_com.json';
 
 const zoomSizes = {
-	min: 0,
+	min: 7.5,
 	minComm: 75,
 	maxComm: 500,
-	max: 20000,
+	max: 1000,
+	default: 600,
 };
 
 const styleBaseEpci = new ol.style.Style({
@@ -252,9 +253,9 @@ class Carlitto extends Component {
 		const scaleLineControl = new ol.control.ScaleLine();
 		let view = new ol.View({
 			center: ol.proj.fromLonLat([-3, 48.15]),
-			zoom: 8,
-			maxZoom: 16,
-			minZoom: 6
+			resolution: zoomSizes.default,
+			minResolution: zoomSizes.min,
+			maxResolution: zoomSizes.max - 1,
 			})
 
 		this.carMap = new ol.Map({
