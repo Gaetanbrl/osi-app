@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 
 import { doLogin } from '../../actions';
 
@@ -26,7 +27,11 @@ class Home extends React.Component {
     const { errorMessage } = this.props;
 
     return (
-      <div>
+      <Modal
+        isOpen
+        className="modal-wrapper"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-logo"></div>
         <div className="modal-separator"></div>
         <div className="text-intro">
@@ -99,7 +104,7 @@ class Home extends React.Component {
           </div>
 
         </form>
-      </div>
+      </Modal>
     );
   }
 }
