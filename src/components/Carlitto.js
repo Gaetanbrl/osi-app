@@ -80,12 +80,21 @@ class Carlitto extends Component {
 
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
+			let sitePilote = feature.get('site_pilote')
 			if (!nom && !code) return null;
 
 			this.overlay.setPosition(event.coordinate);
 
-			this.overlay.getElement().innerHTML = code ? '<h6><strong>' + nom + '</strong> (' + code + ')</h6>'
-														: '<h6 style="color:rgba(0, 140, 186, 0.8)"><strong>' + nom + '</strong></h6>';
+			let overlayText = '<h6><strong>' + nom + '</strong>'
+			if (code) {
+				overlayText += '(' + code + ')';
+			}
+			if (sitePilote === true) {
+				overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
+			}
+			overlayText += '</h6>'
+
+			this.overlay.getElement().innerHTML = overlayText;
 			return feature;
 		});
 

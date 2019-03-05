@@ -18,8 +18,7 @@ class Home extends React.Component {
 
     const { password } = this.state;
     const { doLogin } = this.props;
-    const res = doLogin(password);
-    console.log(res);
+    doLogin(password);
   }
 
   render () {
