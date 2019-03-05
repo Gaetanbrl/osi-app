@@ -1,13 +1,12 @@
 import React from 'react';
-import Modal from 'react-modal';
+import { connect } from 'react-redux';
 
-class LoginModal extends React.Component {
+import { doLogin } from '../../actions';
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = { password: '' };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange (event) {
@@ -19,23 +18,19 @@ class LoginModal extends React.Component {
 
     const { password } = this.state;
     const { doLogin } = this.props;
-    doLogin(password);
+    const res = doLogin(password);
+    console.log(res);
   }
 
   render () {
     const { password } = this.state;
-    const { displayForm, setDisplayLoginForm } = this.props;
+    const { errorMessage } = this.props;
 
     return (
-      <Modal
-        isOpen={displayForm}
-        onRequestClose={setDisplayLoginForm}
-        className={'modal-wrapper'}
-        overlayClassName={'modal-overlay'}
-      >
-        <div class="modal-logo"></div>
-        <div class="modal-separator"></div>
-        <div class="text-intro">
+      <div>
+        <div className="modal-logo"></div>
+        <div className="modal-separator"></div>
+        <div className="text-intro">
           OSI consiste en une application cartographie en ligne dite «WEB-
           SIG» permettant d’archiver les données spatio-temporelles
           d’indicateurs décrivant les quatre composantes de la
@@ -86,23 +81,33 @@ class LoginModal extends React.Component {
           Vous souhaitez contacter l'équipe OSI ?<br/>
           Adressez nous votre message à <a href="mailto:contact@risques-cotiers.fr">contact@risques-cotiers.fr</a>
         </div>
-        <div class="modal-separator"></div>
-        <div class="login-title">Connectez-vous</div>
-        <form onSubmit={this.handleSubmit}>
-          <div class="grid-center">
-            <div class="col-2_xs-7_sm-5_md-3_lg-3">
-              <div class="field">
-                <i class="far fa-lock-alt"></i>
-                <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={this.handleChange} />
+        <div className="modal-separator"></div>
+        <div className="login-title">Connectez-vous</div>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <div className="grid-center">
+            <div className="col-2_xs-7_sm-5_md-3_lg-3">
+              <div className="field">
+                <i className="far fa-lock-alt"></i>
+                <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={e => this.handleChange(e)} />
               </div>
-              <button class="btn btn-primary" type="submit">Connexion</button>
+              {errorMessage && (
+                <div className="error">
+                  {errorMessage}
+                </div>
+              )}
+              <button className="btn btn-primary" type="submit">Connexion</button>
             </div>
           </div>
 
         </form>
-      </Modal>
+      </div>
     );
   }
 }
 
-export default LoginModal;
+export default connect(
+  state => ({
+    errorMessage: state.doLogin.errorMessage,
+  }),
+  { doLogin },
+)(Home);

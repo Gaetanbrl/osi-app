@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import { setCompoIfLogged } from '../actions'
+import { setCompo } from '../actions'
 import Compo from '../components/Compo'
 
 const mapStateToProps = (state) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => {
 	return {
 		onCompoClick: key => {
-			dispatch(setCompoIfLogged(key))
+			dispatch(setCompo(key))
 		}
 	}
 }

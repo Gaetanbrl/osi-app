@@ -3,22 +3,20 @@ import SHA512 from 'crypto-js/sha512';
 import { loginData } from '../data/LoginData';
 
 const initialState = {
-	displayForm: false,
 	isLogged: false,
+	errorMessage: '',
 };
 
 const checkLoginData = (password) =>
 	SHA512(password).toString() === loginData.password
-		? { isLogged: true, displayForm: false }
-		: { isLogged: false, displayForm: true };
+		? { isLogged: true }
+		: {
+				isLogged: false,
+				errorMessage: 'Mot de passe incorrect'
+			};
 
 export const doLogin = (state = initialState, action) => {
 	switch(action.type) {
-		case 'SET_DISPLAY_LOGIN_FORM':
-			return {
-				...state,
-				displayForm: action.value !== undefined ? action.value : !state.displayForm,
-			}
 		case 'DO_LOGIN':
 			return {
 				...state,
