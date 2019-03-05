@@ -13,8 +13,8 @@ const zoomSizes = {
 
 const styleBaseEpci = new ol.style.Style({
 	stroke: new ol.style.Stroke({
-		color: [255, 255, 255, 0.3],
-		width: 3
+		color: [50, 50, 50, 0.3],
+		width: 1
 	}),
 	fill: new ol.style.Fill({
 		color: [100, 100, 100, 0.1]
@@ -87,7 +87,7 @@ class Carlitto extends Component {
 
 			let overlayText = '<h6><strong>' + nom + '</strong>'
 			if (code) {
-				overlayText += '(' + code + ')';
+				overlayText += ' (' + code + ')';
 			}
 			if (sitePilote === true) {
 				overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
@@ -106,33 +106,35 @@ class Carlitto extends Component {
 		const { onEpciClick, onCommClick, onCarClick } = this.props;
 		const viewResolution = this.carMap.getView().getResolution();
 
+		let url;
 		if (viewResolution < zoomSizes.minComm) {
-		this.url = this.carSource.getGetFeatureInfoUrl(
-			event.coordinate, viewResolution, 'EPSG:3857',
-			{
-				'INFO_FORMAT': 'application/json',
-				// 'propertyName': 'id_car'
-			});
-
-			if (this.url) {
-				onCarClick(this.url);
-			}
-		} else {
-			this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
-				let nom = feature.get('nom')
-				let insee = feature.get('insee')
-				let siren = feature.get('siren_epci')
-				let geom = feature.getGeometry()
-
-				let epci = {siren: siren, nom: nom}
-				let comm = {insee: insee, nom: nom, geom: geom}
-
-				insee ? onCommClick(comm) : onEpciClick(epci)
-
-				this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
-				return true
-		  });
+			url = this.carSource.getGetFeatureInfoUrl(
+				event.coordinate, viewResolution, 'EPSG:3857',
+				{
+					'INFO_FORMAT': 'application/json',
+					// 'propertyName': 'id_car'
+				},
+			);
 		}
+
+		if (url) {
+			this.url = url;
+			onCarClick(this.url);
+		}
+		this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+			let nom = feature.get('nom')
+			let insee = feature.get('insee')
+			let siren = feature.get('siren_epci')
+			let geom = feature.getGeometry()
+
+			let epci = {siren: siren, nom: nom}
+			let comm = {insee: insee, nom: nom, geom: geom}
+
+			insee ? onCommClick(comm) : onEpciClick(epci)
+
+			this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
+			return true
+	  });
 	}
 
 	componentDidMount() {
@@ -188,6 +190,7 @@ class Carlitto extends Component {
 			opacity: .8,
 			minResolution: zoomSizes.min,
 			maxResolution: zoomSizes.minComm,
+			zIndex: 20,
 		})
 
 		this.selSource = new ol.source.Vector({
@@ -199,7 +202,8 @@ class Carlitto extends Component {
 					color: [255, 255, 255, 1],
 					width: 2.5
 				})
-			})
+			}),
+			zIndex: 20,
 		})
 
 		const sourceEpci = new ol.source.Vector({
@@ -211,7 +215,7 @@ class Carlitto extends Component {
 			source: sourceEpci,
 			style: styleBaseEpci,
 			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.max,
+			maxResolution: zoomSizes.maxComm,
 			zIndex: 0
 		});
 
@@ -234,7 +238,7 @@ class Carlitto extends Component {
 				url: 'comm3857.json'
 			}),
 			style: styleEpciComm,
-			minResolution: zoomSizes.minComm,
+			minResolution: zoomSizes.min,
 			maxResolution: zoomSizes.maxComm,
 			zIndex: 10,
 		})
