@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ol from "openlayers";
 import proj4 from "proj4";
+import { keyBy } from 'lodash';
 
 import meta_com from '../data/meta_com.json';
 
@@ -81,6 +82,7 @@ class Carlitto extends Component {
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
 			let sitePilote = feature.get('site_pilote')
+			let insee = feature.get('insee')
 			if (!nom && !code) return null;
 
 			this.overlay.setPosition(event.coordinate);
@@ -88,6 +90,9 @@ class Carlitto extends Component {
 			let overlayText = '<h6><strong>' + nom + '</strong>'
 			if (code) {
 				overlayText += ' (' + code + ')';
+			}
+			if (this.commNbIndic && insee && this.commNbIndic[insee] && this.commNbIndic[insee].nb_indic) {
+				overlayText += '<br /><i>' + this.commNbIndic[insee].nb_indic +' indicateurs</i>';
 			}
 			if (sitePilote === true) {
 				overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
@@ -138,6 +143,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidMount() {
+		this.commNbIndic = keyBy(meta_com, c => c.id_com);
 
 		this.base = new ol.layer.Tile({
 			name: 'base',
@@ -327,6 +333,7 @@ class Carlitto extends Component {
 
 		if (prevProps.setRef !== setRef) {
 
+			this.commNbIndic = keyBy(meta_com, c => c.id_com);
 			meta_com.map(c => (c.id_com === String(territoire.insee) ? allRef = c.stats : null));
 			allRef.map(r => (ableRef.push(r.id_meta)));
 			ableRef.includes(setRef) ? wmsStyle = setRef.toLowerCase() : wmsStyle = "";
