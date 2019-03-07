@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Home from './containers/home/Home';
+import LoginModal from './containers/LoginModal';
 
 import Carto from './containers/Carto';
 import Feature from './containers/Feature';
@@ -14,28 +14,27 @@ import Footer from './components/Footer';
 
 const App = ({ isLogged }) => (
   <div id="layout">
-    {isLogged !== true ? (
-      <Home />
-    ):(
-      <main>
-        <section id="sidebar">
-          <div id="sidebar-header">
-            <div id="sidebar-logo"></div>
-            <Titre isSidebar />
-          </div>
-          <nav id="main-menu">
-            <Systemic />
-          </nav>
-        </section>
-        <section id="map-container">
-          <Carto />
-          <Titre />
-          <Feature />
-          <Slide />
-          <Meta />
-        </section>
-      </main>
-    )}
+    <main>
+      {isLogged !== true && (
+        <LoginModal />
+      )}
+      <section id="sidebar">
+        <div id="sidebar-header">
+          <div id="sidebar-logo"></div>
+          <Titre isSidebar />
+        </div>
+        <nav id="main-menu">
+          <Systemic />
+        </nav>
+      </section>
+      <section id="map-container">
+        <Carto />
+        <Titre />
+        <Feature />
+        <Slide />
+        <Meta />
+      </section>
+    </main>
     <Footer />
   </div>
 );

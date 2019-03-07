@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
-import { doLogin } from '../../actions';
+import { doLogin } from '../actions';
 
 class Home extends React.Component {
   constructor(props) {
