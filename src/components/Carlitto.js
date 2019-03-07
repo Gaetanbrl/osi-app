@@ -6,11 +6,11 @@ import { keyBy } from 'lodash';
 import meta_com from '../data/meta_com.json';
 
 const zoomSizes = {
-	min: 7.5,
-	minComm: 75,
-	maxComm: 500,
-	max: 1000,
-	default: 600,
+	min: 7.48,
+	minComm: 59,
+	maxComm: 120,
+	max: 480,
+	default: 400,
 };
 
 const styleBaseEpci = new ol.style.Style({
@@ -52,6 +52,19 @@ const styleEpciCommHover = new ol.style.Style({
 		color: [80, 200, 255, 0.6]
 	}),
 });
+
+const styleSelectedComm = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: [50, 50, 50, 0.8],
+		width: 1
+	}),
+});
+
+const defaultViewProps = {
+	center: ol.proj.fromLonLat([-3, 48.15]),
+	minResolution: zoomSizes.minComm,
+	maxResolution: zoomSizes.max - 1,
+};
 
 class Carlitto extends Component {
 
@@ -109,7 +122,7 @@ class Carlitto extends Component {
 	}
 
 	clickHandler(event) {
-		const { onEpciClick, onCommClick, onCarClick } = this.props;
+		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
 		const viewResolution = this.carMap.getView().getResolution();
 
 		let url;
@@ -132,6 +145,8 @@ class Carlitto extends Component {
 			let insee = feature.get('insee')
 			let siren = feature.get('siren_epci')
 			let geom = feature.getGeometry()
+
+			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) return false;
 
 			let epci = {siren: siren, nom: nom}
 			let comm = {insee: insee, nom: nom, geom: geom}
@@ -245,18 +260,24 @@ class Carlitto extends Component {
 				url: 'comm3857.json'
 			}),
 			style: styleEpciComm,
-			minResolution: zoomSizes.min,
+			minResolution: zoomSizes.minComm,
 			maxResolution: zoomSizes.maxComm,
 			zIndex: 10,
 		})
 
-		const scaleLineControl = new ol.control.ScaleLine();
-		let view = new ol.View({
-			center: ol.proj.fromLonLat([-3, 48.15]),
-			resolution: zoomSizes.default,
+		this.commIsSelected = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				format: new ol.format.GeoJSON(),
+				url: 'comm3857.json'
+			}),
+			style: styleSelectedComm,
 			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.max - 1,
-			})
+			maxResolution: zoomSizes.minComm,
+			zIndex: 10,
+		})
+
+		const scaleLineControl = new ol.control.ScaleLine();
+		let view = new ol.View({ ...defaultViewProps, resolution: zoomSizes.default });
 
 		this.carMap = new ol.Map({
 			target: this.refs.map,
@@ -269,6 +290,7 @@ class Carlitto extends Component {
 				this.baseEpci,
 				this.epci,
 				this.comm,
+				this.commIsSelected,
 			],
 			controls: ol.control.defaults({collapsible: false}).extend([
 				scaleLineControl
@@ -333,8 +355,6 @@ class Carlitto extends Component {
 		let allRef;
 
 		if (prevProps.setRef !== setRef) {
-
-			this.commNbIndic = keyBy(meta_com, c => c.id_com);
 			meta_com.map(c => (c.id_com === String(territoire.insee) ? allRef = c.stats : null));
 			allRef.map(r => (ableRef.push(r.id_meta)));
 			ableRef.includes(setRef) ? wmsStyle = setRef.toLowerCase() : wmsStyle = "";
@@ -347,7 +367,9 @@ class Carlitto extends Component {
 			wmsStyle = null
 		}
 
+		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
 		if (prevProps.territoire !== territoire && !!territoire) {
+			viewProps["minResolution"] = zoomSizes.min;
 
 			cqlFilter = `id_com=${territoire.insee}`
 			carLayer.getSource().updateParams({
@@ -371,8 +393,10 @@ class Carlitto extends Component {
 			}
 
 		} else {
+			viewProps["minResolution"] = zoomSizes.minComm;
 			cqlFilter = null
 		}
+		this.carMap.setView(new ol.View(viewProps));
 
 		if (infos) {
 			let car = infos["id_car"];
