@@ -1,5 +1,29 @@
 export default() => {
   return {
+    VS: {
+      id: "VS",
+      composante: "",
+      description: "Vulnérabilité Systèmique",
+      composition: [ "RI", "G", "R", "I"],
+      methode: "à définir",
+      niveau: 5,
+      statut: "indice",
+      acronyme: "VS",
+      nom: "Vulnérabilité Systèmique",
+      service: ""
+    },
+    RI: {
+      id: "RI",
+      composante: "",
+      description: "Risque",
+      composition: [ "A", "E" ],
+      methode: "à définir",
+      niveau: 4,
+      statut: "indice",
+      acronyme: "RI",
+      nom: "Risque",
+      service: ""
+    },
     A: {
       id: "A",
       composante: "AL",
@@ -7,6 +31,7 @@ export default() => {
       composition: [ "A1", "A2", "A3" ],
       methode: "Maximum des indicateurs thématiques (érosion, submersion, migration dunaire)",
       niveau: 3,
+      statut: "indice",
       acronyme: "AL",
       nom: "Composante des aléas",
       service: ""
@@ -18,6 +43,7 @@ export default() => {
       composition: [ "A101" ],
       methode: "Distance érodée par an par 100m linéaires",
       niveau: 2,
+      statut: "indice",
       acronyme: "ERO",
       nom: "Erosion",
       service: ""
@@ -32,26 +58,6 @@ export default() => {
       service: "",
       thematique: "ERO"
     },
-    A102: {
-      id: "A102",
-      composante: "AL",
-      description: "Surface érodée par an par 100m linéaires",
-      niveau: 1,
-      acronyme: "SURF",
-      nom: "Surface",
-      service: "",
-      thematique: "ERO"
-    },
-    A103: {
-      id: "A103",
-      composante: "AL",
-      description: "Volume érodé par an par 100m linéaires",
-      niveau: 1,
-      acronyme: "VOL",
-      nom: "Volume",
-      service: "",
-      thematique: "ERO"
-    },
     A2: {
       id: "A2",
       composante: "AL",
@@ -59,6 +65,7 @@ export default() => {
       composition: [ "A201", "A202" ],
       methode: "Maximum des indicateurs (submersion et paquets de mer)",
       niveau: 2,
+      statut: "indice",
       acronyme: "SUB",
       nom: "Submersion",
       service: ""
@@ -73,16 +80,6 @@ export default() => {
       service: "",
       thematique: "SUB"
     },
-    A202: {
-      id: "A202",
-      composante: "AL",
-      description: "Linéaire exposé aux paquets de mer et aux écoulements",
-      niveau: 1,
-      acronyme: "PAQ",
-      nom: "Paquets de mer",
-      service: "",
-      thematique: "SUB"
-    },
     A3: {
       id: "A3",
       composante: "AL",
@@ -90,6 +87,7 @@ export default() => {
       composition: [ "A301" ],
       methode: "",
       niveau: 2,
+      statut: "indice",
       acronyme: "MIGR",
       nom: "Migration dunaire",
       service: ""
@@ -108,9 +106,10 @@ export default() => {
       id: "E",
       composante: "EN",
       description: "Enjeux",
-      composition: [ "E101",    "E102",    "E103",    "E104",    "E106",    "E108",    "E109",   "E201" ,   "E202",    "E203",   "E204" ,   "E301",    "E303" , "E304",    "E305" ,   "E306" ],
+      composition: [ "E101","E102","E103","E104","E106","E108","E109","E201","E202","E203","E204","E301","E303","E304","E305","E306"],
       methode: "Moyenne géométrique des indicateurs",
       niveau: 3,
+      statut: "indice",
       acronyme: "EN",
       nom: "Composante des enjeux",
       service: ""
@@ -119,9 +118,10 @@ export default() => {
       id: "E1",
       composante: "EN",
       description: "Humains",
-      composition: [ "E101", "E102", "E103", "E104", "E106", "E108", "E109" ], 
+      composition: [ "E101", "E102", "E103", "E104", "E106", "E108", "E109" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "HUM",
       nom: "Humains",
       service: ""
@@ -223,6 +223,7 @@ export default() => {
       composition: [ "E201", "E202", "E203", "E204" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "ECO",
       nom: "Economiques",
       service: ""
@@ -281,9 +282,10 @@ export default() => {
       id: "E3",
       composante: "EN",
       description: "Structurels",
-      composition: [ "E301", "E302", "E303", "E304", "E305"],  
+      composition: [ "E301", "E302", "E303", "E304", "E305"],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "STR",
       nom: "Structurels",
       service: ""
@@ -335,7 +337,7 @@ export default() => {
       niveau: 1,
       acronyme: "SECOUR",
       nom: "Secours",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/678/EN-SECOUR.pdf",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/721/E305_ENSTRSECOUR.pdf",
       thematique: "STR"
     },
     E306: {
@@ -352,9 +354,10 @@ export default() => {
       id: "G",
       composante: "GE",
       description: "Gestion",
-      composition: [ "G1", "G2", "G3" ],
-      methode: "Maximum des indicateurs (prévention et anticipation, sensibilisation, gestion de crise)", 
-      niveau: 3,
+      composition: [ "G1", "G2", "G3", "G4", "G5"],
+      methode: "Maximum des indicateurs (prévention et anticipation, sensibilisation, gestion de crise)",
+      niveau: 4,
+      statut: "indice",
       acronyme: "GE",
       nom: "Composante de la gestion",
       service: ""
@@ -362,12 +365,13 @@ export default() => {
     G1: {
       id: "G1",
       composante: "GE",
-      description: "Prévention",
-      composition: [ "G101", "G103", "G104", "G105", "G106", "G108", "G110" ],
+      description: "Maîtrise de l’urbanisation",
+      composition: [ "G101", "G102"],
       methode: "Maximum des indicateurs",
       niveau: 2,
-      acronyme: "PRE",
-      nom: "Prévention",
+      statut: "indice",
+      acronyme: "MURBA",
+      nom: "Maîtrise de l’urbanisation",
       service: ""
     },
     G101: {
@@ -377,48 +381,60 @@ export default() => {
       niveau: 1,
       acronyme: "URBA",
       nom: "Urbanisme",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/697/Urba_G101.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/701/G101_Urba.pdf",
+      thematique: "MURBA"
     },
     G102: {
       id: "G102",
       composante: "GE",
-      description: "Etat du PPRL",
+      description: "Etat général du PPRL",
       niveau: 1,
       acronyme: "PPRL",
       nom: "PPRL",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/693/PPRL_G102.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/702/G102_PPRL.pdf",
+      thematique: "MURBA"
+    },
+    G2: {
+      id: "G2",
+      composante: "GE",
+      description: "Stratégie locale",
+      composition: [ "G103", "G104", "G105", "G106", "G107", "G108", "G109", "G110", "G111"],
+      methode: "Maximum des indicateurs",
+      niveau: 2,
+      statut: "indice",
+      acronyme: "STRATLOC",
+      nom: "Stratégie locale",
+      service: ""
     },
     G103: {
       id: "G103",
       composante: "GE",
-      description: "Mise en place de la compétence",
+      description: "Mise en place de la compétence GEMAPI",
       niveau: 1,
       acronyme: "GEMAPI1",
       nom: "Compétence GEMAPI",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/687/GEMAPI_G103.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/703/G103_GEMAPI.pdf",
+      thematique: "STRATLOC"
     },
     G104: {
       id: "G104",
       composante: "GE",
-      description: "Etat des ouvrages",
+      description: "Etat des ouvrages GEMAPI2",
       niveau: 1,
       acronyme: "GEMAPI2",
-      nom: "Etat des ouvrages",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/700/OUV_GEMAPI2_G104.pdf",
-      thematique: "PRE"
+      nom: "Etat des ouvrages GEMAPI2",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/704/G104_OUV_GEMAPI2.pdf",
+      thematique: "STRATLOC"
     },
     G105: {
       id: "G105",
       composante: "GE",
-      description: "Investissement humain sur les risques côtiers",
+      description: "Capacités humaines sur les risques côtiers",
       niveau: 1,
       acronyme: "HUM",
       nom: "Investissement humain",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/682/CapHum_G105.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/705/G105_CapHum.pdf",
+      thematique: "STRATLOC"
     },
     G106: {
       id: "G106",
@@ -426,19 +442,19 @@ export default() => {
       description: "Démarche locale de gestion des risques",
       niveau: 1,
       acronyme: "STRATE",
-      nom: "Démarche locale",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/696/Strate_G106.pdf",
-      thematique: "PRE"
+      nom: "Démarche locale (PAPI, SL)",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/706/G106_Strate.pdf",
+      thematique: "STRATLOC"
     },
     G107: {
       id: "G107",
       composante: "GE",
-      description: "Intégration différents acteurs de la démarche locale",
+      description: "Acteurs partenaires de la démarche locale",
       niveau: 1,
       acronyme: "ACTEUR",
       nom: "Intégration des acteurs",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/688/IntActDem_G107.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/707/G107_IntActDem.pdf",
+      thematique: "STRATLOC"
     },
     G108: {
       id: "G108",
@@ -447,8 +463,8 @@ export default() => {
       niveau: 1,
       acronyme: "EXTRA",
       nom: "Intégration extraterritoriale",
-      service: "",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/708/G108_DemExtra.pdf",
+      thematique: "STRATLOC"
     },
     G109: {
       id: "G109",
@@ -457,8 +473,8 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI1",
       nom: "Actions",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/679/ActPAPI1_G109.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/709/G109_ActPAPI1.pdf",
+      thematique: "STRATLOC"
     },
     G110: {
       id: "G110",
@@ -467,8 +483,8 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI2",
       nom: "Mise en œuvre",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/690/MeOPAPI2_G110.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/710/G110_MeOPAPI2.pdf",
+      thematique: "STRATLOC"
     },
     G111: {
       id: "G111",
@@ -477,16 +493,59 @@ export default() => {
       niveau: 1,
       acronyme: "RELOC",
       nom: "Stratégie locale",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/694/Reloc_G111.pdf",
-      thematique: "PRE"
+      service: "https://tucuxi.univ-brest.fr/attachments/download/711/G111_Reloc.pdf",
+      thematique: "STRATLOC"
     },
-    G2: {
-      id: "G2",
+    G3: {
+      id: "G3",
       composante: "GE",
-      description: "Sensibilisation",
-      composition: [ "G201", "G202", "G203", "G204", "G206" ],
+      description: "Gestion de crise",
+      composition: [ "G301", "G302", "G303" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
+      acronyme: "CRI",
+      nom: "Gestion de crise",
+      service: ""
+    },
+    G301: {
+      id: "G301",
+      composante: "GE",
+      description: "Moyens d’alerte",
+      niveau: 1,
+      acronyme: "ALERTE",
+      nom: "Alerte",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/719/G301_Alert.pdf",
+      thematique: "CRI"
+    },
+    G302: {
+      id: "G302",
+      composante: "GE",
+      description: "Intégration du SDIS dans le PCS",
+      niveau: 1,
+      acronyme: "SDIS",
+      nom: "Intégration",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/718/G302_IntSDIS.pdf",
+      thematique: "CRI"
+    },
+    G303: {
+      id: "G303",
+      composante: "GE",
+      description: "Mise à jour du PCS",
+      niveau: 1,
+      acronyme: "PCS",
+      nom: "Plan Communal de Sauvegarde",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/720/G303_MJ_PCS.pdf",
+      thematique: "CRI"
+    },
+    G4: {
+      id: "G4",
+      composante: "GE",
+      description: "Sensibilisation",
+      composition: [ "G201", "G202", "G204", "G205", "G206" ],
+      methode: "Maximum des indicateurs",
+      niveau: 2,
+      statut: "indice",
       acronyme: "SEN",
       nom: "Sensibilisation",
       service: ""
@@ -498,7 +557,7 @@ export default() => {
       niveau: 1,
       acronyme: "SCOL",
       nom: "Scolaires",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/686/EvetScol_G201.pdf",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/716/G201_EvetScol.pdf",
       thematique: "SEN"
     },
     G202: {
@@ -508,17 +567,7 @@ export default() => {
       niveau: 1,
       acronyme: "ASSO",
       nom: "Association",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/681/Asso_G202.pdf",
-      thematique: "SEN"
-    },
-    G203: {
-      id: "G203",
-      composante: "GE",
-      description: "Publications scientifiques sur les risques côtiers",
-      niveau: 1,
-      acronyme: "PUBLI",
-      nom: "Publications scientifiques",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/692/PblSci_G203.pdf",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/712/G202_Asso.pdf",
       thematique: "SEN"
     },
     G204: {
@@ -528,7 +577,7 @@ export default() => {
       niveau: 1,
       acronyme: "REP",
       nom: "Repères",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/695/Rep_G204.pdf",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/714/G204_Rep.pdf",
       thematique: "SEN"
     },
     G205: {
@@ -537,8 +586,8 @@ export default() => {
       description: "Modes de diffusion du DICRIM ",
       niveau: 1,
       acronyme: "DICRIM1",
-      nom: "Diffusion",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/684/DICRIM1_G205.pdf",
+      nom: "DICRIM Diffusion",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/715/G205_DICRIM1.pdf",
       thematique: "SEN"
     },
     G206: {
@@ -547,56 +596,38 @@ export default() => {
       description: "Analyse pédagogique du DICRIM",
       niveau: 1,
       acronyme: "DICRIM2",
-      nom: "Pédagogie",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/685/DICRIM2_G206.pdf",
+      nom: "DICRIM Pédagogie",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/717/G206_DICRIM2.pdf",
       thematique: "SEN"
     },
-    G3: {
-      id: "G3",
+    G5: {
+      id: "G5",
       composante: "GE",
-      description: "Gestion de crise",
-      composition: [ "G301", "G302", "G303" ],
+      description: "Connaissance",
+      composition: [ "G203"],
       methode: "Maximum des indicateurs",
       niveau: 2,
-      acronyme: "CRI",
-      nom: "Gestion de crise",
+      statut: "indice",
+      acronyme: "CONN",
+      nom: "Connaissance",
       service: ""
     },
-    G301: {
-      id: "G301",
+    G203: {
+      id: "G203",
       composante: "GE",
-      description: "Mode d’alerte de la population",
+      description: "Publications scientifiques sur les risques côtiers",
       niveau: 1,
-      acronyme: "ALERTE",
-      nom: "Alerte",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/680/Alerte_G301.pdf",
-      thematique: "CRI"
-    },
-    G302: {
-      id: "G302",
-      composante: "GE",
-      description: "Intégration du SDIS dans le PCS",
-      niveau: 1,
-      acronyme: "SDIS",
-      nom: "Intégration",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/689/IntSDIS_G302.pdf",
-      thematique: "CRI"
-    },
-    G303: {
-      id: "G303",
-      composante: "GE",
-      description: "Mise à jour du PCS",
-      niveau: 1,
-      acronyme: "PCS",
-      nom: "Plan Communal de Sauvegarde",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/691/MJ_PCS_G303.pdf",
-      thematique: "CRI"
+      acronyme: "PUBLI",
+      nom: "Publications scientifiques",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/713/G203_PblSci.pdf",
+      thematique: "CONN"
     },
     R: {
       id: "R",
       composante: "RE",
-      description: "Représentations", 
-      niveau: 3,
+      description: "Représentations",
+      niveau: 4,
+      statut: "indice",
       acronyme: "RE",
       composition: [ "R1", "R2", "R3" ],
       methode: "Maximum des indicateurs (conscience des aléas, dimension sociale du lieu, perception de la gestion)",
@@ -610,6 +641,7 @@ export default() => {
       composition: [ "R101", "R103", "R104", "R105" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "COAL",
       nom: "Conscience des aléas",
       service: ""
@@ -688,9 +720,10 @@ export default() => {
       id: "R2",
       composante: "RE",
       description: "Dimension sociale",
-      composition: [ "R201", "R202", "R203" ], 
+      composition: [ "R201", "R202", "R203" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "DISO",
       nom: "Dimension sociale",
       service: ""
@@ -742,10 +775,11 @@ export default() => {
       composition: [ "R301", "R302", "R303" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
+      statut: "indice",
       acronyme: "GEST",
       nom: "Perception de la gestion",
       service: ""
-    }, 
+    },
     R301: {
       id: "R301",
       composante: "RE",
@@ -779,9 +813,10 @@ export default() => {
     I: {
       id: "I",
       composante: "IT",
-      composition: [ "A", "E", "G", "R" ],
+      composition: [],
       description: "Indices",
-      niveau: 3,
+      niveau: 4,
+      statut: "indice",
       acronyme: "IT",
       nom: "Indices composites",
       service: ""
@@ -792,6 +827,7 @@ export default() => {
       composition: [ "A", "E", "G", "R" ],
       description: "Globaux",
       niveau: 2,
+      statut: "indice",
       acronyme: "SYST",
       nom: "SYST",
       service: ""
@@ -804,10 +840,11 @@ export default() => {
       composition: [ "A", "E", "G", "R" ],
       methode: "Aléas * Enjeux * (6-Gestion + 6-Représentation)",
       niveau: 1,
+      statut: "indice",
       acronyme: "GLOB",
       service: "",
       thematique: "SYST"
-    }, 
+    },
     I102: {
       id: "I102",
       composante: "IT",
@@ -816,6 +853,7 @@ export default() => {
       methode: "Normalisation du produit entre les aléas et les enjeux",
       description: "Aléas * Enjeux",
       niveau: 1,
+      statut: "indice",
       acronyme: "RISK",
       service: "",
       thematique: "SYST"
@@ -826,6 +864,7 @@ export default() => {
       composition: [ "A", "E", "G", "R" ],
       description: "Transverses",
       niveau: 2,
+      statut: "indice",
       acronyme: "TRANS",
       nom: "TRANS",
       service: ""
@@ -838,6 +877,7 @@ export default() => {
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       description: "Actions possibles dans l'immédiat",
       niveau: 1,
+      statut: "indice",
       acronyme: "OPE",
       service: "",
       thematique: "TRANS"
@@ -850,6 +890,7 @@ export default() => {
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       description: "Actions possibles à terme",
       niveau: 1,
+      statut: "indice",
       acronyme: "STRAT",
       service: "",
       thematique: "TRANS"
@@ -861,11 +902,12 @@ export default() => {
       composition: [ "A1", "A2" , "E303" ,  "E304" ,  "G3" ,  "E102" ],
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       niveau: 1,
+      statut: "indice",
       acronyme: "BATI",
       nom: "Matériel (racine)",
       service: "",
       thematique: "TRANS"
-    }, 
+    },
     I202: {
       id: "I202",
       composante: "IT",
@@ -874,6 +916,7 @@ export default() => {
       composition: [ "A1", "A2" , "E303" ,  "E304" ,  "G3" ,  "E102" ],
       methode: "Moyenne arithmétique des indicateurs",
       niveau: 1,
+      statut: "indice",
       acronyme: "BATISOM",
       service: "",
       thematique: "TRANS"
@@ -886,6 +929,7 @@ export default() => {
       composition: [ "A1", "A2" , "E303" ,  "E304" ,  "G3" ,  "E102" ],
       methode: "Produit des indicateurs",
       niveau: 1,
+      statut: "indice",
       acronyme: "BATIPROD",
       service: "",
       thematique: "TRANS"
@@ -898,6 +942,7 @@ export default() => {
       methode: "Normalisation par la maximum de la racine du produit des indicateurs discrétisés sur la racine du nombre d'indicateurs",
       description: "Vulnérabilité à la submersion (racine)",
       niveau: 1,
+      statut: "indice",
       acronyme: "SUB",
       service: "",
       thematique: "TRANS"
@@ -910,6 +955,7 @@ export default() => {
       composition: [ "A201", "E303", "E101", "E102", "E104", "E106", "G101", "G106" ],
       methode: "Moyenne arithmétique des indicateurs",
       niveau: 1,
+      statut: "indice",
       acronyme: "SUBSOM",
       service: "",
       thematique: "TRANS"
@@ -922,6 +968,7 @@ export default() => {
       composition: [ "A201", "E303", "E101", "E102", "E104", "E106", "G101", "G106" ],
       methode: "Produit des indicateurs",
       niveau: 1,
+      statut: "indice",
       acronyme: "SUMPROD",
       service: "",
       thematique: "TRANS"

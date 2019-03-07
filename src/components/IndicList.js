@@ -28,7 +28,7 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 		return(
 
 			<div>
-			{mapKeys(refIndic).filter((i3) => (i3.niveau === 3 && i3.id === setCompo)).map(i3 => (
+			{mapKeys(refIndic).filter((i3) => (i3.niveau >= 3 && i3.id === setCompo)).map(i3 => (
 				<Indic
 				key = {i3.nom}
 				onClick={onIndicClick}

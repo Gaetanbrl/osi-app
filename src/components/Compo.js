@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap';
+import { filter } from 'lodash';
 
 import Tableau from '../containers/Tableau';
 
@@ -10,14 +11,20 @@ const mapKeys = ( obj ) => (
 	getKeys(obj).map(i => ({...i}))
 )
 
-const bsCol = {"A":"indicator-menu aleas", "E":"indicator-menu enjeux", "G":"indicator-menu gestion", "R":"indicator-menu reprensation", "I":"default"}
+const bsCol = {
+	"VS":"indicator-menu vulnerabilite-systemique",
+	"RI":"indicator-menu risque",
+	"A":"indicator-menu aleas",
+	"E":"indicator-menu enjeux",
+	"G":"indicator-menu gestion",
+	"R":"indicator-menu reprensation",
+}
 
 
-const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
-
+const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null }) => {
 	return(
 		<nav className="indicators-menu">
-		{mapKeys(refIndic).filter((i3) => (i3.niveau === 3)).map(i3 => (
+		{filter(refIndic, (i3) => (i3.niveau === niveau && (composition === null || composition.includes(i3.id)))).map(i3 => (
 			<div key = {i3.id} className={bsCol[i3.id]}>
 				<div>
 					<Button
@@ -31,10 +38,11 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire}) => {
 						<Tableau />
 					)}
 				</div>
+				{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: i3.composition })}
 			</div>
 		))}
 		</nav>
 	)
 }
 
-export default Compo
+export default Compo;
