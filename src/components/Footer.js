@@ -15,22 +15,22 @@ export default class Footer extends Component {
       <div id="Footer">
         <div className="footer-partners">
 
-          <a target="_blank" href="https://www.univ-brest.fr/">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.univ-brest.fr/">
             <img  height="70px" src={logo_ubo} alt="logo UBO" />
           </a>
-          <a target="_blank" href="https://www-iuem.univ-brest.fr/">
+          <a target="_blank" rel="noopener noreferrer" href="https://www-iuem.univ-brest.fr/">
             <img  height="70px" src={logo_iuem} alt="logo IUEM" />
           </a>
-          <a target="_blank" href="https://www.cnrs.fr/">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.cnrs.fr/">
             <img height="70px"  src={logo_logoCNRS} alt="logo CNRS" />
           </a>
-          <a target="_blank" href="https://www.labexmer.eu">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.labexmer.eu">
             <img height="70px"  src={logo_labexmer} alt="logo Labex Mer" />
           </a>
-          <a target="_blank" href="https://www.labexmer.eu/fr/isblue">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.labexmer.eu/fr/isblue">
             <img height="70px"  src={logo_isblue} alt="logo ISblue" />
           </a>
-          <a target="_blank" href="/#">
+          <a target="_blank" rel="noopener noreferrer" href="/#">
             <img height="70px"  src={logo_cerema} alt="logo Cerema" />
           </a>
         </div>
@@ -45,10 +45,10 @@ export default class Footer extends Component {
           </div>
         </div>
         <div className="footer-partners">
-          <a target="_blank" href="https://www.bretagne.developpement-durable.gouv.fr/">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.bretagne.developpement-durable.gouv.fr/">
             <img height="70px" src={logo_dreal} alt="logo DREAL Bretagne" />
           </a>
-          <a target="_blank" href="https://www.fondationdefrance.org/">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.fondationdefrance.org/">
             <img height="70px" src={logo_fondationfr} alt="logo Fondation de France" />
           </a>
         </div>
