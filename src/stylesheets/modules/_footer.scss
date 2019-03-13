@@ -1,13 +1,12 @@
 #Footer {
   @extend %flexbox;
-  @include justify-content(space-between);
-  padding: 6px 10px;
+  @include flex-direction(column);
   background: #fff;
   .footer-licence {
     @extend %flexbox;
     @include align-items(center);
     @include flex(1);
-    margin-right: 20px;
+    padding: 6px 10px;
     .licence-logo {
       margin-right: 6px;
     }
@@ -18,8 +17,13 @@
   }
   .footer-partners {
     @extend %flexbox;
-    @include justify-content(flex-end);
+    @include justify-content(space-between);
     @include align-items(center);
+    padding: 6px 10px;
+    > div {
+      @include justify-content(flex-end);
+      @include align-items(center);
+    }
     a {
       margin-right: 10px;
     }
