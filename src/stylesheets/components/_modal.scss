@@ -23,6 +23,9 @@
     @include media-breakpoint-up(xl) {
       padding: 20px 60px;
     }
+    &:focus {
+      outline: none;
+    }
     .login-title {
       font-size: 26px;
       color: $first-color;

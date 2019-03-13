@@ -37,8 +37,8 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, compo
 					{(!setCompo || i3.id === setCompo) && (
 						<Tableau />
 					)}
+					{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: i3.composition })}
 				</div>
-				{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: i3.composition })}
 			</div>
 		))}
 		</nav>

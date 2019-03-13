@@ -35,7 +35,7 @@ a, button {
   &[disabled] {
     display: none !important;
   }
-  &:hover {
+  &:hover,&:active,&:focus {
     color: #fff;
     background-color: lighten($second-color, 10%) !important;
   }

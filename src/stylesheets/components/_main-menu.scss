@@ -27,7 +27,11 @@ nav#main-menu {
     }
   }
 }
-
+.indicators-menu {
+  @extend %flexbox;
+  @include flex-direction(column);
+  padding-top: 4px;
+}
 .indicator-menu {
   @extend %flexbox;
   margin-bottom: 6px;
@@ -35,11 +39,40 @@ nav#main-menu {
     content: "";
     display: flex;
     width: 4px;
-    margin-right: 6px;
+    margin-right: 5px;
     border-radius: $global-radius;
+  }
+  &:last-child {
+    margin-bottom: 0;
   }
   > div {
     @include flex(1);
+  }
+  &.vulnerabilite-systemique {
+    &:before,
+    .btn.active,
+    .submenu .panel .panel-title a.active {
+      @include gradient-directional(
+        $deg: 160deg,
+        $start-color: $vulnerabilite-systemique-color-1,
+        $end-color: $vulnerabilite-systemique-color-2,
+        $start-percent: 15%,
+        $end-percent: 85%
+      );
+    }
+  }
+  &.risque {
+    &:before,
+    .btn.active,
+    .submenu .panel .panel-title a.active {
+      @include gradient-directional(
+        $deg: 160deg,
+        $start-color: $risque-color-1,
+        $end-color: $risque-color-2,
+        $start-percent: 15%,
+        $end-percent: 85%
+      );
+    }
   }
   &.aleas {
     &:before,
@@ -98,13 +131,16 @@ nav#main-menu {
     box-shadow: none;
     font-size: 18px;
     font-weight: 500;
-    padding: 6px 12px;
+    padding: 6px 12px 6px 8px;
     &.active {
       background: rgba(0,0,0,.2);
     }
+    span + i {
+      margin-left: 20px;
+    }
   }
   .submenu {
-    padding-left: 12px;
+    padding-left: 8px;
     .panel {
       background: none;
       border: none;
