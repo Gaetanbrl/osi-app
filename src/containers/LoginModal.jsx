@@ -91,14 +91,14 @@ class Home extends React.Component {
           <div className="grid-center">
             <div className="col-2_xs-7_sm-5_md-3_lg-3">
               <div className="field">
+                {errorMessage && (
+                  <div className="error">
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
                 <i className="far fa-lock-alt"></i>
                 <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={e => this.handleChange(e)} />
               </div>
-              {errorMessage && (
-                <div className="error">
-                  {errorMessage}
-                </div>
-              )}
               <button className="btn btn-primary" type="submit">Connexion</button>
             </div>
           </div>
