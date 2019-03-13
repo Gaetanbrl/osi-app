@@ -49,7 +49,7 @@ const styleEpciCommHover = new ol.style.Style({
 		width: 1
 	}),
 	fill: new ol.style.Fill({
-		color: [80, 200, 255, 0.6]
+		color: [2, 149, 167, 0.8]
 	}),
 });
 
