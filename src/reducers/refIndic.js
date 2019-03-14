@@ -139,7 +139,7 @@ export default() => {
     E102: {
       id: "E102",
       composante: "EN",
-      description: "Nombre de bâti résidentiel",
+      description: "Nombre de bâtiments résidentiels",
       niveau: 1,
       acronyme: "BATI",
       nom: "Logements",
@@ -156,16 +156,6 @@ export default() => {
       service: "https://tucuxi.univ-brest.fr/attachments/download/671/E103_ENHUMERP.pdf",
       thematique: "HUM"
     },
-    E104: {
-      id: "E104",
-      composante: "EN",
-      description: "Nombre de personnes de moins de 10 ou de plus de plus de 65 ans",
-      niveau: 1,
-      acronyme: "PERVUL-NB",
-      nom: "Population vulnérable (nombre)",
-      service: "",
-      thematique: "HUM"
-    },
     E105: {
       id: "E105",
       composante: "EN",
@@ -176,23 +166,13 @@ export default() => {
       service: "https://tucuxi.univ-brest.fr/attachments/download/672/E105_ENHUMPERVUL.pdf",
       thematique: "HUM"
     },
-    E106: {
-      id: "E106",
-      composante: "EN",
-      description: "Nombre de ménages à bas revenu",
-      niveau: 1,
-      acronyme: "BAREV-NB",
-      nom: "Population pauvre (nombre)",
-      service: "",
-      thematique: "HUM"
-    },
     E107: {
       id: "E107",
       composante: "EN",
       description: "Part des ménages à bas revenu",
       niveau: 1,
       acronyme: "BAREV-PCT",
-      nom: "Population pauvre (%)",
+      nom: "Ménages à bas revenu (%)",
       service: "https://tucuxi.univ-brest.fr/attachments/download/673/E107_ENHUMBAREV.pdf",
       thematique: "HUM"
     },
@@ -202,7 +182,7 @@ export default() => {
       description: "Part des résidences secondaires",
       niveau: 1,
       acronyme: "SECOND",
-      nom: "Population temporaire",
+      nom: "Résidences secondaires",
       service: "https://tucuxi.univ-brest.fr/attachments/download/668/E108_ENHUMSECOND.pdf",
       thematique: "HUM"
     },
@@ -212,7 +192,7 @@ export default() => {
       description: "Capacité d’hébergement touristique",
       niveau: 1,
       acronyme: "TOURIST",
-      nom: "Tourisme",
+      nom: "Hébergement touristique",
       service: "https://tucuxi.univ-brest.fr/attachments/download/674/E109_ENHUMTOURIS.pdf",
       thematique: "HUM"
     },
@@ -258,16 +238,6 @@ export default() => {
       service: "",
       thematique: "ECO"
     },
-    E204: {
-      id: "E204",
-      composante: "EN",
-      description: "Taux de fonction touristique (lits touristiques / habitants)",
-      niveau: 1,
-      acronyme: "TOUR-TX",
-      nom: "Tourisme",
-      service: "",
-      thematique: "ECO"
-    },
     E205: {
       id: "E205",
       composante: "EN",
@@ -306,17 +276,17 @@ export default() => {
       description: "Présence/Nombre de points sensibles",
       niveau: 1,
       acronyme: "NEVRAL",
-      nom: "Sensiblité du réseau",
+      nom: "Réseaux sensibles",
       service: "",
       thematique: "STR"
     },
     E303: {
       id: "E303",
       composante: "EN",
-      description: "Part du linéaire côtier artificialisé à l'aide d'ouvrages de type digue",
+      description: "Part du linéaire côtier protégé par des ouvrages",
       niveau: 1,
       acronyme: "DIG",
-      nom: "Artificialisation",
+      nom: "Protections contre la mer",
       service: "https://tucuxi.univ-brest.fr/attachments/download/698/E303_ENSTRDIG.pdf",
       thematique: "STR"
     },
@@ -340,15 +310,37 @@ export default() => {
       service: "https://tucuxi.univ-brest.fr/attachments/download/721/E305_ENSTRSECOUR.pdf",
       thematique: "STR"
     },
+    E4: {
+      id: "E4",
+      composante: "EN",
+      description: "Patrimoine naturel et culturel",
+      composition: [ "E306", "E402"],
+      methode: "Maximum des indicateurs",
+      niveau: 2,
+      statut: "indice",
+      acronyme: "PAT",
+      nom: "Patrimoniaux",
+      service: ""
+    },
     E306: {
       id: "E306",
       composante: "EN",
-      description: "Localisation du patrimoine culturel",
+      description: "Patrimoine historique et architectural",
       niveau: 1,
       acronyme: "PATRIM",
       nom: "Patrimoine culturel",
       service: "https://tucuxi.univ-brest.fr/attachments/download/699/E306_ENPATPATRIM.pdf",
-      thematique: "STR"
+      thematique: "PAT"
+    },
+    E402: {
+      id: "E402",
+      composante: "EN",
+      description: "Nombre de zonages environnementaux",
+      niveau: 1,
+      acronyme: "PATNAT",
+      nom: "Patrimoine naturel",
+      service: "https://tucuxi.univ-brest.fr/attachments/download/722/E402_ENPATNAT.pdf",
+      thematique: "PAT"
     },
     G: {
       id: "G",
