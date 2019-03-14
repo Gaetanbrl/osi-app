@@ -4,13 +4,6 @@ import { filter } from 'lodash';
 
 import Tableau from '../containers/Tableau';
 
-const getKeys = ( obj ) => (
-    Object.keys(obj).map(i => (obj[i]))
-)
-const mapKeys = ( obj ) => (
-	getKeys(obj).map(i => ({...i}))
-)
-
 const bsCol = {
 	"VS":"indicator-menu vulnerabilite-systemique",
 	"RI":"indicator-menu risque",
