@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, PanelGroup, Button, } from 'react-bootstrap';
+import { Panel, PanelGroup } from 'react-bootstrap';
 
 export default class Indic extends Component{
 constructor(props){
