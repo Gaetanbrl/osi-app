@@ -5,6 +5,7 @@ import IndicList from '../components/IndicList'
 const mapStateToProps = (state) => ({
 	refIndic: state.refIndic,
 	setCompo: state.setRef.compo,
+	currentIndic: state.setRef.ref,
 	territoire: state.setTerritoire
 })
 

@@ -10,7 +10,7 @@ const mapKeys = ( obj ) => (
 )
 
 
-const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
+const IndicList = ({ refIndic, setCompo, currentIndic, onIndicClick, territoire }) => {
 
 	if (setCompo && territoire.comm){
 
@@ -28,16 +28,17 @@ const IndicList = ({ refIndic, setCompo, onIndicClick, territoire }) => {
 		return(
 
 			<div>
-			{mapKeys(refIndic).filter((i3) => (i3.niveau >= 3 && i3.id === setCompo)).map(i3 => (
+			{mapKeys(refIndic).filter((indic) => (indic.niveau >= 3 && indic.id === setCompo)).map(indic => (
 				<Indic
-				key = {i3.nom}
+				key = {indic.nom}
+				currentIndic = {currentIndic}
 				onClick={onIndicClick}
-				{...i3}
+				{...indic}
 				niveau2 = {mapKeys(refIndic).filter((i2) => (
-					i2.niveau === 2 && i2.composante === i3.composante)).map(i2 => ({...i2}))
+					i2.niveau === 2 && i2.composante === indic.composante)).map(i2 => ({...i2}))
 				}
 				niveau1 = {mapKeys(refIndic).filter((i1) => (
-					i1.niveau === 1 && i1.composante === i3.composante)).map(i1 => ({...i1}))
+					i1.niveau === 1 && i1.composante === indic.composante)).map(i1 => ({...i1}))
 				}
 				ableList = {ableRef}
 			    />

@@ -32,23 +32,19 @@ render(){
   				eventKey={i2.nom}
   				key={i2.nom}
   				bsStyle={bsCol[i2.composante]}>
-					<Panel.Title toggle>
+					<Panel.Title
+            toggle
+            onClick={() => this.props.onClick(i2.id)}
+            className={this.props.currentIndic === i2.id && 'active'}
+          >
       			{ i2.description }
             <i className="far fa-angle-right"></i>
-            <Button
-            	onClick={() => this.props.onClick(i2.id)}
-          		className="pull-right"
-            	bsStyle={bsCol[i2.composante]}
-      		    disabled= {this.props.ableList.includes(i2.id)}
-            	>
-              <i className="far fa-angle-right"></i>
-            </Button>
 					</Panel.Title>
           <div className="panel-list">
   					{this.props.niveau1.filter((i1) => (i1.thematique === i2.acronyme)).map(i1 => (
               <Panel.Body key={i1.nom} collapsible>
                 <div
-                className="submenu-link"
+                className={`submenu-link ${this.props.currentIndic === i1.id && 'active'}`}
                 onClick={() => this.props.onClick(i1.id)}
                 disabled= {!this.props.ableList.includes(i1.id)}
                 >

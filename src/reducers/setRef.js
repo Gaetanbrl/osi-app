@@ -14,7 +14,6 @@ const setRef = (state = initialState, action) => {
 		case 'SET_REF':
 			return {
 				...state,
-				compo: state.compo,
 				ref: action.ref
 			}
 		default:

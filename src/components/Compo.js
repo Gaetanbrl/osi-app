@@ -13,24 +13,24 @@ const bsCol = {
 	"R":"indicator-menu reprensation",
 }
 
-
 const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null }) => {
-	return(
+	if (!territoire.comm) return null;
+	return (
 		<nav className="indicators-menu">
-		{filter(refIndic, (i3) => (i3.niveau === niveau && (composition === null || composition.includes(i3.id)))).map(i3 => (
-			<div key = {i3.id} className={bsCol[i3.id]}>
+		{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => (
+			<div key = {compo.id} className={bsCol[compo.id]}>
 				<div>
 					<Button
-					disabled={!territoire.comm}
 					block
-					onClick={() => onCompoClick(i3.id)}>
-						<span>{ i3.description.toUpperCase()}</span>
+					className={compo.id === setCompo && 'active'}
+					onClick={() => onCompoClick(compo.id)}>
+						<span>{ compo.description.toUpperCase()}</span>
 						<i className="far fa-angle-right"></i>
 					</Button>
-					{(!setCompo || i3.id === setCompo) && (
+					{(!setCompo || compo.id === setCompo) && (
 						<Tableau />
 					)}
-					{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: i3.composition })}
+					{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: compo.composition })}
 				</div>
 			</div>
 		))}
