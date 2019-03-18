@@ -30,7 +30,7 @@ export default class Footer extends Component {
             <a target="_blank" rel="noopener noreferrer" href="https://www.labexmer.eu/fr/isblue">
               <img height="70px"  src={logo_isblue} alt="logo ISblue" />
             </a>
-            <a target="_blank" rel="noopener noreferrer" href="/#">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.cerema.fr/fr">
               <img height="70px"  src={logo_cerema} alt="logo Cerema" />
             </a>
           </div>

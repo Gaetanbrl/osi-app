@@ -65,3 +65,36 @@
     }
   }
 }
+
+.browser-support {
+  @extend %flexbox;
+  @include align-items(center);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  color: #D85606;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: #F9E9DF;
+  border: 1px solid #C7AB99;
+  .logo-wrapper {
+    padding: 8px 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(#000,.1);
+    margin-left: 10px;
+    transition: all .5s;
+    @extend %flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    &:hover {
+      box-shadow: 0 3px 18px rgba(#000,.4);
+    }
+  }
+  .logo-chrome {
+    width: 93px;
+    height: 26px;
+    background-image: url('../images/logo-chrome.png');
+    background-repeat: no-repeat;
+  }
+}
