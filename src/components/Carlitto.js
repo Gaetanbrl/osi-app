@@ -198,9 +198,9 @@ class Carlitto extends Component {
 		})
 
 		this.carSource = new ol.source.ImageWMS({
-			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
+			url: 'https://portail.indigeo.fr/geoserver/TEST/wms',
 			params: {
-				LAYERS: 'osi',
+				LAYERS: 'osialltest',
 				STYLE: 'default'
 			},
 			serverType: 'geoserver',
