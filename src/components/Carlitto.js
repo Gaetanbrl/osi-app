@@ -15,8 +15,8 @@ const zoomSizes = {
 
 const styleBaseEpci = new ol.style.Style({
 	stroke: new ol.style.Stroke({
-		color: [50, 50, 50, 0.3],
-		width: 1
+		color: [50, 50, 50, 0.8],
+		width: 1.5
 	}),
 	fill: new ol.style.Fill({
 		color: [100, 100, 100, 0.1]
