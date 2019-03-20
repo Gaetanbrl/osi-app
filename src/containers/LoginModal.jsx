@@ -39,7 +39,7 @@ class Home extends React.Component {
             Dans l’attente de l’optimisation pour d’autres navigateurs,
             naviguez préférentiellement dans OSI avec Chrome, pour une
             meilleure expérience utilisateur.
-            <a href="https://www.google.com/chrome/" target="_blank" className='logo-wrapper'>
+            <a href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer" className='logo-wrapper'>
               <span className="logo-chrome"></span>
             </a>
           </span>
