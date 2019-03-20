@@ -67,8 +67,14 @@ canvas{
 }
 
 .charts-container {
-  position: absolute;
-  bottom: 0;
+  margin-top: 6px;
+  .highcharts-container {
+    width: auto !important;
+    height: 240px !important;
+  }
+  .highcharts-credits {
+    display: none;
+  }
 }
 .data-container {
   position: absolute;

@@ -1,6 +1,8 @@
 import React from 'react'
 import { div } from 'react-bootstrap';
 
+import Feature from '../containers/Feature';
+
 import MethodeBox from './MethodeBox'
 import DataBox from './DataBox'
 
@@ -17,6 +19,7 @@ if (refIndic[setRef]) {
 				refIndic = {refIndic}
 				setRef = {setRef}
 				territoire = {territoire}/>
+				<Feature />
 			</div>
 		)
 	} else {
@@ -29,6 +32,7 @@ if (refIndic[setRef]) {
 				<DataBox
 				setRef = {setRef}
 				territoire = {territoire}/>
+				<Feature />
 			</div>
 		)
 	}

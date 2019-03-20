@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import LoginModal from './containers/LoginModal';
 
 import Carto from './containers/Carto';
-import Feature from './containers/Feature';
 import Meta from './containers/Meta';
 import Slide from './containers/Slide';
 import Systemic from './containers/Systemic';
@@ -30,7 +29,6 @@ const App = ({ isLogged }) => (
       <section id="map-container">
         <Carto />
         <Titre />
-        <Feature />
         <Slide />
         <Meta />
       </section>

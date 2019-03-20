@@ -70,30 +70,24 @@ render(){
 		let kv = data.concat().sort();
 		let config = {
 			chart: {
-		        type: 'column'
+		        type: 'bar'
 		    },
-		    title: {
-		        text: `Composition de l'indice`
-		    },
-		    subtitle: {
-		        text: `sur la maille <i>${infos["id_car"]}</i>`
-		    },
+		    title: "",
 		    xAxis: {
 		        type: 'category',
 		        labels: {
-		            rotation: -45,
+		            rotation: 0,
 		            style: {
-		                fontSize: '13px',
-		                fontFamily: 'Verdana, sans-serif'
+		                fontSize: '10px',
+		                fontFamily: 'arial'
 		            }
 		        }
 		    },
 		    yAxis: {
+		    		title: "",
 		        min: 0,
 		        max: 5,
-		        title: {
-		            text: 'Score'
-		        }
+		        tickInterval: 1,
 		    },
 		    legend: {
 		        enabled: false
@@ -107,14 +101,17 @@ render(){
 		        data: kv,
 		        dataLabels: {
 		            enabled: true,
-		            rotation: -90,
-		            color: '#FFFFFF',
+		            rotation: 0,
+		            color: '#000',
 		            align: 'right',
 		            format: '{point.y}', // one decimal
-		            y: 5, // 10 pixels down from the top
+		            y: 0, // 10 pixels down from the top
+		            x: 18,
 		            style: {
-		                fontSize: '13px',
-		                fontFamily: 'Verdana, sans-serif'
+	                fontSize: '11px',
+	                fontFamily: 'arial',
+	                textOutline: 0,
+	                fontWeight: 'normal'
 		            }
 		        }
 		    }]
