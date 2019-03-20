@@ -21,7 +21,7 @@ render() {
 			if (refIndic[c]) {
 				return composition.push(<li key={refIndic[c].nom}>{refIndic[c].description}</li>)
 			} else {
-				return console.error(`refIndic[${c}] doest not exists...`);
+				return console.error(`[${c}] is not in the 'composition' array of [${setRef}]...`);
 			}
 		})
 
