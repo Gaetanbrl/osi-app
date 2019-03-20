@@ -67,7 +67,8 @@ canvas{
 }
 
 .charts-container {
-  display: none;
+  position: absolute;
+  bottom: 0;
 }
 .data-container {
   position: absolute;
