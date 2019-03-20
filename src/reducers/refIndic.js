@@ -106,7 +106,7 @@ export default() => {
       id: "E",
       composante: "EN",
       description: "Enjeux",
-      composition: [ "E101","E102","E103","E104","E106","E108","E109","E201","E202","E203","E204","E301","E303","E304","E305","E306"],
+      composition: [ "E1", "E2","E3","E4"],
       methode: "Moyenne géométrique des indicateurs",
       niveau: 3,
       statut: "indice",
@@ -118,7 +118,7 @@ export default() => {
       id: "E1",
       composante: "EN",
       description: "Humains",
-      composition: [ "E101", "E102", "E103", "E104", "E106", "E108", "E109" ],
+      composition: [ "E101", "E102", "E103", "E105", "E107", "E108", "E109" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
@@ -200,7 +200,7 @@ export default() => {
       id: "E2",
       composante: "EN",
       description: "Economiques",
-      composition: [ "E201", "E202", "E203", "E204" ],
+      composition: [ "E201", "E202", "E203", "E205" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
@@ -629,34 +629,24 @@ export default() => {
     R1: {
       id: "R1",
       composante: "RE",
-      description: "Conscience des aléas",
-      composition: [ "R101", "R103", "R104", "R105" ],
+      description: "Conscience des risques",
+      composition: [ "R102", "R103", "R104", "R105", "R106", "R201", "R204", "R301" ],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
-      acronyme: "COAL",
-      nom: "Conscience des aléas",
+      acronyme: "CONSRISQ",
+      nom: "Conscience des risques",
       service: ""
-    },
-    R101: {
-      id: "R101",
-      composante: "RE",
-      description: "Sources d'information dont disposent les individus",
-      niveau: 1,
-      acronyme: "COM",
-      nom: "Sources d'information",
-      service: "",
-      thematique: "COAL"
     },
     R102: {
       id: "R102",
       composante: "RE",
-      description: "Expérience des risques",
+      description: "Expérience personnelle du risque",
       niveau: 1,
       acronyme: "ER",
-      nom: "Expérience",
+      nom: "Expérience personnelle",
       service: "",
-      thematique: "COAL"
+      thematique: "CONSRISQ"
     },
     R103: {
       id: "R103",
@@ -666,27 +656,27 @@ export default() => {
       acronyme: "IA",
       nom: "Information active",
       service: "",
-      thematique: "COAL"
+      thematique: "CONSRISQ"
     },
     R104: {
       id: "R104",
       composante: "RE",
-      description: "Identification des risques côtiers ",
+      description: "Problématiques locales",
       niveau: 1,
-      acronyme: "IR",
-      nom: "Identification",
+      acronyme: "PROLOC",
+      nom: "Problématiques locales",
       service: "",
-      thematique: "COAL"
+      thematique: "CONSRISQ"
     },
     R105: {
       id: "R105",
       composante: "RE",
-      description: "Identification personnelle des risques côtiers",
+      description: "Attention personnelle",
       niveau: 1,
-      acronyme: "IP",
-      nom: "Identification personnelle",
+      acronyme: "AP",
+      nom: "Attention personnelle",
       service: "",
-      thematique: "COAL"
+      thematique: "CONSRISQ"
     },
     R106: {
       id: "R106",
@@ -696,59 +686,17 @@ export default() => {
       acronyme: "NI",
       nom: "Inquiétude",
       service: "",
-      thematique: "COAL"
-    },
-    R107: {
-      id: "R107",
-      composante: "RE",
-      description: "Identification personnelle",
-      niveau: 1,
-      acronyme: "IP",
-      nom: "Identification personnelle",
-      service: "",
-      thematique: "COAL"
-    },
-    R2: {
-      id: "R2",
-      composante: "RE",
-      description: "Dimension sociale",
-      composition: [ "R201", "R202", "R203" ],
-      methode: "Maximum des indicateurs",
-      niveau: 2,
-      statut: "indice",
-      acronyme: "DISO",
-      nom: "Dimension sociale",
-      service: ""
+      thematique: "CONSRISQ"
     },
     R201: {
       id: "R201",
       composante: "RE",
-      description: "Dépendance, attachement et identité du lieu",
+      description: "Sens du lieu",
       niveau: 1,
       acronyme: "DP",
       nom: "Sens du lieu",
       service: "",
-      thematique: "DISO"
-    },
-    R202: {
-      id: "R202",
-      composante: "RE",
-      description: "Valorisation sociale du cadre de vie littorale",
-      niveau: 1,
-      acronyme: "VALOR",
-      nom: "Valorisation",
-      service: "",
-      thematique: "DISO"
-    },
-    R203: {
-      id: "R203",
-      composante: "RE",
-      description: "Vie associative en lien avec les risques côtiers",
-      niveau: 1,
-      acronyme: "ASSORIS",
-      nom: "Association",
-      service: "",
-      thematique: "DISO"
+      thematique: "CONSRISQ"
     },
     R204: {
       id: "R204",
@@ -756,51 +704,93 @@ export default() => {
       description: "Activités en lien avec la mer",
       niveau: 1,
       acronyme: "ACTMER",
-      nom: "Activités",
+      nom: "Activités en lien avec la mer",
       service: "",
-      thematique: "DISO"
-    },
-    R3: {
-      id: "R3",
-      composante: "RE",
-      description: "Perception de la gest°",
-      composition: [ "R301", "R302", "R303" ],
-      methode: "Maximum des indicateurs",
-      niveau: 2,
-      statut: "indice",
-      acronyme: "GEST",
-      nom: "Perception de la gestion",
-      service: ""
+      thematique: "CONSRISQ"
     },
     R301: {
       id: "R301",
       composante: "RE",
-      description: "Pratiques individuelles de prévention et/ou de protection",
+      description: "Pratiques individuelles",
       niveau: 1,
       acronyme: "IND",
       nom: "Pratiques individuelles",
       service: "",
-      thematique: "GEST"
+      thematique: "CONSRISQ"
+    },
+    R2: {
+      id: "R2",
+      composante: "RE",
+      description: "Evaluation des pratiques collectives",
+      composition: [ "R302", "R202", "R203" ],
+      methode: "Maximum des indicateurs",
+      niveau: 2,
+      statut: "indice",
+      acronyme: "EVAPRACOL",
+      nom: "Evaluation des pratiques collectives",
+      service: ""
     },
     R302: {
       id: "R302",
       composante: "RE",
-      description: "Pratiques collectives de prévention et/ou de protection",
+      description: "Renforcement de l'existant",
       niveau: 1,
-      acronyme: "CO",
-      nom: "Pratiques collectives",
+      acronyme: "RENFEX",
+      nom: "Renforcement de l'existant",
       service: "",
-      thematique: "GEST"
+      thematique: "EVAPRACOL"
+    },
+    R202: {
+      id: "R202",
+      composante: "RE",
+      description: "Impact sur l'existant",
+      niveau: 1,
+      acronyme: "IMPEX",
+      nom: "Impact sur l'existant",
+      service: "",
+      thematique: "EVAPRACOL"
+    },
+    R203: {
+      id: "R203",
+      composante: "RE",
+      description: "Mesures d'évacuation",
+      niveau: 1,
+      acronyme: "MESEVAC",
+      nom: "Mesures d'évacuation",
+      service: "",
+      thematique: "EVAPRACOL"
+    },
+    R3: {
+      id: "R3",
+      composante: "RE",
+      description: "Confiance",
+      composition: [ "R303", "R101"],
+      methode: "Maximum des indicateurs",
+      niveau: 2,
+      statut: "indice",
+      acronyme: "CONF",
+      nom: "Confiance",
+      service: ""
     },
     R303: {
       id: "R303",
       composante: "RE",
-      description: "Confiance et légitimité dans la gestion des risques côtiers",
+      description: "Intéractions locales",
       niveau: 1,
-      acronyme: "GES",
-      nom: "Confiance et légitimité",
+      acronyme: "INTERLOC",
+      nom: "Intéractions locales",
       service: "",
-      thematique: "GEST"
+      thematique: "CONF"
+    },
+    R101: {
+      id: "R101",
+      composante: "RE",
+      description: "Interactions médiatisées",
+      niveau: 1,
+      acronyme: "INTERMED",
+      nom: "Interactions médiatisées",
+      service: "",
+      thematique: "CONF"
     },
     I: {
       id: "I",

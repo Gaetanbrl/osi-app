@@ -18,13 +18,17 @@ render() {
 		ref = refIndic[setRef];
 		let composition = [];
 		ref.composition.map(c => {
-			return composition.push(<li key={refIndic[c].nom}>{refIndic[c].description}</li>)
+			if (refIndic[c]) {
+				return composition.push(<li key={refIndic[c].nom}>{refIndic[c].description}</li>)
+			} else {
+				return console.error(`refIndic[${c}] doest not exists...`);
+			}
 		})
 
 		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
 		return(
 			<div className="data-block data-block-methode" header="Méthode" tag="div">
-				<div className="data-block-title"><i class="far fa-chart-bar"></i>Indice</div>
+				<div className="data-block-title"><i className="far fa-chart-bar"></i>Indice</div>
 				<div className="data-block-container">
 					<div className="data-value-name">{desc}</div>
           <div className="data-value">
