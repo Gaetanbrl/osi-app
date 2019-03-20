@@ -393,7 +393,7 @@ class Carlitto extends Component {
 			}
 
 		} else {
-			viewProps["minResolution"] = zoomSizes.minComm;
+			viewProps["minResolution"] = zoomSizes.min;
 			cqlFilter = null
 		}
 		this.carMap.setView(new ol.View(viewProps));
