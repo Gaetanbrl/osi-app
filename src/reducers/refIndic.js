@@ -62,7 +62,7 @@ export default() => {
       id: "A2",
       composante: "AL",
       description: "Submersion",
-      composition: [ "A201", "A202" ],
+      composition: [ "A201" ],
       methode: "Maximum des indicateurs (submersion et paquets de mer)",
       niveau: 2,
       statut: "indice",
