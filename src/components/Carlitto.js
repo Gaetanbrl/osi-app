@@ -8,7 +8,7 @@ import meta_com from '../data/meta_com.json';
 const zoomSizes = {
 	min: 7.48,
 	minComm: 59,
-	maxComm: 120,
+	maxComm: 200,
 	max: 480,
 	default: 400,
 };
