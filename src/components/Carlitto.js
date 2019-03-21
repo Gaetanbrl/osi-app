@@ -127,10 +127,14 @@ class Carlitto extends Component {
 
 		let url;
 		if (viewResolution < zoomSizes.minComm) {
+			let { setRef } = this.props;
+
 			url = this.carSource.getGetFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
+					'STYLE': setRef.toLowerCase(),
+					'STYLES': setRef.toLowerCase(),
 					// 'propertyName': 'id_car'
 				},
 			);
@@ -198,9 +202,9 @@ class Carlitto extends Component {
 		})
 
 		this.carSource = new ol.source.ImageWMS({
-			url: 'https://portail.indigeo.fr/geoserver/TEST/wms',
+			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
-				LAYERS: 'osialltest',
+				LAYERS: 'osi',
 				STYLE: 'default'
 			},
 			serverType: 'geoserver',
@@ -459,6 +463,7 @@ class Carlitto extends Component {
 				&WIDTH=10&HEIGHT=10
 				&LAYER=osi
 				&STYLE=${refLow}
+				&STYLES=${refLow}
 				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
 				&TRANSPARENT=true`;
 
