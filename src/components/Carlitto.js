@@ -347,7 +347,6 @@ class Carlitto extends Component {
 		let { territoire, setRef, infos, error } = this.props
 		let carLayer = this.state.carLayer
 
-		let wmsStyle = null
 		let cqlFilter = null
 
 		if (prevProps.setRef !== setRef) {
