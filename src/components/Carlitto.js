@@ -127,14 +127,10 @@ class Carlitto extends Component {
 
 		let url;
 		if (viewResolution < zoomSizes.minComm) {
-			let { setRef } = this.props;
-
 			url = this.carSource.getGetFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
-					'STYLE': setRef.toLowerCase(),
-					'STYLES': setRef.toLowerCase(),
 					// 'propertyName': 'id_car'
 				},
 			);
@@ -349,26 +345,15 @@ class Carlitto extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let { territoire, setRef, infos, error } = this.props
-   		let carLayer = this.state.carLayer
+		let carLayer = this.state.carLayer
 
 		let wmsStyle = null
 		let cqlFilter = null
 
-		// let ableRef = ["A1","A2","A3","A","E1","E2","E3","E","G1","G2","G3","G","I1","I211","I212","I213","I221","I231","I2","I","R1","R2","R3","R"];
-		let ableRef = ["A1","A2","A3","E1","E2","E3","G1","G2","G3","I1","I211","I212","I213","I221","I231","I2","R1","R2","R3"];
-		let allRef;
-
 		if (prevProps.setRef !== setRef) {
-			meta_com.map(c => (c.id_com === String(territoire.insee) ? allRef = c.stats : null));
-			allRef.map(r => (ableRef.push(r.id_meta)));
-			ableRef.includes(setRef) ? wmsStyle = setRef.toLowerCase() : wmsStyle = "";
-
 			carLayer.getSource().updateParams({
-				STYLES: wmsStyle
+				STYLES: setRef.toLowerCase()
 			})
-
-		} else {
-			wmsStyle = null
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
