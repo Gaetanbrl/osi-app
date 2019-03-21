@@ -153,7 +153,7 @@ class Carlitto extends Component {
 
 			insee ? onCommClick(comm) : onEpciClick(epci)
 
-			this.carMap.getView().fit(feature.getGeometry(), {duration: 500})
+			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
 	  });
 	}
