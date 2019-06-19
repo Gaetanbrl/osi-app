@@ -25,7 +25,7 @@ render() {
 			}
 		})
 
-		let desc = (ref.niveau === 2) ? compo[ref.composante] + " " + ref.description : ref.description;
+		let desc = (ref.niveau === 2) ? compo[ref.composante] + " > " + ref.description : ref.description;
 		return(
 			<div className="data-block data-block-methode" header="Méthode" tag="div">
 				<div className="data-block-title"><i className="far fa-chart-bar"></i>Indice</div>
