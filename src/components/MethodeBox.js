@@ -98,7 +98,7 @@ render() {
 					Description : <strong>{ref.description}</strong>
 					<br/>
 					<br/>
-					Composition : <ul><li>{composition}</li></ul>
+					Composition : <ul>{composition}</ul>
 					<br/>
 					<br/>
 					Formule : {ref.methode}
