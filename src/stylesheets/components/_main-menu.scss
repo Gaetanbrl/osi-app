@@ -31,6 +31,9 @@ nav#main-menu {
   @extend %flexbox;
   @include flex-direction(column);
   padding-top: 4px;
+  + .indicators-menu {
+    margin-top: 20px;
+  }
 }
 .indicator-menu {
   @extend %flexbox;
@@ -47,6 +50,11 @@ nav#main-menu {
   }
   > div {
     @include flex(1);
+  }
+  &.indices {
+    &:before {
+      background-color: rgba(#000, .4);
+    }
   }
   &.vulnerabilite-systemique {
     &:before,
@@ -148,7 +156,7 @@ nav#main-menu {
     font-weight: 500;
     padding: 6px 12px 6px 8px;
     &.active {
-      background: rgba(0,0,0,.2);
+      background: rgba(0,0,0,.4);
       color: #fff;
       span + i {
         webkit-transform: rotate(90deg);
@@ -173,6 +181,10 @@ nav#main-menu {
         font-size: 18px;
         font-weight: 500;
         margin-bottom: 6px;
+        &.active a,
+        a[aria-expanded="true"] {
+          background: rgba(0, 0, 0, 0.4);
+        }
         a {
           @extend %flexbox;
           @include align-items(center);
@@ -217,6 +229,9 @@ nav#main-menu {
             content: "";
             display: flex;
           }
+          &.active span {
+            background: rgba(0, 0, 0, 0.4);
+          }
           span {
             margin-left: 6px;
             flex: 1;
@@ -229,6 +244,9 @@ nav#main-menu {
               content: "";
               display: flex;
             }
+          }
+          &[disabled]:hover:before {
+            border-left: 3px solid rgba(#fff, .2);
           }
           &[disabled] {
             color: rgba(#fff, .4);
