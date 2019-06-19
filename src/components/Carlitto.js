@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import ol from "openlayers";
+import { View, Map, Overlay, Feature } from "ol";
+import { Tile, Vector, Image } from "ol/layer";
+import { Style , Stroke, Fill } from "ol/style";
+import { fromLonLat, Projection } from "ol/proj";
+import { register } from "ol/proj/proj4";
+import { XYZ, Vector as VectorSource, ImageWMS } from "ol/source";
+import { GeoJSON, WKT } from "ol/format";
+import { pointerMove } from "ol/events/condition";
+import { ScaleLine, defaults as defaultControl } from "ol/control";
+import { Select, defaults as defaultInteraction } from "ol/interaction";
+
 import proj4 from "proj4";
 import { keyBy } from 'lodash';
 
@@ -13,55 +23,55 @@ const zoomSizes = {
 	default: 400,
 };
 
-const styleBaseEpci = new ol.style.Style({
-	stroke: new ol.style.Stroke({
+const styleBaseEpci = new Style({
+	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
 		width: 1.5
 	}),
-	fill: new ol.style.Fill({
+	fill: new Fill({
 		color: [100, 100, 100, 0.1]
 	}),
 });
 
-const styleEpciCommPilote = new ol.style.Style({
-	stroke: new ol.style.Stroke({
+const styleEpciCommPilote = new Style({
+	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
 		width: 1
 	}),
-	fill: new ol.style.Fill({
+	fill: new Fill({
 		color: [70, 70, 70, 0.8]
 	}),
 });
 
-const styleEpciComm = new ol.style.Style({
-	stroke: new ol.style.Stroke({
+const styleEpciComm = new Style({
+	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
 		width: 1
 	}),
-	fill: new ol.style.Fill({
+	fill: new Fill({
 		color: [70, 70, 70, 0.3]
 	}),
 });
 
-const styleEpciCommHover = new ol.style.Style({
-	stroke: new ol.style.Stroke({
+const styleEpciCommHover = new Style({
+	stroke: new Stroke({
 		color: [15, 15, 15, 0.8],
 		width: 1
 	}),
-	fill: new ol.style.Fill({
+	fill: new Fill({
 		color: [2, 149, 167, 0.8]
 	}),
 });
 
-const styleSelectedComm = new ol.style.Style({
-	stroke: new ol.style.Stroke({
+const styleSelectedComm = new Style({
+	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
 		width: 1
 	}),
 });
 
 const defaultViewProps = {
-	center: ol.proj.fromLonLat([-3, 48.15]),
+	center: fromLonLat([-3, 48.15]),
 	minResolution: zoomSizes.minComm,
 	maxResolution: zoomSizes.max - 1,
 };
@@ -161,35 +171,35 @@ class Carlitto extends Component {
 	componentDidMount() {
 		this.commNbIndic = keyBy(meta_com, c => c.id_com);
 
-		this.base = new ol.layer.Tile({
+		this.base = new Tile({
 			name: 'base',
 			opacity: 1,
-			source: new ol.source.XYZ({
+			source: new XYZ({
 				name: 'base',
 				url:'https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 			}),
 		})
 
-		this.baseTopology = new ol.layer.Tile({
+		this.baseTopology = new Tile({
 			name: 'baseTopology',
 			opacity: 1,
-			source: new ol.source.XYZ({
+			source: new XYZ({
 				name: 'baseTopology',
 				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
 			})
 		})
 
-		this.commSource = new ol.source.Vector({
+		this.commSource = new VectorSource({
 		})
-		this.commLayer = new ol.layer.Vector({
+		this.commLayer = new Vector({
 			source: this.commSource,
-			style: new ol.style.Style({
-				stroke: new ol.style.Stroke({
+			style: new Style({
+				stroke: new Stroke({
 					color: [50, 50, 50, 0.8],
 					width: 2.5
 				}),
-				fill: new ol.style.Fill({
+				fill: new Fill({
 					color: [255, 255, 255, .5]
 				}),
 			}),
@@ -197,7 +207,7 @@ class Carlitto extends Component {
 			maxResolution: zoomSizes.minComm,
 		})
 
-		this.carSource = new ol.source.ImageWMS({
+		this.carSource = new ImageWMS({
 			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
 				LAYERS: 'osi',
@@ -206,7 +216,7 @@ class Carlitto extends Component {
 			serverType: 'geoserver',
 			crossOrigin: 'anonymous'
 		})
-		this.carLayer = new ol.layer.Image({
+		this.carLayer = new Image({
 			name: 'carLayer',
 			source: this.carSource,
 			opacity: .8,
@@ -215,12 +225,12 @@ class Carlitto extends Component {
 			zIndex: 20,
 		})
 
-		this.selSource = new ol.source.Vector({
+		this.selSource = new VectorSource({
 		});
-		this.selectedLayer = new ol.layer.Vector({
+		this.selectedLayer = new Vector({
 			source: this.selSource,
-			style: new ol.style.Style({
-				stroke: new ol.style.Stroke({
+			style: new Style({
+				stroke: new Stroke({
 					color: [255, 255, 255, 1],
 					width: 2.5
 				})
@@ -228,11 +238,11 @@ class Carlitto extends Component {
 			zIndex: 20,
 		})
 
-		const sourceEpci = new ol.source.Vector({
-			format: new ol.format.GeoJSON(),
+		const sourceEpci = new VectorSource({
+			format: new GeoJSON(),
 			url: 'epci3857.json'
 		})
-		this.baseEpci = new ol.layer.Vector({
+		this.baseEpci = new Vector({
 			name: 'baseepci',
 			source: sourceEpci,
 			style: styleBaseEpci,
@@ -241,7 +251,7 @@ class Carlitto extends Component {
 			zIndex: 0
 		});
 
-		this.epci = new ol.layer.Vector({
+		this.epci = new Vector({
 			source: sourceEpci,
 			style: (feature, resolution) => {
 				if (feature.get('site_pilote') === true) {
@@ -254,9 +264,9 @@ class Carlitto extends Component {
 			zIndex: 1,
 		})
 
-		this.comm = new ol.layer.Vector({
-			source: new ol.source.Vector({
-				format: new ol.format.GeoJSON(),
+		this.comm = new Vector({
+			source: new VectorSource({
+				format: new GeoJSON(),
 				url: 'comm3857.json'
 			}),
 			style: styleEpciComm,
@@ -265,9 +275,9 @@ class Carlitto extends Component {
 			zIndex: 10,
 		})
 
-		this.commIsSelected = new ol.layer.Vector({
-			source: new ol.source.Vector({
-				format: new ol.format.GeoJSON(),
+		this.commIsSelected = new Vector({
+			source: new VectorSource({
+				format: new GeoJSON(),
 				url: 'comm3857.json'
 			}),
 			style: styleSelectedComm,
@@ -276,10 +286,10 @@ class Carlitto extends Component {
 			zIndex: 10,
 		})
 
-		const scaleLineControl = new ol.control.ScaleLine();
-		let view = new ol.View({ ...defaultViewProps, resolution: zoomSizes.default });
+		const scaleLineControl = new ScaleLine();
+		let view = new View({ ...defaultViewProps, resolution: zoomSizes.default });
 
-		this.carMap = new ol.Map({
+		this.carMap = new Map({
 			target: this.refs.map,
 			layers: [
 				this.base,
@@ -292,10 +302,10 @@ class Carlitto extends Component {
 				this.comm,
 				this.commIsSelected,
 			],
-			controls: ol.control.defaults({collapsible: false}).extend([
+			controls: defaultControl({collapsible: false}).extend([
 				scaleLineControl
 			]),
-			interactions: ol.interaction.defaults({mouseWheelZoom:true}),
+			interactions: defaultInteraction({mouseWheelZoom:true}),
 			view: view
 		});
 
@@ -311,30 +321,30 @@ class Carlitto extends Component {
 		});
 
 		// Add hover style interaction
-		let epciHover = new ol.interaction.Select({
-			condition: ol.events.condition.pointerMove,
+		let epciHover = new Select({
+			condition: pointerMove,
 			style: styleEpciCommHover,
 			layers: [this.epci],
 		})
 		this.carMap.addInteraction(epciHover);
 
-		let commHover = new ol.interaction.Select({
-			condition: ol.events.condition.pointerMove,
+		let commHover = new Select({
+			condition: pointerMove,
 			style:  styleEpciCommHover,
 			layers: [this.comm]
 		})
 		this.carMap.addInteraction(commHover);
 
 		// Add Local Name overlay
-		this.overlay = new ol.Overlay({
+		this.overlay = new Overlay({
 			element: this.refs.olTool,
 			offset: [10, -5],
 			positioning: 'bottom-left',
 		})
 		this.carMap.addOverlay(this.overlay)
-		this.carMap.on('pointermove', this.moveHandler, this);
+		this.carMap.on('pointermove', (evt) => this.moveHandler(evt));
 
-		this.carMap.on('click', this.clickHandler, this);
+		this.carMap.on('click', (evt) => this.clickHandler(evt));
 
 		this.setState({
 			carMap: this.carMap,
@@ -366,7 +376,7 @@ class Carlitto extends Component {
 
 			this.carMap.getView().fit(territoire.geom, {duration: 500})
 
-			this.commGeom = new ol.Feature({
+			this.commGeom = new Feature({
 				geometry: territoire.geom,
 				name: 'commName'
 				})
@@ -384,27 +394,27 @@ class Carlitto extends Component {
 			viewProps["minResolution"] = zoomSizes.min;
 			cqlFilter = null
 		}
-		this.carMap.setView(new ol.View(viewProps));
+		this.carMap.setView(new View(viewProps));
 
 		if (infos) {
 			let car = infos["id_car"];
 			let E = Number(car.slice(5,12));
 			let N = Number(car.slice(13,20));
 
-			ol.proj.setProj4(proj4);
 			let projCode = 'EPSG:3035';
 			proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+			register(proj4);
 
-			let epsg3035 = new ol.proj.Projection({
+			let epsg3035 = new Projection({
 			    code: projCode,
 			    extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
 			  });
 
 			let wkt = `POLYGON((${E} ${N+200}, ${E+200} ${N+200}, ${E+200} ${N}, ${E} ${N}, ${E} ${N+200}))`
-			let format = new ol.format.WKT();
+			let format = new WKT();
 	        let carGeom = format.readGeometry(wkt);
 
-	        this.selGeom = new ol.Feature({
+	        this.selGeom = new Feature({
                 geometry: carGeom,
                 name: 'selCar'
             });
