@@ -35,6 +35,9 @@ export default class Footer extends Component {
             </a>
           </div>
           <div>
+            <span className="footer-terms">
+              Réalisation co-financée par
+            </span>
             <a target="_blank" rel="noopener noreferrer" href="https://www.bretagne.developpement-durable.gouv.fr/">
               <img height="70px" src={logo_dreal} alt="logo DREAL Bretagne" />
             </a>

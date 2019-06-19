@@ -15,6 +15,9 @@
       font-weight: 300;
     }
   }
+  .footer-terms {
+    margin-right: 10px;
+  }
   .footer-partners {
     @extend %flexbox;
     @include justify-content(space-between);

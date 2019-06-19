@@ -57,7 +57,7 @@ canvas{
     display: none;
   }
   .ol-scale-line {
-    position: relative;
+    position: absolute;
     bottom: 30px;
     left: 10px;
     .ol-scale-line-inner {
