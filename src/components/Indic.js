@@ -48,7 +48,7 @@ render(){
                 onClick={() => this.props.onClick(i1.id)}
                 disabled= {!this.props.ableList.includes(i1.id)}
                 >
-                  {i1.nom}
+                  <span>{i1.nom}</span>
                 </div>
               </Panel.Body>
   					))}

@@ -51,7 +51,9 @@ nav#main-menu {
   &.vulnerabilite-systemique {
     &:before,
     .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $vulnerabilite-systemique-color-1,
@@ -64,7 +66,9 @@ nav#main-menu {
   &.risque {
     &:before,
     .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $risque-color-1,
@@ -77,7 +81,9 @@ nav#main-menu {
   &.aleas {
     &:before,
     .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $aleas-color-1,
@@ -89,7 +95,9 @@ nav#main-menu {
   }
   &.enjeux {
     &:before, .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $enjeux-color-1,
@@ -101,7 +109,9 @@ nav#main-menu {
   }
   &.gestion {
     &:before, .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $gestion-color-1,
@@ -113,7 +123,9 @@ nav#main-menu {
   }
   &.reprensation {
     &:before, .btn.active,
-    .submenu .panel .panel-title.active a {
+    .submenu .panel .panel-title.active a,
+    .submenu .panel .panel-title a[aria-expanded="true"],
+    .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
         $start-color: $reprensation-color-1,
@@ -192,24 +204,34 @@ nav#main-menu {
       }
       .panel-list {
         margin-bottom: 6px;
-        padding-left: 14px;
         .panel-body {
           padding: 0;
         }
         .submenu-link {
-          border-left: 3px solid rgba(#fff,.2);
-          padding: 2px 10px;
+          display: flex;
           font-size: 16px;
           font-weight: 400;
           cursor: pointer;
-          &:hover, &.active {
-            background-color: rgba(#000, .2);
-            border-left: 3px solid #fff;
+          &:before {
+            border-left: 3px solid rgba(#fff, .2);
+            content: "";
+            display: flex;
+          }
+          span {
+            margin-left: 6px;
+            flex: 1;
+            padding: 2px 6px;
+            border-radius: 3px;
+          }
+          &:hover {
+            &:before {
+              border-left: 3px solid #fff;
+              content: "";
+              display: flex;
+            }
           }
           &[disabled] {
             color: rgba(#fff, .4);
-            background-color: transparent;
-            border-left: 3px solid rgba(#fff,.2);
             cursor: default;
           }
         }
