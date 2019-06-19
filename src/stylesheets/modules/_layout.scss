@@ -9,6 +9,7 @@ body, #root, #layout {
   main {
     @extend %flexbox;
     @include flex(1);
+    overflow: hidden;
     #map-container {
       @include flex(1);
     }
