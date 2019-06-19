@@ -16,25 +16,52 @@ const bsCol = {
 const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null }) => {
 	if (!territoire.comm) return null;
 	return (
-		<nav className="indicators-menu">
-		{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => (
-			<div key = {compo.id} className={bsCol[compo.id]}>
-				<div>
-					<Button
-					block
-					className={compo.id === setCompo && 'active'}
-					onClick={() => onCompoClick(compo.id)}>
-						<span>{ compo.description.toUpperCase()}</span>
-						<i className="far fa-angle-right"></i>
-					</Button>
-					{(!setCompo || compo.id === setCompo) && (
-						<Tableau />
-					)}
-					{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: compo.composition })}
-				</div>
-			</div>
-		))}
-		</nav>
+		<div>
+			<nav className="indicators-menu">
+				{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => {
+				if (compo.id !== "I") return (
+					<div key = {compo.id} className={bsCol[compo.id]}>
+						<div>
+							<Button
+							block
+							className={compo.id === setCompo && 'active'}
+							onClick={() => onCompoClick(compo.id)}>
+								<span>{ compo.description.toUpperCase()}</span>
+								<i className="far fa-angle-right"></i>
+							</Button>
+							{(!setCompo || compo.id === setCompo) && (
+								<Tableau />
+							)}
+							{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: compo.composition })}
+						</div>
+					</div>
+				);}
+				)}
+			</nav>
+			{ niveau === 5 ? 
+				<nav className="indicators-nomenu"> 
+					{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => {
+						if (compo.id === "I") return (
+						<div key = {compo.id} className={bsCol[compo.id]}>
+							<div>
+								<Button
+								block
+								className={compo.id === setCompo && 'active'}
+								onClick={() => onCompoClick(compo.id)}>
+									<span>{ compo.description.toUpperCase()}</span>
+									<i className="far fa-angle-right"></i>
+								</Button>
+								{(!setCompo || compo.id === setCompo) && (
+									<Tableau />
+								)}
+								{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: compo.composition })}
+							</div>
+						</div>
+						);
+					})}
+				</nav>
+			: null }
+		</div>
 	)
 }
 

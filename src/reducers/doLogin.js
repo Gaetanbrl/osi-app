@@ -3,7 +3,7 @@ import SHA512 from 'crypto-js/sha512';
 import { loginData } from '../data/LoginData';
 
 const initialState = {
-	isLogged: false,
+	isLogged: true,
 	errorMessage: '',
 };
 

@@ -797,7 +797,7 @@ export default() => {
       composante: "IT",
       composition: [],
       description: "Indices",
-      niveau: 4,
+      niveau: 5,
       statut: "indice",
       acronyme: "IT",
       nom: "Indices composites",
