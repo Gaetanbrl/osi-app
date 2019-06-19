@@ -36,7 +36,8 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, compo
 							{niveau > 3 && Compo({ refIndic, setCompo, onCompoClick, territoire, niveau: niveau - 1, composition: compo.composition })}
 						</div>
 					</div>
-				);}
+				);
+				return null;}
 				)}
 			</nav>
 			{ niveau === 5 ?
@@ -59,6 +60,7 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, compo
 							</div>
 						</div>
 						);
+						return null;
 					})}
 				</nav>
 			: null }
