@@ -134,7 +134,6 @@ class Carlitto extends Component {
 	clickHandler(event) {
 		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
 		const viewResolution = this.carMap.getView().getResolution();
-
 		let url;
 		if (viewResolution < zoomSizes.minComm) {
 			url = this.carSource.getGetFeatureInfoUrl(
@@ -156,20 +155,26 @@ class Carlitto extends Component {
 			let siren = feature.get('siren_epci')
 			let geom = feature.getGeometry()
 
-			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) return false;
-
+			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) { 
+				return false;
+			}
 			let epci = {siren: siren, nom: nom}
 			let comm = {insee: insee, nom: nom, geom: geom}
-
 			insee ? onCommClick(comm) : onEpciClick(epci)
 
 			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
 	  });
-		document.body.style.cursor = 'pointer';
+	  document.body.style.cursor = 'pointer';
 	}
 
 	componentDidMount() {
+
+		window.onresize =
+			function() {
+				this.carMap && this.carMap.updateSize();
+			}
+		;
 		this.commNbIndic = keyBy(meta_com, c => c.id_com);
 
 		this.base = new Tile({
