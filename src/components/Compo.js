@@ -11,6 +11,7 @@ const bsCol = {
 	"E":"indicator-menu enjeux",
 	"G":"indicator-menu gestion",
 	"R":"indicator-menu reprensation",
+	"I":"indicator-menu indices",
 }
 
 const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null }) => {
@@ -36,12 +37,11 @@ const Compo = ({ refIndic, setCompo, onCompoClick, territoire, niveau = 5, compo
 						</div>
 					</div>
 				);
-			return null;
-		}
+				return null;}
 				)}
 			</nav>
-			{ niveau === 5 ? 
-				<nav className="indicators-nomenu"> 
+			{ niveau === 5 ?
+				<nav className="indicators-menu">
 					{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => {
 						if (compo.id === "I") return (
 							<div key = {compo.id} className={bsCol[compo.id]}>

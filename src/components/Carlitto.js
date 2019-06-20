@@ -166,6 +166,7 @@ class Carlitto extends Component {
 			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
 	  });
+		document.body.style.cursor = 'pointer';
 	}
 
 	componentDidMount() {
