@@ -40,7 +40,7 @@ nav#main-menu {
   margin-bottom: 6px;
   &:before {
     content: "";
-    display: flex;
+    @include flexbox();
     width: 4px;
     margin-right: 5px;
     border-radius: $global-radius;
@@ -217,34 +217,72 @@ nav#main-menu {
           padding: 0;
         }
         .submenu-link {
-          display: flex;
+          @include flexbox();
           font-size: 16px;
           font-weight: 400;
           cursor: pointer;
+          position: relative;
           &:before {
             border-left: 3px solid rgba(#fff, .2);
             content: "";
-            display: flex;
+            @include flexbox();
+          }
+          &.active {
+            span {
+              background-color: rgba(#000, .4);
+            }
+            &:before {
+              border-left: 3px solid #fff;
+              content: "";
+              @include flexbox();
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 3px;
+              top: calc(50% - 4px);
+              width: 0;
+              height: 0;
+              border-top: 4px solid transparent;
+              border-left: 4px solid #fff;
+              border-bottom: 4px solid transparent;
+            }
+            &:hover {
+              &:before { border-color: #fff; }
+              &:after { border-left-color: #fff; }
+            }
           }
           span {
-            margin-left: 6px;
+            margin-left: 10px;
             flex: 1;
             padding: 2px 6px;
             border-radius: 3px;
           }
           &:hover {
             &:before {
-              border-left: 3px solid #fff;
+              border-left: 3px solid rgba(#fff, .4);
               content: "";
-              display: flex;
+              @include flexbox();
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 3px;
+              top: calc(50% - 4px);
+              width: 0;
+              height: 0;
+              border-top: 4px solid transparent;
+              border-left: 4px solid rgba(#fff, .4);
+              border-bottom: 4px solid transparent;
             }
           }
-          &[disabled]:hover:before {
-            border-left: 3px solid rgba(#fff, .2);
+          &[disabled]:hover {
+            &:before {border-left: 3px solid rgba(#fff, .2);}
+            &:after {display: none;}
           }
           &[disabled] {
             color: rgba(#fff, .4);
-            cursor: default;
+            cursor: not-allowed;
           }
         }
       }
