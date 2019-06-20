@@ -37,18 +37,27 @@ canvas{
     position: absolute;
     top: 14px;
     right: 14px;
+    left: auto;
     @extend %flexbox;
     @include flex-direction(column);
+    background-color: #fff;
     box-shadow: 0 2px 8px -1px rgba(0,0,0,.2);
     border-radius: 10px;
     overflow: hidden;
+    padding: 0;
     button {
+      color: #000;
       border: none;
+      background-color: transparent;
       width: 30px;
       font-size: 24px;
       font-weight: 500;
+      margin: 0;
       &:hover {
-        background-color: #f9f9f9;
+        background-color: #efefef;
+      }
+      &:focus {
+        outline: none;
       }
     }
   }
@@ -58,10 +67,15 @@ canvas{
   }
   .ol-scale-line {
     position: absolute;
-    bottom: 30px;
+    bottom: 10px;
     left: 10px;
+    background-color: transparent;
+    padding: 0;
     .ol-scale-line-inner {
-      background: rgba(0, 0, 0, .2);
+      background: rgba(0, 0, 0, .15);
+      border-color: #333;
+      color: #333;
+      margin: 0;
     }
   }
 }
