@@ -50,8 +50,8 @@ export default class Footer extends Component {
           <a rel="license" className="licence-logo" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
             <img alt="Licence Creative Commons" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
           </a>
-          <div className="licence-text">Application conçue et développée à l'Institut Universitaire Européen de la Mer dans le cadre d'
-            <a href="https://www-iuem.univ-brest.fr/pops/projects/osirisc-vers-un-observatoire-integre-des-risques-cotiers-d-erosion-submersion">OSIRISC</a>
+          <div className="licence-text">Application conçue et développée à l'Institut Universitaire Européen de la Mer dans le cadre des projets
+            <a href="https://www-iuem.univ-brest.fr/pops/projects/osirisc-vers-un-observatoire-integre-des-risques-cotiers-d-erosion-submersion"> OSIRISC et OSIRISC+</a>
             , avec le soutien de la Fondation de France et la DREAL Bretagne et mise à disposition selon les termes de la
             <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International.</a>
           </div>
