@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Map, Overlay, Feature } from "ol";
 import { Tile, Vector, Image } from "ol/layer";
 import { Style , Stroke, Fill } from "ol/style";
-import { fromLonLat, Projection } from "ol/proj";
+import { fromLonLat, get as getProjection } from "ol/proj";
 import { register } from "ol/proj/proj4";
 import { XYZ, Vector as VectorSource, ImageWMS } from "ol/source";
 import { GeoJSON, WKT } from "ol/format";
@@ -100,15 +100,17 @@ class Carlitto extends Component {
   	url = null
 
 	moveHandler(event) {
-		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
-			if (this.carMap.getView().getResolution() < zoomSizes.minComm) return null;
-
+		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
+			if (this.carMap.getView().getResolution() < zoomSizes.minComm) {
+				return true;
+			}
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
 			let sitePilote = feature.get('site_pilote')
 			let insee = feature.get('insee')
-			if (!nom && !code) return null;
-
+			if (!nom && !code) {
+				return null;
+			}
 			this.overlay.setPosition(event.coordinate);
 
 			let overlayText = '<h6><strong>' + nom + '</strong>'
@@ -140,7 +142,6 @@ class Carlitto extends Component {
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
-					// 'propertyName': 'id_car'
 				},
 			);
 		}
@@ -149,7 +150,7 @@ class Carlitto extends Component {
 			this.url = url;
 			onCarClick(this.url);
 		}
-		this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
+		this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			let nom = feature.get('nom')
 			let insee = feature.get('insee')
 			let siren = feature.get('siren_epci')
@@ -164,6 +165,11 @@ class Carlitto extends Component {
 
 			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
+	  }, {
+		  layerFilter: (layer) => {
+			return true;
+		  },
+		  hitTolerance: 1,
 	  });
 	  document.body.style.cursor = 'pointer';
 	}
@@ -199,6 +205,7 @@ class Carlitto extends Component {
 		this.commSource = new VectorSource({
 		})
 		this.commLayer = new Vector({
+			name: "commLayer",
 			source: this.commSource,
 			style: new Style({
 				stroke: new Stroke({
@@ -234,6 +241,7 @@ class Carlitto extends Component {
 		this.selSource = new VectorSource({
 		});
 		this.selectedLayer = new Vector({
+			name: 'selectedLayer',
 			source: this.selSource,
 			style: new Style({
 				stroke: new Stroke({
@@ -293,7 +301,11 @@ class Carlitto extends Component {
 		})
 
 		const scaleLineControl = new ScaleLine();
-		let view = new View({ ...defaultViewProps, resolution: zoomSizes.default });
+		let view = new View({ 
+			...defaultViewProps,
+			projection: 'EPSG:3857',
+			resolution: zoomSizes.default
+		});
 
 		this.carMap = new Map({
 			target: this.refs.map,
@@ -309,7 +321,7 @@ class Carlitto extends Component {
 				this.commIsSelected,
 			],
 			controls: defaultControl({collapsible: false}).extend([
-				scaleLineControl
+				scaleLineControl,
 			]),
 			interactions: defaultInteraction({mouseWheelZoom:true}),
 			view: view
@@ -411,10 +423,12 @@ class Carlitto extends Component {
 			proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
 			register(proj4);
 
-			let epsg3035 = new Projection({
+			/* let epsg3035 = new Projection({
 			    code: projCode,
 			    extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
-			  });
+			  }); */
+			let epsg3035 = getProjection('EPSG:3035');
+			epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
 
 			let wkt = `POLYGON((${E} ${N+200}, ${E+200} ${N+200}, ${E+200} ${N}, ${E} ${N}, ${E} ${N+200}))`
 			let format = new WKT();
