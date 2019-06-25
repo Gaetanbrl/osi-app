@@ -35,7 +35,7 @@ render(){
 					<Panel.Title
             toggle
             onClick={() => this.props.onClick(i2.id)}
-            className={this.props.currentIndic === i2.id && 'active'}
+            className={this.props.currentIndic === i2.id && this.state.activeKey && 'active'}
           >
       			{ i2.description }
             <i className="far fa-angle-right"></i>
@@ -45,7 +45,7 @@ render(){
               <Panel.Body key={i1.nom} collapsible>
                 <div
                 className={`submenu-link ${this.props.currentIndic === i1.id && 'active'}`}
-                onClick={() => this.props.onClick(i1.id)}
+                onClick={() => this.props.ableList.includes(i1.id) && this.props.onClick(i1.id)}
                 disabled= {!this.props.ableList.includes(i1.id)}
                 >
                   <span>{i1.nom}</span>
