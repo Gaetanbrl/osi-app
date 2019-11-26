@@ -68,6 +68,9 @@ const styleSelectedComm = new Style({
 		color: [50, 50, 50, 0.8],
 		width: 1
 	}),
+	fill: new Fill({
+		color: [0, 0, 0, 0], // Enable click handler on fill area
+	}),
 });
 
 const defaultViewProps = {
@@ -102,7 +105,7 @@ class Carlitto extends Component {
 	moveHandler(event) {
 		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			if (this.carMap.getView().getResolution() < zoomSizes.minComm) {
-				return true;
+				return null;
 			}
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
@@ -156,7 +159,7 @@ class Carlitto extends Component {
 			let siren = feature.get('siren_epci')
 			let geom = feature.getGeometry()
 
-			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) { 
+			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) {
 				return false;
 			}
 			let epci = {siren: siren, nom: nom}
@@ -301,7 +304,7 @@ class Carlitto extends Component {
 		})
 
 		const scaleLineControl = new ScaleLine();
-		let view = new View({ 
+		let view = new View({
 			...defaultViewProps,
 			projection: 'EPSG:3857',
 			resolution: zoomSizes.default
