@@ -374,7 +374,6 @@ class Carlitto extends Component {
 			carMap: this.carMap,
 			carLayer: this.carLayer
 		});
-
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -464,6 +463,8 @@ class Carlitto extends Component {
 				this.selSource.removeFeature(oldSel[0]);
 			}
 		}
+
+		this.carMap && this.carMap.updateSize();
 	 }
 
 	render() {
