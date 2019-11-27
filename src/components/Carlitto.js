@@ -103,16 +103,18 @@ class Carlitto extends Component {
   	url = null
 
 	moveHandler(event) {
+		let isEpciOrCommFeature = false;
 		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			if (this.carMap.getView().getResolution() < zoomSizes.minComm) {
-				return null;
+				return feature;
 			}
+			isEpciOrCommFeature = true;
 			let nom = feature.get('nom')
 			let code = feature.get('insee')
 			let sitePilote = feature.get('site_pilote')
 			let insee = feature.get('insee')
 			if (!nom && !code) {
-				return null;
+				return feature;
 			}
 			this.overlay.setPosition(event.coordinate);
 
@@ -132,7 +134,7 @@ class Carlitto extends Component {
 			return feature;
 		});
 
-		this.overlay.getElement().style.display = feature ? '' : 'none';
+		this.overlay.getElement().style.display = isEpciOrCommFeature ? '' : 'none';
 		document.body.style.cursor = feature ? 'pointer' : '';
 	}
 
