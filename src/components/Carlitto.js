@@ -165,8 +165,9 @@ class Carlitto extends Component {
 			let epci = {siren: siren, nom: nom}
 			let comm = {insee: insee, nom: nom, geom: geom}
 			insee ? onCommClick(comm) : onEpciClick(epci)
+			const minResolution = insee ? zoomSizes.min : zoomSizes.minComm;
 
-			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, constrainResolution: false, padding: [40, 40, 40, 40] })
+			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, minResolution, constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
 	  }, {
 		  layerFilter: (layer) => {
