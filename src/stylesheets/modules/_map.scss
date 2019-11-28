@@ -32,6 +32,13 @@ canvas{
   }
 }
 
+#bt-show-all-comm {
+  position: absolute;
+  bottom: 14px;
+  right: 234px;
+  z-index: 2;
+}
+
 .ol-overlaycontainer-stopevent {
   .ol-zoom {
     position: absolute;

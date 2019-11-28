@@ -389,10 +389,10 @@ class Carlitto extends Component {
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if (prevProps.territoire !== territoire && !!territoire) {
+		if ((prevState && prevState.showAllComm !== this.state.showAllComm) || (prevProps.territoire !== territoire && !!territoire)) {
 			viewProps["minResolution"] = zoomSizes.min;
 
-			cqlFilter = `id_com=${territoire.insee}`
+			cqlFilter = this.state.showAllComm ? null : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter
 			})
@@ -474,6 +474,7 @@ class Carlitto extends Component {
 		let refLow;
 		let leg;
 		let img = null;
+		let btShowAll = null;
 		let {setRef} = this.props;
 
 		if (setRef){
@@ -489,6 +490,12 @@ class Carlitto extends Component {
 				&TRANSPARENT=true`;
 
 			img = <div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
+			const onClickShowAll = () => {
+				this.setState({
+					showAllComm: !this.state.showAllComm,
+				});
+			}
+			btShowAll = <div id="bt-show-all-comm"><button type="button" onClick={onClickShowAll}>Show All Comm</button></div>
 		}
 
 		return (
@@ -497,6 +504,7 @@ class Carlitto extends Component {
 						<div className="olTool" ref="olTool"></div>
 					</div>
 					{img}
+					{btShowAll}
 				</div>
 		)
 	}
