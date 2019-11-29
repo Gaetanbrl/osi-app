@@ -26,7 +26,7 @@ const zoomSizes = {
 const styleBaseEpci = new Style({
 	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
-		width: 1.5
+		width: 2
 	}),
 	fill: new Fill({
 		color: [100, 100, 100, 0.1]
