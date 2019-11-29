@@ -52,7 +52,10 @@ nav#main-menu {
     @include flex(1);
   }
   &.indices {
-    &:before {
+    &:before,
+    .btn.active,
+    .submenu .panel .panel-title.active a,
+    .submenu-link.active span {
       background-color: rgba(#000, .4);
     }
   }
@@ -60,7 +63,6 @@ nav#main-menu {
     &:before,
     .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
@@ -75,7 +77,6 @@ nav#main-menu {
     &:before,
     .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
@@ -90,7 +91,6 @@ nav#main-menu {
     &:before,
     .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
@@ -104,7 +104,6 @@ nav#main-menu {
   &.enjeux {
     &:before, .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
@@ -118,7 +117,6 @@ nav#main-menu {
   &.gestion {
     &:before, .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,
@@ -132,7 +130,6 @@ nav#main-menu {
   &.reprensation {
     &:before, .btn.active,
     .submenu .panel .panel-title.active a,
-    .submenu .panel .panel-title a[aria-expanded="true"],
     .submenu-link.active span {
       @include gradient-directional(
         $deg: 160deg,

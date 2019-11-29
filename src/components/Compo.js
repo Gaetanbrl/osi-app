@@ -20,7 +20,7 @@ export default class Compo extends Component{
 			expanded: props.expanded || true
 		}
 	}
-	
+
 	render() {
 		const { refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null } = this.props;
 		const { expanded } = this.state;
@@ -43,8 +43,8 @@ export default class Compo extends Component{
 									<Tableau />
 								)}
 								{niveau > 3 && (
-									<Compo 
-										refIndic={refIndic} 
+									<Compo
+										refIndic={refIndic}
 										setCompo={setCompo}
 										onCompoClick={onCompoClick}
 										territoire={territoire}
@@ -66,7 +66,7 @@ export default class Compo extends Component{
 									<div>
 										<Button
 										block
-										className={compo.id === setCompo && 'active'}
+										className={compo.id === setCompo ? expanded ? 'active expanded' : 'active' : null}
 										onClick={() => onCompoClick(compo.id)}>
 											<span>{ compo.description.toUpperCase()}</span>
 											<i className="far fa-angle-right"></i>
@@ -75,8 +75,8 @@ export default class Compo extends Component{
 											<Tableau />
 										)}
 										{niveau > 3 && (
-											<Compo 
-												refIndic={refIndic} 
+											<Compo
+												refIndic={refIndic}
 												setCompo={setCompo}
 												onCompoClick={onCompoClick}
 												territoire={territoire}

@@ -14,12 +14,17 @@ handleSelect(activeKey) {
 	this.setState({ activeKey })
 }
 
-render(){
+componentWillUpdate (nextProps) {
+  if (this.props.currentIndic !== nextProps.currentIndic && nextProps.currentIndic === nextProps.setCompo) {
+    this.setState({ activeKey: null });
+  }
+}
+
+render() {
 
 	const bsCol = {"AL":"danger", "EN":"warning", "GE":"success", "RE":"info", "IC":"default"}
 
-    return(
-
+  return(
 		<div className="submenu">
 			{this.props.niveau2.map(i2 => (
 			<PanelGroup
@@ -31,11 +36,12 @@ render(){
 				<Panel
   				eventKey={i2.nom}
   				key={i2.nom}
-  				bsStyle={bsCol[i2.composante]}>
+  				bsStyle={bsCol[i2.composante]}
+        >
 					<Panel.Title
             toggle
             onClick={() => this.props.onClick(i2.id)}
-            className={this.props.currentIndic === i2.id && this.state.activeKey && 'active'}
+            className={(this.props.currentIndic === i2.id || this.state.activeKey === i2.nom) && 'active'}
           >
       			{ i2.description }
             <i className="far fa-angle-right"></i>
