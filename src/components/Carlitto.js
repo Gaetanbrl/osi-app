@@ -490,12 +490,19 @@ class Carlitto extends Component {
 				&TRANSPARENT=true`;
 
 			img = <div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
+
 			const onClickShowAll = () => {
 				this.setState({
 					showAllComm: !this.state.showAllComm,
 				});
 			}
-			btShowAll = <div id="bt-show-all-comm"><button type="button" onClick={onClickShowAll}>Show All Comm</button></div>
+			btShowAll = (
+				<div id="bt-show-all-comm">
+					<button type="button" onClick={onClickShowAll} class="btn btn-primary">
+						{this.state.showAllComm ? "Afficher une commune" : "Afficher tout"}
+					</button>
+				</div>
+			);
 		}
 
 		return (
