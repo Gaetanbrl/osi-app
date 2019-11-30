@@ -5,6 +5,12 @@ export const doLogin = (password) => {
   }
 }
 
+export const doLogout = () => {
+  return {
+    type: 'DO_LOGOUT',
+  }
+}
+
 export const setEpci = (epci) => {
   return {
     type: 'SET_EPCI',

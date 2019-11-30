@@ -22,6 +22,11 @@ export const doLogin = (state = initialState, action) => {
 				...state,
 				...checkLoginData(action.password),
 			}
+		case 'DO_LOGOUT':
+			return {
+				...state,
+				isLogged: false,
+			}
 		default:
 			return state
 	}

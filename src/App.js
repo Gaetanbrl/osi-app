@@ -11,34 +11,47 @@ import Titre from './containers/Titre';
 
 import Footer from './components/Footer';
 
-const App = ({ isLogged }) => (
-  <div id="layout">
-    <main>
-      {isLogged !== true && (
-        <LoginModal />
-      )}
-      <section id="sidebar">
-        <div id="sidebar-header">
-          <div id="sidebar-logo"></div>
-          <Titre isSidebar />
-        </div>
-        <nav id="main-menu">
-          <Systemic />
-        </nav>
-      </section>
-      <section id="map-container">
-        <Carto />
-        <Titre />
-        <Slide />
-        <Meta />
-      </section>
-    </main>
-    <Footer />
-  </div>
+import { doLogout } from './actions';
+
+const App = ({ isLogged, doLogout }) => (
+  isLogged !== true ? (
+    <LoginModal />
+  ) : (
+    <div id="layout">
+      <main>
+        <section id="sidebar">
+          <div id="sidebar-header">
+            <div id="sidebar-logo"></div>
+            <Titre isSidebar />
+          </div>
+          <nav id="main-menu">
+            <Systemic />
+          </nav>
+          <div id="sidebar-footer">
+            <button
+              type="button"
+              onClick={() => doLogout()}
+              class="btn"
+            >
+              Se déconnecter
+            </button>
+          </div>
+        </section>
+        <section id="map-container">
+          <Carto />
+          <Titre />
+          <Slide />
+          <Meta />
+        </section>
+      </main>
+      <Footer />
+    </div>
+  )
 );
 
 export default connect(
   state => ({
     isLogged: state.doLogin.isLogged,
   }),
+  { doLogout },
 )(App);
