@@ -42,9 +42,9 @@ render(){
     if (!infos || !setRef) {
     	return null
     } else {
-		let composition = (refIndic[setRef].composition);
+		let composition = refIndic[setRef].composition || [refIndic[setRef].id];
 
-		if (!composition) {
+		if (!composition || composition.length === 0) {
 			return null
 		} else {
 
@@ -119,9 +119,9 @@ render(){
 
 		return(
 			<div className="charts-container">
-			<ListGroupItem tag="div">
-				<Highcharts config={ config }></Highcharts>
-			</ListGroupItem>
+				<ListGroupItem tag="div">
+					<Highcharts config={ config }></Highcharts>
+				</ListGroupItem>
 			</div>
 
 		)
