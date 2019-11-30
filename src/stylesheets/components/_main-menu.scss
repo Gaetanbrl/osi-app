@@ -115,6 +115,7 @@ nav#main-menu {
     }
   }
   &.gestion {
+    margin-left: 9px;
     &:before, .btn.active,
     .submenu .panel .panel-title.active a,
     .submenu-link.active span {
@@ -128,6 +129,7 @@ nav#main-menu {
     }
   }
   &.reprensation {
+    margin-left: 9px;
     &:before, .btn.active,
     .submenu .panel .panel-title.active a,
     .submenu-link.active span {
