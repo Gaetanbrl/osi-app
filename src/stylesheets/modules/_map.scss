@@ -34,9 +34,26 @@ canvas{
 
 #bt-show-all-comm {
   position: absolute;
-  bottom: 14px;
-  right: 234px;
+  bottom: 29px;
+  left: 10px;
   z-index: 2;
+}
+
+#bt-select-year {
+  position: absolute;
+  bottom: 63px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  button {
+    font-family: sans-serif;
+  }
+  div {
+    background: white;
+    padding: 6px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+  }
 }
 
 .ol-overlaycontainer-stopevent {

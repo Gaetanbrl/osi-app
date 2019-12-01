@@ -229,7 +229,7 @@ class Carlitto extends Component {
 		this.carSource = new ImageWMS({
 			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
-				LAYERS: 'osi',
+				LAYERS: 'osi_all_date',
 				STYLE: 'default'
 			},
 			serverType: 'geoserver',
@@ -372,7 +372,8 @@ class Carlitto extends Component {
 
 		this.setState({
 			carMap: this.carMap,
-			carLayer: this.carLayer
+			carLayer: this.carLayer,
+			selectedYear: 2019,
 		});
 	}
 
@@ -389,12 +390,16 @@ class Carlitto extends Component {
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if ((prevState && prevState.showAllComm !== this.state.showAllComm) || (prevProps.territoire !== territoire && !!territoire)) {
+		if ((prevState && prevState.showAllComm !== this.state.showAllComm)
+			|| (prevState && prevState.selectedYear !== this.state.selectedYear)
+			|| (prevProps.territoire !== territoire && !!territoire)) {
+
 			viewProps["minResolution"] = zoomSizes.min;
 
 			cqlFilter = this.state.showAllComm ? null : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
-				CQL_FILTER: cqlFilter
+				CQL_FILTER: cqlFilter,
+				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
 
 			this.carMap.getView().fit(territoire.geom, {duration: 500})
@@ -475,6 +480,7 @@ class Carlitto extends Component {
 		let leg;
 		let img = null;
 		let btShowAll = null;
+		let btSelectYear = null;
 		let {setRef} = this.props;
 
 		if (setRef){
@@ -503,6 +509,23 @@ class Carlitto extends Component {
 					</button>
 				</div>
 			);
+
+			const onClickSelectYear = (val) => {
+				this.setState({
+					selectedYear: this.state.selectedYear + val,
+				});
+			}
+			btSelectYear = (
+				<div id="bt-select-year">
+					<button type="button" onClick={() => onClickSelectYear(-1)} class="btn btn-primary">
+						-
+					</button>
+					<div>{this.state.selectedYear}</div>
+					<button type="button" onClick={() => onClickSelectYear(1)} class="btn btn-primary">
+						+
+					</button>
+				</div>
+			);
 		}
 
 		return (
@@ -512,6 +535,7 @@ class Carlitto extends Component {
 					</div>
 					{img}
 					{btShowAll}
+					{btSelectYear}
 				</div>
 		)
 	}
