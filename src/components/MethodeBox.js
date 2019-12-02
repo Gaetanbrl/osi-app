@@ -44,10 +44,10 @@ render() {
 		        bsStyle="danger"
 		        className="glyphicon glyphicon-save-file"
 		        disabled = {!ref.service}
-		        href={ref.service}>
-		        PDF</Button>
-
-
+		        href={ref.service}
+		      >
+		        PDF
+		      </Button>
 					<strong>{ref.service}</strong>
 				</div>
 			</div>
@@ -68,14 +68,22 @@ render() {
 				<div className="data-block-container">
 					<div className="data-value data-value-name">{ref.nom} ({code})</div>
 					<div className="data-value data-value-desc">{ref.description}</div>
-						<Button
-							target="_blank"
-			        className="btn-pdf"
-			        disabled = {!ref.service}
-			        href={ref.service}>
-			        <i className="far fa-file-pdf"></i>
-			        <span>Fiche méthodologique</span>
-				    </Button>
+					<Button
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.service}
+						href={ref.service}>
+						<i className="far fa-file-pdf"></i>
+						<span>Fiche méthodologique</span>
+					</Button>
+					<Button
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.lien}
+						href={ref.lien}>
+						<i className="far fa-external-link"></i>
+						<span>Lien</span>
+			    </Button>
 				</div>
 			</div>
 		)
