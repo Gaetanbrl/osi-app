@@ -109,10 +109,10 @@ class Carlitto extends Component {
 				return feature;
 			}
 			isEpciOrCommFeature = true;
-			let nom = feature.get('nom')
-			let code = feature.get('insee')
-			let sitePilote = feature.get('site_pilote')
-			let insee = feature.get('insee')
+			let nom = feature.get('nom');
+			let code = feature.get('insee');
+			const sitePilote = feature.get('site_pilote');
+			let insee = feature.get('insee');
 			if (!nom && !code) {
 				return feature;
 			}
@@ -125,7 +125,7 @@ class Carlitto extends Component {
 			if (this.commNbIndic && insee && this.commNbIndic[insee] && this.commNbIndic[insee].nb_indic) {
 				overlayText += '<br /><i>' + this.commNbIndic[insee].nb_indic +' indicateurs</i>';
 			}
-			if (sitePilote === true) {
+			if (sitePilote === true || sitePilote === 'true') {
 				overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
 			}
 			overlayText += '</h6>'
@@ -274,7 +274,8 @@ class Carlitto extends Component {
 		this.epci = new Vector({
 			source: sourceEpci,
 			style: (feature, resolution) => {
-				if (feature.get('site_pilote') === true) {
+				const sitePilote = feature.get('site_pilote')
+				if (sitePilote === true || sitePilote === 'true') {
 					return styleEpciCommPilote;
 				}
 				return styleEpciComm;
