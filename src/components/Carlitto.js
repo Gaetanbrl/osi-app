@@ -476,67 +476,56 @@ class Carlitto extends Component {
 		let style = {
 		};
 
-		let refLow;
-		let leg;
-		let img = null;
-		let btShowAll = null;
-		let btSelectYear = null;
-		let {setRef} = this.props;
+		let { setRef } = this.props;
 
-		if (setRef){
+		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
+			&VERSION=1.0.0&FORMAT=image/png
+			&WIDTH=10&HEIGHT=10
+			&LAYER=osi
+			&STYLE=${setRef.toLowerCase()}
+			&STYLES=${setRef.toLowerCase()}
+			&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
+			&TRANSPARENT=true`;
 
-			refLow = setRef.toLowerCase();
-			leg = `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
-				&VERSION=1.0.0&FORMAT=image/png
-				&WIDTH=10&HEIGHT=10
-				&LAYER=osi
-				&STYLE=${refLow}
-				&STYLES=${refLow}
-				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
-				&TRANSPARENT=true`;
+		const onClickShowAll = () => {
+			this.setState({
+				showAllComm: !this.state.showAllComm,
+			});
+		}
 
-			img = <div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
-
-			const onClickShowAll = () => {
-				this.setState({
-					showAllComm: !this.state.showAllComm,
-				});
-			}
-			btShowAll = (
-				<div id="bt-show-all-comm">
-					<button type="button" onClick={onClickShowAll} class="btn btn-primary">
-						{this.state.showAllComm ? "Afficher une commune" : "Afficher tout"}
-					</button>
-				</div>
-			);
-
-			const onClickSelectYear = (val) => {
-				this.setState({
-					selectedYear: this.state.selectedYear + val,
-				});
-			}
-			btSelectYear = (
-				<div id="bt-select-year">
-					<button type="button" onClick={() => onClickSelectYear(-1)} class="btn btn-primary">
-						-
-					</button>
-					<div>{this.state.selectedYear}</div>
-					<button type="button" onClick={() => onClickSelectYear(1)} class="btn btn-primary">
-						+
-					</button>
-				</div>
-			);
+		const onClickSelectYear = (val) => {
+			this.setState({
+				selectedYear: this.state.selectedYear + val,
+			});
 		}
 
 		return (
-				<div className="map-wrapper">
-					<div className="map" ref="map" style={style}>
-						<div className="olTool" ref="olTool"></div>
-					</div>
-					{img}
-					{btShowAll}
-					{btSelectYear}
+			<div className="map-wrapper">
+				<div className="map" ref="map" style={style}>
+					<div className="olTool" ref="olTool"></div>
 				</div>
+				{setRef && (
+					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
+				)}
+				{setRef && (
+					<div id="bt-show-all-comm">
+						<button type="button" onClick={onClickShowAll} class="btn btn-primary">
+							{this.state.showAllComm ? "Afficher une commune" : "Afficher tout"}
+						</button>
+					</div>
+				)}
+				{setRef && (
+					<div id="bt-select-year">
+						<button type="button" onClick={() => onClickSelectYear(-1)} class="btn btn-primary">
+							-
+						</button>
+						<div>{this.state.selectedYear}</div>
+						<button type="button" onClick={() => onClickSelectYear(1)} class="btn btn-primary">
+							+
+						</button>
+					</div>
+				)}
+			</div>
 		)
 	}
 }
