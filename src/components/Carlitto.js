@@ -100,7 +100,7 @@ class Carlitto extends Component {
 
   	overlay = null
 
-  	url = null
+  	clickedFeature = null
 
 	moveHandler(event) {
 		let isEpciOrCommFeature = false;
@@ -141,20 +141,22 @@ class Carlitto extends Component {
 	clickHandler(event) {
 		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
 		const viewResolution = this.carMap.getView().getResolution();
-		let url;
 		if (viewResolution < zoomSizes.minComm) {
-			url = this.carSource.getGetFeatureInfoUrl(
+			const url = this.carSource.getGetFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
 				},
 			);
+			if (url) {
+				this.clickedFeature = {
+					coordinate: event.coordinate,
+					viewResolution,
+				};
+				onCarClick(url);
+			}
 		}
 
-		if (url) {
-			this.url = url;
-			onCarClick(this.url);
-		}
 		this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			let nom = feature.get('nom')
 			let insee = feature.get('insee')
@@ -379,7 +381,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, setRef, infos, error } = this.props
+		let { territoire, setRef, infos, error, onCarClick } = this.props
 		let carLayer = this.state.carLayer
 
 		let cqlFilter = null
@@ -417,6 +419,18 @@ class Carlitto extends Component {
 	   			this.commSource.addFeature(this.commGeom);
 			} else {
 				this.commSource.addFeature(this.commGeom);
+			}
+
+			if (this.clickedFeature) {
+				const url = this.carSource.getGetFeatureInfoUrl(
+					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
+					{
+						'INFO_FORMAT': 'application/json',
+					},
+				);
+				if (url) {
+					onCarClick(url);
+				}
 			}
 
 		} else {
