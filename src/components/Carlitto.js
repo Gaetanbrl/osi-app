@@ -11,7 +11,7 @@ import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
 
 import proj4 from "proj4";
-import { keyBy } from 'lodash';
+import { keyBy, get } from 'lodash';
 
 import meta_com from '../data/meta_com.json';
 
@@ -81,60 +81,74 @@ const defaultViewProps = {
 
 class Carlitto extends Component {
 
-  	carMap = null
+	carMap = null
 
-  	commSource = null
-  	commGeom = null
+	commSource = null
+	commGeom = null
 
-  	base = null
-  	baseTopology = null
-  	commLayer = null
-  	carLayer = null
-  	selectedLayer = null
-  	baseEpci = null
-  	epci = null
-  	comm = null
+	base = null
+	baseTopology = null
+	commLayer = null
+	carLayer = null
+	selectedLayer = null
+	baseEpci = null
+	epci = null
+	comm = null
 
-  	selSource = null
-  	selGeom = null
+	selSource = null
+	selGeom = null
 
-  	overlay = null
+	overlay = null
+	overlayFeatureNom = null
 
-  	clickedFeature = null
+  clickedFeature = null
+
+	getOverlayText(nom, code, nbIndic, sitePilote) {
+		let overlayText = '<h6><strong>' + nom + '</strong>'
+		if (code) {
+			overlayText += ' (' + code + ')';
+		}
+		if (nbIndic) {
+			overlayText += '<br /><i>' + nbIndic +' indicateurs</i>';
+		}
+		if (sitePilote === true || sitePilote === 'true') {
+			overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
+		}
+		overlayText += '</h6>'
+
+		return overlayText;
+	}
 
 	moveHandler(event) {
-		let isEpciOrCommFeature = false;
-		let feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
+		let displayOverlay = false;
+		let overlayText = null;
+		const feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			if (this.carMap.getView().getResolution() < zoomSizes.minComm) {
 				return feature;
 			}
-			isEpciOrCommFeature = true;
-			let nom = feature.get('nom');
-			let code = feature.get('insee');
-			const sitePilote = feature.get('site_pilote');
-			let insee = feature.get('insee');
-			if (!nom && !code) {
+
+			displayOverlay = true;
+			const nom = feature.get('nom');
+			const code = feature.get('insee');
+			if ((!nom && !code) || this.overlayFeatureNom === nom) {
 				return feature;
 			}
-			this.overlay.setPosition(event.coordinate);
-
-			let overlayText = '<h6><strong>' + nom + '</strong>'
-			if (code) {
-				overlayText += ' (' + code + ')';
-			}
-			if (this.commNbIndic && insee && this.commNbIndic[insee] && this.commNbIndic[insee].nb_indic) {
-				overlayText += '<br /><i>' + this.commNbIndic[insee].nb_indic +' indicateurs</i>';
-			}
-			if (sitePilote === true || sitePilote === 'true') {
-				overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
-			}
-			overlayText += '</h6>'
-
-			this.overlay.getElement().innerHTML = overlayText;
+			const sitePilote = feature.get('site_pilote');
+			const insee = feature.get('insee');
+			overlayText = this.getOverlayText(nom, code, get(this.commNbIndic, `${insee}.nb_indic`), sitePilote);
+			this.overlayFeatureNom = nom;
 			return feature;
 		});
 
-		this.overlay.getElement().style.display = isEpciOrCommFeature ? '' : 'none';
+		if (displayOverlay) {
+			this.overlay.getElement().style.display = '';
+			this.overlay.setPosition(event.coordinate);
+			if (overlayText) {
+				this.overlay.getElement().innerHTML = overlayText;
+			}
+		} else {
+			this.overlay.getElement().style.display = 'none';
+		}
 		document.body.style.cursor = feature ? 'pointer' : '';
 	}
 
@@ -180,6 +194,19 @@ class Carlitto extends Component {
 		  hitTolerance: 1,
 	  });
 	  document.body.style.cursor = 'pointer';
+	}
+
+
+	onClickShowAll() {
+		this.setState({
+			showAllComm: !this.state.showAllComm,
+		});
+	}
+
+	onClickSelectYear(val) {
+		this.setState({
+			selectedYear: this.state.selectedYear + val,
+		});
 	}
 
 	componentDidMount() {
@@ -421,7 +448,7 @@ class Carlitto extends Component {
 				this.commSource.addFeature(this.commGeom);
 			}
 
-			if (this.clickedFeature) {
+			if (this.clickedFeature && prevState && prevState.selectedYear !== this.state.selectedYear) {
 				const url = this.carSource.getGetFeatureInfoUrl(
 					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
 					{
@@ -502,18 +529,6 @@ class Carlitto extends Component {
 			&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
 			&TRANSPARENT=true`;
 
-		const onClickShowAll = () => {
-			this.setState({
-				showAllComm: !this.state.showAllComm,
-			});
-		}
-
-		const onClickSelectYear = (val) => {
-			this.setState({
-				selectedYear: this.state.selectedYear + val,
-			});
-		}
-
 		return (
 			<div className="map-wrapper">
 				<div className="map" ref="map" style={style}>
@@ -524,18 +539,18 @@ class Carlitto extends Component {
 				)}
 				{setRef && (
 					<div id="bt-show-all-comm">
-						<button type="button" onClick={onClickShowAll} class="btn btn-primary">
+						<button type="button" onClick={() => this.onClickShowAll()} class="btn btn-primary">
 							{this.state.showAllComm ? "Afficher une commune" : "Afficher tout"}
 						</button>
 					</div>
 				)}
 				{setRef && (
 					<div id="bt-select-year">
-						<button type="button" onClick={() => onClickSelectYear(-1)} class="btn btn-primary">
+						<button type="button" onClick={() => this.onClickSelectYear(-1)} class="btn btn-primary">
 							-
 						</button>
 						<div>{this.state.selectedYear}</div>
-						<button type="button" onClick={() => onClickSelectYear(1)} class="btn btn-primary">
+						<button type="button" onClick={() => this.onClickSelectYear(1)} class="btn btn-primary">
 							+
 						</button>
 					</div>
