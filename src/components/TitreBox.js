@@ -4,7 +4,6 @@ import {  } from 'react-bootstrap';
 const TitreBox = ({ isSidebar, refIndic, setRef, territoire }) => {
 
 	let c = territoire.comm
-	let i = refIndic[setRef]
 
 	if (isSidebar) {
 		let t;
