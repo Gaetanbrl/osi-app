@@ -196,13 +196,6 @@ class Carlitto extends Component {
 	  document.body.style.cursor = 'pointer';
 	}
 
-
-	onClickShowAll() {
-		this.setState({
-			showAllComm: !this.state.showAllComm,
-		});
-	}
-
 	onClickSelectYear(val) {
 		this.setState({
 			selectedYear: this.state.selectedYear + val,
@@ -408,7 +401,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, setRef, infos, error, onCarClick } = this.props
+		let { territoire, showAllComm, setRef, infos, error, onCarClick } = this.props
 		let carLayer = this.state.carLayer
 
 		let cqlFilter = null
@@ -420,19 +413,17 @@ class Carlitto extends Component {
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if ((prevState && prevState.showAllComm !== this.state.showAllComm)
+		if ((prevProps && prevProps.showAllComm !== showAllComm)
 			|| (prevState && prevState.selectedYear !== this.state.selectedYear)
 			|| (prevProps.territoire !== territoire && !!territoire)) {
 
 			viewProps["minResolution"] = zoomSizes.min;
 
-			cqlFilter = this.state.showAllComm ? null : `id_com=${territoire.insee}`;
+			cqlFilter = showAllComm ? null : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
-
-			this.carMap.getView().fit(territoire.geom, {duration: 500})
 
 			this.commGeom = new Feature({
 				geometry: territoire.geom,
@@ -465,6 +456,12 @@ class Carlitto extends Component {
 			cqlFilter = null
 		}
 		this.carMap.setView(new View(viewProps));
+		if ((prevProps && prevProps.showAllComm !== showAllComm)
+			|| (prevProps.territoire !== territoire && !!territoire)) {
+			if (prevProps && prevProps.showAllComm !== showAllComm && showAllComm === false) {
+				this.carMap.getView().fit(territoire.geom, {duration: 500})
+			}
+ 		}
 
 		if (infos) {
 			let car = infos["id_car"];
@@ -518,7 +515,7 @@ class Carlitto extends Component {
 		let style = {
 		};
 
-		let { setRef } = this.props;
+		let { setRef, onShowAllCommClick, showAllComm } = this.props;
 
 		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 			&VERSION=1.0.0&FORMAT=image/png
@@ -539,8 +536,8 @@ class Carlitto extends Component {
 				)}
 				{setRef && (
 					<div id="bt-show-all-comm">
-						<button type="button" onClick={() => this.onClickShowAll()} class="btn btn-primary">
-							{this.state.showAllComm ? "Afficher une commune" : "Afficher tout"}
+						<button type="button" onClick={() => onShowAllCommClick(!showAllComm)} class="btn btn-primary">
+							{showAllComm ? "Afficher une commune" : "Afficher tout"}
 						</button>
 					</div>
 				)}

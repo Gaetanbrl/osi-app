@@ -7,12 +7,17 @@ const TitreBox = ({ isSidebar, refIndic, setRef, territoire }) => {
 	let i = refIndic[setRef]
 
 	if (isSidebar) {
-		let t = !c ? <div>Choisir un territoire</div>
-			: !i ? <div>{c && c.nom}</div>
-			: <div>{c && c.nom}</div>
+		let t;
+		if (!c) {
+			t = 'Choisir un territoire';
+		} else if (territoire && territoire.showAllComm === true) {
+			t = 'AFFICHAGE COMPLET';
+		} else if (c && c.nom) {
+			t = c.nom;
+		}
 		return(
 			<div id="sidebar-title">
-				{t}
+				<div>{t}</div>
 			</div>
 		);
 	}

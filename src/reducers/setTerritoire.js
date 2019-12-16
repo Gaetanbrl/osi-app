@@ -1,6 +1,7 @@
 const initialState = {
   epci: null,
-  comm: null
+  comm: null,
+  showAllComm: false,
 };
 
 const setTerritoire = (state = initialState, action) => {
@@ -9,13 +10,18 @@ const setTerritoire = (state = initialState, action) => {
 			return {
 			        ...state,
 					epci: action.epci,
-					comm: null
+					comm: null,
 				}
 		case 'SET_COMM':
 			return {
 				    ...state,
 					epci: state.epci,
-					comm: action.comm
+					comm: action.comm,
+				}
+		case 'SET_SHOW_ALL_COMM':
+			return {
+				    ...state,
+					showAllComm: action.showAllComm,
 				}
 		default:
 			return state;

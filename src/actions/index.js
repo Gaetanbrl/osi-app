@@ -25,6 +25,13 @@ export const setComm = (comm) => {
 	}
 }
 
+export const setShowAllComm = (showAllComm = true) => {
+  return {
+    type: 'SET_SHOW_ALL_COMM',
+    showAllComm
+  }
+}
+
 export const setRef = (ref) => {
   return {
     type: 'SET_REF',
