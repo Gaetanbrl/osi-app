@@ -57,6 +57,7 @@ export default() => {
       nom: "Distance",
       service: "",
       lien: "http://www.geolittoral.developpement-durable.gouv.fr/methodologie-r475.html",
+      texteLien: "Méthodologie GéoLittoral",
       thematique: "ERO"
     },
     A2: {

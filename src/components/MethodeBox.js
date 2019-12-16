@@ -82,7 +82,7 @@ render() {
 						disabled = {!ref.lien}
 						href={ref.lien}>
 						<i className="far fa-external-link"></i>
-						<span>Lien</span>
+						<span>{ref.texteLien || 'Lien' }</span>
 			    </Button>
 				</div>
 			</div>
