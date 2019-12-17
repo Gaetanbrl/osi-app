@@ -19,7 +19,7 @@
   padding: 0 12px;
 }
 #sidebar-title {
-  @extend %flexbox;
+  display: block;
   @include align-items(center);
   color: $second-txt-color;
   font-size: 22px;
@@ -29,6 +29,16 @@
   padding: 5px 8px 7px;
   margin-bottom: 14px;
   i { margin-right: 10px; }
+  #bt-show-epci {
+    @extend %flexbox;
+    div {
+      margin: auto 8px auto 0;
+      font-size: 16px;
+    }
+    .toggle-handle.btn-xs {
+      top: -5px;
+    }
+  }
 }
 
 #sidebar-logo {

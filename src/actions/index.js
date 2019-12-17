@@ -25,10 +25,10 @@ export const setComm = (comm) => {
 	}
 }
 
-export const setShowAllComm = (showAllComm = true) => {
+export const setShowEPCI = (showEPCI = true) => {
   return {
-    type: 'SET_SHOW_ALL_COMM',
-    showAllComm
+    type: 'SET_SHOW_EPCI',
+    showEPCI
   }
 }
 

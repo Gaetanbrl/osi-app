@@ -396,12 +396,12 @@ class Carlitto extends Component {
 		this.setState({
 			carMap: this.carMap,
 			carLayer: this.carLayer,
-			selectedYear: 2019,
+			selectedYear: new Date().getFullYear(),
 		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, showAllComm, setRef, infos, error, onCarClick } = this.props
+		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick } = this.props
 		let carLayer = this.state.carLayer
 
 		let cqlFilter = null
@@ -413,13 +413,13 @@ class Carlitto extends Component {
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if ((prevProps && prevProps.showAllComm !== showAllComm)
+		if ((prevProps && prevProps.showEPCI !== showEPCI)
 			|| (prevState && prevState.selectedYear !== this.state.selectedYear)
 			|| (prevProps.territoire !== territoire && !!territoire)) {
 
 			viewProps["minResolution"] = zoomSizes.min;
 
-			cqlFilter = showAllComm ? null : `id_com=${territoire.insee}`;
+			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
@@ -428,7 +428,7 @@ class Carlitto extends Component {
 			this.commGeom = new Feature({
 				geometry: territoire.geom,
 				name: 'commName'
-				})
+			})
 
 			let feat = this.commLayer.getSource().getFeatures()
 
@@ -456,12 +456,9 @@ class Carlitto extends Component {
 			cqlFilter = null
 		}
 		this.carMap.setView(new View(viewProps));
-		if ((prevProps && prevProps.showAllComm !== showAllComm)
-			|| (prevProps.territoire !== territoire && !!territoire)) {
-			if (prevProps && prevProps.showAllComm !== showAllComm && showAllComm === false) {
-				this.carMap.getView().fit(territoire.geom, {duration: 500})
-			}
- 		}
+		if (prevProps && prevProps.showEPCI !== showEPCI && showEPCI === false) {
+			this.carMap.getView().fit(territoire.geom, {duration: 500})
+		}
 
 		if (infos) {
 			let car = infos["id_car"];
@@ -515,7 +512,7 @@ class Carlitto extends Component {
 		let style = {
 		};
 
-		let { setRef, onShowAllCommClick, showAllComm } = this.props;
+		let { setRef } = this.props;
 
 		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 			&VERSION=1.0.0&FORMAT=image/png
@@ -533,13 +530,6 @@ class Carlitto extends Component {
 				</div>
 				{setRef && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
-				)}
-				{setRef && (
-					<div id="bt-show-all-comm">
-						<button type="button" onClick={() => onShowAllCommClick(!showAllComm)} class="btn btn-primary">
-							{showAllComm ? "Afficher une commune" : "Afficher tout"}
-						</button>
-					</div>
 				)}
 				{setRef && (
 					<div id="bt-select-year">

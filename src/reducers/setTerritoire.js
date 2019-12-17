@@ -1,27 +1,27 @@
 const initialState = {
   epci: null,
   comm: null,
-  showAllComm: false,
+  showEPCI: false,
 };
 
 const setTerritoire = (state = initialState, action) => {
 	switch(action.type) {
 		case 'SET_EPCI':
 			return {
-			        ...state,
+			    ...state,
 					epci: action.epci,
 					comm: null,
 				}
 		case 'SET_COMM':
 			return {
-				    ...state,
+				  ...state,
 					epci: state.epci,
 					comm: action.comm,
 				}
-		case 'SET_SHOW_ALL_COMM':
+		case 'SET_SHOW_EPCI':
 			return {
-				    ...state,
-					showAllComm: action.showAllComm,
+				  ...state,
+					showEPCI: action.showEPCI,
 				}
 		default:
 			return state;

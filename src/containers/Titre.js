@@ -1,14 +1,24 @@
-import {connect} from 'react-redux'
-import TitreBox from '../components/TitreBox'
+import {connect} from 'react-redux';
+import TitreBox from '../components/TitreBox';
+import { setShowEPCI } from '../actions'
 
-const mapStateToProps = (state) => ({	
+const mapStateToProps = (state) => ({
 	refIndic: state.refIndic,
 	setRef: state.setRef.ref,
-	territoire: state.setTerritoire
+	territoire: state.setTerritoire,
 })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onShowEPCIClick: showEPCI => {
+      dispatch(setShowEPCI(showEPCI));
+    },
+  }
+}
 
 const Titre = connect(
   mapStateToProps,
-)(TitreBox)
+  mapDispatchToProps,
+)(TitreBox);
 
-export default Titre
+export default Titre;
