@@ -175,13 +175,14 @@ class Carlitto extends Component {
 			let nom = feature.get('nom')
 			let insee = feature.get('insee')
 			let siren = feature.get('siren_epci')
+			let nomEpci = feature.get('nom_comple')
 			let geom = feature.getGeometry()
 
 			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) {
 				return false;
 			}
 			let epci = {siren: siren, nom: nom}
-			let comm = {insee: insee, nom: nom, geom: geom}
+			let comm = {insee: insee, nom: nom, geom: geom, epci: { siren: siren, nom: nomEpci } }
 			insee ? onCommClick(comm) : onEpciClick(epci)
 			const minResolution = insee ? zoomSizes.min : zoomSizes.minComm;
 

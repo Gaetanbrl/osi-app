@@ -15,7 +15,7 @@ const setTerritoire = (state = initialState, action) => {
 		case 'SET_COMM':
 			return {
 				  ...state,
-					epci: state.epci,
+					epci: action.comm.epci,
 					comm: action.comm,
 				}
 		case 'SET_SHOW_EPCI':
