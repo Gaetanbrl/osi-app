@@ -34,8 +34,8 @@ canvas{
 
 #bt-select-year {
   position: absolute;
-  bottom: 29px;
-  left: 10px;
+  bottom: 8px;
+  left: 8px;
   z-index: 2;
   display: flex;
   button {
@@ -52,8 +52,8 @@ canvas{
 .ol-overlaycontainer-stopevent {
   .ol-zoom {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 8px;
+    right: 8px;
     left: auto;
     @extend %flexbox;
     @include flex-direction(column);
@@ -84,8 +84,9 @@ canvas{
   }
   .ol-scale-line {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    top: 10px;
+    right: 50px;
+    left: auto;
     background-color: transparent;
     padding: 0;
     .ol-scale-line-inner {
