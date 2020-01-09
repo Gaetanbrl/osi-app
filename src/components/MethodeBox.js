@@ -40,14 +40,21 @@ render() {
   				  <div >{ref.methode}</div>
   				</div>
 					<Button
-		        bsSize="xsmall"
-		        bsStyle="danger"
-		        className="glyphicon glyphicon-save-file"
-		        disabled = {!ref.service}
-		        href={ref.service}
-		      >
-		        PDF
-		      </Button>
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.lien1}
+						href={ref.lien1}>
+						<i className="far fa-external-link"></i>
+						<span>{ref.texteLien1 || 'Lien' }</span>
+					</Button>
+					<Button
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.lien2}
+						href={ref.lien2}>
+						<i className="far fa-external-link"></i>
+						<span>{ref.texteLien2 || 'Lien' }</span>
+					</Button>
 					<strong>{ref.service}</strong>
 				</div>
 			</div>
@@ -71,19 +78,19 @@ render() {
 					<Button
 						target="_blank"
 						className="btn-pdf"
-						disabled = {!ref.service}
-						href={ref.service}>
-						<i className="far fa-file-pdf"></i>
-						<span>Fiche méthodologique</span>
+						disabled = {!ref.lien1}
+						href={ref.lien1}>
+						<i className="far fa-external-link"></i>
+						<span>{ref.texteLien1 || 'Lien' }</span>
 					</Button>
 					<Button
 						target="_blank"
 						className="btn-pdf"
-						disabled = {!ref.lien}
-						href={ref.lien}>
+						disabled = {!ref.lien2}
+						href={ref.lien2}>
 						<i className="far fa-external-link"></i>
-						<span>{ref.texteLien || 'Lien' }</span>
-			    </Button>
+						<span>{ref.texteLien2 || 'Lien' }</span>
+					</Button>
 				</div>
 			</div>
 		)
@@ -112,13 +119,22 @@ render() {
 					Formule : {ref.methode}
 					<br/>
 					Fiche méthodologique :
-						<Button
-				        bsSize="xsmall"
-				        bsStyle="danger"
-				        className="glyphicon glyphicon-save-file"
-				        disabled = {!ref.service}
-				        href={ref.service}>
-				        PDF</Button>
+					<Button
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.lien1}
+						href={ref.lien1}>
+						<i className="far fa-external-link"></i>
+						<span>{ref.texteLien1 || 'Lien' }</span>
+					</Button>
+					<Button
+						target="_blank"
+						className="btn-pdf"
+						disabled = {!ref.lien2}
+						href={ref.lien2}>
+						<i className="far fa-external-link"></i>
+						<span>{ref.texteLien2 || 'Lien' }</span>
+					</Button>
 				</div>
 			</div>
 		)

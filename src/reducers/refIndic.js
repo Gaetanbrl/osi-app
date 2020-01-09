@@ -10,7 +10,7 @@ export default() => {
       statut: "indice",
       acronyme: "VS",
       nom: "Vulnérabilité Systèmique",
-      service: ""
+      lien1: ""
     },
     RI: {
       id: "RI",
@@ -22,7 +22,7 @@ export default() => {
       statut: "indice",
       acronyme: "RI",
       nom: "Risque",
-      service: ""
+      lien1: ""
     },
     A: {
       id: "A",
@@ -34,7 +34,7 @@ export default() => {
       statut: "indice",
       acronyme: "AL",
       nom: "Composante des aléas",
-      service: ""
+      lien1: ""
     },
     A1: {
       id: "A1",
@@ -46,7 +46,7 @@ export default() => {
       statut: "indice",
       acronyme: "ERO",
       nom: "Erosion",
-      service: ""
+      lien1: ""
     },
     A101: {
       id: "A101",
@@ -55,9 +55,9 @@ export default() => {
       niveau: 1,
       acronyme: "DIST",
       nom: "Distance",
-      service: "",
-      lien: "http://www.geolittoral.developpement-durable.gouv.fr/methodologie-r475.html",
-      texteLien: "Méthodologie GéoLittoral",
+      lien1: "",
+      lien2: "http://www.geolittoral.developpement-durable.gouv.fr/methodologie-r475.html",
+      texteLien2: "Méthodologie GéoLittoral",
       thematique: "ERO"
     },
     A2: {
@@ -70,7 +70,7 @@ export default() => {
       statut: "indice",
       acronyme: "SUB",
       nom: "Submersion",
-      service: ""
+      lien1: ""
     },
     A201: {
       id: "A201",
@@ -79,7 +79,7 @@ export default() => {
       niveau: 1,
       acronyme: "HAUT",
       nom: "Hauteur",
-      service: "",
+      lien1: "",
       thematique: "SUB"
     },
     A3: {
@@ -92,7 +92,7 @@ export default() => {
       statut: "indice",
       acronyme: "MIGR",
       nom: "Migration dunaire",
-      service: ""
+      lien1: ""
     },
     A301: {
       id: "A301",
@@ -101,7 +101,7 @@ export default() => {
       niveau: 1,
       acronyme: "VIT",
       nom: "Vitesse",
-      service: "",
+      lien1: "",
       thematique: "MIGR"
     },
     E: {
@@ -114,7 +114,7 @@ export default() => {
       statut: "indice",
       acronyme: "EN",
       nom: "Composante des enjeux",
-      service: ""
+      lien1: ""
     },
     E1: {
       id: "E1",
@@ -126,7 +126,7 @@ export default() => {
       statut: "indice",
       acronyme: "HUM",
       nom: "Humains",
-      service: ""
+      lien1: ""
     },
     E101: {
       id: "E101",
@@ -135,7 +135,8 @@ export default() => {
       niveau: 1,
       acronyme: "POP",
       nom: "Population",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/669/E101_ENHUMPOP.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/669/E101_ENHUMPOP.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E102: {
@@ -145,7 +146,8 @@ export default() => {
       niveau: 1,
       acronyme: "BATI",
       nom: "Logements",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/670/E102_ENHUMBATI.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/670/E102_ENHUMBATI.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E103: {
@@ -155,7 +157,8 @@ export default() => {
       niveau: 1,
       acronyme: "ERP",
       nom: "Capacité d'accueil",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/671/E103_ENHUMERP.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/671/E103_ENHUMERP.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E105: {
@@ -165,7 +168,8 @@ export default() => {
       niveau: 1,
       acronyme: "PERVUL-PCT",
       nom: "Population vulnérable (%)",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/672/E105_ENHUMPERVUL.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/672/E105_ENHUMPERVUL.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E107: {
@@ -175,7 +179,8 @@ export default() => {
       niveau: 1,
       acronyme: "BAREV-PCT",
       nom: "Ménages à bas revenu (%)",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/673/E107_ENHUMBAREV.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/673/E107_ENHUMBAREV.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E108: {
@@ -185,7 +190,8 @@ export default() => {
       niveau: 1,
       acronyme: "SECOND",
       nom: "Résidences secondaires",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/668/E108_ENHUMSECOND.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/668/E108_ENHUMSECOND.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E109: {
@@ -195,7 +201,8 @@ export default() => {
       niveau: 1,
       acronyme: "TOURIST",
       nom: "Hébergement touristique",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/674/E109_ENHUMTOURIS.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/674/E109_ENHUMTOURIS.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
     E2: {
@@ -208,7 +215,7 @@ export default() => {
       statut: "indice",
       acronyme: "ECO",
       nom: "Economiques",
-      service: ""
+      lien1: ""
     },
     E201: {
       id: "E201",
@@ -217,7 +224,8 @@ export default() => {
       niveau: 1,
       acronyme: "TRAV",
       nom: "Emploi",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/675/E201_ENECOTRAV.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/675/E201_ENECOTRAV.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "ECO"
     },
     E202: {
@@ -227,7 +235,7 @@ export default() => {
       niveau: 1,
       acronyme: "VIMMO",
       nom: "Immobilier",
-      service: "",
+      lien1: "",
       thematique: "ECO"
     },
     E203: {
@@ -237,7 +245,7 @@ export default() => {
       niveau: 1,
       acronyme: "DIV",
       nom: "Résilience économique",
-      service: "",
+      lien1: "",
       thematique: "ECO"
     },
     E205: {
@@ -247,7 +255,8 @@ export default() => {
       niveau: 1,
       acronyme: "AGRI",
       nom: "Agriculture",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/676/E205_ENECOAGRI.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/676/E205_ENECOAGRI.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "ECO"
     },
     E3: {
@@ -260,7 +269,7 @@ export default() => {
       statut: "indice",
       acronyme: "STR",
       nom: "Structurels",
-      service: ""
+      lien1: ""
     },
     E301: {
       id: "E301",
@@ -269,7 +278,8 @@ export default() => {
       niveau: 1,
       acronyme: "INDRISQ",
       nom: "Suraccident",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/677/E301_ENSTRINDRISQ.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/677/E301_ENSTRINDRISQ.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STR"
     },
     E302: {
@@ -279,7 +289,7 @@ export default() => {
       niveau: 1,
       acronyme: "NEVRAL",
       nom: "Réseaux sensibles",
-      service: "",
+      lien1: "",
       thematique: "STR"
     },
     E303: {
@@ -289,7 +299,8 @@ export default() => {
       niveau: 1,
       acronyme: "DIG",
       nom: "Protections contre la mer",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/698/E303_ENSTRDIG.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/698/E303_ENSTRDIG.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STR"
     },
     E304: {
@@ -299,7 +310,7 @@ export default() => {
       niveau: 1,
       acronyme: "REFUG",
       nom: "Logements à risque",
-      service: "",
+      lien1: "",
       thematique: "STR"
     },
     E305: {
@@ -309,7 +320,8 @@ export default() => {
       niveau: 1,
       acronyme: "SECOUR",
       nom: "Secours",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/721/E305_ENSTRSECOUR.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/721/E305_ENSTRSECOUR.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STR"
     },
     E4: {
@@ -322,7 +334,7 @@ export default() => {
       statut: "indice",
       acronyme: "PAT",
       nom: "Patrimoniaux",
-      service: ""
+      lien1: ""
     },
     E306: {
       id: "E306",
@@ -331,7 +343,8 @@ export default() => {
       niveau: 1,
       acronyme: "PATRIM",
       nom: "Patrimoine culturel",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/699/E306_ENPATPATRIM.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/699/E306_ENPATPATRIM.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "PAT"
     },
     E402: {
@@ -341,7 +354,8 @@ export default() => {
       niveau: 1,
       acronyme: "PATNAT",
       nom: "Patrimoine naturel",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/722/E402_ENPATNAT.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/722/E402_ENPATNAT.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "PAT"
     },
     G: {
@@ -354,7 +368,7 @@ export default() => {
       statut: "indice",
       acronyme: "GE",
       nom: "Composante de la gestion",
-      service: ""
+      lien1: ""
     },
     G1: {
       id: "G1",
@@ -366,7 +380,7 @@ export default() => {
       statut: "indice",
       acronyme: "MURBA",
       nom: "Maîtrise de l’urbanisation",
-      service: ""
+      lien1: ""
     },
     G101: {
       id: "G101",
@@ -375,7 +389,8 @@ export default() => {
       niveau: 1,
       acronyme: "URBA",
       nom: "Urbanisme",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/701/G101_Urba.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/701/G101_Urba.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "MURBA"
     },
     G102: {
@@ -385,7 +400,8 @@ export default() => {
       niveau: 1,
       acronyme: "PPRL",
       nom: "PPRL",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/702/G102_PPRL.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/702/G102_PPRL.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "MURBA"
     },
     G2: {
@@ -398,7 +414,7 @@ export default() => {
       statut: "indice",
       acronyme: "STRATLOC",
       nom: "Stratégie locale",
-      service: ""
+      lien1: ""
     },
     G103: {
       id: "G103",
@@ -407,7 +423,8 @@ export default() => {
       niveau: 1,
       acronyme: "GEMAPI1",
       nom: "Compétence GEMAPI",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/703/G103_GEMAPI.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/703/G103_GEMAPI.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G104: {
@@ -417,7 +434,8 @@ export default() => {
       niveau: 1,
       acronyme: "GEMAPI2",
       nom: "Etat des ouvrages GEMAPI2",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/704/G104_OUV_GEMAPI2.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/704/G104_OUV_GEMAPI2.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G105: {
@@ -427,7 +445,8 @@ export default() => {
       niveau: 1,
       acronyme: "HUM",
       nom: "Investissement humain",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/705/G105_CapHum.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/705/G105_CapHum.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G106: {
@@ -437,7 +456,8 @@ export default() => {
       niveau: 1,
       acronyme: "STRATE",
       nom: "Démarche locale (PAPI, SL)",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/706/G106_Strate.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/706/G106_Strate.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G107: {
@@ -447,7 +467,8 @@ export default() => {
       niveau: 1,
       acronyme: "ACTEUR",
       nom: "Intégration des acteurs",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/707/G107_IntActDem.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/707/G107_IntActDem.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G108: {
@@ -457,7 +478,8 @@ export default() => {
       niveau: 1,
       acronyme: "EXTRA",
       nom: "Intégration extraterritoriale",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/708/G108_DemExtra.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/708/G108_DemExtra.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G109: {
@@ -467,7 +489,8 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI1",
       nom: "Actions",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/709/G109_ActPAPI1.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/709/G109_ActPAPI1.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G110: {
@@ -477,7 +500,8 @@ export default() => {
       niveau: 1,
       acronyme: "PAPI2",
       nom: "Mise en œuvre",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/710/G110_MeOPAPI2.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/710/G110_MeOPAPI2.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G111: {
@@ -487,7 +511,8 @@ export default() => {
       niveau: 1,
       acronyme: "RELOC",
       nom: "Stratégie locale",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/711/G111_Reloc.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/711/G111_Reloc.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
     },
     G3: {
@@ -500,7 +525,7 @@ export default() => {
       statut: "indice",
       acronyme: "CRI",
       nom: "Gestion de crise",
-      service: ""
+      lien1: ""
     },
     G301: {
       id: "G301",
@@ -509,7 +534,8 @@ export default() => {
       niveau: 1,
       acronyme: "ALERTE",
       nom: "Alerte",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/719/G301_Alert.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/719/G301_Alert.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "CRI"
     },
     G302: {
@@ -519,7 +545,8 @@ export default() => {
       niveau: 1,
       acronyme: "SDIS",
       nom: "Intégration",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/718/G302_IntSDIS.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/718/G302_IntSDIS.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "CRI"
     },
     G303: {
@@ -529,7 +556,8 @@ export default() => {
       niveau: 1,
       acronyme: "PCS",
       nom: "Plan Communal de Sauvegarde",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/720/G303_MJ_PCS.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/720/G303_MJ_PCS.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "CRI"
     },
     G4: {
@@ -542,7 +570,7 @@ export default() => {
       statut: "indice",
       acronyme: "SEN",
       nom: "Sensibilisation",
-      service: ""
+      lien1: ""
     },
     G201: {
       id: "G201",
@@ -551,7 +579,8 @@ export default() => {
       niveau: 1,
       acronyme: "SCOL",
       nom: "Scolaires",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/716/G201_EvetScol.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/716/G201_EvetScol.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "SEN"
     },
     G202: {
@@ -561,7 +590,8 @@ export default() => {
       niveau: 1,
       acronyme: "ASSO",
       nom: "Association",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/712/G202_Asso.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/712/G202_Asso.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "SEN"
     },
     G204: {
@@ -571,7 +601,8 @@ export default() => {
       niveau: 1,
       acronyme: "REP",
       nom: "Repères",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/714/G204_Rep.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/714/G204_Rep.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "SEN"
     },
     G205: {
@@ -581,7 +612,8 @@ export default() => {
       niveau: 1,
       acronyme: "DICRIM1",
       nom: "DICRIM Diffusion",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/715/G205_DICRIM1.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/715/G205_DICRIM1.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "SEN"
     },
     G206: {
@@ -591,7 +623,8 @@ export default() => {
       niveau: 1,
       acronyme: "DICRIM2",
       nom: "DICRIM Pédagogie",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/717/G206_DICRIM2.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/717/G206_DICRIM2.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "SEN"
     },
     G5: {
@@ -604,7 +637,7 @@ export default() => {
       statut: "indice",
       acronyme: "CONN",
       nom: "Connaissance",
-      service: ""
+      lien1: ""
     },
     G203: {
       id: "G203",
@@ -613,7 +646,8 @@ export default() => {
       niveau: 1,
       acronyme: "PUBLI",
       nom: "Publications scientifiques",
-      service: "https://tucuxi.univ-brest.fr/attachments/download/713/G203_PblSci.pdf",
+      lien1: "https://tucuxi.univ-brest.fr/attachments/download/713/G203_PblSci.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "CONN"
     },
     R: {
@@ -626,7 +660,7 @@ export default() => {
       composition: [ "R1", "R2", "R3" ],
       methode: "Maximum des indicateurs (conscience des aléas, dimension sociale du lieu, perception de la gestion)",
       nom: "Composante des représentations",
-      service: ""
+      lien1: ""
     },
     R1: {
       id: "R1",
@@ -638,7 +672,7 @@ export default() => {
       statut: "indice",
       acronyme: "CONSRISQ",
       nom: "Conscience des risques",
-      service: ""
+      lien1: ""
     },
     R102: {
       id: "R102",
@@ -647,7 +681,7 @@ export default() => {
       niveau: 1,
       acronyme: "ER",
       nom: "Expérience personnelle",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R103: {
@@ -657,7 +691,7 @@ export default() => {
       niveau: 1,
       acronyme: "IA",
       nom: "Information active",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R104: {
@@ -667,7 +701,7 @@ export default() => {
       niveau: 1,
       acronyme: "PROLOC",
       nom: "Problématiques locales",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R105: {
@@ -677,7 +711,7 @@ export default() => {
       niveau: 1,
       acronyme: "AP",
       nom: "Attention personnelle",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R106: {
@@ -687,7 +721,7 @@ export default() => {
       niveau: 1,
       acronyme: "NI",
       nom: "Inquiétude",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R201: {
@@ -697,7 +731,7 @@ export default() => {
       niveau: 1,
       acronyme: "DP",
       nom: "Sens du lieu",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R204: {
@@ -707,7 +741,7 @@ export default() => {
       niveau: 1,
       acronyme: "ACTMER",
       nom: "Activités en lien avec la mer",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R301: {
@@ -717,7 +751,7 @@ export default() => {
       niveau: 1,
       acronyme: "IND",
       nom: "Pratiques individuelles",
-      service: "",
+      lien1: "",
       thematique: "CONSRISQ"
     },
     R2: {
@@ -730,7 +764,7 @@ export default() => {
       statut: "indice",
       acronyme: "EVAPRACOL",
       nom: "Evaluation des pratiques collectives",
-      service: ""
+      lien1: ""
     },
     R302: {
       id: "R302",
@@ -739,7 +773,7 @@ export default() => {
       niveau: 1,
       acronyme: "RENFEX",
       nom: "Renforcement de l'existant",
-      service: "",
+      lien1: "",
       thematique: "EVAPRACOL"
     },
     R202: {
@@ -749,7 +783,7 @@ export default() => {
       niveau: 1,
       acronyme: "IMPEX",
       nom: "Impact sur l'existant",
-      service: "",
+      lien1: "",
       thematique: "EVAPRACOL"
     },
     R203: {
@@ -759,7 +793,7 @@ export default() => {
       niveau: 1,
       acronyme: "MESEVAC",
       nom: "Mesures d'évacuation",
-      service: "",
+      lien1: "",
       thematique: "EVAPRACOL"
     },
     R3: {
@@ -772,7 +806,7 @@ export default() => {
       statut: "indice",
       acronyme: "CONF",
       nom: "Confiance",
-      service: ""
+      lien1: ""
     },
     R303: {
       id: "R303",
@@ -781,7 +815,7 @@ export default() => {
       niveau: 1,
       acronyme: "INTERLOC",
       nom: "Intéractions locales",
-      service: "",
+      lien1: "",
       thematique: "CONF"
     },
     R101: {
@@ -791,7 +825,7 @@ export default() => {
       niveau: 1,
       acronyme: "INTERMED",
       nom: "Interactions médiatisées",
-      service: "",
+      lien1: "",
       thematique: "CONF"
     },
     I: {
@@ -803,7 +837,7 @@ export default() => {
       statut: "indice",
       acronyme: "IT",
       nom: "Indices composites",
-      service: ""
+      lien1: ""
     },
     I1: {
       id: "I1",
@@ -814,7 +848,7 @@ export default() => {
       statut: "indice",
       acronyme: "SYST",
       nom: "SYST",
-      service: ""
+      lien1: ""
     },
     I101: {
       id: "I101",
@@ -826,7 +860,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "GLOB",
-      service: "",
+      lien1: "",
       thematique: "SYST"
     },
     I102: {
@@ -839,7 +873,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "RISK",
-      service: "",
+      lien1: "",
       thematique: "SYST"
     },
     I2: {
@@ -851,7 +885,7 @@ export default() => {
       statut: "indice",
       acronyme: "TRANS",
       nom: "TRANS",
-      service: ""
+      lien1: ""
     },
     I221: {
       id: "I221",
@@ -863,7 +897,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "OPE",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I231: {
@@ -876,7 +910,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "STRAT",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I201: {
@@ -889,7 +923,7 @@ export default() => {
       statut: "indice",
       acronyme: "BATI",
       nom: "Matériel (racine)",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I202: {
@@ -902,7 +936,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "BATISOM",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I203: {
@@ -915,7 +949,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "BATIPROD",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I211: {
@@ -928,7 +962,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "SUB",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I212: {
@@ -941,7 +975,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "SUBSOM",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
     I213: {
@@ -954,7 +988,7 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "SUMPROD",
-      service: "",
+      lien1: "",
       thematique: "TRANS"
     },
   }
