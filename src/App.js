@@ -5,7 +5,6 @@ import LoginModal from './containers/LoginModal';
 
 import Carto from './containers/Carto';
 import Meta from './containers/Meta';
-import Slide from './containers/Slide';
 import Systemic from './containers/Systemic';
 import Titre from './containers/Titre';
 
@@ -40,7 +39,6 @@ const App = ({ isLogged, doLogout }) => (
         <section id="map-container">
           <Carto />
           <Titre />
-          <Slide />
           <Meta />
         </section>
       </main>

@@ -9,9 +9,12 @@ import { GeoJSON, WKT } from "ol/format";
 import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
+import fetch from 'isomorphic-fetch';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import proj4 from "proj4";
-import { keyBy, get } from 'lodash';
+import { keyBy, get, map } from 'lodash';
 
 import meta_com from '../data/meta_com.json';
 
@@ -21,6 +24,10 @@ const zoomSizes = {
 	maxComm: 200,
 	max: 480,
 	default: 400,
+};
+
+const sliderStyle = {
+	handleStyle: { borderColor: '#888' },
 };
 
 const styleBaseEpci = new Style({
@@ -102,6 +109,8 @@ class Carlitto extends Component {
 	overlayFeatureNom = null
 
   clickedFeature = null
+
+  state = {};
 
 	getOverlayText(nom, code, nbIndic, sitePilote) {
 		let overlayText = '<h6><strong>' + nom + '</strong>'
@@ -197,9 +206,9 @@ class Carlitto extends Component {
 	  document.body.style.cursor = 'pointer';
 	}
 
-	onClickSelectYear(val) {
+	onSelectYear(year) {
 		this.setState({
-			selectedYear: this.state.selectedYear + val,
+			selectedYear: year,
 		});
 	}
 
@@ -211,6 +220,26 @@ class Carlitto extends Component {
 			}
 		;
 		this.commNbIndic = keyBy(meta_com, c => c.id_com);
+
+		// Get list of years data available
+		fetch('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
+		.then((response) => {
+			if (response.status >= 400) {
+				console.error('Bad response from server');
+			}
+			return response.text();
+		})
+		.then((body) => {
+  		const xmlDoc = new DOMParser().parseFromString(body, 'text/xml');
+			if (xmlDoc && xmlDoc.getElementsByName('time') && xmlDoc.getElementsByName('time')[0] && xmlDoc.getElementsByName('time')[0].innerHTML) {
+				const dateList = xmlDoc.getElementsByName('time')[0].innerHTML.split(',');
+				const listYear = map(dateList, d => d.substring(0, 4));
+				this.setState({
+					yearsListAvailable: listYear,
+					selectedYear: parseInt(listYear[listYear.length - 1], 10),
+				});
+			}
+		});
 
 		this.base = new Tile({
 			name: 'base',
@@ -397,7 +426,6 @@ class Carlitto extends Component {
 		this.setState({
 			carMap: this.carMap,
 			carLayer: this.carLayer,
-			selectedYear: new Date().getFullYear(),
 		});
 	}
 
@@ -414,16 +442,16 @@ class Carlitto extends Component {
 		}
 
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if ((prevProps && prevProps.showEPCI !== showEPCI)
+		if (!!territoire && ((prevProps && prevProps.showEPCI !== showEPCI)
 			|| (prevState && prevState.selectedYear !== this.state.selectedYear)
-			|| (prevProps.territoire !== territoire && !!territoire)) {
+			|| (prevProps.territoire !== territoire))) {
 
 			viewProps["minResolution"] = zoomSizes.min;
 
 			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
-				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
+				TIME: `${this.state.yearsListAvailable[0]}-01-01T00:00:00.000Z/${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
 
 			this.commGeom = new Feature({
@@ -532,15 +560,17 @@ class Carlitto extends Component {
 				{setRef && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
-				{setRef && (
-					<div id="bt-select-year">
-						<button type="button" onClick={() => this.onClickSelectYear(-1)} class="btn btn-primary">
-							-
-						</button>
-						<div>{this.state.selectedYear}</div>
-						<button type="button" onClick={() => this.onClickSelectYear(1)} class="btn btn-primary">
-							+
-						</button>
+				{setRef && this.state.yearsListAvailable && this.state.yearsListAvailable.length > 0 && (
+					<div className="select-year-slider">
+						<Slider
+							min={parseInt(this.state.yearsListAvailable[0], 10)}
+							max={parseInt(this.state.yearsListAvailable[this.state.yearsListAvailable.length - 1], 10)}
+							defaultValue={this.state.selectedYear}
+							marks={keyBy(this.state.yearsListAvailable, v => v)}
+							included={false}
+							onChange={y => this.onSelectYear(y)}
+							{...sliderStyle}
+						/>
 					</div>
 				)}
 			</div>
