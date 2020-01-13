@@ -10,6 +10,7 @@ import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
 import fetch from 'isomorphic-fetch';
+import xmlParser from 'fast-xml-parser';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -232,14 +233,17 @@ class Carlitto extends Component {
 			return response.text();
 		})
 		.then((body) => {
-  		const xmlDoc = new DOMParser().parseFromString(body, 'text/xml');
-			if (xmlDoc && xmlDoc.getElementsByName('time') && xmlDoc.getElementsByName('time')[0] && xmlDoc.getElementsByName('time')[0].innerHTML) {
-				const dateList = xmlDoc.getElementsByName('time')[0].innerHTML.split(',');
-				const listYear = map(dateList, d => d.substring(0, 4));
-				this.setState({
-					yearsListAvailable: listYear,
-					selectedYear: parseInt(listYear[listYear.length - 1], 10),
-				});
+			if (xmlParser.validate(body) === true) {
+			  const xmlDoc = xmlParser.parse(body);
+			  const timeParameter = get(xmlDoc, 'WMS_Capabilities.Capability.Layer.Layer.Dimension');
+				if (timeParameter) {
+					const dateList = timeParameter.split(',');
+					const listYear = map(dateList, d => d.substring(0, 4));
+					this.setState({
+						yearsListAvailable: listYear,
+						selectedYear: parseInt(listYear[listYear.length - 1], 10),
+					});
+				}
 			}
 		});
 
