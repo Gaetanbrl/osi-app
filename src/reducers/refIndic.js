@@ -55,9 +55,10 @@ export default() => {
       niveau: 1,
       acronyme: "DIST",
       nom: "Distance",
-      lien1: "",
+      lien1: "http://www.geolittoral.developpement-durable.gouv.fr/methodologie-r475.html",
+      texteLien1: "Méthodologie GéoLittoral 1",
       lien2: "http://www.geolittoral.developpement-durable.gouv.fr/methodologie-r475.html",
-      texteLien2: "Méthodologie GéoLittoral",
+      texteLien2: "Méthodologie GéoLittoral 2",
       thematique: "ERO"
     },
     A2: {
