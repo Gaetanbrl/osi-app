@@ -27,7 +27,9 @@ const zoomSizes = {
 };
 
 const sliderStyle = {
-	handleStyle: { borderColor: '#888' },
+	handleStyle: { borderColor: '#000' },
+	railStyle: { backgroundColor: '#686f77' },
+	dotStyle: { borderColor: '#686f77' },
 };
 
 const styleBaseEpci = new Style({
@@ -561,16 +563,18 @@ class Carlitto extends Component {
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
 				{setRef && this.state.yearsListAvailable && this.state.yearsListAvailable.length > 0 && (
-					<div className="select-year-slider">
-						<Slider
-							min={parseInt(this.state.yearsListAvailable[0], 10)}
-							max={parseInt(this.state.yearsListAvailable[this.state.yearsListAvailable.length - 1], 10)}
-							defaultValue={this.state.selectedYear}
-							marks={keyBy(this.state.yearsListAvailable, v => v)}
-							included={false}
-							onChange={y => this.onSelectYear(y)}
-							{...sliderStyle}
-						/>
+					<div className="select-year-slider-container">
+						<div className="select-year-slider">
+							<Slider
+								min={parseInt(this.state.yearsListAvailable[0], 10)}
+								max={parseInt(this.state.yearsListAvailable[this.state.yearsListAvailable.length - 1], 10)}
+								defaultValue={this.state.selectedYear}
+								marks={keyBy(this.state.yearsListAvailable, v => v)}
+								included={false}
+								onChange={y => this.onSelectYear(y)}
+								{...sliderStyle}
+							/>
+						</div>
 					</div>
 				)}
 			</div>
