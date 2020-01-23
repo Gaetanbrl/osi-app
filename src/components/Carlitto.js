@@ -288,7 +288,8 @@ class Carlitto extends Component {
 			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
 			params: {
 				LAYERS: 'osi_all_date',
-				STYLE: 'default'
+				STYLE: 'default',
+				FORMAT: 'image/gif'
 			},
 			serverType: 'geoserver',
 			crossOrigin: 'anonymous'
