@@ -18,13 +18,14 @@ export default class FeatureBox extends Component {
 	}
 
 	render() {
-		const col = {
-			A: "#c9302c",
-			E: "#ec971f",
-			G: "#449d44",
-			R: "#31b0d5",
-			I: "#dedede"
-		};
+		// Composante Bar chart colors
+		// const col = {
+		// 	A: "#c9302c",
+		// 	E: "#ec971f",
+		// 	G: "#449d44",
+		// 	R: "#31b0d5",
+		// 	I: "#dedede"
+		// };
 
 		let { error, loading, refIndic, setRef, infos } = this.props;
 		if (loading) {
