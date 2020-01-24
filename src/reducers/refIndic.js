@@ -5,7 +5,7 @@ export default() => {
       composante: "",
       description: "Vulnérabilité Systèmique",
       composition: [ "RI", "G", "R", "I"],
-      methode: "à définir",
+      methode: "",
       niveau: 5,
       statut: "indice",
       acronyme: "VS",
@@ -17,12 +17,13 @@ export default() => {
       composante: "",
       description: "Risque",
       composition: [ "A", "E" ],
-      methode: "à définir",
+      methode: "Matrice",
       niveau: 4,
       statut: "indice",
       acronyme: "RI",
       nom: "Risque",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/RI_matrice.png",
+      texteLien1: "Matrice"
     },
     A: {
       id: "A",
@@ -160,6 +161,17 @@ export default() => {
       acronyme: "SECOND",
       nom: "Résidences secondaires",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E108_ResSec.pdf",
+      texteLien1: "Fiche méthodologique",
+      thematique: "HUM"
+    },
+    E110: {
+      id: "E110",
+      composante: "EN",
+      description: "Emprise au sol des bâtiments résidentiels",
+      niveau: 1,
+      acronyme: "EMPBAT",
+      nom: "Emprise bâti",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E110_BATIresid_empr.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
@@ -883,7 +895,7 @@ export default() => {
     I2: {
       id: "I2",
       composante: "IT",
-      composition: [ "A", "E", "G", "R" ],
+      composition: [],
       description: "Transverses",
       niveau: 2,
       statut: "indice",
@@ -901,21 +913,23 @@ export default() => {
       niveau: 1,
       statut: "indice",
       acronyme: "VULCRI",
-      lien1: "",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I101_VulGesCri.pdf",
+    texteLien1: "Fiche méthodologique",
       thematique: "TRANS"
     },
     I102: {
       id: "I102",
       composante: "IT",
-      nom: "Vulnérabilité bâti",
+      nom: "Vulnérabilité du bâti",
       description: "Vulnérabilité du bâti résidentiel",
       composition: [ "A", "E110", "G1" ],
       methode: "Matrices",
       niveau: 1,
       statut: "indice",
       acronyme: "VULBAT",
-      lien1: "",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I102_VulBati.pdf",
+      texteLien1: "Fiche méthodologique",
       thematique: "TRANS"
-    },
+    }
   }
 };
