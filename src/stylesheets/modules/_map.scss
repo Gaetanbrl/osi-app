@@ -160,8 +160,11 @@ canvas{
 }
 .data-block-container {
   background-color: #fff;
-  border-radius: $global-radius;
+  border-radius: $global-radius $global-radius 0 0;
   padding: 8px;
+  + .data-block-container {
+    border-radius: 0 0 $global-radius $global-radius;
+  }
   .data-value {
     margin-bottom: 3px;
     &.min {
@@ -176,11 +179,22 @@ canvas{
     opacity: .6;
     + div {
       font-size: 18px;
+      ul {
+        font-size: 14px;
+        list-style: circle;
+        margin-left: 10px;
+        padding-left: 14px;
+      }
     }
   }
 }
-.data-block-methode .data-block-container { border-radius: $global-radius $global-radius 0 0;}
-.data-block-metadonnees .data-block-container { border-radius: 0 0 $global-radius $global-radius;}
+.data-block-methode .data-block-container {
+  border-radius: $global-radius;
+}
+.data-block-metadonnees .data-block-container {
+  margin-top: -3px;
+  border-radius: 0 0 $global-radius $global-radius;
+}
 
 .data-block {
   .btn[disabled] {
