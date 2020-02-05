@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 class MethodeBox extends Component {
 	render() {
 		let { setRef, refIndic, territoire } = this.props;
 
 		let ref;
-		let code = '';
+		let code = "";
 		let compo = {
-			AL: 'Aléas',
-			EN: 'Enjeux',
-			GE: 'Gestion',
-			RE: 'Représentation',
-			IT: 'Indices composites'
+			AL: "Aléas",
+			EN: "Enjeux",
+			GE: "Gestion",
+			RE: "Représentation",
+			IT: "Indices composites"
 		};
 
 		if (setRef && territoire.comm && refIndic[setRef].niveau > 1) {
@@ -32,7 +32,7 @@ class MethodeBox extends Component {
 
 			let desc =
 				ref.niveau === 2
-					? compo[ref.composante] + ' > ' + ref.description
+					? compo[ref.composante] + " > " + ref.description
 					: ref.description;
 			return (
 				<div
@@ -60,7 +60,7 @@ class MethodeBox extends Component {
 							href={ref.lien1}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien1 || 'Lien'}</span>
+							<span>{ref.texteLien1 || "Lien"}</span>
 						</Button>
 						<Button
 							target="_blank"
@@ -69,7 +69,7 @@ class MethodeBox extends Component {
 							href={ref.lien2}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien2 || 'Lien'}</span>
+							<span>{ref.texteLien2 || "Lien"}</span>
 						</Button>
 						<strong>{ref.service}</strong>
 					</div>
@@ -78,7 +78,7 @@ class MethodeBox extends Component {
 		} else if (
 			setRef &&
 			territoire.comm &&
-			refIndic[setRef].composante !== 'IT'
+			refIndic[setRef].composante !== "IT"
 		) {
 			ref = refIndic[setRef];
 
@@ -86,8 +86,8 @@ class MethodeBox extends Component {
 				ref.niveau === 3
 					? ref.acronyme
 					: !ref.thematique
-					? ref.composante + '-' + ref.acronyme
-					: ref.composante + '-' + ref.thematique + '-' + ref.acronyme;
+					? ref.composante + "-" + ref.acronyme
+					: ref.composante + "-" + ref.thematique + "-" + ref.acronyme;
 
 			return (
 				<div
@@ -99,9 +99,7 @@ class MethodeBox extends Component {
 						<i className="fas fa-map-marked-alt"></i>Indicateur
 					</div>
 					<div className="data-block-container">
-						<div className="data-value data-value-name">
-							{ref.nom} ({code})
-						</div>
+						<div className="data-value data-value-name">{ref.nom}</div>
 						<div className="data-value data-value-desc">{ref.description}</div>
 						<Button
 							target="_blank"
@@ -110,7 +108,7 @@ class MethodeBox extends Component {
 							href={ref.lien1}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien1 || 'Lien'}</span>
+							<span>{ref.texteLien1 || "Lien"}</span>
 						</Button>
 						<Button
 							target="_blank"
@@ -119,7 +117,7 @@ class MethodeBox extends Component {
 							href={ref.lien2}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien2 || 'Lien'}</span>
+							<span>{ref.texteLien2 || "Lien"}</span>
 						</Button>
 					</div>
 				</div>
@@ -127,7 +125,7 @@ class MethodeBox extends Component {
 		} else if (
 			setRef &&
 			territoire.comm &&
-			refIndic[setRef].composante === 'IT'
+			refIndic[setRef].composante === "IT"
 		) {
 			ref = refIndic[setRef];
 			let composition = [];
@@ -149,7 +147,7 @@ class MethodeBox extends Component {
 							href={ref.lien1}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien1 || 'Lien'}</span>
+							<span>{ref.texteLien1 || "Lien"}</span>
 						</Button>
 						<Button
 							target="_blank"
@@ -158,7 +156,7 @@ class MethodeBox extends Component {
 							href={ref.lien2}
 						>
 							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien2 || 'Lien'}</span>
+							<span>{ref.texteLien2 || "Lien"}</span>
 						</Button>
 					</div>
 					<div className="data-block-container">
