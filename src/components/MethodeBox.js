@@ -6,7 +6,7 @@ class MethodeBox extends Component {
 		let { setRef, refIndic, territoire } = this.props;
 
 		let ref;
-		let code = "";
+		// let code = "";
 		let compo = {
 			AL: "Aléas",
 			EN: "Enjeux",
@@ -82,12 +82,12 @@ class MethodeBox extends Component {
 		) {
 			ref = refIndic[setRef];
 
-			code =
-				ref.niveau === 3
-					? ref.acronyme
-					: !ref.thematique
-					? ref.composante + "-" + ref.acronyme
-					: ref.composante + "-" + ref.thematique + "-" + ref.acronyme;
+			// code =
+			// 	ref.niveau === 3
+			// 		? ref.acronyme
+			// 		: !ref.thematique
+			// 		? ref.composante + "-" + ref.acronyme
+			// 		: ref.composante + "-" + ref.thematique + "-" + ref.acronyme;
 
 			return (
 				<div

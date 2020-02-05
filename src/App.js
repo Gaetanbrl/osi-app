@@ -1,18 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import LoginModal from './containers/LoginModal';
+import LoginModal from "./containers/LoginModal";
 
-import Carto from './containers/Carto';
-import Meta from './containers/Meta';
-import Systemic from './containers/Systemic';
-import Titre from './containers/Titre';
+import Carto from "./containers/Carto";
+import Meta from "./containers/Meta";
+import Systemic from "./containers/Systemic";
+import Titre from "./containers/Titre";
 
-import Footer from './components/Footer';
+import Footer from "./components/Footer";
 
-import { doLogout } from './actions';
+import { doLogout } from "./actions";
 
-const App = ({ isLogged, doLogout }) => (
+const App = ({ isLogged, doLogout }) =>
   isLogged !== true ? (
     <LoginModal />
   ) : (
@@ -27,11 +27,7 @@ const App = ({ isLogged, doLogout }) => (
             <Systemic />
           </nav>
           <div id="sidebar-footer">
-            <button
-              type="button"
-              onClick={() => doLogout()}
-              class="btn"
-            >
+            <button type="button" onClick={() => doLogout()} className="btn">
               Se déconnecter
             </button>
           </div>
@@ -44,12 +40,11 @@ const App = ({ isLogged, doLogout }) => (
       </main>
       <Footer />
     </div>
-  )
-);
+  );
 
 export default connect(
   state => ({
-    isLogged: state.doLogin.isLogged,
+    isLogged: state.doLogin.isLogged
   }),
-  { doLogout },
+  { doLogout }
 )(App);
