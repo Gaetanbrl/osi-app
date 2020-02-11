@@ -458,7 +458,7 @@ class Carlitto extends Component {
 			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
-				TIME: `${this.state.yearsListAvailable[0]}-01-01T00:00:00.000Z/${this.state.selectedYear}-01-01T00:00:00.000Z`,
+				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
 
 			this.commGeom = new Feature({
