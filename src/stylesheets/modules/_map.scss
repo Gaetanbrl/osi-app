@@ -136,6 +136,11 @@ canvas{
   .highcharts-credits {
     display: none;
   }
+  .highcharts-bar-series {
+    .highcharts-label {
+      text { display:none; }
+    }
+  }
 }
 .data-container {
   position: absolute;
@@ -207,3 +212,5 @@ canvas{
     display: none;
   }
 }
+
+
