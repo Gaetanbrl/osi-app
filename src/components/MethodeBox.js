@@ -136,7 +136,9 @@ class MethodeBox extends Component {
 			});
 			return (
 				<div className="data-block" header="Méthode" tag="div">
-					<div className="data-block-title">Méthode</div>
+					<div className="data-block-title">
+						<i className="far fa-chart-bar"></i>Indice
+					</div>
 					<div className="data-block-container">
 						<div className="data-value data-value-name">{ref.nom}</div>
 						<div className="data-value data-value-desc">{ref.description}</div>
