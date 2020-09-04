@@ -253,7 +253,7 @@ class Carlitto extends Component {
 			source: new XYZ({
 				name: 'base',
 				url:'https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 			}),
 		})
 
@@ -262,7 +262,8 @@ class Carlitto extends Component {
 			opacity: 1,
 			source: new XYZ({
 				name: 'baseTopology',
-				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png'
+				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 			})
 		})
 
@@ -553,7 +554,7 @@ class Carlitto extends Component {
 		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 			&VERSION=1.0.0&FORMAT=image/png
 			&WIDTH=10&HEIGHT=10
-			&LAYER=osi
+			&LAYER=osi_all_date
 			&STYLE=${setRef.toLowerCase()}
 			&STYLES=${setRef.toLowerCase()}
 			&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;

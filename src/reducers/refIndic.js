@@ -30,7 +30,7 @@ export default() => {
       composante: "AL",
       description: "Aléas",
       composition: [ "A1", "A2"],
-      methode: "Maximum des indicateurs thématiques (érosion, submersion, migration dunaire)",
+      methode: "Maximum des indicateurs thématiques",
       niveau: 3,
       statut: "indice",
       acronyme: "AL",
@@ -90,7 +90,7 @@ export default() => {
       composante: "EN",
       description: "Enjeux",
       composition: [ "E1", "E2","E3"],
-      methode: "Moyenne géométrique des indicateurs",
+      methode: "Maximum des indices",
       niveau: 3,
       statut: "indice",
       acronyme: "EN",
@@ -134,7 +134,7 @@ export default() => {
     E105: {
       id: "E105",
       composante: "EN",
-      description: "Pourcentage de personnes de moins de 10 ou de plus de plus de 65 ans",
+      description: "Pourcentage de personnes de moins de 10 et de plus de 65 ans",
       niveau: 1,
       acronyme: "PERVUL-PCT",
       nom: "Population vulnérable",
@@ -153,28 +153,6 @@ export default() => {
       texteLien1: "Fiche méthodologique",
       thematique: "HUM"
     },
-    E108: {
-      id: "E108",
-      composante: "EN",
-      description: "Part des résidences secondaires",
-      niveau: 1,
-      acronyme: "SECOND",
-      nom: "Résidences secondaires",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E108_ResSec.pdf",
-      texteLien1: "Fiche méthodologique",
-      thematique: "HUM"
-    },
-    E110: {
-      id: "E110",
-      composante: "EN",
-      description: "Emprise au sol des bâtiments résidentiels",
-      niveau: 1,
-      acronyme: "EMPBAT",
-      nom: "Emprise bâti",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E110_BATIresid_empr.pdf",
-      texteLien1: "Fiche méthodologique",
-      thematique: "HUM"
-    },
        E2: {
       id: "E2",
       composante: "EN",
@@ -187,7 +165,7 @@ export default() => {
       nom: "Economiques",
       lien1: ""
     },
-   E109: {
+	 E109: {
       id: "E109",
       composante: "EN",
       description: "Capacité d’hébergement touristique",
@@ -201,7 +179,7 @@ export default() => {
     E201: {
       id: "E201",
       composante: "EN",
-      description: "Nombre de travailleurs",
+      description: "Nombre d'emplois",
       niveau: 1,
       acronyme: "TRAV",
       nom: "Emploi",
@@ -212,7 +190,7 @@ export default() => {
     E202: {
       id: "E202",
       composante: "EN",
-      description: "Valeur immobilière moyenne (m²)",
+      description: "Valeur immobilière moyenne (€/m²)",
       niveau: 1,
       acronyme: "VIMMO",
       nom: "Immobilier",
@@ -228,17 +206,6 @@ export default() => {
       acronyme: "DIV",
       nom: "Résilience économique",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E203_DivEco.pdf",
-      texteLien1: "Fiche méthodologique",
-      thematique: "ECO"
-    },
-    E206: {
-      id: "E206",
-      composante: "EN",
-      description: "Emprise au sol des bâtiments à vocation économique",
-      niveau: 1,
-      acronyme: "BATECO",
-      nom: "Bâtiments économiques",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E206_BATindus_empr.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "ECO"
     },
@@ -305,9 +272,42 @@ export default() => {
       niveau: 1,
       acronyme: "REFUG",
       nom: "Logements à risque",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis_inacheve.pdf",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STR"
+    },
+    E110: {
+      id: "E110",
+      composante: "EN",
+      description: "Emprise au sol des bâtiments résidentiels",
+      niveau: 1,
+      acronyme: "EMPBAT",
+      nom: "Emprise du bâti",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E110_BATIresid_empr.pdf",
+      texteLien1: "Fiche méthodologique",
+      thematique: "HUM"
+    },
+    E108: {
+      id: "E108",
+      composante: "EN",
+      description: "Part des résidences secondaires",
+      niveau: 1,
+      acronyme: "SECOND",
+      nom: "Résidences secondaires",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E108_ResSec.pdf",
+      texteLien1: "Fiche méthodologique",
+      thematique: "HUM"
+    },
+    E206: {
+      id: "E206",
+      composante: "EN",
+      description: "Emprise au sol des bâtiments à vocation économique",
+      niveau: 1,
+      acronyme: "BATECO",
+      nom: "Bâtiments économiques",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E206_BATindus_empr.pdf",
+      texteLien1: "Fiche méthodologique",
+      thematique: "ECO"
     },
     E308: {
       id: "E308",
@@ -356,13 +356,13 @@ export default() => {
     E4: {
       id: "E4",
       composante: "EN",
-      description: "Zones tampons",
+      description: "Agricoles et naturels",
       composition: [ "E205", "E402"],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
-      acronyme: "ZONTAMP",
-      nom: "Zones tampons",
+      acronyme: "AGNA",
+      nom: "Agricoles et naturels",
       lien1: ""
     },
     E205: {
@@ -374,7 +374,7 @@ export default() => {
       nom: "Agriculture",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E205_TerAgr.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "ZONTAMP"
+      thematique: "AGNA"
     },
     E402: {
       id: "E402",
@@ -385,14 +385,14 @@ export default() => {
       nom: "Patrimoine naturel",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E402_PatNat.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "ZONTAMP"
+      thematique: "AGNA"
     },
     G: {
       id: "G",
       composante: "GE",
       description: "Gestion",
       composition: [ "G1", "G2", "G3", "G4", "G5"],
-      methode: "Maximum des indicateurs (prévention et anticipation, sensibilisation, gestion de crise)",
+      methode: "Moyenne des indicateurs (prévention et anticipation, sensibilisation, gestion de crise)",
       niveau: 4,
       statut: "indice",
       acronyme: "GE",
@@ -404,7 +404,7 @@ export default() => {
       composante: "GE",
       description: "Maîtrise de l’urbanisation",
       composition: [ "G101", "G102"],
-      methode: "Maximum des indicateurs",
+      methode: "Moyenne des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "MURBA",
@@ -438,7 +438,7 @@ export default() => {
       composante: "GE",
       description: "Stratégie locale",
       composition: [ "G103", "G104", "G105", "G106", "G107", "G108", "G110", "G111"],
-      methode: "Maximum des indicateurs",
+      methode: "Moyenne des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "STRATLOC",
@@ -538,7 +538,7 @@ export default() => {
       composante: "GE",
       description: "Gestion de crise",
       composition: [ "G301", "G302", "G303" ],
-      methode: "Maximum des indicateurs",
+      methode: "Moyenne des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "CRI",
@@ -555,6 +555,17 @@ export default() => {
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G301_Alerte.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "CRI"
+    },    
+	G303: {
+      id: "G303",
+      composante: "GE",
+      description: "Mise à jour du PCS",
+      niveau: 1,
+      acronyme: "PCS",
+      nom: "Plan Communal de Sauvegarde",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G303_MJ_PCS.pdf",
+      texteLien1: "Fiche méthodologique",
+      thematique: "CRI"
     },
     G302: {
       id: "G302",
@@ -567,23 +578,12 @@ export default() => {
       texteLien1: "Fiche méthodologique",
       thematique: "CRI"
     },
-    G303: {
-      id: "G303",
-      composante: "GE",
-      description: "Mise à jour du PCS",
-      niveau: 1,
-      acronyme: "PCS",
-      nom: "Plan Communal de Sauvegarde",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G303_MJ_PCS.pdf",
-      texteLien1: "Fiche méthodologique",
-      thematique: "CRI"
-    },
     G4: {
       id: "G4",
       composante: "GE",
       description: "Sensibilisation",
       composition: [ "G201", "G202", "G204", "G205", "G206" ],
-      methode: "Maximum des indicateurs",
+      methode: "Moyenne des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "SEN",
@@ -650,7 +650,7 @@ export default() => {
       composante: "GE",
       description: "Connaissance",
       composition: [ "G203"],
-      methode: "Maximum des indicateurs",
+      methode: "Moyenne des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "CONN",
@@ -850,13 +850,13 @@ export default() => {
     R3: {
       id: "R3",
       composante: "RE",
-      description: "Confiance",
+      description: "Sens du lieu",
       composition: [ "R201", "R204"],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
       acronyme: "SENSLIEU",
-      nom: "Confiance",
+      nom: "Sens du lieu",
       lien1: ""
     },
     R201: {
@@ -914,7 +914,7 @@ export default() => {
       statut: "indice",
       acronyme: "VULCRI",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I101_VulGesCri.pdf",
-    texteLien1: "Fiche méthodologique",
+	  texteLien1: "Fiche méthodologique",
       thematique: "TRANS"
     },
     I102: {

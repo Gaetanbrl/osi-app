@@ -53,7 +53,7 @@ export default class Footer extends Component {
           <div className="licence-text">Application conçue et développée à l'Institut Universitaire Européen de la Mer dans le cadre des projets
             <a href="https://www-iuem.univ-brest.fr/pops/projects/osirisc-vers-un-observatoire-integre-des-risques-cotiers-d-erosion-submersion"> OSIRISC et OSIRISC+</a>
             , avec le soutien de la Fondation de France et la DREAL Bretagne et mise à disposition selon les termes de la
-            <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International.</a>
+            <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International.</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>
           </div>
         </div>
       </div>
