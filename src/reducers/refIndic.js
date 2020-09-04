@@ -3,13 +3,13 @@ export default() => {
     VS: {
       id: "VS",
       composante: "",
-      description: "Vulnérabilité Systèmique",
+      description: "Vulnérabilité Systémique",
       composition: [ "RI", "G", "R", "I"],
       methode: "",
       niveau: 5,
       statut: "indice",
       acronyme: "VS",
-      nom: "Vulnérabilité Systèmique",
+      nom: "Vulnérabilité Systémique",
       lien1: ""
     },
     RI: {
@@ -35,7 +35,8 @@ export default() => {
       statut: "indice",
       acronyme: "AL",
       nom: "Composante des aléas",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/aleas/A.png",
+      texteLien1: "Formule"
     },
     A1: {
       id: "A1",
@@ -58,8 +59,8 @@ export default() => {
       nom: "Distance",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/aleas/A101_EroDis.pdf",
       texteLien1: "Fiche méthodologique",
-      lien2: "http://portail.indigeo.fr/geocms/maps/portail-enxyhdzd",
-      texteLien2: "Carte explicative",
+      lien2: "http://portail.indigeo.fr/geocms/maps/portail-jkyeggvu",
+      texteLien2: "Couche de données",
       thematique: "ERO"
     },
     A2: {
@@ -83,6 +84,8 @@ export default() => {
       nom: "Hauteur",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/aleas/A201_Sub.pdf",
       texteLien1: "Fiche méthodologique",
+	  lien2: "http://portail.indigeo.fr/geocms/maps/portail-bzayyexe",
+      texteLien2: "Couche de données",
       thematique: "SUB"
     },
     E: {
@@ -90,12 +93,13 @@ export default() => {
       composante: "EN",
       description: "Enjeux",
       composition: [ "E1", "E2","E3"],
-      methode: "Maximum des indices",
+      methode: "Moyenne géométrique des indicateurs",
       niveau: 3,
       statut: "indice",
       acronyme: "EN",
       nom: "Composante des enjeux",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E.png",
+      texteLien1: "Formule"
     },
     E1: {
       id: "E1",
@@ -107,7 +111,8 @@ export default() => {
       statut: "indice",
       acronyme: "HUM",
       nom: "Humains",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E1.png",
+      texteLien1: "Formule"
     },
     E101: {
       id: "E101",
@@ -163,7 +168,8 @@ export default() => {
       statut: "indice",
       acronyme: "ECO",
       nom: "Economiques",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E2.png",
+      texteLien1: "Formule"
     },
 	 E109: {
       id: "E109",
@@ -219,7 +225,8 @@ export default() => {
       statut: "indice",
       acronyme: "STR",
       nom: "Structurels",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E3.png",
+      texteLien1: "Formule"
     },
     E103: {
       id: "E103",
@@ -272,7 +279,7 @@ export default() => {
       niveau: 1,
       acronyme: "REFUG",
       nom: "Logements à risque",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis.pdf",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis_inacheve.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STR"
     },
@@ -356,14 +363,15 @@ export default() => {
     E4: {
       id: "E4",
       composante: "EN",
-      description: "Agricoles et naturels",
+      description: "Zones tampons",
       composition: [ "E205", "E402"],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
-      acronyme: "AGNA",
-      nom: "Agricoles et naturels",
-      lien1: ""
+      acronyme: "ZONTAMP",
+      nom: "Zones tampons",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E4.png",
+      texteLien1: "Formule"
     },
     E205: {
       id: "E205",
@@ -374,7 +382,7 @@ export default() => {
       nom: "Agriculture",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E205_TerAgr.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "AGNA"
+      thematique: "ZONTAMP"
     },
     E402: {
       id: "E402",
@@ -385,7 +393,7 @@ export default() => {
       nom: "Patrimoine naturel",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E402_PatNat.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "AGNA"
+      thematique: "ZONTAMP"
     },
     G: {
       id: "G",
@@ -397,7 +405,8 @@ export default() => {
       statut: "indice",
       acronyme: "GE",
       nom: "Composante de la gestion",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G.png",
+      texteLien1: "Formule"
     },
     G1: {
       id: "G1",
@@ -409,7 +418,8 @@ export default() => {
       statut: "indice",
       acronyme: "MURBA",
       nom: "Maîtrise de l’urbanisation",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G1.png",
+      texteLien1: "Formule"
     },
     G101: {
       id: "G101",
@@ -443,7 +453,8 @@ export default() => {
       statut: "indice",
       acronyme: "STRATLOC",
       nom: "Stratégie locale",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G2.png",
+      texteLien1: "Formule"
     },
     G103: {
       id: "G103",
@@ -543,7 +554,8 @@ export default() => {
       statut: "indice",
       acronyme: "CRI",
       nom: "Gestion de crise",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G3.png",
+      texteLien1: "Formule"
     },
     G301: {
       id: "G301",
@@ -588,7 +600,8 @@ export default() => {
       statut: "indice",
       acronyme: "SEN",
       nom: "Sensibilisation",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G4.png",
+      texteLien1: "Formule"
     },
     G201: {
       id: "G201",
@@ -914,7 +927,9 @@ export default() => {
       statut: "indice",
       acronyme: "VULCRI",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I101_VulGesCri.pdf",
-	  texteLien1: "Fiche méthodologique",
+      texteLien1: "Fiche méthodologique",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I101.png",
+      texteLien2: "Formule",
       thematique: "TRANS"
     },
     I102: {
@@ -929,6 +944,40 @@ export default() => {
       acronyme: "VULBAT",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I102_VulBati.pdf",
       texteLien1: "Fiche méthodologique",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I102.png",
+      texteLien2: "Formule",
+      thematique: "TRANS"
+    },
+    I103: {
+      id: "I103",
+      composante: "IT",
+      nom: "Vulnérabilité du bâti de plain-pied",
+      description: "Vulnérabilité du bâti de plain-pied à la submersion",
+      composition: [ "A201", "E303", "E304","G104" ],
+      methode: "Matrices",
+      niveau: 1,
+      statut: "indice",
+      acronyme: "VULPLA",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I103_VulPla.pdf",
+      texteLien1: "Fiche méthodologique",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I103.png",
+      texteLien2: "Formule",
+      thematique: "TRANS"
+    },
+    I104: {
+      id: "I104",
+      composante: "IT",
+      nom: "Indice risque + gestion",
+      description: "Indice risque + gestion",
+      composition: [ "A", "E", "G" ],
+      methode: "Matrices",
+      niveau: 1,
+      statut: "indice",
+      acronyme: "RISGES",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I104_RisGes.pdf",
+      texteLien1: "Fiche méthodologique",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I104.png",
+      texteLien2: "Formule",
       thematique: "TRANS"
     }
   }

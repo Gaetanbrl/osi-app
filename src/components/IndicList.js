@@ -21,7 +21,7 @@ const IndicList = ({ refIndic, setCompo, currentIndic, onIndicClick, territoire 
 
 		// let id_able = Object.keys(refIndic).filter(k => k.substring(0, 1) === "I");
 		//let ableRef = ["I1","I211","I212","I213","I221","I231","I2","I"];
-		let ableRef = ["I101","I102","I2","I"];
+		let ableRef = ["I101","I102","I103","I104","I2","I"];
 		array_able.map(i => (
 			ableRef.push(i.id_meta)
 			));
