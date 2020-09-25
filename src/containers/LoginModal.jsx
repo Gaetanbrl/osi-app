@@ -7,14 +7,17 @@ import { doLogin } from '../actions';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { password: '' };
+    this.state = { password: 'password', i_agree: false };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange (event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value, i_agree: !this.state.i_agree });
   }
 
   handleSubmit (event) {
+    console.log(this.state);
     event.preventDefault();
 
     const { password } = this.state;
@@ -60,38 +63,40 @@ class Home extends React.Component {
           Une soixantaine d’indicateurs a été créée afin de suivre la vulnérabilité à l’érosion et la submersion marines. Des données brutes sont collectées selon des protocoles méthodologiques prédéfinis, spécifiques à chaque indicateur.
           <br/>
           Les données sont ensuite mises en forme et rapportées à un carroyage de 200 m de côté, choisi en cohérence avec le carroyage de l’INSEE et en projection conforme suivant la recommandation de la Directive INSPIRE. Ce choix répond à un compromis entre, d’une part, la recherche d’une certaine finesse des sorties cartographiques et, d’autre part, la volonté d’anonymiser les données.
-          <br/><br/>
+          <br/>
           Les indicateurs présentent tous une cotation à cinq niveaux. Les données sont donc rapportées à une valeur de cette échelle cotation selon un protocole défini pour chaque indicateur.
-          <br/><br/>
+          <br/>
           Enfin les indices résultent de la combinaison de plusieurs indicateurs. Ils visent à fournir une information synthétique sur un thème, une composante, le risque, ou la vulnérabilité globale.
           <br/><br/>
           Des collectivités pilotes (communes ou intercommunalités) ont accompagné le développement de cet outil. On les reconnait à leur couleur plus foncée lorsque l’on entre dans l’application.
-          <br/><br/>
+          <br/>
           Les résultats présentés dans cette application n’engagent que l’équipe scientifique impliquée. Certains d’entre eux ont cependant été obtenus avec l’aide des territoires pilotes. Qu’ils soient ici remerciés.
-          <br/><br/>
+          <br/>
           Les éléments s’inscrivent dans la dynamique de l’Observatoire des risques côtiers en Bretagne OSIRISC porté par l’Institut Universitaire Européen de la Mer.
-          <br/><br/>
-          Cet outil est à un stade expérimental. Il est accessible par mot de passe.
-          Vous connaissez le mot de passe ? Connectez-vous ci-dessous.
           <br/><br/>
           Vous souhaitez contacter l'équipe OSI ?<br/>
           Adressez nous votre message à <a href="mailto:contact@risques-cotiers.fr">contact@risques-cotiers.fr</a>
         </div>
         <div className="modal-separator"></div>
-        <div className="login-title">Connectez-vous</div>
         <form onSubmit={e => this.handleSubmit(e)}>
           <div className="grid-center">
-            <div className="col-2_xs-7_sm-5_md-3_lg-3">
-              <div className="field">
+            <div className="col-md-auto">
+              <div className="checkbox">
                 {errorMessage && (
                   <div className="error">
                     <span>{errorMessage}</span>
                   </div>
                 )}
-                <i className="far fa-lock-alt"></i>
-                <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={e => this.handleChange(e)} />
+                <input type="hidden" placeholder="Mot de passe" name="password" value={password} onChange={e => this.handleChange(e)} />
+                <label>
+                  <input
+                    type="checkbox"
+                    defaultChecked={this.state.i_agree}
+                    onChange={this.handleChange}
+                  />  J'ai pris connaissance de ces informations
+                </label>
               </div>
-              <button className="btn btn-primary" type="submit">Connexion</button>
+              <button className="btn btn-primary" type="submit">Valider</button>
             </div>
           </div>
 

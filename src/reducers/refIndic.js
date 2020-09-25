@@ -81,7 +81,7 @@ export default() => {
     A201: {
       id: "A201",
       composante: "AL",
-      description: "Hauteur de submersion",
+      description: "Hauteur de submersion potentielle",
       niveau: 1,
       acronyme: "HAUT",
       nom: "Hauteur",
@@ -403,7 +403,7 @@ export default() => {
       composante: "GE",
       description: "Gestion",
       composition: [ "G1", "G2", "G3", "G4", "G5"],
-      methode: "Moyenne des indicateurs (prévention et anticipation, sensibilisation, gestion de crise)",
+      methode: "Moyenne des indicateurs",
       niveau: 4,
       statut: "indice",
       acronyme: "GE",
@@ -475,10 +475,10 @@ export default() => {
     G104: {
       id: "G104",
       composante: "GE",
-      description: "Etat des ouvrages GEMAPI2",
+      description: "Etat des ouvrages GEMAPI",
       niveau: 1,
-      acronyme: "GEMAPI2",
-      nom: "Etat des ouvrages GEMAPI2",
+      acronyme: "GEMAPI",
+      nom: "Etat des ouvrages GEMAPI",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G104_OuvGEMAPI2.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
@@ -533,7 +533,7 @@ export default() => {
       description: "Mise en œuvre des actions du PAPI",
       niveau: 1,
       acronyme: "PAPI2",
-      nom: "Mise en œuvre",
+      nom: "Mise en œuvre du PAPI",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G110_MeOPAPI2.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
