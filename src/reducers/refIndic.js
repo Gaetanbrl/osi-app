@@ -10,7 +10,8 @@ export default() => {
       statut: "indice",
       acronyme: "VS",
       nom: "Vulnérabilité Systémique",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/locmariaquer_fiche_synthese_23_07_2020.pdf",
+      texteLien1: "Exemple de restitution"
     },
     RI: {
       id: "RI",
@@ -22,15 +23,17 @@ export default() => {
       statut: "indice",
       acronyme: "RI",
       nom: "Risque",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/RI_matrice.png",
-      texteLien1: "Matrice"
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/RI.pdf",
+      texteLien1: "Fiche méthodologique",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/RI_formule.png",
+      texteLien2: "Formule"
     },
     A: {
       id: "A",
       composante: "AL",
       description: "Aléas",
       composition: [ "A1", "A2"],
-      methode: "Maximum des indicateurs thématiques",
+      methode: "Maximum des indicateurs",
       niveau: 3,
       statut: "indice",
       acronyme: "AL",
@@ -279,7 +282,7 @@ export default() => {
       niveau: 1,
       acronyme: "REFUG",
       nom: "Logements à risque",
-      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis_inacheve.pdf",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E304_LogRis.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STR"
     },
@@ -363,13 +366,13 @@ export default() => {
     E4: {
       id: "E4",
       composante: "EN",
-      description: "Zones tampons",
+      description: "Agricoles et naturels",
       composition: [ "E205", "E402"],
       methode: "Maximum des indicateurs",
       niveau: 2,
       statut: "indice",
-      acronyme: "ZONTAMP",
-      nom: "Zones tampons",
+      acronyme: "AGRNAT",
+      nom: "Agricoles et naturels",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E4.png",
       texteLien1: "Formule"
     },
@@ -382,7 +385,7 @@ export default() => {
       nom: "Agriculture",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E205_TerAgr.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "ZONTAMP"
+      thematique: "AGRNAT"
     },
     E402: {
       id: "E402",
@@ -393,7 +396,7 @@ export default() => {
       nom: "Patrimoine naturel",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/enjeux/E402_PatNat.pdf",
       texteLien1: "Fiche méthodologique",
-      thematique: "ZONTAMP"
+      thematique: "AGRNAT"
     },
     G: {
       id: "G",
@@ -406,7 +409,9 @@ export default() => {
       acronyme: "GE",
       nom: "Composante de la gestion",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G.png",
-      texteLien1: "Formule"
+      texteLien1: "Formule",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/locmariaquer_focus_sur_la_gestion_23_07_2020.pdf",
+      texteLien2: "Exemple d’analyse de la gestion"	 
     },
     G1: {
       id: "G1",
@@ -691,7 +696,8 @@ export default() => {
       composition: [ "R1", "R2", "R3" ],
       methode: "",
       nom: "Composante des représentations",
-      lien1: ""
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/locmariaquer_focus_sur_les_représentations_23_07_2020.pdf",
+      texteLien1: "Exemple d’analyse des représentations"
     },
     R1: {
       id: "R1",
@@ -919,8 +925,8 @@ export default() => {
     I101: {
       id: "I101",
       composante: "IT",
-      nom: "Vulnérabilité de crise",
-      description: "Vulnérabilité en période de crise",
+      nom: "Indice de crise",
+      description: "Indice en période de crise",
       composition: [ "A", "E1", "G3" ],
       methode: "Matrices",
       niveau: 1,
@@ -935,8 +941,8 @@ export default() => {
     I102: {
       id: "I102",
       composante: "IT",
-      nom: "Vulnérabilité du bâti",
-      description: "Vulnérabilité du bâti résidentiel",
+      nom: "Indice de bâti",
+      description: "Indice de bâti résidentiel",
       composition: [ "A", "E110", "G1" ],
       methode: "Matrices",
       niveau: 1,
@@ -951,8 +957,8 @@ export default() => {
     I103: {
       id: "I103",
       composante: "IT",
-      nom: "Vulnérabilité du bâti de plain-pied",
-      description: "Vulnérabilité du bâti de plain-pied à la submersion",
+      nom: "Indice de bâti de plain-pied",
+      description: "Indice de bâti de plain-pied à la submersion",
       composition: [ "A201", "E303", "E304","G104" ],
       methode: "Matrices",
       niveau: 1,
@@ -977,6 +983,38 @@ export default() => {
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I104_RisGes.pdf",
       texteLien1: "Fiche méthodologique",
       lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I104.png",
+      texteLien2: "Formule",
+      thematique: "TRANS"
+    },
+    I105: {
+      id: "I105",
+      composante: "IT",
+      nom: "Risque lié à l'érosion",
+      description: "Risque lié à l'érosion",
+      composition: [ "A1", "E" ],
+      methode: "Matrice",
+      niveau: 1,
+      statut: "indice",
+      acronyme: "RISERO",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I105_matrice.png",
+      texteLien1: "Matrice",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I105_formule.png",
+      texteLien2: "Formule",
+      thematique: "TRANS"
+    },
+    I106: {
+      id: "I106",
+      composante: "IT",
+      nom: "Risque lié à la submersion",
+      description: "Risque lié à la submersion",
+      composition: [ "A2", "E" ],
+      methode: "Matrice",
+      niveau: 1,
+      statut: "indice",
+      acronyme: "RISSUB",
+      lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I106_matrice.png",
+      texteLien1: "Matrice",
+      lien2: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/indices/I106_formule.png",
       texteLien2: "Formule",
       thematique: "TRANS"
     }
