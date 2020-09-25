@@ -63,7 +63,7 @@ class Home extends React.Component {
           Une soixantaine d’indicateurs a été créée afin de suivre la vulnérabilité à l’érosion et la submersion marines. Des données brutes sont collectées selon des protocoles méthodologiques prédéfinis, spécifiques à chaque indicateur.
           <br/>
           Les données sont ensuite mises en forme et rapportées à un carroyage de 200 m de côté, choisi en cohérence avec le carroyage de l’INSEE et en projection conforme suivant la recommandation de la Directive INSPIRE. Ce choix répond à un compromis entre, d’une part, la recherche d’une certaine finesse des sorties cartographiques et, d’autre part, la volonté d’anonymiser les données.
-          <br/>
+          <br/><br/>
           Les indicateurs présentent tous une cotation à cinq niveaux. Les données sont donc rapportées à une valeur de cette échelle cotation selon un protocole défini pour chaque indicateur.
           <br/>
           Enfin les indices résultent de la combinaison de plusieurs indicateurs. Ils visent à fournir une information synthétique sur un thème, une composante, le risque, ou la vulnérabilité globale.
