@@ -27,9 +27,6 @@ const App = ({ isLogged, doLogout }) =>
             <Systemic />
           </nav>
           <div id="sidebar-footer">
-            <button type="button" onClick={() => doLogout()} className="btn">
-              Se déconnecter
-            </button>
           </div>
         </section>
         <section id="map-container">

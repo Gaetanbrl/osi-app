@@ -96,7 +96,7 @@ export default() => {
       composante: "EN",
       description: "Enjeux",
       composition: [ "E1", "E2","E3"],
-      methode: "Moyenne géométrique des indicateurs",
+      methode: "Maximum des indices",
       niveau: 3,
       statut: "indice",
       acronyme: "EN",
@@ -541,10 +541,10 @@ export default() => {
     G111: {
       id: "G111",
       composante: "GE",
-      description: "Etat de la stratégie locale (relocalisation)",
+      description: "Etat de la relocalisation dans la stratégie locale",
       niveau: 1,
       acronyme: "RELOC",
-      nom: "Stratégie locale",
+      nom: "Relocalisation",
       lien1: "https://www-iuem.univ-brest.fr/wapps/pdf/osi/gestion/G111_Reloc.pdf",
       texteLien1: "Fiche méthodologique",
       thematique: "STRATLOC"
@@ -1020,3 +1020,4 @@ export default() => {
     }
   }
 };
+
