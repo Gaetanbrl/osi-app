@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ListGroupItem } from "react-bootstrap";
-import Highcharts from "react-highcharts";
+import Plot from 'react-plotly.js';;
 
 export default class FeatureBox extends Component {
 	componentDidMount() {
@@ -120,7 +120,7 @@ export default class FeatureBox extends Component {
 				return (
 					<div className="charts-container">
 						<ListGroupItem tag="div">
-							<Highcharts config={config}></Highcharts>
+							<Plot config={config}></Plot>
 						</ListGroupItem>
 					</div>
 				);
