@@ -10,7 +10,7 @@ import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
 import fetch from 'isomorphic-fetch';
-import xmlParser from 'fast-xml-parser';
+const {XMLParser, XMLValidator} = require('fast-xml-parser');
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -233,7 +233,8 @@ class Carlitto extends Component {
 			return response.text();
 		})
 		.then((body) => {
-			if (xmlParser.validate(body) === true) {
+			if (XMLValidator.validate(body) === true) {
+			  const xmlParser = new XMLParser();
 			  const xmlDoc = xmlParser.parse(body);
 			  const timeParameter = get(xmlDoc, 'WMS_Capabilities.Capability.Layer.Layer.Dimension');
 				if (timeParameter) {
@@ -320,7 +321,7 @@ class Carlitto extends Component {
 
 		const sourceEpci = new VectorSource({
 			format: new GeoJSON(),
-			url: 'epci3857.json'
+			url: process.env.PUBLIC_URL + '/epci3857.json'
 		})
 		this.baseEpci = new Vector({
 			name: 'baseepci',
@@ -348,7 +349,7 @@ class Carlitto extends Component {
 		this.comm = new Vector({
 			source: new VectorSource({
 				format: new GeoJSON(),
-				url: 'comm3857.json'
+				url: process.env.PUBLIC_URL + '/comm3857.json'
 			}),
 			style: styleEpciComm,
 			minResolution: zoomSizes.minComm,
@@ -359,7 +360,7 @@ class Carlitto extends Component {
 		this.commIsSelected = new Vector({
 			source: new VectorSource({
 				format: new GeoJSON(),
-				url: 'comm3857.json'
+				url: process.env.PUBLIC_URL + '/comm3857.json'
 			}),
 			style: styleSelectedComm,
 			minResolution: zoomSizes.min,
@@ -395,14 +396,20 @@ class Carlitto extends Component {
 		});
 
 		this.carMap.on('precompose', function(evt) {
-		  evt.context.globalCompositeOperation = 'multiply';
+			if(evt.context){
+				evt.context.globalCompositeOperation = 'multiply';
+			}
 		});
 
 		this.selectedLayer.on('precompose', function(evt) {
-			evt.context.globalCompositeOperation = 'normal';
+			if(evt.context){
+				evt.context.globalCompositeOperation = 'normal';
+			}
 		});
 		this.selectedLayer.on('precompose', function(evt) {
-			evt.context.globalCompositeOperation = 'source-over';
+			if(evt.context){
+				evt.context.globalCompositeOperation = 'source-over';
+			}
 		});
 
 		// Add hover style interaction
