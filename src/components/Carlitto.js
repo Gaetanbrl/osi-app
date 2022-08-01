@@ -168,7 +168,7 @@ class Carlitto extends Component {
 		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
 		const viewResolution = this.carMap.getView().getResolution();
 		if (viewResolution < zoomSizes.minComm) {
-			const url = this.carSource.getGetFeatureInfoUrl(
+			const url = this.carSource.getFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
@@ -198,7 +198,7 @@ class Carlitto extends Component {
 			insee ? onCommClick(comm) : onEpciClick(epci)
 			const minResolution = insee ? zoomSizes.min : zoomSizes.minComm;
 
-			this.carMap.getView().fit(feature.getGeometry(), {duration: 500, minResolution, constrainResolution: false, padding: [40, 40, 40, 40] })
+			this.carMap.getView().fit(feature.getGeometry(), {constrainResolution: false, padding: [40, 40, 40, 40] })
 			return true
 	  }, {
 		  layerFilter: (layer) => {
@@ -484,7 +484,7 @@ class Carlitto extends Component {
 			}
 
 			if (this.clickedFeature && prevState && prevState.selectedYear !== this.state.selectedYear) {
-				const url = this.carSource.getGetFeatureInfoUrl(
+				const url = this.carSource.getFeatureInfoUrl(
 					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
 					{
 						'INFO_FORMAT': 'application/json',
