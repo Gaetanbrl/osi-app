@@ -12,6 +12,8 @@ import Footer from "./components/Footer";
 
 import { doLogout } from "./actions";
 
+import "bootstrap/dist/css/bootstrap.min.css"
+
 const App = ({ isLogged, doLogout }) =>
   isLogged !== true ? (
     <LoginModal />
