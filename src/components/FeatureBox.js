@@ -9,8 +9,7 @@ export default function FeatureBox({
 	setRef,
 	infos,
 	url,
-	onLoad = () => {},
-	...props
+	onLoad = () => {}
 }) {
 	// on init and on url change
 	useEffect(() => {

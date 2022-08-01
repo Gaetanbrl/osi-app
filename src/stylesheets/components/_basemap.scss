@@ -1,0 +1,50 @@
+#baseMapsSelector {
+	top: 105px;
+	float: right;
+	position: fixed;
+    color: #878080;
+    width: 30px;
+    right: 8px;
+    margin: 0;
+    background-color: white;
+    font-size: 18;
+    right: 8px;
+    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 30px;
+}
+
+#baseLayerPreviewer {
+    overflow-y: auto;
+    max-width: 120px;
+    top: 4%;
+    right: 50px;
+	float: right;
+	position: fixed;
+    background-color: rgba(255,255,255, 0.9);
+    border-radius: 10px;
+    font-size: 15;
+    padding-top: 5px;
+    .card {
+        &.active {
+            border: 2px solid rgba(128,128,128,1);
+        }
+        margin-bottom: 5px;
+        border: 1px solid rgba(128,128,128, 0.4);
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 15;
+        .card-body {
+            padding: 2px;
+        }
+    }
+}
+
+.opacity-container {
+    padding-bottom: 0px;
+    label {
+        margin-top: 10px;
+    }
+}
