@@ -2,7 +2,7 @@
     padding: 5px 8px;
 }
 
-.panel .panel-body {
+/* .panel .panel-body {
     padding: 1px 0px;
 }
 
@@ -55,7 +55,7 @@
         width: 20%;
         float: left;
     }
-}
+} */
 
 #deroulant{
   position: absolute;
