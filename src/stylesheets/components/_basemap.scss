@@ -16,15 +16,16 @@
 }
 
 #baseLayerPreviewer {
+    max-height: 80%;
     overflow-y: auto;
     max-width: 120px;
-    top: 4%;
+    top: 35px;
     right: 50px;
 	float: right;
 	position: fixed;
     background-color: rgba(255,255,255, 0.9);
     border-radius: 10px;
-    font-size: 15;
+    font-size: 12px;
     padding-top: 5px;
     .card {
         &.active {
@@ -43,6 +44,7 @@
 }
 
 .opacity-container {
+    font-size: 18px;
     padding-bottom: 0px;
     label {
         margin-top: 10px;
