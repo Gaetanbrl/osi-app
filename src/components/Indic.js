@@ -33,10 +33,6 @@ export default function Indic ({
                 onClick={() => accordionHeaderToggle(i2)}
               >
                 {i2.description}
-                {
-                  activeKey === i2.id ? 
-                    <i className="far fa-angle-down"></i> : <i className="far fa-angle-right"></i>
-                }
               </Accordion.Header>
               <Accordion.Body>
                 <div className="sub-list">
