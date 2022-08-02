@@ -170,6 +170,9 @@ canvas{
   + .data-block-container {
     border-radius: 0 0 $global-radius $global-radius;
   }
+  a {
+    text-decoration: none;
+  }
   .data-value {
     margin-bottom: 3px;
     &.min {

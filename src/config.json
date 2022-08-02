@@ -1,0 +1,54 @@
+{
+    "baselayers": [{
+        "type": "XYZ",
+        "opacity": 1,
+        "name": "base",
+        "url": "https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png",
+        "attributions": "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, &copy; <a href='https://carto.com/attribution'>CARTO</a>",
+        "preview": "baselayers/positron.png"
+
+    }, {
+        "type": "TileWMS",
+        "url": "https://tile.geobretagne.fr:443/gwc02/service/wms",
+        "attributions": "&lt;a href='https://geobretagne.fr/geonetwork/srv/fre/catalog.search#/metadata/81e86907-e601-4518-bc94-743aeaa2211a' target='_blank' >GéoBretagne&lt;/a>",
+        "params": {
+            "layers": "carte",
+            "version": "1.1.1",
+            "format": "image/jpeg",
+            "srs": "EPSG:3857" 
+        },
+        "name": "SCAN25",
+        "title": "scan25",
+        "opacity": 1,
+        "preview": "baselayers/scan25.png"
+    }, {
+        "type": "TileWMS",
+        "url": "https://wxs.ign.fr/orthohisto/geoportail/r/wms",
+        "attributions": "&lt;a href='https://geoservices.ign.fr/services-web-experts-orthohisto' target='_blank' >IGN - Geoportail Orthohisto&lt;/a>",
+        "title": "Ortho imagerie",
+        "params": {
+            "layers": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+            "version": "1.1.1",
+            "format": "image/jpeg",
+            "srs": "EPSG:3857" 
+        },
+        "name": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "opacity": 1,
+        "preview": "baselayers/ortho_histo.png"
+        
+    }, {
+        "type": "TileWMS",
+        "url": "https://wxs.ign.fr/ortho/geoportail/r/wms",
+        "attributions": "&lt;a href='https://geoservices.ign.fr/services-web-experts-ortho' target='_blank' >IGN - Géoportail Ortho&lt;/a>",
+        "params": {
+            "layers": "ORTHOIMAGERY.ORTHOPHOTOS",
+            "version": "1.1.0",
+            "format": "image/jpeg",
+            "srs": "EPSG:3857" 
+        },
+        "name": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "opacity": 1,
+        "title": "Ortho. historique", 
+        "preview": "baselayers/ortho.png"
+    }]
+}

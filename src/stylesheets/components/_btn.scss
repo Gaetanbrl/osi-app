@@ -25,6 +25,9 @@ a, button {
   @include align-items(center);
   @include justify-content(center);
   width: 100%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  
   color: #fff;
   border: none;
   border-radius: $global-radius;
@@ -42,8 +45,16 @@ a, button {
   }
 }
 
-.btn-primary {
+button.btn-primary, button[variant="primary"] {
   font-size: 18px;
   background-color: $first-color;
   width: 100%;
+  border-radius: $global-radius;
+  border: none;
+  padding: 6px;
+}
+
+#loginModal button {
+  color: white;
+  margin-top: 10px;
 }

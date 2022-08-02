@@ -14,10 +14,19 @@ const {XMLParser, XMLValidator} = require('fast-xml-parser');
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+import BaseMapsSelector from "../components/BaseMapsSelector";
+
 import proj4 from "proj4";
 import { keyBy, get, map } from 'lodash';
 
 import meta_com from '../data/meta_com.json';
+
+import { getBaseLayers } from "../containers/utils/basemaps";
+
+import config from "../config";
+const BL = getBaseLayers(config.baselayers);
+
+console.log(BL);
 
 const zoomSizes = {
 	min: 7.48,
@@ -248,26 +257,6 @@ class Carlitto extends Component {
 			}
 		});
 
-		this.base = new Tile({
-			name: 'base',
-			opacity: 1,
-			source: new XYZ({
-				name: 'base',
-				url:'https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-			}),
-		})
-
-		this.baseTopology = new Tile({
-			name: 'baseTopology',
-			opacity: 1,
-			source: new XYZ({
-				name: 'baseTopology',
-				url:'https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
-				attributions: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-			})
-		})
-
 		this.commSource = new VectorSource({
 		})
 		this.commLayer = new Vector({
@@ -378,8 +367,7 @@ class Carlitto extends Component {
 		this.carMap = new Map({
 			target: this.refs.map,
 			layers: [
-				this.base,
-				this.baseTopology,
+				...BL,
 				this.commLayer,
 				this.carLayer,
 				this.selectedLayer,
@@ -575,6 +563,7 @@ class Carlitto extends Component {
 				{setRef && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
+				<BaseMapsSelector map={this.carMap} layers={BL} />
 				{setRef && this.state.yearsListAvailable && this.state.yearsListAvailable.length > 0 && (
 					<div className="select-year-slider-container">
 						<div className="select-year-slider">

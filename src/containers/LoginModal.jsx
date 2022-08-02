@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 
 import { doLogin } from '../actions';
@@ -31,6 +32,7 @@ class Home extends React.Component {
 
     return (
       <Modal
+        id="loginModal"
         isOpen
         className="modal-wrapper"
         overlayClassName="modal-overlay"
@@ -96,7 +98,7 @@ class Home extends React.Component {
                   />  J'ai pris connaissance de ces informations
                 </label>
               </div>
-              <button className="btn btn-primary" type="submit">Valider</button>
+              <button variant="primary" type="submit">Valider</button>
             </div>
           </div>
 

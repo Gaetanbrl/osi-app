@@ -1,5 +1,6 @@
 nav#main-menu {
   @include flex(1);
+  font-family: 'Oswald';
   margin-right: 6px;
   padding: 0 4px 12px 12px;
   overflow-y: auto;
