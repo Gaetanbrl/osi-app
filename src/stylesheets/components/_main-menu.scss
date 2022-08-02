@@ -62,6 +62,9 @@ nav#main-menu {
     }
   }
   &.vulnerabilite-systemique {
+    button:first-of-type {
+      font-size: 15px;
+    }
     &:before,
     .btn.active,
     .accordion-button[aria-expanded="true"],
