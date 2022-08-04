@@ -1,7 +1,8 @@
 const initialState = {
-  epci: null,
-  comm: null,
-  showEPCI: false,
+  	epci: null,
+  	comm: null,
+	showEPCI: false,
+  	navigationType: "globale"
 };
 
 const setTerritoire = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const setTerritoire = (state = initialState, action) => {
 			return {
 				  ...state,
 					showEPCI: action.showEPCI,
+			}
+		case 'SET_NAVIGATION_TYPE':
+			return {
+					...state,
+					navigationType: action.navigationType,
 				}
 		default:
 			return state;

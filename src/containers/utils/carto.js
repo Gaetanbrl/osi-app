@@ -1,17 +1,11 @@
-import proj4 from "proj4";
-import { register } from "ol/proj/proj4";
-import { get } from "ol/proj";
 import { WKT } from "ol/format";
 
-export const registerProj = () => {
-    let projCode = 'EPSG:3035';
-    proj4.defs(`${projCode}+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs`)
-    register(proj4);
-    let epsg3035 = get('EPSG:3035');
-    epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
-}
+import { XYZ, TileWMS } from "ol/source";
+import { Tile } from "ol/layer";
 
-export const clearSelSource = (src) => {
+import { isEmpty } from "lodash";
+
+export const clearSource = (src) => {
     if (src.getFeatures().length) {
         src.clear();
     }
@@ -34,7 +28,33 @@ export const addFeatureFromInfos = (infos, src) => {
         featureProjection: "EPSG:3857"
     });
 
-    clearSelSource(src);
+    clearSource(src);
     src.addFeature(feature);
 
+}
+
+export const getSource = (infos) => {
+    switch (infos?.type) {
+        case "XYZ":
+            return new XYZ(infos)
+        case "TileWMS":
+            return new TileWMS(infos)
+        default:
+            return {}
+    }
+};
+
+export const getLayersFroMConfig = (layers) => {
+    if (!layers) return;
+    return layers.map((infos, index) => {
+        const source = getSource(infos);
+        if (isEmpty(source)) return null;
+        return new Tile({
+            name: infos.title || infos.name,
+            opacity: infos.opacity,
+            visible: infos.visible || false,
+            source: source,
+            compo: infos.compo
+        })
+    }).filter(el => !isEmpty(el))
 }

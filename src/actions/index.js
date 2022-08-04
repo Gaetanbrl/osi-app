@@ -32,6 +32,13 @@ export const setShowEPCI = (showEPCI = true) => {
   }
 }
 
+export const setNavigationType = (navigationType = true) => {
+  return {
+    type: 'SET_NAVIGATION_TYPE',
+    navigationType
+  }
+}
+
 export const setRef = (ref) => {
   return {
     type: 'SET_REF',

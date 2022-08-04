@@ -18,7 +18,6 @@ class Home extends React.Component {
   }
 
   handleSubmit (event) {
-    console.log(this.state);
     event.preventDefault();
 
     const { password } = this.state;
@@ -33,6 +32,7 @@ class Home extends React.Component {
     return (
       <Modal
         id="loginModal"
+        ariaHideApp={false}
         isOpen
         className="modal-wrapper"
         overlayClassName="modal-overlay"

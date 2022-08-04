@@ -1,11 +1,12 @@
 const initialState = {
-  compo: null,
+  compo: "RI",
   ref: null
 };
 
 const setRef = (state = initialState, action) => {
 	switch(action.type) {
 		case 'SET_COMPO':
+			console.log(action.compo);
 			return {
 				...state,
 				compo: action.compo,

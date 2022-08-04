@@ -326,15 +326,17 @@ nav#main-menu {
     background-color: white;
     color: black;
     border-radius: 0px;
+    border-right: 3px solid grey;
+
   }
   button.active {
     color: white;
     background-color: #E13C3B;
   }
-  :first-child{
-    border-right: 3px solid grey;
+  :last-child {
+    border-right: 0px solid transparent;
   }
   button:hover{
-    background-color: red;
+    background-color: #E13C3B;
   }
 }

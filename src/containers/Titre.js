@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import TitreBox from '../components/TitreBox';
-import { setShowEPCI } from '../actions'
+import { setShowEPCI, setNavigationType } from '../actions'
 
 const mapStateToProps = (state) => ({
 	refIndic: state.refIndic,
@@ -13,6 +13,9 @@ const mapDispatchToProps = dispatch => {
     onShowEPCIClick: showEPCI => {
       dispatch(setShowEPCI(showEPCI));
     },
+    onChangeNavigationClick: navigationType => {
+      dispatch(setNavigationType(navigationType))
+    }
   }
 }
 

@@ -1,23 +1,13 @@
 import { Tile } from "ol/layer"
-import { XYZ, TileWMS } from "ol/source"
 import { isEmpty } from "lodash";
-
-const getSource = (infos) => {
-    switch (infos?.type) {
-        case "XYZ":
-            return new XYZ(infos)
-        case "TileWMS":
-            return new TileWMS(infos)
-        default:
-            return {}
-    }
-};
+import { getSource } from "./carto";
 
 export const getFirstVisibleLayer = (layers) => {
     return layers.getArray().filter((l) => l.getProperties().visible)[0]
 }
 
 export const getBaseLayers = (layers) => {
+    if (!layers) return;
     return layers.map((infos, index) => {
         const source = getSource(infos);
         if (isEmpty(source)) return null;

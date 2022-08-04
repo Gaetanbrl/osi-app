@@ -6,6 +6,7 @@ const mapStateToProps = state => ({
 	territoire: state.setTerritoire.comm,
 	epci: state.setTerritoire.epci,
 	showEPCI: state.setTerritoire.showEPCI,
+	navigationType: state.setTerritoire.navigationType,
 	setRef: state.setRef.ref,
 	infos: state.infoReducer.infos
 })
