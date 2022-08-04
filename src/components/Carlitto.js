@@ -14,6 +14,8 @@ const {XMLParser, XMLValidator} = require('fast-xml-parser');
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+import { registerProj, clearSelSource, addFeatureFromInfos } from "../containers/utils/carto";
+
 import BaseMapsSelector from "../components/BaseMapsSelector";
 
 import proj4 from "proj4";
@@ -25,8 +27,6 @@ import { getBaseLayers } from "../containers/utils/basemaps";
 
 import config from "../config";
 const BL = getBaseLayers(config.baselayers);
-
-console.log(BL);
 
 const zoomSizes = {
 	min: 7.48,
@@ -230,6 +230,8 @@ class Carlitto extends Component {
 	}
 
 	componentDidMount() {
+
+		registerProj();
 
 		window.onresize =
 			function() {
@@ -438,7 +440,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick } = this.props
+		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType } = this.props
 		let carLayer = this.state.carLayer
 
 		let cqlFilter = null
@@ -449,10 +451,15 @@ class Carlitto extends Component {
 			})
 		}
 
+		const isOtherEPCI = prevProps?.showEPCI !== showEPCI;
+		const isOtherYear = prevState?.selectedYear !== this.state.selectedYear;
+		const isOtherTerritoire = prevProps?.territoire !== territoire;
+
+		const needChange = !!territoire && (isOtherEPCI || isOtherYear || isOtherTerritoire);
+
+
 		const viewProps = { ...defaultViewProps, ...this.carMap.getView().getProperties() };
-		if (!!territoire && ((prevProps && prevProps.showEPCI !== showEPCI)
-			|| (prevState && prevState.selectedYear !== this.state.selectedYear)
-			|| (prevProps.territoire !== territoire))) {
+		if (needChange && ["commune", "epci"].includes(navigationType)) {
 
 			viewProps["minResolution"] = zoomSizes.min;
 
@@ -498,48 +505,11 @@ class Carlitto extends Component {
 		}
 
 		if (infos) {
-			let car = infos["id_car"];
-			let E = Number(car.slice(5,12));
-			let N = Number(car.slice(13,20));
-
-			let projCode = 'EPSG:3035';
-			proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-			register(proj4);
-
-			/* let epsg3035 = new Projection({
-			    code: projCode,
-			    extent: [1896628.62, 1507846.05, 4656644.57, 6827128.02]
-			  }); */
-			let epsg3035 = getProjection('EPSG:3035');
-			epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
-
-			let wkt = `POLYGON((${E} ${N+200}, ${E+200} ${N+200}, ${E+200} ${N}, ${E} ${N}, ${E} ${N+200}))`
-			let format = new WKT();
-	        let carGeom = format.readGeometry(wkt);
-
-	        this.selGeom = new Feature({
-                geometry: carGeom,
-                name: 'selCar'
-            });
-
-	        this.selGeom.getGeometry().transform(epsg3035, 'EPSG:3857');
-
-
-			let oldSel = this.selectedLayer.getSource().getFeatures()
-			if (oldSel.length > 0) {
-				this.selSource.removeFeature(oldSel[0]);
-	   			this.selSource.addFeature(this.selGeom);
-			} else {
-				this.selSource.addFeature(this.selGeom);
-			}
-
+			addFeatureFromInfos(infos, this.selSource);
 		}
 
 		if (error || !infos) {
-			let oldSel = this.selectedLayer.getSource().getFeatures()
-			if (oldSel.length > 0) {
-				this.selSource.removeFeature(oldSel[0]);
-			}
+			clearSelSource(this.selSource);
 		}
 
 		this.carMap && this.carMap.updateSize();
