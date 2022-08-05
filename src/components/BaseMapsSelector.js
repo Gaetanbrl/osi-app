@@ -9,16 +9,23 @@ const customFontIconStyle = {
     position: "absolute",
     transform: "translate(-50%, -50%)",
 }
-export default function BaseMapsSelector({ map, layers }) {
+export default function BaseMapsSelector({ map, layers, show, updateShow = () => {} }) {
     const [selected, setSelected] = useState("")
-    const [visible, setVisible] = useState("")
-
+    const [visible, setVisible] = useState(show)
+    console.log(show);
     // refresh component if visible or map change
     useEffect(() => {
+        updateShow(visible);
         if (!visible || !map) return
         const firstVisible = getFirstVisibleLayer(map.getLayers())
         setSelected(firstVisible ? firstVisible.get("name") : null)
     }, [visible, map])
+    
+    useEffect(() => {
+        if (!show) {
+            setVisible(show);
+        }
+    }, [show])
 
     const updateOpacity = (x) => {
         const opacity = parseFloat(x.target.value)
