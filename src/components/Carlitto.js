@@ -11,7 +11,7 @@ import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
 
-import { keyBy, get, map } from 'lodash';
+import { keyBy, get, isEmpty } from 'lodash';
 
 import fetch from 'isomorphic-fetch';
 
@@ -20,7 +20,7 @@ import 'rc-slider/assets/index.css';
 
 const {XMLParser, XMLValidator} = require('fast-xml-parser');
 
-import { getLayersFroMConfig, clearSource, addFeatureFromInfos } from "../containers/utils/carto";
+import { getLayersFroMConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension } from "../containers/utils/carto";
 
 import BaseMapsSelector from "../components/BaseMapsSelector";
 
@@ -198,28 +198,15 @@ class Carlitto extends Component {
 		this.commNbIndic = keyBy(meta_com, c => c.id_com);
 
 		// Get list of years data available
-		fetch('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
-		.then((response) => {
-			if (response.status >= 400) {
-				console.error('Bad response from server');
-			}
-			return response.text();
-		})
-		.then((body) => {
-			if (XMLValidator.validate(body) === true) {
-			  const xmlParser = new XMLParser();
-			  const xmlDoc = xmlParser.parse(body);
-			  const timeParameter = get(xmlDoc, 'WMS_Capabilities.Capability.Layer.Layer.Dimension');
-				if (timeParameter) {
-					const dateList = timeParameter.split(',');
-					const listYear = map(dateList, d => d.substring(0, 4));
+		getCapabilitiesDimension('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
+			.then((r) => {
+				if (!isEmpty(r)) {
 					this.setState({
-						yearsListAvailable: listYear,
-						selectedYear: parseInt(listYear[listYear.length - 1], 10),
+						yearsListAvailable: r.listYear,
+						selectedYear: parseInt(r.listYear[r.listYear.length - 1], 10),
 					});
 				}
-			}
-		});
+			})
 
 		this.commSource = new VectorSource({})
 		this.commLayer = new Vector({

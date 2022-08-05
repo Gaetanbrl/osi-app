@@ -3,7 +3,9 @@ import { WKT } from "ol/format";
 import { XYZ, TileWMS } from "ol/source";
 import { Tile } from "ol/layer";
 
-import { isEmpty } from "lodash";
+import { isEmpty, get } from "lodash";
+
+import { WMSCapabilities } from 'ol/format';
 
 export const clearSource = (src) => {
     if (src.getFeatures().length) {
@@ -57,4 +59,30 @@ export const getLayersFroMConfig = (layers) => {
             compo: infos.compo
         })
     }).filter(el => !isEmpty(el))
+}
+
+export const getCapabilitiesDimension = (url) => {
+    const parser = new WMSCapabilities();
+
+    return fetch(url)
+    .then((response) => {
+        if (response.status >= 400) {
+            console.error('Bad response from server');
+        }
+        return response.text();
+    })
+    .then(text => {
+        const capabilities = parser.read(text);
+        const timeParameter = get(capabilities, "Capability.Layer.Layer.Dimension")
+        if (timeParameter) {
+            const dateList = timeParameter.split(',');
+            const listYear = map(dateList, d => d.substring(0, 4));
+            return {
+                yearsListAvailable: listYear,
+                selectedYear: parseInt(listYear[listYear.length - 1], 10),
+            }
+        }
+        // if not time dimension
+        return;
+    });
 }
