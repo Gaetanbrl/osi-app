@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Card, Button, Form, Col } from "react-bootstrap"
+import { Card, Button, Form, Col, Container } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons"
 import { set, uniqueId } from "lodash"
@@ -12,7 +12,6 @@ const customFontIconStyle = {
 export default function BaseMapsSelector({ map, layers, show, updateShow = () => {} }) {
     const [selected, setSelected] = useState("")
     const [visible, setVisible] = useState(show)
-    console.log(show);
     // refresh component if visible or map change
     useEffect(() => {
         updateShow(visible);
@@ -58,39 +57,41 @@ export default function BaseMapsSelector({ map, layers, show, updateShow = () =>
                 />
             </Button>
             {visible && (
-                <div id="baseLayerPreviewer">
-                    {layers.map((layer) => (
-                        <Card
-                            key={uniqueId()}
-                            onClick={() =>
-                                setSelected(layer.getProperties().name)
-                            }
-                            className={
-                                selected === layer.getProperties().name
-                                    ? "active"
-                                    : ""
-                            }
-                        >
-                            <Card.Img
-                                variant="top"
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/" +
-                                    layer.getProperties().preview
-                                }
-                            />
-                            <Card.Body>
-                                <span className="text-center">
-                                    {layer.getProperties().name}
-                                </span>
-                            </Card.Body>
-                        </Card>
-                    ))}
+                <Container id="baseLayerPreviewer">
                     <Col className="opacity-container">
                         <Form.Label>Opacité</Form.Label>
                         <Form.Range onChange={updateOpacity} />
                     </Col>
-                </div>
+                    <Col className="basemapItems">
+                        {layers.map((layer) => (
+                            <Card
+                                key={uniqueId()}
+                                onClick={() =>
+                                    setSelected(layer.getProperties().name)
+                                }
+                                className={
+                                    selected === layer.getProperties().name
+                                        ? "active"
+                                        : ""
+                                }
+                            >
+                                <Card.Img
+                                    variant="top"
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/" +
+                                        layer.getProperties().preview
+                                    }
+                                />
+                                <Card.Body>
+                                    <span className="text-center">
+                                        {layer.getProperties().name}
+                                    </span>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </Col>
+                </Container>
             )}
         </>
     )
