@@ -120,9 +120,13 @@ class Carlitto extends Component {
 	overlay = null
 	overlayFeatureNom = null
 
-  clickedFeature = null
+  	clickedFeature = null
 
-  state = {};
+	state = {
+		showBaseMapSelector : false
+	};
+	
+	
 
 	getOverlayText(nom, code, nbIndic, sitePilote) {
 		let overlayText = '<h6><strong>' + nom + '</strong>'
@@ -175,6 +179,7 @@ class Carlitto extends Component {
 
 	clickHandler(event) {
 		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
+		this.setState({showBaseMapSelector: false});
 		const viewResolution = this.carMap.getView().getResolution();
 		if (viewResolution < zoomSizes.minComm) {
 			const url = this.carSource.getFeatureInfoUrl(
@@ -563,7 +568,14 @@ class Carlitto extends Component {
 				{setRef && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
-				<BaseMapsSelector map={this.carMap} layers={BL} />
+				<BaseMapsSelector
+					map={this.carMap}
+					layers={BL}
+					updateShow={(v) => {
+						this.setState({showBaseMapSelector: v})
+					}}
+					show={this.state.showBaseMapSelector}
+				/>
 				{setRef && this.state.yearsListAvailable && this.state.yearsListAvailable.length > 0 && (
 					<div className="select-year-slider-container">
 						<div className="select-year-slider">
