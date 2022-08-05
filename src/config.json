@@ -35,7 +35,6 @@
         "name": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
         "opacity": 1,
         "preview": "baselayers/ortho_histo.png"
-        
     }, {
         "type": "TileWMS",
         "url": "https://wxs.ign.fr/ortho/geoportail/r/wms",
@@ -50,5 +49,98 @@
         "opacity": 1,
         "title": "Ortho. historique", 
         "preview": "baselayers/ortho.png"
-    }]
+    }],
+    "navigation": {
+        "globale": [{
+            "title": "surface_occ_agricole_e205_200",
+            "type": "TileWMS",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": false,
+            "transparent":"true",
+            "params": {
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "e205_200",
+                "srs": "EPSG:3857",
+                "version": "1.3.0",
+                "transparent":"true"
+            }
+        }, {
+            "title": "surface_occ_agricole_e205_400",
+            "type": "TileWMS",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": false,
+            "transparent":"true",
+            "params": {
+                "transparent":"true",
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "e205_400",
+                "srs": "EPSG:3857",
+                "version": "1.3.0"
+            }
+        }, {
+            "title": "surface_occ_agricole_e205_800",
+            "type": "TileWMS",
+            "transparent":"true",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": false,
+            "params": {
+                "transparent":"true",
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "e205_800",
+                "srs": "EPSG:3857",
+                "version": "1.3.0"
+            }
+        }, {
+            "title": "dist_erosion_annee_a101_200",
+            "type": "TileWMS",
+            "transparent":"true",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": true,
+            "params": {
+                "transparent":"true",
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "a101_200",
+                "srs": "EPSG:3857",
+                "version": "1.3.0"
+            }
+        }, {
+            "title": "dist_erosion_annee_a101_400",
+            "type": "TileWMS",
+            "transparent":"true",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": true,
+            "params": {
+                "transparent":"true",
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "a101_400",
+                "srs": "EPSG:3857",
+                "version": "1.3.0"
+            }
+        }, {
+            "title": "dist_erosion_annee_a101_800",
+            "type": "TileWMS",
+            "transparent":"true",
+            "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+            "compo": "RI",
+            "visible": true,
+            "params": {
+                "transparent":"true",
+                "crossOrigin": "anonymous",
+                "format": "image/png",
+                "layers": "a101_800",
+                "srs": "EPSG:3857",
+                "version": "1.3.0"
+            }
+        }]
+    }
 }
