@@ -13,17 +13,25 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import './stylesheets/app.scss';
 
-const store = createStore(
-  rootReducer
-  , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  , applyMiddleware(thunk)
-);
+import { configureStore } from '@reduxjs/toolkit'
+
+// const store = createStore(
+//   rootReducer
+//   , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//   , applyMiddleware(thunk)
+// );
+
+const store2 = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  devTools: process.env.NODE_ENV !== 'production'
+})
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
-	<Provider store={store}>
+	<Provider store={store2}>
 		<App />
 	</Provider>
 );
@@ -33,7 +41,7 @@ if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
     root.render(
-		<Provider store={store}>
+		<Provider store={store2}>
 			<NextApp />
 		</Provider>)
   });
