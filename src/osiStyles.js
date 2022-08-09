@@ -50,10 +50,19 @@ export const styleSelectedComm = new Style({
 	}),
 });
 
+export const styleEpci = (feature, resolution) => {
+	const sitePilote = feature.get('site_pilote')
+	if (sitePilote === true || sitePilote === 'true') {
+		return styleEpciCommPilote;
+	}
+	return styleEpciComm;
+}
+
 export const osiStyles = {
     styleEpciCommHover: styleEpciCommHover,
     styleEpciComm: styleEpciComm,
     styleEpciCommPilote: styleEpciCommPilote,
 	styleBaseEpci: styleBaseEpci,
-	styleSelectedComm: styleSelectedComm
+	styleSelectedComm: styleSelectedComm,
+	styleEpci: styleEpci
 }

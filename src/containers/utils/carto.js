@@ -1,11 +1,21 @@
 import { WKT } from "ol/format";
 
-import { XYZ, TileWMS } from "ol/source";
-import { Tile } from "ol/layer";
+import { XYZ, TileWMS, Vector as VectorSource } from "ol/source";
+import { GeoJSON } from "ol/format";
+
+import { Tile, Vector } from "ol/layer";
 
 import { isEmpty, get } from "lodash";
 
 import { WMSCapabilities } from 'ol/format';
+
+import { osiStyles } from "../../osiStyles";
+
+import { Fill, Stroke, Style } from "ol/style";
+
+import config from "../../config";
+
+const zoomSizes = config.zoomSizes;
 
 export const clearSource = (src) => {
     if (src.getFeatures().length) {
@@ -41,6 +51,11 @@ export const getSource = (infos) => {
             return new XYZ(infos)
         case "TileWMS":
             return new TileWMS(infos)
+        case "Vector":
+            return new VectorSource({
+                url: infos.isLocal === "true" ? "/wapps/osi" + infos.url : infos.url,
+                format: new GeoJSON()
+            })
         default:
             return {}
     }
@@ -51,12 +66,26 @@ export const getLayersFroMConfig = (layers) => {
     return layers.map((infos, index) => {
         const source = getSource(infos);
         if (isEmpty(source)) return null;
+        if (infos.type === "Vector") {
+            return new Vector({
+                source: source,
+                name: infos.title || infos.name,
+                style: osiStyles[infos.style],
+                minResolution: zoomSizes[infos.minResolution],
+                maxResolution: zoomSizes[infos.maxResolution],
+                zIndex: infos.zIndex,
+                visible: infos.visible,
+                navigation: infos.navigation,
+                compo: infos.compo
+            })
+        }
         return new Tile({
             name: infos.title || infos.name,
             opacity: infos.opacity,
             visible: infos.visible || false,
             source: source,
-            compo: infos.compo
+            compo: infos.compo,
+            navigation: infos.navigation
         })
     }).filter(el => !isEmpty(el))
 }

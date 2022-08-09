@@ -39,7 +39,9 @@ import {
 } from "../osiStyles";
 
 const BL = getBaseLayers(config.baselayers);
-const GLOBALE_LAYERS = getLayersFroMConfig(config?.navigation?.globale);
+const GLOBALE_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("globale")));
+
+const ORIGINAL_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("epci")));
 
 const EPCI_COMMUNES_LAYERS = [];
 const zoomSizes = {
@@ -257,44 +259,6 @@ class Carlitto extends Component {
 			zIndex: 20,
 		})
 
-		const sourceEpci = new VectorSource({
-			format: new GeoJSON(),
-			url: process.env.PUBLIC_URL + '/epci3857.json'
-		})
-		this.baseEpci = new Vector({
-			name: 'baseepci',
-			source: sourceEpci,
-			style: styleBaseEpci,
-			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.maxComm,
-			zIndex: 0
-		});
-
-		this.epci = new Vector({
-			source: sourceEpci,
-			style: (feature, resolution) => {
-				const sitePilote = feature.get('site_pilote')
-				if (sitePilote === true || sitePilote === 'true') {
-					return styleEpciCommPilote;
-				}
-				return styleEpciComm;
-			},
-			minResolution: zoomSizes.maxComm,
-			maxResolution: zoomSizes.max,
-			zIndex: 1,
-		})
-
-		this.comm = new Vector({
-			source: new VectorSource({
-				format: new GeoJSON(),
-				url: process.env.PUBLIC_URL + '/comm3857.json'
-			}),
-			style: styleEpciComm,
-			minResolution: zoomSizes.minComm,
-			maxResolution: zoomSizes.maxComm,
-			zIndex: 10,
-		})
-
 		this.commIsSelected = new Vector({
 			source: new VectorSource({
 				format: new GeoJSON(),
@@ -306,7 +270,12 @@ class Carlitto extends Component {
 			zIndex: 10,
 		})
 
-		EPCI_COMMUNES_LAYERS.push(this.commLayer, this.carLayer, this.selectedLayer, this.baseEpci, this.epci, this.comm, this.commIsSelected)
+		EPCI_COMMUNES_LAYERS.push(
+			this.commLayer,
+			this.carLayer,
+			this.selectedLayer,
+			this.commIsSelected
+		);
 
 		let view = new View({
 			...defaultViewProps,
@@ -319,6 +288,7 @@ class Carlitto extends Component {
 			layers: [
 				...BL,
 				...GLOBALE_LAYERS,
+				...ORIGINAL_LAYERS,
 				...EPCI_COMMUNES_LAYERS
 			],
 			controls: defaultControl({collapsible: false}).extend([
@@ -327,6 +297,8 @@ class Carlitto extends Component {
 			interactions: defaultInteraction({mouseWheelZoom:true}),
 			view: view
 		});
+
+		this.comm = this.carMap.getLayers().getArray().filter(e => e.get("name") === "communes")[0]
 
 		this.carMap.on('precompose', function(evt) {
 			if(evt.context){
@@ -349,7 +321,7 @@ class Carlitto extends Component {
 		let epciHover = new Select({
 			condition: pointerMove,
 			style: styleEpciCommHover,
-			layers: [this.epci],
+			layers: [this.carMap.getLayers().getArray().filter(e => e.get("name") === "epci")[0]],
 		})
 		this.carMap.addInteraction(epciHover);
 
@@ -377,20 +349,16 @@ class Carlitto extends Component {
 			carMap: this.carMap,
 			carLayer: this.carLayer,
 		});
-
-		this.carMap.on("moveend", (e) => {
-			console.log(e.map.getView().getResolution());
-		})
-
-		// create GLOBALE layers
-
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType } = this.props
 
-		EPCI_COMMUNES_LAYERS.forEach(layer => layer.setVisible(navigationType !== "globale"))
-		GLOBALE_LAYERS.forEach(layer => layer.setVisible(navigationType === "globale"))
+		this.carMap.getLayers().getArray().forEach(layer => {
+			const propsLayers = layer.getProperties();
+			if (propsLayers.isBaseLayer || !propsLayers.navigation) return;
+			layer.setVisible(propsLayers.navigation.includes(navigationType) && propsLayers?.compo === setRef);
+		})
 		
 		// save new SRS
 		let projCode = 'EPSG:3035';
@@ -425,17 +393,19 @@ class Carlitto extends Component {
 
 		if (needChange && ["commune", "epci"].includes(navigationType)) {
 
+			
+
 			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
+			console.log(cqlFilter);
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
-
 			this.commGeom = new Feature({
 				geometry: territoire.geom,
 				name: 'commName'
 			})
-
+			console.log(this.commLayer.getSource().getUrl());
 			this.commSource.addFeature(this.commGeom);
 
 			if (this.clickedFeature && prevState && prevState.selectedYear !== this.state.selectedYear) {
@@ -471,7 +441,11 @@ class Carlitto extends Component {
 	 }
 
 	render() {
-		let { setRef } = this.props;
+		/**
+		 * TODO: DON't DISPLAY THIS MAP CAPTION WITH GLOBAL VIEW
+		 * OR DISPLAY VISIBLE LAYERS LEGEND
+		 */
+		let { setRef, navigationType } = this.props;
 
 		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 			&VERSION=1.0.0&FORMAT=image/png
@@ -487,7 +461,7 @@ class Carlitto extends Component {
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
-				{setRef && (
+				{setRef && navigationType !== "globale" && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
 				<BaseMapsSelector
