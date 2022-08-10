@@ -66,7 +66,7 @@ export const getSource = (infos) => {
     }
 };
 
-export const getLayersFroMConfig = (layers) => {
+export const getLayersFromConfig = (layers) => {
     if (!layers) return;
     return layers.map((infos, index) => {
         const source = getSource(infos);

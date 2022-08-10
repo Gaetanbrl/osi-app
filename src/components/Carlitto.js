@@ -16,9 +16,7 @@ import { keyBy, get, isEmpty } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const {XMLParser, XMLValidator} = require('fast-xml-parser');
-
-import { getLayersFroMConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension, getLayerByName } from "../containers/utils/carto";
+import { getLayersFromConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension, getLayerByName } from "../containers/utils/carto";
 
 import BaseMapsSelector from "../components/BaseMapsSelector";
 
@@ -34,9 +32,9 @@ import {
 } from "../osiStyles";
 
 const BASE_LAYERS = getBaseLayers(config.baselayers);
-const GLOBALE_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("globale")));
+const GLOBALE_LAYERS = getLayersFromConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("globale")));
 
-const ORIGINAL_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("epci")));
+const ORIGINAL_LAYERS = getLayersFromConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("epci")));
 
 const zoomSizes = {
 	min: 7.48,
@@ -68,13 +66,6 @@ class Carlitto extends Component {
 	carMap = null
 
 	commGeom = null
-
-	base = null
-	baseTopology = null
-	commLayer = null
-	baseEpci = null
-	epci = null
-	comm = null
 
 	selGeom = null
 
@@ -219,7 +210,7 @@ class Carlitto extends Component {
 			view: view
 		});
 
-		this.comm = this.carMap.getLayers().getArray().filter(e => e.get("name") === "communes")[0]
+		const comm = this.carMap.getLayers().getArray().filter(e => e.get("name") === "communes")[0]
 
 		this.carMap.on('precompose', function(evt) {
 			if(evt.context){
@@ -251,7 +242,7 @@ class Carlitto extends Component {
 		let commHover = new Select({
 			condition: pointerMove,
 			style:  styleEpciCommHover,
-			layers: [this.comm]
+			layers: [comm]
 		})
 
 		this.carMap.addInteraction(commHover);
@@ -371,7 +362,7 @@ class Carlitto extends Component {
 		 */
 		let { setRef, navigationType } = this.props;
 
-		const leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
+		let leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
 			&VERSION=1.0.0&FORMAT=image/png
 			&WIDTH=10&HEIGHT=10
 			&LAYER=osi_all_date
@@ -379,13 +370,32 @@ class Carlitto extends Component {
 			&STYLES=${setRef.toLowerCase()}
 			&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
 			&TRANSPARENT=true`;
+		
+		if (this.carMap && navigationType === "globale") {
+			const legendLayer = this.carMap.getLayers().getArray().
+				filter(layer => layer.getProperties().compo === setRef)
+			const layerSource = legendLayer[0]?.getSource();
+			/**
+			 * TODO : selectionner l'URL de la couche selon le niveau de vue (actuellement seul GS gère la visibilité, donc par défaut OL considère que les couches sont visibles)
+			 */
+			const legendUrl = layerSource?.getLegendUrl();
+			leg = legendUrl && layerSource?.getParams().layers ? `
+				${legendUrl}
+				&LAYER=${layerSource?.getParams().layers}
+				&WIDTH=10
+				&HEIGHT=10
+				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
+				&TRANSPARENT=true
+				&FORMAT=image/png
+			` : "";
+		}
 
 		return (
 			<div className="map-wrapper">
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
-				{setRef && navigationType !== "globale" && (
+				{setRef && (
 					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
 				)}
 				<BaseMapsSelector
