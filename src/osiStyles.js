@@ -58,11 +58,30 @@ export const styleEpci = (feature, resolution) => {
 	return styleEpciComm;
 }
 
+export const styleCommLayer = new Style({
+	stroke: new Stroke({
+		color: [50, 50, 50, 0.8],
+		width: 2.5
+	}),
+	fill: new Fill({
+		color: [255, 255, 255, .5]
+	}),
+});
+
+export const styleSelectLayer = new Style({
+	stroke: new Stroke({
+		color: [255, 255, 255, 1],
+		width: 2.5
+	})
+});
+
 export const osiStyles = {
     styleEpciCommHover: styleEpciCommHover,
     styleEpciComm: styleEpciComm,
     styleEpciCommPilote: styleEpciCommPilote,
 	styleBaseEpci: styleBaseEpci,
 	styleSelectedComm: styleSelectedComm,
-	styleEpci: styleEpci
+	styleEpci: styleEpci,
+	styleCommLayer: styleCommLayer,
+	styleSelectLayer: styleSelectLayer
 }

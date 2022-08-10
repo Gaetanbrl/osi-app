@@ -13,14 +13,12 @@ import { Select, defaults as defaultInteraction } from "ol/interaction";
 
 import { keyBy, get, isEmpty } from 'lodash';
 
-import fetch from 'isomorphic-fetch';
-
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 const {XMLParser, XMLValidator} = require('fast-xml-parser');
 
-import { getLayersFroMConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension } from "../containers/utils/carto";
+import { getLayersFroMConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension, getLayerByName } from "../containers/utils/carto";
 
 import BaseMapsSelector from "../components/BaseMapsSelector";
 
@@ -31,19 +29,15 @@ import { getBaseLayers } from "../containers/utils/basemaps";
 import config from "../config";
 
 import {
-	styleBaseEpci,
-	styleEpciCommPilote,
-	styleEpciComm,
 	styleEpciCommHover,
 	styleSelectedComm
 } from "../osiStyles";
 
-const BL = getBaseLayers(config.baselayers);
+const BASE_LAYERS = getBaseLayers(config.baselayers);
 const GLOBALE_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("globale")));
 
 const ORIGINAL_LAYERS = getLayersFroMConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("epci")));
 
-const EPCI_COMMUNES_LAYERS = [];
 const zoomSizes = {
 	min: 7.48,
 	minComm: 59,
@@ -73,19 +67,15 @@ class Carlitto extends Component {
 
 	carMap = null
 
-	commSource = null
 	commGeom = null
 
 	base = null
 	baseTopology = null
 	commLayer = null
-	carLayer = null
-	selectedLayer = null
 	baseEpci = null
 	epci = null
 	comm = null
 
-	selSource = null
 	selGeom = null
 
 	overlay = null
@@ -151,7 +141,8 @@ class Carlitto extends Component {
 		this.setState({showBaseMapSelector: false});
 		const viewResolution = this.carMap.getView().getResolution();
 		if (viewResolution < zoomSizes.minComm) {
-			const url = this.carSource.getFeatureInfoUrl(
+			let carSource = getLayerByName(this.carMap, "carLayer").getSource();
+			const url = carSource.getFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
@@ -202,80 +193,11 @@ class Carlitto extends Component {
 		// Get list of years data available
 		getCapabilitiesDimension('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
 			.then((r) => {
+				console.log(r);
 				if (!isEmpty(r)) {
-					this.setState({
-						yearsListAvailable: r.listYear,
-						selectedYear: parseInt(r.listYear[r.listYear.length - 1], 10),
-					});
+					this.setState(r);
 				}
 			})
-
-		this.commSource = new VectorSource({})
-		this.commLayer = new Vector({
-			name: "commLayer",
-			source: this.commSource,
-			style: new Style({
-				stroke: new Stroke({
-					color: [50, 50, 50, 0.8],
-					width: 2.5
-				}),
-				fill: new Fill({
-					color: [255, 255, 255, .5]
-				}),
-			}),
-			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.minComm,
-		})
-
-		this.carSource = new ImageWMS({
-			url: 'https://portail.indigeo.fr/geoserver/LETG-BREST/wms',
-			params: {
-				LAYERS: 'osi_all_date',
-				STYLE: 'default',
-				FORMAT: 'image/gif'
-			},
-			serverType: 'geoserver',
-			crossOrigin: 'anonymous'
-		})
-		this.carLayer = new Image({
-			name: 'carLayer',
-			source: this.carSource,
-			opacity: .8,
-			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.minComm,
-			zIndex: 20,
-		})
-
-		this.selSource = new VectorSource({});
-		this.selectedLayer = new Vector({
-			name: 'selectedLayer',
-			source: this.selSource,
-			style: new Style({
-				stroke: new Stroke({
-					color: [255, 255, 255, 1],
-					width: 2.5
-				})
-			}),
-			zIndex: 20,
-		})
-
-		this.commIsSelected = new Vector({
-			source: new VectorSource({
-				format: new GeoJSON(),
-				url: process.env.PUBLIC_URL + '/comm3857.json'
-			}),
-			style: styleSelectedComm,
-			minResolution: zoomSizes.min,
-			maxResolution: zoomSizes.minComm,
-			zIndex: 10,
-		})
-
-		EPCI_COMMUNES_LAYERS.push(
-			this.commLayer,
-			this.carLayer,
-			this.selectedLayer,
-			this.commIsSelected
-		);
 
 		let view = new View({
 			...defaultViewProps,
@@ -286,10 +208,9 @@ class Carlitto extends Component {
 		this.carMap = new Map({
 			target: this.olMap.current,
 			layers: [
-				...BL,
+				...BASE_LAYERS,
 				...GLOBALE_LAYERS,
-				...ORIGINAL_LAYERS,
-				...EPCI_COMMUNES_LAYERS
+				...ORIGINAL_LAYERS
 			],
 			controls: defaultControl({collapsible: false}).extend([
 				new ScaleLine(),
@@ -306,12 +227,14 @@ class Carlitto extends Component {
 			}
 		});
 
-		this.selectedLayer.on('precompose', function(evt) {
+		const selectedLayer = getLayerByName(this.carMap, "selectedLayer");
+
+		selectedLayer.on('precompose', function(evt) {
 			if(evt.context){
 				evt.context.globalCompositeOperation = 'normal';
 			}
 		});
-		this.selectedLayer.on('precompose', function(evt) {
+		selectedLayer.on('precompose', function(evt) {
 			if(evt.context){
 				evt.context.globalCompositeOperation = 'source-over';
 			}
@@ -347,7 +270,7 @@ class Carlitto extends Component {
 
 		this.setState({
 			carMap: this.carMap,
-			carLayer: this.carLayer,
+			carLayer: getLayerByName(this.carMap, "carLayer")
 		});
 	}
 
@@ -355,9 +278,10 @@ class Carlitto extends Component {
 		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType } = this.props
 
 		this.carMap.getLayers().getArray().forEach(layer => {
-			const propsLayers = layer.getProperties();
-			if (propsLayers.isBaseLayer || !propsLayers.navigation) return;
-			layer.setVisible(propsLayers.navigation.includes(navigationType) && propsLayers?.compo === setRef);
+			const propsLayer = layer.getProperties();
+			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
+			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && propsLayer.navigation.includes(navigationType);
+			layer.setVisible(isVisible);
 		})
 		
 		// save new SRS
@@ -367,11 +291,14 @@ class Carlitto extends Component {
 		let epsg3035 = getProjection('EPSG:3035');
 		epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
 
-		let carLayer = this.state.carLayer
+		let carLayer = getLayerByName(this.carMap, "carLayer");
+		let carSource = getLayerByName(this.carMap, "carLayer").getSource();
+		let commSource = getLayerByName(this.carMap, "commLayer").getSource();
+		let selSource = getLayerByName(this.carMap, "selectedLayer").getSource();
 
 		let cqlFilter = null
-		clearSource(this.commSource);
-		clearSource(this.selSource);
+		clearSource(commSource);
+		clearSource(selSource);
 
 		if (prevProps.setRef !== setRef) {
 			carLayer.getSource().updateParams({
@@ -392,9 +319,7 @@ class Carlitto extends Component {
 		};
 
 		if (needChange && ["commune", "epci"].includes(navigationType)) {
-
-			
-
+			console.log("LOAD ALL OSI LAYERS");
 			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			console.log(cqlFilter);
 			carLayer.getSource().updateParams({
@@ -405,11 +330,10 @@ class Carlitto extends Component {
 				geometry: territoire.geom,
 				name: 'commName'
 			})
-			console.log(this.commLayer.getSource().getUrl());
-			this.commSource.addFeature(this.commGeom);
+			commSource.addFeature(this.commGeom);
 
 			if (this.clickedFeature && prevState && prevState.selectedYear !== this.state.selectedYear) {
-				const url = this.carSource.getFeatureInfoUrl(
+				const url = carSource.getFeatureInfoUrl(
 					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
 					{
 						'INFO_FORMAT': 'application/json',
@@ -430,11 +354,11 @@ class Carlitto extends Component {
 
 		if (infos) {
 			// create polygon too zoom to extent click infos
-			addFeatureFromInfos(infos, this.selSource);
+			addFeatureFromInfos(infos, selSource);
 		}
 
 		if (error || !infos) {
-			clearSource(this.selSource);
+			clearSource(selSource);
 		}
 
 		this.carMap && this.carMap.updateSize();
@@ -466,7 +390,7 @@ class Carlitto extends Component {
 				)}
 				<BaseMapsSelector
 					map={this.carMap}
-					layers={BL}
+					layers={BASE_LAYERS}
 					updateShow={(v) => {
 						this.setState({showBaseMapSelector: v})
 					}}

@@ -1,11 +1,11 @@
 import { WKT } from "ol/format";
 
-import { XYZ, TileWMS, Vector as VectorSource } from "ol/source";
+import { XYZ, TileWMS, Vector as VectorSource, ImageWMS } from "ol/source";
 import { GeoJSON } from "ol/format";
 
-import { Tile, Vector } from "ol/layer";
+import { Tile, Vector, Image } from "ol/layer";
 
-import { isEmpty, get } from "lodash";
+import { isEmpty, find } from "lodash";
 
 import { WMSCapabilities } from 'ol/format';
 
@@ -42,7 +42,10 @@ export const addFeatureFromInfos = (infos, src) => {
 
     clearSource(src);
     src.addFeature(feature);
+}
 
+export const getLayerByName = (map, name) => {
+    return map.getLayers().getArray().filter(x => x.getProperties().name === name)[0];
 }
 
 export const getSource = (infos) => {
@@ -52,10 +55,12 @@ export const getSource = (infos) => {
         case "TileWMS":
             return new TileWMS(infos)
         case "Vector":
-            return new VectorSource({
-                url: infos.isLocal === "true" ? "/wapps/osi" + infos.url : infos.url,
+            return infos.url ? new VectorSource({
+                url: infos.isLocal ? "/wapps/osi" + infos.url : infos.url,
                 format: new GeoJSON()
-            })
+            }) : new VectorSource({})
+        case "ImageWMS":
+            return new ImageWMS(infos)
         default:
             return {}
     }
@@ -77,6 +82,19 @@ export const getLayersFroMConfig = (layers) => {
                 visible: infos.visible,
                 navigation: infos.navigation,
                 compo: infos.compo
+            })
+        }
+        if (infos.type === "ImageWMS") {
+            return new Image({
+                name: infos.title || infos.name,
+                source: source,
+                opacity: infos.opacity,
+                minResolution: zoomSizes[infos.minResolution],
+                maxResolution: zoomSizes[infos.maxResolution],
+                zIndex: infos.zIndex,
+                navigation: infos.navigation,
+                compo: infos.compo,
+                visible: infos.visible
             })
         }
         return new Tile({
@@ -102,10 +120,10 @@ export const getCapabilitiesDimension = (url) => {
     })
     .then(text => {
         const capabilities = parser.read(text);
-        const timeParameter = get(capabilities, "Capability.Layer.Layer.Dimension")
-        if (timeParameter) {
-            const dateList = timeParameter.split(',');
-            const listYear = map(dateList, d => d.substring(0, 4));
+        const timeParameter = find(capabilities.Capability.Layer.Layer[0].Dimension, ["name", "time"])?.values;
+        
+        if (timeParameter.length) {
+            const listYear = timeParameter.split(',').map(d => d.substring(0, 4));
             return {
                 yearsListAvailable: listYear,
                 selectedYear: parseInt(listYear[listYear.length - 1], 10),

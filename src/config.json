@@ -53,9 +53,9 @@
     "navigation": [{
         "title": "baseepci",
         "url": "/epci3857.json",
-        "isLocal": "true",
-        "compo": "RI",
-        "navigation": ["epci", "communes"],
+        "isLocal": true,
+        "compo": "",
+        "navigation": ["epci", "commune", "globale"],
         "visible": false,
         "type": "Vector",
         "style": "styleBaseEpci",
@@ -65,9 +65,9 @@
     }, {
         "title": "epci",
         "url": "/epci3857.json",
-        "isLocal": "true",
-        "compo": "RI",
-        "navigation": ["epci", "communes", "globale"],
+        "isLocal": true,
+        "compo": "",
+        "navigation": ["epci", "commune", "globale"],
         "visible": false,
         "type": "Vector",
         "style": "styleEpci",
@@ -75,22 +75,55 @@
         "maxResolution": "max",
         "zindex": 1
     }, {
-        "compo": "RI",
-        "isLocal": "true",
+        "title": "commLayer",
+        "url": "",
+        "isLocal": false,
+        "compo": "",
+        "navigation": ["epci", "commune"],
+        "visible": true,
+        "type": "Vector",
+        "style": "styleCommLayer",
+        "minResolution": "min",
+        "maxResolution": "minComm"
+    }, {
+        "compo": "",
+        "isLocal": true,
         "title": "communes",
         "url": "/comm3857.json",
         "style": "styleEpciComm",
         "minResolution": "minComm",
         "maxResolution": "maxComm",
-        "navigation": ["epci", "communes", "globale"],
+        "navigation": ["epci", "commune", "globale"],
         "visible": false,
         "type": "Vector",
         "zIndex": 10
     }, {
+        "compo": "",
+        "isLocal": true,
+        "title": "selectedLayer",
+        "url": "",
+        "style": "styleSelectLayer",
+        "navigation": ["epci", "commune"],
+        "visible": true,
+        "type": "Vector",
+        "zIndex": 20
+    }, {
+        "compo": "",
+        "isLocal": true,
+        "title": "commIsSelected",
+        "url": "/comm3857.json",
+        "style": "styleSelectedComm",
+        "navigation": ["epci", "commune"],
+        "visible": true,
+        "type": "Vector",
+        "zIndex": 10,
+        "minResolution": "minComm",
+        "maxResolution": "maxComm"
+    }, {
         "title": "surface_occ_agricole_e205_200",
         "type": "TileWMS",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "A",
+        "compo": "E205",
         "navigation": ["globale"],
         "visible": false,
         "transparent":"true",
@@ -106,7 +139,7 @@
         "title": "surface_occ_agricole_e205_400",
         "type": "TileWMS",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "A",
+        "compo": "E205",
         "visible": false,
         "transparent":"true",
         "navigation": ["globale"],
@@ -123,7 +156,7 @@
         "type": "TileWMS",
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "A",
+        "compo": "E205",
         "visible": false,
         "navigation": ["globale"],
         "params": {
@@ -139,7 +172,7 @@
         "type": "TileWMS",
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "RI",
+        "compo": "A101",
         "visible": true,
         "navigation": ["globale"],
         "params": {
@@ -155,7 +188,7 @@
         "type": "TileWMS",
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "RI",
+        "compo": "A101",
         "visible": true,
         "navigation": ["globale"],
         "params": {
@@ -171,7 +204,7 @@
         "type": "TileWMS",
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
-        "compo": "RI",
+        "compo": "A101",
         "navigation": ["globale"],
         "visible": true,
         "params": {
@@ -181,6 +214,24 @@
             "layers": "a101_800",
             "srs": "EPSG:3857",
             "version": "1.3.0"
+        }
+    }, {
+        "title": "carLayer",
+        "type": "ImageWMS",
+        "opacity": 0.8,
+        "url": "https://portail.indigeo.fr/geoserver/LETG-BREST/wms",
+        "compo": "RI",
+        "navigation": ["epci", "commune"],
+        "visible": false,
+        "zIndex": 20,
+        "params": {
+            "serverType": "geoserver",
+            "crossOrigin": "anonymous",
+            "format": "image/gif",
+            "layers": "osi_all_date",
+            "srs": "EPSG:3857",
+            "version": "1.3.0",
+            "STYLE": "default"
         }
     }],
     "zoomSizes": {
