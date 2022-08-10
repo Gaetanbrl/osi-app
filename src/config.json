@@ -117,8 +117,8 @@
         "visible": true,
         "type": "Vector",
         "zIndex": 10,
-        "minResolution": "minComm",
-        "maxResolution": "maxComm"
+        "minResolution": "min",
+        "maxResolution": "minComm"
     }, {
         "title": "surface_occ_agricole_e205_200",
         "type": "TileWMS",
