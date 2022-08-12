@@ -2,7 +2,8 @@ const initialState = {
   	epci: null,
   	comm: null,
 	showEPCI: false,
-  	navigationType: "globale"
+	navigationType: "globale",
+	legendUrl: ""
 };
 
 const setTerritoire = (state = initialState, action) => {
@@ -28,7 +29,12 @@ const setTerritoire = (state = initialState, action) => {
 			return {
 					...state,
 					navigationType: action.navigationType,
-				}
+			}
+		case 'SET_LEGEND_URL':
+			return {
+					...state,
+					legendUrl: action.legendUrl,
+			}
 		default:
 			return state;
 	}

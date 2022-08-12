@@ -6,25 +6,6 @@
   position: relative;
 }
 
-
-#map-caption {
-  position: absolute;
-  bottom: 14px;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 6px;
-  right: 14px;
-  z-index: 2;
-  border-radius: 3px;
-  div {
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 8px;
-  }
-  + ul.list-group {
-    display: none;
-  }
-}
-
 .select-year-slider-container {
   position: absolute;
   top: 0;
@@ -209,4 +190,8 @@
   }
 }
 
-
+.legendImg {
+  img {
+    width: 100%;
+  }
+}

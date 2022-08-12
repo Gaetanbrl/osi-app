@@ -11,8 +11,6 @@ import { WMSCapabilities } from 'ol/format';
 
 import { osiStyles } from "../../osiStyles";
 
-import { Fill, Stroke, Style } from "ol/style";
-
 import config from "../../config";
 
 const zoomSizes = config.zoomSizes;
@@ -81,7 +79,8 @@ export const getLayersFromConfig = (layers) => {
                 zIndex: infos.zIndex,
                 visible: infos.visible,
                 navigation: infos.navigation,
-                compo: infos.compo
+                compo: infos.compo,
+                clickable: infos.clickable,
             })
         }
         if (infos.type === "ImageWMS") {
@@ -94,6 +93,7 @@ export const getLayersFromConfig = (layers) => {
                 zIndex: infos.zIndex,
                 navigation: infos.navigation,
                 compo: infos.compo,
+                clickable: infos.clickable,
                 visible: infos.visible
             })
         }
@@ -101,11 +101,23 @@ export const getLayersFromConfig = (layers) => {
             name: infos.title || infos.name,
             opacity: infos.opacity,
             visible: infos.visible || false,
+            minResolution: zoomSizes[infos.minResolution] || infos.minResolution,
+            maxResolution: zoomSizes[infos.maxResolution] || infos.maxResolution,
             source: source,
             compo: infos.compo,
+            clickable: infos.clickable,
             navigation: infos.navigation
         })
     }).filter(el => !isEmpty(el))
+}
+
+export const getAllRealVisibleLayers = (map) => {
+    const mapRes = map.getView().getResolution();
+    return map.getLayers().getArray().filter(l =>
+        l.getVisible()
+        && l.getMinResolution() < mapRes
+        && l.getMaxResolution() > mapRes
+    );
 }
 
 export const getCapabilitiesDimension = (url) => {

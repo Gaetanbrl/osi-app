@@ -32,10 +32,17 @@ export const setShowEPCI = (showEPCI = true) => {
   }
 }
 
-export const setNavigationType = (navigationType = true) => {
+export const setNavigationType = (navigationType = "") => {
   return {
     type: 'SET_NAVIGATION_TYPE',
     navigationType
+  }
+}
+
+export const setLegendUrl = (legendUrl = "") => {
+  return {
+    type: 'SET_LEGEND_URL',
+    legendUrl
   }
 }
 

@@ -5,7 +5,8 @@ const mapStateToProps = (state) => ({
 	refIndic: state.refIndic,
 	setRef: state.setRef.ref,
 	territoire: state.setTerritoire,
-	navigationType: state.navigationType
+	navigationType: state.navigationType,
+	legendUrl: state.legendUrl
 })
 
 const Meta = connect(
