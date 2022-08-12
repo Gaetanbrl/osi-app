@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 	url: state.setCar.url,
 	infos: state.infoReducer.infos,
 	loading: state.infoReducer.loading,
-	error: state.infoReducer.error
+	error: state.infoReducer.error,
+	territoire: state.setTerritoire
 })
 
 const mapDispatchToProps = dispatch => {

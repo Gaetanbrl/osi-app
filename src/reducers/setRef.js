@@ -1,6 +1,6 @@
 const initialState = {
-  compo: null,
-  ref: null
+  compo: "RI",
+  ref: "RI"
 };
 
 const setRef = (state = initialState, action) => {

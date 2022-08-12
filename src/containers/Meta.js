@@ -4,7 +4,9 @@ import MetaBox from '../components/MetaBox'
 const mapStateToProps = (state) => ({	
 	refIndic: state.refIndic,
 	setRef: state.setRef.ref,
-	territoire: state.setTerritoire
+	territoire: state.setTerritoire,
+	navigationType: state.navigationType,
+	legendUrl: state.legendUrl
 })
 
 const Meta = connect(

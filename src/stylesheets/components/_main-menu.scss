@@ -40,6 +40,9 @@ nav#main-menu {
 .indicator-menu {
   @extend %flexbox;
   margin-bottom: 6px;
+  button {
+    font-size: 18px !important;
+  }
   &:before {
     content: "";
     @include flexbox();
@@ -302,6 +305,9 @@ nav#main-menu {
     margin: 0;
     color: #fff;
     box-shadow: none;
+    .accordion-body {
+      padding: 0px;
+    }
   }
   .accordion-header {
     margin-top: 5px;
@@ -310,13 +316,36 @@ nav#main-menu {
     .accordion-button{
       position: relative;
       display: flex;
+      font-size: 18px !important;
       align-items: center;
       width: 100%;
+      border-radius: 3px;
     }
   }
   .submenu-link {
     span {
-      color: black;
+      color: white;
     }
+  }
+}
+
+.nav-btn-group {
+  button {
+    border-radius: 0px;
+    border-right: 3px solid grey;
+
+    color: white;
+    background-color: #E13C3B;
+
+  }
+  button.active {
+    background-color: white;
+    color: black;
+  }
+  :last-child {
+    border-right: 0px solid transparent;
+  }
+  button:hover{
+    background-color: white;
   }
 }

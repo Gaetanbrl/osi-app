@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
 import Carlitto from '../components/Carlitto'
-import { setEpci, setCar, setComm } from '../actions'
+import { setEpci, setCar, setComm, setLegendUrl } from '../actions'
 
 const mapStateToProps = state => ({
 	territoire: state.setTerritoire.comm,
 	epci: state.setTerritoire.epci,
 	showEPCI: state.setTerritoire.showEPCI,
+	navigationType: state.setTerritoire.navigationType,
+	legendUrl: state.setTerritoire.legendUrl,
 	setRef: state.setRef.ref,
 	infos: state.infoReducer.infos
 })
@@ -20,6 +22,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		onCarClick: key => {
 			dispatch(setCar(key))
+		},
+		onSetLegendUrl: legendUrl => {
+			dispatch(setLegendUrl(legendUrl))
 		}
 	}
 }

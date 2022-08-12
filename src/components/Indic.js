@@ -1,61 +1,56 @@
-
-
-import React, { useEffect, useState } from 'react';
-import { Accordion } from 'react-bootstrap';
-export default function Indic ({
-  currentIndic,
-  setCompo,
-  ...props
+import React, { useEffect, useState } from "react"
+import { Accordion } from "react-bootstrap"
+import { uniqueId } from "lodash"
+export default function Indic({
+  currentIndic, setCompo, onClick=() => {}, niveau2, niveau1, ableList, territoire
 }) {
-
   const [activeKey, setActiveKey] = useState("")
 
   // detect on component refresh
   useEffect(() => {
     if (setCompo === currentIndic) {
-      setActiveKey(null);
+      setActiveKey(null)
     }
   }, [currentIndic, setCompo])
 
-  const accordionHeaderToggle = (i, subKey) => {
-    const target = activeKey === i.id ? null : i.id;
-    setActiveKey(target);
-    props.onClick(target ? i.id : setCompo);    
-  };
+  const accordionHeaderToggle = (i) => {
+    const target = activeKey === i.id ? null : i.id
+    setActiveKey(target)
+    onClick(target ? i.id : setCompo)
+  }
 
   return (
     <div className="submenu">
       <Accordion>
-        {
-          props.niveau2.map(i2 => (
-            <Accordion.Item eventKey={i2.id}>
-              <Accordion.Header
-                onClick={() => accordionHeaderToggle(i2)}
-              >
-                {i2.description}
-              </Accordion.Header>
-              <Accordion.Body>
-                <div className="sub-list">
-                {props.niveau1
+        {niveau2.map((i2) => (
+          <Accordion.Item eventKey={i2.id} key={uniqueId() + "-" + i2.id}>
+            <Accordion.Header onClick={() => accordionHeaderToggle(i2)}>
+              {i2.description}
+            </Accordion.Header>
+            <Accordion.Body>
+              <div className="sub-list">
+                {niveau1
                   .filter((i1) => i1.thematique === i2.acronyme)
-                  .map((i1) => (
+                  .map((i1, idx) => (
                     <div
-                      className={`submenu-link ${currentIndic === i1.id ? "active" : ""}`}
+                      key={uniqueId() + "-" + idx}
+                      className={`submenu-link ${
+                        currentIndic === i1.id ? "active" : ""
+                      }`}
                       onClick={() => {
-                        props.ableList.includes(i1.id)
-                        props.onClick(i1.id)
+                        ableList.includes(i1.id)
+                        onClick(i1.id)
                       }}
-                      disabled={!props.ableList.includes(i1.id)}
+                      disabled={territoire.com ? !ableList.includes(i1.id) : false}
                     >
                       <span>{i1.nom}</span>
                     </div>
-                ))}
+                  ))}
               </div>
             </Accordion.Body>
           </Accordion.Item>
-        ))
-      }
-    </Accordion>
-  </div>
-	)
+        ))}
+      </Accordion>
+    </div>
+  )
 }

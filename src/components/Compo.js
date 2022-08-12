@@ -24,7 +24,10 @@ export default class Compo extends Component{
 	render() {
 		const { refIndic, setCompo, onCompoClick, territoire, niveau = 5, composition = null } = this.props;
 		const { expanded } = this.state;
-		if (!territoire.comm) return null;
+		// if (!territoire.comm) return null;
+		/**
+		 * TODO : Refacto ==> Code en doublon !!
+		 */
 		return (
 			<div>
 				<nav className="indicators-menu">

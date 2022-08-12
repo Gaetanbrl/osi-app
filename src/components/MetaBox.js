@@ -8,37 +8,36 @@ import DataBox from './DataBox'
 
 
 const MetaBox = ({ setRef, refIndic, territoire }) => {
+	if (refIndic[setRef]) {
+		let ref = refIndic[setRef];
 
-if (refIndic[setRef]) {
-	let ref = refIndic[setRef];
-
-	if (ref.niveau > 1 || ref.composante === "IT") {
-		return (
-			<div className="data-container">
-				<MethodeBox
-				refIndic = {refIndic}
-				setRef = {setRef}
-				territoire = {territoire}/>
-				<Feature />
-			</div>
-		)
+		if (ref.niveau > 1 || ref.composante === "IT") {
+			return (
+				<div className="data-container">
+					<MethodeBox
+					refIndic = {refIndic}
+					setRef = {setRef}
+					territoire = {territoire}/>
+					<Feature />
+				</div>
+			)
+		} else {
+			return(
+				<div className="data-container">
+					<MethodeBox
+						refIndic = {refIndic}
+						setRef = {setRef}
+						territoire = {territoire}/>
+					<DataBox
+						setRef = {setRef}
+						territoire = {territoire}/>
+					<Feature />
+				</div>
+			)
+		}
 	} else {
-		return(
-			<div className="data-container">
-				<MethodeBox
-				refIndic = {refIndic}
-				setRef = {setRef}
-				territoire = {territoire}/>
-				<DataBox
-				setRef = {setRef}
-				territoire = {territoire}/>
-				<Feature />
-			</div>
-		)
+		return null
 	}
-} else {
-	return null
-}
 }
 
 export default MetaBox
