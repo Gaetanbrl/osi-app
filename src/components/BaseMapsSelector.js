@@ -41,10 +41,6 @@ export default function BaseMapsSelector({ map, layers, show, updateShow = () =>
             if (layer.get("name") === selected) {
                 layer.setVisible(true)
             }
-            console.log(
-                process.env.PUBLIC_URL +
-                "/" +
-                layer.getProperties().preview);
         })
     }, [selected])
 

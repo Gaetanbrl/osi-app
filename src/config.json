@@ -125,6 +125,8 @@
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "E205",
         "navigation": ["globale"],
+        "clickable": true,
+        "maxResolution": 15,
         "visible": false,
         "transparent":"true",
         "params": {
@@ -140,7 +142,10 @@
         "type": "TileWMS",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "E205",
+        "clickable": true,
         "visible": false,
+        "minResolution": 15,
+        "maxResolution": 35,
         "transparent":"true",
         "navigation": ["globale"],
         "params": {
@@ -158,6 +163,8 @@
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "E205",
         "visible": false,
+        "clickable": true,
+        "minResolution": 35,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -173,6 +180,8 @@
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "A101",
+        "clickable": true,
+        "maxResolution": 15,
         "visible": true,
         "navigation": ["globale"],
         "params": {
@@ -189,7 +198,10 @@
         "transparent":"true",
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "A101",
+        "clickable": true,
         "visible": true,
+        "minResolution": 15,
+        "maxResolution": 35,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -202,11 +214,12 @@
     }, {
         "title": "dist_erosion_annee_a101_800",
         "type": "TileWMS",
-        "transparent":"true",
+        "clickable": true,
         "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
         "compo": "A101",
         "navigation": ["globale"],
         "visible": true,
+        "minResolution": 35,
         "params": {
             "transparent":"true",
             "crossOrigin": "anonymous",
@@ -224,6 +237,7 @@
         "navigation": ["epci", "commune"],
         "visible": false,
         "zIndex": 20,
+        "clickable": true,
         "params": {
             "serverType": "geoserver",
             "crossOrigin": "anonymous",

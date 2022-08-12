@@ -2,11 +2,7 @@ import React, { Component, createRef } from "react";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4";
 import { View, Map, Overlay, Feature } from "ol";
-import { Vector, Image } from "ol/layer";
-import { Style , Stroke, Fill } from "ol/style";
 import { fromLonLat, get as getProjection } from "ol/proj";
-import { Vector as VectorSource, ImageWMS } from "ol/source";
-import { GeoJSON, WKT } from "ol/format";
 import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { Select, defaults as defaultInteraction } from "ol/interaction";
@@ -16,7 +12,14 @@ import { keyBy, get, isEmpty } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import { getLayersFromConfig, clearSource, addFeatureFromInfos, getCapabilitiesDimension, getLayerByName } from "../containers/utils/carto";
+import {
+	getLayersFromConfig,
+	 clearSource,
+	 addFeatureFromInfos,
+	getCapabilitiesDimension,
+	getLayerByName,
+	getAllRealVisibleLayers
+} from "../containers/utils/carto";
 
 import BaseMapsSelector from "../components/BaseMapsSelector";
 
@@ -132,11 +135,32 @@ class Carlitto extends Component {
 		this.setState({showBaseMapSelector: false});
 		const viewResolution = this.carMap.getView().getResolution();
 		if (viewResolution < zoomSizes.minComm) {
-			let carSource = getLayerByName(this.carMap, "carLayer").getSource();
-			const url = carSource.getFeatureInfoUrl(
+			// get clickable and visible layer only to request
+			let clickedLayer = null;
+			this.carMap.forEachLayerAtPixel(
+				event.pixel,
+				(layer) => {
+					// will only return visible layer as layerFilter option
+					clickedLayer = layer;
+				},
+				{
+					hitTolerance: 1,
+					layerFilter: (layer) => {
+						// to get visible layers according to resolution and openLayer layer visible prop
+						const lyrName = layer.getProperties().name;
+						const isResolutionVisible = getAllRealVisibleLayers(this.carMap).map(l => l.getProperties().name).includes(lyrName);
+						const isClickable = this.carMap.getLayers().getArray().filter(l => l.getProperties().clickable).map(l => l.getProperties().name).includes(lyrName);
+						return isClickable && isResolutionVisible;
+					}
+				}
+			);
+			// let carSource = getLayerByName(this.carMap, "carLayer").getSource();
+			if (!clickedLayer) return;
+			const url = clickedLayer.getSource().getFeatureInfoUrl(
 				event.coordinate, viewResolution, 'EPSG:3857',
 				{
 					'INFO_FORMAT': 'application/json',
+					'QUERY_LAYERS': clickedLayer.getSource().getParams().layers
 				},
 			);
 			if (url) {
@@ -148,6 +172,7 @@ class Carlitto extends Component {
 			}
 		}
 
+		// get vector layer only with forEachFeatureAtPixel
 		this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
 			let nom = feature.get('nom')
 			let insee = feature.get('insee')
@@ -184,7 +209,6 @@ class Carlitto extends Component {
 		// Get list of years data available
 		getCapabilitiesDimension('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
 			.then((r) => {
-				console.log(r);
 				if (!isEmpty(r)) {
 					this.setState(r);
 				}
@@ -257,6 +281,10 @@ class Carlitto extends Component {
 
 		this.carMap.on('pointermove', (evt) => this.moveHandler(evt));
 
+		this.carMap.on('moveend', (evt) => {
+			const visibleLayersByResolution = getAllRealVisibleLayers(evt.map).map(l => l.getProperties().name);
+		});
+
 		this.carMap.on('click', (evt) => this.clickHandler(evt));
 
 		this.setState({
@@ -310,9 +338,7 @@ class Carlitto extends Component {
 		};
 
 		if (needChange && ["commune", "epci"].includes(navigationType)) {
-			console.log("LOAD ALL OSI LAYERS");
 			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
-			console.log(cqlFilter);
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
@@ -323,7 +349,7 @@ class Carlitto extends Component {
 			})
 			commSource.addFeature(this.commGeom);
 
-			if (this.clickedFeature && prevState && prevState.selectedYear !== this.state.selectedYear) {
+			if (this.clickedFeature && isOtherYear) {
 				const url = carSource.getFeatureInfoUrl(
 					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
 					{
@@ -360,16 +386,20 @@ class Carlitto extends Component {
 		 * TODO: DON't DISPLAY THIS MAP CAPTION WITH GLOBAL VIEW
 		 * OR DISPLAY VISIBLE LAYERS LEGEND
 		 */
-		let { setRef, navigationType } = this.props;
+		let { setRef, navigationType, onSetLegendUrl } = this.props;
 
-		let leg = setRef && `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
-			&VERSION=1.0.0&FORMAT=image/png
-			&WIDTH=10&HEIGHT=10
-			&LAYER=osi_all_date
-			&STYLE=${setRef.toLowerCase()}
-			&STYLES=${setRef.toLowerCase()}
-			&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
-			&TRANSPARENT=true`;
+		let leg = "";
+		
+		if (setRef && ["epci", "commune"].includes(navigationType)) {
+			leg = `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
+				&VERSION=1.0.0&FORMAT=image/png
+				&WIDTH=10&HEIGHT=10
+				&LAYER=osi_all_date
+				&STYLE=${setRef.toLowerCase()}
+				&STYLES=${setRef.toLowerCase()}
+				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
+				&TRANSPARENT=true`;
+		}
 		
 		if (this.carMap && navigationType === "globale") {
 			const legendLayer = this.carMap.getLayers().getArray().
@@ -382,7 +412,7 @@ class Carlitto extends Component {
 			leg = legendUrl && layerSource?.getParams().layers ? `
 				${legendUrl}
 				&LAYER=${layerSource?.getParams().layers}
-				&WIDTH=10
+				&WIDTH=8
 				&HEIGHT=10
 				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
 				&TRANSPARENT=true
@@ -390,14 +420,13 @@ class Carlitto extends Component {
 			` : "";
 		}
 
+		onSetLegendUrl(leg);
+
 		return (
 			<div className="map-wrapper">
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
-				{setRef && (
-					<div id="map-caption"><div><img src={leg} alt="Légende"></img></div></div>
-				)}
 				<BaseMapsSelector
 					map={this.carMap}
 					layers={BASE_LAYERS}

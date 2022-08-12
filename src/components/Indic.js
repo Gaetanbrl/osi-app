@@ -8,8 +8,6 @@ export default function Indic({
 
   // detect on component refresh
   useEffect(() => {
-    console.log(setCompo);
-    console.log(currentIndic);
     if (setCompo === currentIndic) {
       setActiveKey(null)
     }
