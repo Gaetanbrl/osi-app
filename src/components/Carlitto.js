@@ -337,7 +337,8 @@ class Carlitto extends Component {
 			minResolution: zoomSizes.min
 		};
 
-		if (needChange && ["commune", "epci"].includes(navigationType)) {
+		carLayer.setVisible(territoire?.geom ? true : false);
+		if (needChange && ["commune", "epci"].includes(navigationType) && territoire?.geom) {
 			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
