@@ -1,3 +1,5 @@
+import { createReducer } from '@reduxjs/toolkit'
+
 import SHA512 from 'crypto-js/sha512';
 
 import { loginData } from '../data/LoginData';
@@ -15,21 +17,16 @@ const checkLoginData = (password) =>
 				errorMessage: 'Mot de passe incorrect'
 			};
 
-export const doLogin = (state = initialState, action) => {
-	switch(action.type) {
-		case 'DO_LOGIN':
-			return {
-				...state,
-				...checkLoginData(action.password),
-			}
-		case 'DO_LOGOUT':
-			return {
-				...state,
-				isLogged: false,
-			}
-		default:
-			return state
+
+const doLogin = createReducer(initialState, {
+	DO_LOGIN: (state, action) => {
+		console.log("doLogin");
+		state.isLogged = checkLoginData(action.password).isLogged;
+		state.errorMessage = checkLoginData(action.password)?.errorMessage || '';
+	},
+	DO_LOGOUT: (state, action) => {
+		state.isLogged = false;
 	}
-}
+});
 
 export default doLogin

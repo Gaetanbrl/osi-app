@@ -1,23 +1,18 @@
+import { createReducer } from "@reduxjs/toolkit";
+
 const initialState = {
   compo: "RI",
   ref: "RI"
 };
 
-const setRef = (state = initialState, action) => {
-	switch(action.type) {
-		case 'SET_COMPO':
-			return {
-				...state,
-				compo: action.compo,
-				ref: action.compo,
-			}
-		case 'SET_REF':
-			return {
-				...state,
-				ref: action.ref
-			}
-		default:
-			return state
+const setRef = createReducer(initialState, {
+	'SET_COMPO': (state, action) => {
+		state.compo = action.compo;
+			state.ref = action.compo;
+	},
+	'SET_REF': (state, action) => {
+		ref = action.ref
 	}
-}
+})
+	
 export default setRef

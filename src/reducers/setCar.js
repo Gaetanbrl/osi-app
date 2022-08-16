@@ -1,16 +1,12 @@
+import { createReducer } from "@reduxjs/toolkit";
+
 const initialState = {
 	url: null
 };
 
-const setRef = (state = initialState, action) => {
-	switch(action.type) {
-		case 'SET_CAR':
-			return {
-				...state,
-				url: action.url
-			}
-		default:
-			return state
+const setCar = createReducer(initialState, {
+	SET_CAR: (state, action) => {
+		state.url = action.url
 	}
-}
-export default setRef
+});
+export default setCar
