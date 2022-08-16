@@ -54,7 +54,7 @@ export const getSource = (infos) => {
             return new TileWMS(infos)
         case "Vector":
             return infos.url ? new VectorSource({
-                url: infos.isLocal ? "/wapps/osi" + infos.url : infos.url,
+                url: infos.isLocal ? process.env.PUBLIC_URL + infos.url : infos.url,
                 format: new GeoJSON()
             }) : new VectorSource({})
         case "ImageWMS":
