@@ -8,10 +8,10 @@ const initialState = {
 const setRef = createReducer(initialState, {
 	'SET_COMPO': (state, action) => {
 		state.compo = action.compo;
-			state.ref = action.compo;
+		state.ref = action.compo;
 	},
 	'SET_REF': (state, action) => {
-		ref = action.ref
+		state.ref = action.ref
 	}
 })
 	

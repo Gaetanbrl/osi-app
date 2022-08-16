@@ -73,7 +73,7 @@ class MethodeBox extends Component {
 							<Button
 								target="_blank"
 								className="btn-pdf"
-								href={`${maddogUrl}&x=-491329&y=6216655&z=13.893526139297865`}
+								href={`${maddogUrl}&${territoire.navigationView}`}
 							>
 								<i className="far fa-external-link"></i>
 								<span>{"Voir dans Maddog"}</span>
