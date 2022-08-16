@@ -60,16 +60,7 @@ class MethodeBox extends Component {
 							<i className="far fa-external-link"></i>
 							<span>{ref.texteLien1 || "Lien"}</span>
 						</Button>
-						<Button
-							target="_blank"
-							className="btn-pdf"
-							disabled={!ref.lien2}
-							href={ref.lien2}
-						>
-							<i className="far fa-external-link"></i>
-							<span>{ref.texteLien2 || "Lien"}</span>
-						</Button>
-						{compoToLinkWithMaddog.includes(setRef) && (
+						{compoToLinkWithMaddog.includes(setRef) ? (
 							<Button
 								target="_blank"
 								className="btn-pdf"
@@ -77,6 +68,16 @@ class MethodeBox extends Component {
 							>
 								<i className="far fa-external-link"></i>
 								<span>{"Voir dans Maddog"}</span>
+							</Button>
+						) : (
+							<Button
+								target="_blank"
+								className="btn-pdf"
+								disabled={!ref.lien2}
+								href={ref.lien2}
+							>
+								<i className="far fa-external-link"></i>
+								<span>{ref.texteLien2 || "Lien"}</span>
 							</Button>
 						)}
 					</div>
