@@ -75,7 +75,7 @@ const MethodeBoxNiveau2 = ({
                         href={`${maddogUrl}&${territoire.navigationView}`}
                     >
                         <i className="far fa-external-link"></i>
-                        <span>{"Voir dans Maddog"}</span>
+                        <span>{"Visualiser dans Maddog"}</span>
                     </Button>
                 ) : (
                     <Button
