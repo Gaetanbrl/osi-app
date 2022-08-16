@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Button, ButtonGroup } from "react-bootstrap"
-import { uniqueId } from "lodash"
+import { isEmpty, uniqueId } from "lodash"
 
 const TitreBox = ({ isSidebar, setRef, territoire, onShowEPCIClick, onChangeNavigationClick }) => {
   const commune = territoire.comm
@@ -22,18 +22,21 @@ const TitreBox = ({ isSidebar, setRef, territoire, onShowEPCIClick, onChangeNavi
   }
   // avoid inifinity loop
   useEffect(() => {
-    let newName = name;
-    if (!commune || !epci) {
-      newName = "Chosir un territoire";
-    } else if (navigation === "epci" && epci?.nom) {
-      newName = epci.nom
-    } else if (commune && commune?.nom) {
-      newName = commune.nom
+    if (navigation === "globale") {
+      return setName("");
     }
-    if (name !== newName) {
-      setName(newName);
+
+    if (navigation === "epci" && !isEmpty(epci) && epci?.nom !== name) {
+      return setName(epci?.nom);
     }
-  }, [epci?.nom, commune?.nom])
+
+    if (navigation === "commune" && !isEmpty(commune) && commune?.nom !== name) {
+      return setName(commune?.nom);
+    }
+    if (isEmpty(epci) && isEmpty(commune)) {
+      setName("Choisir un territoire");
+    }
+  }, [epci?.nom, commune?.nom, navigation])
 
 	const navigations = [{
     label: "commune",
