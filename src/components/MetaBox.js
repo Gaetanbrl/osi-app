@@ -7,9 +7,9 @@ import DataBox from './DataBox'
 
 
 const MetaBox = ({ setRef, refIndic, territoire }) => {
-	if (refIndic[setRef]) {
+	
+	if (refIndic[setRef] && territoire.legendUrl) {
 		let ref = refIndic[setRef];
-
 		if (ref.niveau > 1 || ref.composante === "IT") {
 			return (
 				<div className="data-container">
