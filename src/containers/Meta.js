@@ -6,6 +6,7 @@ const mapStateToProps = (state) => ({
 	setRef: state.setRef.ref,
 	territoire: state.setTerritoire,
 	navigationType: state.navigationType,
+	navigationView: state.navigationView,
 	legendUrl: state.legendUrl
 })
 

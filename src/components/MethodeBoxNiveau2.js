@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import config from "../config.json";
 
+const compoToLinkWithMaddog = config.maddogCompoLink;
+const maddogUrl = config.maddogUrl;
 const MethodeBoxNiveau2 = ({
     setRef,
     refIndic,
@@ -65,15 +68,26 @@ const MethodeBoxNiveau2 = ({
                     <i className="far fa-external-link"></i>
                     <span>{ref.texteLien1 || "Lien"}</span>
                 </Button>
-                <Button
-                    target="_blank"
-                    className="btn-pdf"
-                    disabled={!ref.lien2}
-                    href={ref.lien2}
-                >
-                    <i className="far fa-external-link"></i>
-                    <span>{ref.texteLien2 || "Lien"}</span>
-                </Button>
+                {compoToLinkWithMaddog.includes(setRef) ? (
+                    <Button
+                        target="_blank"
+                        className="btn-pdf"
+                        href={`${maddogUrl}&${territoire.navigationView}`}
+                    >
+                        <i className="far fa-external-link"></i>
+                        <span>{"Visualiser dans Maddog"}</span>
+                    </Button>
+                ) : (
+                    <Button
+                        target="_blank"
+                        className="btn-pdf"
+                        disabled={!ref.lien2}
+                        href={ref.lien2}
+                    >
+                        <i className="far fa-external-link"></i>
+                        <span>{ref.texteLien2 || "Lien"}</span>
+                    </Button>
+                )}
                 <strong>{ref.service}</strong>
             </div>
         </div>

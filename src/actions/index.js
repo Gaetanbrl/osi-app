@@ -39,6 +39,13 @@ export const setNavigationType = (navigationType = "") => {
   }
 }
 
+export const setNavigationView = (navigationView = "") => {
+  return {
+    type: 'SET_NAVIGATION_VIEW',
+    navigationView
+  }
+}
+
 export const setLegendUrl = (legendUrl = "") => {
   return {
     type: 'SET_LEGEND_URL',

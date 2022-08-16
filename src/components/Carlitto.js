@@ -55,8 +55,8 @@ const sliderStyle = {
 
 const defaultViewProps = {
 	center: fromLonLat([-3, 48.15]),
-	minResolution: zoomSizes.minComm,
-	maxResolution: zoomSizes.max - 1,
+	// minResolution: zoomSizes.minComm,
+	// maxResolution: zoomSizes.max - 1,
 };
 
 class Carlitto extends Component {
@@ -294,7 +294,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType } = this.props
+		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType, onSetNavigationView } = this.props
 
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
@@ -379,6 +379,11 @@ class Carlitto extends Component {
 		}
 
 		this.carMap && this.carMap.updateSize();
+
+		this.carMap.on("moveend", (v) => {
+			let view = v.map.getView();
+			onSetNavigationView(`x=${view.getCenter()[0]}&y=${view.getCenter()[1]}&z=${view.getZoom()}`);
+		})
 	 }
 
 	render() {

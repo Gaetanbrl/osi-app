@@ -23,7 +23,9 @@ import { configureStore } from '@reduxjs/toolkit'
 
 const store2 = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }).concat(thunk),
   devTools: process.env.NODE_ENV !== 'production'
 })
 

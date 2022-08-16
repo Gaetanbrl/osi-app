@@ -254,6 +254,7 @@
         "maxComm": 200,
         "max": 480,
         "default": 400
-    }
-    
+    },
+    "maddogCompoLink": ["RI", "A", "A1", "A101", "A2", "A201"],
+    "maddogUrl": "https://gis.jdev.fr/mviewer/?config=apps/maddog.xml"
 }
