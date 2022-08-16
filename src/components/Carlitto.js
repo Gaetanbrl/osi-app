@@ -294,7 +294,7 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, epci, showEPCI, setRef, infos, error, onCarClick, navigationType, onSetNavigationView } = this.props
+		let { territoire, epci, setRef, infos, error, onCarClick, navigationType, onSetNavigationView } = this.props
 
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
@@ -324,12 +324,12 @@ class Carlitto extends Component {
 				STYLES: setRef.toLowerCase()
 			})
 		}
-
-		const isOtherEPCI = prevProps?.showEPCI !== showEPCI;
+		const previousTerritoire = prevProps?.territoire;
+		const isOtherNavigation = prevProps?.navigationType !== navigationType;
 		const isOtherYear = prevState?.selectedYear !== this.state.selectedYear;
-		const isOtherTerritoire = prevProps?.territoire !== territoire;
+		const isOtherTerritoire = previousTerritoire?.insee !== territoire?.insee || previousTerritoire?.insee !== territoire?.insee;
 
-		const needChange = !!territoire && (isOtherEPCI || isOtherYear || isOtherTerritoire);
+		const needChange = !!territoire && (isOtherNavigation || isOtherYear || isOtherTerritoire);
 
 		const viewProps = {
 			...defaultViewProps,
@@ -338,7 +338,7 @@ class Carlitto extends Component {
 		};
 
 		if (needChange && ["commune", "epci"].includes(navigationType)) {
-			cqlFilter = showEPCI ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
+			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
@@ -365,8 +365,19 @@ class Carlitto extends Component {
 
 		this.carMap.setView(new View(viewProps));
 
-		if (isOtherEPCI && navigationType === "commune" && territoire) {
-			this.carMap.getView().fit(territoire.geom, {duration: 500})
+		if (
+			navigationType != "globale"
+			&&
+			territoire?.geom
+			&&
+			(
+				prevProps.navigationType != navigationType
+			||
+				needChange
+			)
+		) {
+			// duration not work everytime
+			this.carMap.getView().fit(territoire.geom)
 		}
 
 		if (infos) {
