@@ -1,12 +1,16 @@
-import React, { Component } from "react"
-import { Button } from "react-bootstrap"
-import MethodeBoxNiveau2 from "./MethodeBoxNiveau2"
+import React, { Component } from "react";
+import { Button } from "react-bootstrap";
+import MethodeBoxNiveau2 from "./MethodeBoxNiveau2";
+import config from "../config.json";
+
+const compoToLinkWithMaddog = config.maddogCompoLink;
+const maddogUrl = config.maddogUrl;
 
 class MethodeBox extends Component {
     render() {
 		let { setRef, refIndic, territoire } = this.props
 
-        const refAndTerritory = setRef && territoire.comm
+		const refAndTerritory = setRef && territoire.comm
         const isITcompo = refAndTerritory && refIndic[setRef].composante === "IT"
 		let ref = refIndic[setRef]
 		if (refAndTerritory && refIndic[setRef].niveau > 1) {
@@ -65,6 +69,16 @@ class MethodeBox extends Component {
 							<i className="far fa-external-link"></i>
 							<span>{ref.texteLien2 || "Lien"}</span>
 						</Button>
+						{compoToLinkWithMaddog.includes(setRef) && (
+							<Button
+								target="_blank"
+								className="btn-pdf"
+								href={`${maddogUrl}&x=-491329&y=6216655&z=13.893526139297865`}
+							>
+								<i className="far fa-external-link"></i>
+								<span>{"Voir dans Maddog"}</span>
+							</Button>
+						)}
 					</div>
 					{isITcompo && (
 						<div className="data-block-container">
@@ -102,6 +116,16 @@ class MethodeBox extends Component {
 					<div className="legendImg">
 						<img src={territoire.legendUrl} alt="Légende"></img>
 					</div>
+					{compoToLinkWithMaddog.includes(setRef) && (
+						<Button
+							target="_blank"
+							className="btn-pdf"
+							href={`${maddogUrl}&${territoire.navigationView}`}
+						>
+							<i className="far fa-external-link"></i>
+							<span>{"Voir dans Maddog"}</span>
+						</Button>
+					)}
 				</div>
 			</div>)
 		}

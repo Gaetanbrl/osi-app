@@ -1,5 +1,4 @@
 import React from 'react'
-import { div } from 'react-bootstrap';
 
 import Feature from '../containers/Feature';
 
