@@ -30,8 +30,7 @@ import { getBaseLayers } from "../containers/utils/basemaps";
 import config from "../config";
 
 import {
-	styleEpciCommHover,
-	styleSelectedComm
+	styleEpciCommHover
 } from "../osiStyles";
 
 const BASE_LAYERS = getBaseLayers(config.baselayers);
@@ -75,10 +74,14 @@ class Carlitto extends Component {
 	overlay = null
 	overlayFeatureNom = null
 
-  	clickedFeature = null
+	clickedFeature = null
+	
+	clickedLayer = null
+
+	clickedLayerUrl = ""
 
 	state = {
-		showBaseMapSelector : false
+		showBaseMapSelector: false
 	};
 
 	getOverlayText(nom, code, nbIndic, sitePilote) {
@@ -130,46 +133,41 @@ class Carlitto extends Component {
 		document.body.style.cursor = feature ? 'pointer' : '';
 	}
 
+	updateClick(event) {
+		const viewResolution = this.carMap.getView().getResolution();
+		let clickedLayer = null;
+		// will only return visible layer as layerFilter option
+		const visibleLayers = getAllRealVisibleLayers(this.carMap);
+		const isResolutionVisible = visibleLayers.map(l => l.getProperties().name);
+		const isClickable = visibleLayers.filter(l => l.getProperties().clickable);
+		// will return only one layer because we can only display one layer by navigation mode
+		clickedLayer = isClickable.filter(x => isResolutionVisible.includes(x.getProperties().name))[0];
+		if (!clickedLayer) return;
+		// will calcul GetFeatureInfo URL usefull to get info by map pixel clicked
+		this.clickedLayerUrl = clickedLayer.getSource().getFeatureInfoUrl(
+			event.coordinate, viewResolution, 'EPSG:3857',
+			{
+				'INFO_FORMAT': 'application/json',
+				'QUERY_LAYERS': clickedLayer.getSource().getParams().layers
+			},
+		);
+		if (this.clickedLayerUrl) {
+			this.clickedFeature = {
+				coordinate: event.coordinate,
+				pixel: event.pixel,
+				viewResolution,
+			};
+			// update store to refresh FeatureBox, MetaBox panels with correct info
+			this.props.onCarClick(this.clickedLayerUrl);
+		}
+	}
+
 	clickHandler(event) {
-		const { onEpciClick, onCommClick, onCarClick, territoire } = this.props;
+		const { onEpciClick, onCommClick, navigationType, territoire } = this.props;
 		this.setState({showBaseMapSelector: false});
 		const viewResolution = this.carMap.getView().getResolution();
-		if (viewResolution < zoomSizes.minComm) {
-			// get clickable and visible layer only to request
-			let clickedLayer = null;
-			this.carMap.forEachLayerAtPixel(
-				event.pixel,
-				(layer) => {
-					// will only return visible layer as layerFilter option
-					clickedLayer = layer;
-				},
-				{
-					hitTolerance: 1,
-					layerFilter: (layer) => {
-						// to get visible layers according to resolution and openLayer layer visible prop
-						const lyrName = layer.getProperties().name;
-						const isResolutionVisible = getAllRealVisibleLayers(this.carMap).map(l => l.getProperties().name).includes(lyrName);
-						const isClickable = this.carMap.getLayers().getArray().filter(l => l.getProperties().clickable).map(l => l.getProperties().name).includes(lyrName);
-						return isClickable && isResolutionVisible;
-					}
-				}
-			);
-			// let carSource = getLayerByName(this.carMap, "carLayer").getSource();
-			if (!clickedLayer) return;
-			const url = clickedLayer.getSource().getFeatureInfoUrl(
-				event.coordinate, viewResolution, 'EPSG:3857',
-				{
-					'INFO_FORMAT': 'application/json',
-					'QUERY_LAYERS': clickedLayer.getSource().getParams().layers
-				},
-			);
-			if (url) {
-				this.clickedFeature = {
-					coordinate: event.coordinate,
-					viewResolution,
-				};
-				onCarClick(url);
-			}
+		if ( navigationType === "globale" || viewResolution < zoomSizes.minComm) {
+			this.updateClick(event)
 		}
 
 		// get vector layer only with forEachFeatureAtPixel
@@ -281,10 +279,6 @@ class Carlitto extends Component {
 
 		this.carMap.on('pointermove', (evt) => this.moveHandler(evt));
 
-		this.carMap.on('moveend', (evt) => {
-			const visibleLayersByResolution = getAllRealVisibleLayers(evt.map).map(l => l.getProperties().name);
-		});
-
 		this.carMap.on('click', (evt) => this.clickHandler(evt));
 
 		this.setState({
@@ -294,13 +288,17 @@ class Carlitto extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, epci, setRef, infos, error, onCarClick, navigationType, onSetNavigationView } = this.props
+		let { territoire, epci, setRef, infos, error, navigationType, onSetNavigationView } = this.props
 
+		const visibleLayers = [];
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
 			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && propsLayer.navigation.includes(navigationType);
 			layer.setVisible(isVisible);
+			if (isVisible) {
+				visibleLayers.push(layer);
+			}
 		})
 		
 		// save new SRS
@@ -311,7 +309,6 @@ class Carlitto extends Component {
 		epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
 
 		let carLayer = getLayerByName(this.carMap, "carLayer");
-		let carSource = getLayerByName(this.carMap, "carLayer").getSource();
 		let commSource = getLayerByName(this.carMap, "commLayer").getSource();
 		let selSource = getLayerByName(this.carMap, "selectedLayer").getSource();
 
@@ -337,7 +334,6 @@ class Carlitto extends Component {
 			minResolution: zoomSizes.min
 		};
 
-		carLayer.setVisible(territoire?.geom ? true : false);
 		if (needChange && ["commune", "epci"].includes(navigationType) && territoire?.geom) {
 			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
@@ -349,33 +345,19 @@ class Carlitto extends Component {
 				name: 'commName'
 			})
 			commSource.addFeature(this.commGeom);
-
-			if (this.clickedFeature && isOtherYear) {
-				const url = carSource.getFeatureInfoUrl(
-					this.clickedFeature.coordinate, this.clickedFeature.viewResolution, 'EPSG:3857',
-					{
-						'INFO_FORMAT': 'application/json',
-					},
-				);
-				if (url) {
-					onCarClick(url);
-				}
-			}
-
 		}
 
+		if (this.clickedFeature) {
+			// simulate new click from same previous coordinates clicked
+			// will display chart for any navigation mode at same coordinate
+			this.updateClick(this.clickedFeature);
+		}
 		this.carMap.setView(new View(viewProps));
 
 		if (
-			navigationType != "globale"
+			navigationType != "globale" && territoire?.geom
 			&&
-			territoire?.geom
-			&&
-			(
-				prevProps.navigationType != navigationType
-			||
-				needChange
-			)
+			( prevProps.navigationType != navigationType || needChange )
 		) {
 			// duration not work everytime
 			this.carMap.getView().fit(territoire.geom)
