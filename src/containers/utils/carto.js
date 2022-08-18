@@ -43,6 +43,7 @@ export const addFeatureFromInfos = (infos, src) => {
 }
 
 export const getLayerByName = (map, name) => {
+    if (!map) return;
     return map.getLayers().getArray().filter(x => x.getProperties().name === name)[0];
 }
 
@@ -65,8 +66,8 @@ export const getSource = (infos) => {
 };
 
 export const getLayersFromConfig = (layers) => {
-    if (!layers) return;
-    return layers.map((infos, index) => {
+    if (!layers || !layers.length) return;
+    return layers.map((infos) => {
         const source = getSource(infos);
         if (isEmpty(source)) return null;
         if (infos.type === "Vector") {
@@ -144,4 +145,20 @@ export const getCapabilitiesDimension = (url) => {
         // if not time dimension
         return;
     });
+}
+
+export const getOverlayText = (nom, code, nbIndic, sitePilote) => {
+    let overlayText = '<h6><strong>' + nom + '</strong>'
+    if (code) {
+        overlayText += ' (' + code + ')';
+    }
+    if (nbIndic) {
+        overlayText += '<br /><i>' + nbIndic +' indicateurs</i>';
+    }
+    if (sitePilote === true || sitePilote === 'true') {
+        overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
+    }
+    overlayText += '</h6>'
+
+    return overlayText;
 }
