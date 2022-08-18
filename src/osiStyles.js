@@ -75,6 +75,14 @@ export const styleSelectLayer = new Style({
 	})
 });
 
+export const styleEpciGlobal = new Style({
+	stroke: new Stroke({
+		color: [50, 50, 50, 0.8],
+		width: 2
+	})
+})
+
+
 export const osiStyles = {
     styleEpciCommHover: styleEpciCommHover,
     styleEpciComm: styleEpciComm,

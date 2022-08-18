@@ -30,21 +30,18 @@ import { getBaseLayers } from "../containers/utils/basemaps";
 import config from "../config";
 
 import {
-	styleEpciCommHover
+	styleBaseEpci,
+	styleEpciCommHover,
+	styleEpciGlobal,
+	styleEpci
 } from "../osiStyles";
 
 const BASE_LAYERS = getBaseLayers(config.baselayers);
-const GLOBALE_LAYERS = getLayersFromConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("globale")));
+const NAVIGATION_LAYERS = getLayersFromConfig(
+	config?.navigation.filter(l => l.navigation && l.navigation.length)
+);
 
-const ORIGINAL_LAYERS = getLayersFromConfig(config?.navigation.filter(l => l.navigation && l.navigation.includes("epci")));
-
-const zoomSizes = {
-	min: 7.48,
-	minComm: 59,
-	maxComm: 200,
-	max: 480,
-	default: 400,
-};
+const zoomSizes = config.zoomSizes;
 
 const sliderStyle = {
 	handleStyle: { borderColor: '#000' },
@@ -222,8 +219,7 @@ class Carlitto extends Component {
 			target: this.olMap.current,
 			layers: [
 				...BASE_LAYERS,
-				...GLOBALE_LAYERS,
-				...ORIGINAL_LAYERS
+				...NAVIGATION_LAYERS
 			],
 			controls: defaultControl({collapsible: false}).extend([
 				new ScaleLine(),
@@ -290,15 +286,15 @@ class Carlitto extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		let { territoire, epci, setRef, infos, error, navigationType, onSetNavigationView } = this.props
 
-		const visibleLayers = [];
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
 			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && propsLayer.navigation.includes(navigationType);
 			layer.setVisible(isVisible);
-			if (isVisible) {
-				visibleLayers.push(layer);
-			}
+			// uncomment to change epci style or complet same to override some layers styles
+			// if (layer.get("name") === "epci") {
+			// 	layer.setStyle(navigationType === "globale" ? styleEpciGlobal : styleEpci);
+			// }
 		})
 		
 		// save new SRS
