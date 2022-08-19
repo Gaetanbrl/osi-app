@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import rootReducer from './reducers/rootReducer';
 import App from './App';
 
-import registerServiceWorker from './registerServiceWorker';
+import {unregister} from './registerServiceWorker';
 import './index.css';
 import './stylesheets/app.scss';
 
@@ -49,4 +49,4 @@ if (module.hot) {
   });
 }
 
-registerServiceWorker();
+unregister();
