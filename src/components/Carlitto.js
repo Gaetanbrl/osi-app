@@ -309,7 +309,6 @@ class Carlitto extends Component {
 		let selSource = getLayerByName(this.carMap, "selectedLayer").getSource();
 
 		let cqlFilter = null
-		clearSource(commSource);
 		clearSource(selSource);
 
 		if (prevProps.setRef !== setRef) {
@@ -336,11 +335,14 @@ class Carlitto extends Component {
 				CQL_FILTER: cqlFilter,
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
+			clearSource(commSource);
 			this.commGeom = new Feature({
 				geometry: territoire.geom,
 				name: 'commName'
 			})
-			commSource.addFeature(this.commGeom);
+			if (navigationType === "commune") {
+				commSource.addFeature(this.commGeom);	
+			}
 		}
 
 		if (this.clickedFeature) {
