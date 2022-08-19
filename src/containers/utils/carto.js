@@ -82,6 +82,7 @@ export const getLayersFromConfig = (layers) => {
                 navigation: infos.navigation,
                 compo: infos.compo,
                 clickable: infos.clickable,
+                opacity: infos.opacity
             })
         }
         if (infos.type === "ImageWMS") {
@@ -95,7 +96,9 @@ export const getLayersFromConfig = (layers) => {
                 navigation: infos.navigation,
                 compo: infos.compo,
                 clickable: infos.clickable,
-                visible: infos.visible
+                visible: infos.visible,
+                with: infos.with,
+                selectable: infos.selectable
             })
         }
         return new Tile({
@@ -107,7 +110,9 @@ export const getLayersFromConfig = (layers) => {
             source: source,
             compo: infos.compo,
             clickable: infos.clickable,
-            navigation: infos.navigation
+            navigation: infos.navigation,
+            with: infos.with,
+            selectable: infos.selectable
         })
     }).filter(el => !isEmpty(el))
 }

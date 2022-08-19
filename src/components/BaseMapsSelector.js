@@ -5,6 +5,8 @@ import { faLayerGroup } from "@fortawesome/free-solid-svg-icons"
 import { set, uniqueId } from "lodash"
 import { getFirstVisibleLayer } from "../containers/utils/basemaps"
 
+import { getLayerByName } from "../containers/utils/carto";
+
 const customFontIconStyle = {
     position: "absolute",
     transform: "translate(-50%, -50%)",
@@ -39,11 +41,22 @@ export default function BaseMapsSelector({ map, layers, show, updateShow = () =>
     useEffect(() => {
         if (!selected) return
         let newOpacity = 0;
+        const withLayer = [];
         layers.forEach((layer) => {
             layer.setVisible(false)
             if (layer.get("name") === selected) {
                 layer.setVisible(true);
+                if (layer.getProperties().with) {
+                    withLayer.push(layer.get("with"));
+                }
                 newOpacity = layer.getOpacity();
+            }
+        })
+        withLayer.forEach(layerToSee => {
+            const lyr = getLayerByName(map, layerToSee);
+            if (lyr) {
+                lyr.setVisible(true);
+                lyr.setOpacity(newOpacity);   
             }
         })
         setOpacity(newOpacity*100);
@@ -70,7 +83,7 @@ export default function BaseMapsSelector({ map, layers, show, updateShow = () =>
                         <Form.Range value={ opacity } onChange={updateOpacity} />
                     </Col>
                     <Col className="basemapItems">
-                        {layers.map((layer) => (
+                        {layers.filter(lyr => lyr.getProperties().selectable).map((layer) => (
                             <Card
                                 key={uniqueId()}
                                 onClick={() =>

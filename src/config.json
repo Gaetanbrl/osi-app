@@ -3,6 +3,18 @@
         "type": "XYZ",
         "opacity": 1,
         "name": "base",
+        "with": "baseTopology",
+        "selectable": true,
+        "url": "https://s.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png",
+        "attributions": "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, &copy; <a href='https://carto.com/attribution'>CARTO</a>",
+        "preview": "baselayers/positron.png"
+
+    }, {
+        "type": "XYZ",
+        "opacity": 1,
+        "selectable": false,
+        "with": "base",
+        "name": "baseTopology",
         "url": "https://s.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png",
         "attributions": "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, &copy; <a href='https://carto.com/attribution'>CARTO</a>",
         "preview": "baselayers/positron.png"
@@ -20,12 +32,14 @@
         "name": "SCAN25",
         "title": "scan25",
         "opacity": 1,
+        "selectable": true,
         "preview": "baselayers/scan25.png"
     }, {
         "type": "TileWMS",
         "url": "https://wxs.ign.fr/orthohisto/geoportail/r/wms",
         "attributions": "&lt;a href='https://geoservices.ign.fr/services-web-experts-orthohisto' target='_blank' >IGN - Geoportail Orthohisto&lt;/a>",
         "title": "Ortho imagerie",
+        "selectable": true,
         "params": {
             "layers": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
             "version": "1.1.1",
@@ -37,6 +51,7 @@
         "preview": "baselayers/ortho_histo.png"
     }, {
         "type": "TileWMS",
+        "selectable": true,
         "url": "https://wxs.ign.fr/ortho/geoportail/r/wms",
         "attributions": "&lt;a href='https://geoservices.ign.fr/services-web-experts-ortho' target='_blank' >IGN - Géoportail Ortho&lt;/a>",
         "params": {
@@ -231,7 +246,7 @@
     }, {
         "title": "carLayer",
         "type": "ImageWMS",
-        "opacity": 0.8,
+        "opacity": 0.4,
         "url": "https://portail.indigeo.fr/geoserver/LETG-BREST/wms",
         "compo": "",
         "navigation": ["epci", "commune"],
