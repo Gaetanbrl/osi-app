@@ -1,5 +1,6 @@
 {
-    "baselayers": [{
+    "baselayers": [
+    {
         "type": "XYZ",
         "opacity": 1,
         "name": "base",
@@ -68,6 +69,7 @@
     "navigation": [{
         "title": "baseepci",
         "url": "/epci3857.json",
+        "opacity": 1,
         "isLocal": true,
         "compo": "",
         "navigation": ["epci", "commune", "globale"],
@@ -76,7 +78,7 @@
         "style": "styleBaseEpci",
         "minResolution": "min",
         "maxResolution": "maxComm",
-        "zindex": 0
+        "zindex": 22
     }, {
         "title": "epci",
         "url": "/epci3857.json",
@@ -84,27 +86,18 @@
         "compo": "",
         "navigation": ["epci", "commune", "globale"],
         "visible": false,
+        "opacity": 1,
         "type": "Vector",
         "style": "styleEpci",
         "minResolution": "maxComm",
         "maxResolution": "max",
-        "zindex": 1
-    }, {
-        "title": "commLayer",
-        "url": "",
-        "isLocal": false,
-        "compo": "",
-        "navigation": ["epci", "commune"],
-        "visible": true,
-        "type": "Vector",
-        "style": "styleCommLayer",
-        "minResolution": "min",
-        "maxResolution": "minComm"
+        "zindex": 23
     }, {
         "compo": "",
         "isLocal": true,
         "title": "communes",
         "url": "/comm3857.json",
+        "opacity": 1,
         "style": "styleEpciComm",
         "minResolution": "minComm",
         "maxResolution": "maxComm",
@@ -117,23 +110,61 @@
         "isLocal": true,
         "title": "selectedLayer",
         "url": "",
+        "opacity": 1,
         "style": "styleSelectLayer",
         "navigation": ["epci", "commune"],
         "visible": true,
         "type": "Vector",
-        "zIndex": 20
+        "zindex": 12
     }, {
         "compo": "",
         "isLocal": true,
         "title": "commIsSelected",
+        "opacity": 1,
+        "zIndex": 13,
         "url": "/comm3857.json",
         "style": "styleSelectedComm",
         "navigation": ["epci", "commune", "globale"],
         "visible": true,
         "type": "Vector",
-        "zIndex": 10,
         "minResolution": "min",
         "maxResolution": "minComm"
+    }, {
+        "title": "carLayer",
+        "type": "ImageWMS",
+        "url": "https://portail.indigeo.fr/geoserver/LETG-BREST/wms",
+        "compo": "",
+        "navigation": ["epci", "commune"],
+        "visible": false,
+        "clickable": true,
+        "serverType": "geoserver",
+        "minResolution": "min",
+        "maxResolution": "minComm",
+        "opacity": 0.8,
+        "zIndex": 20,
+        "crossOrigin": "anonymous",
+        "params": {
+            "FORMAT": "image/gif",
+            "LAYERS": "osi_all_date",
+            "CRS": "EPSG:3857",
+            "VERSION": "1.3.0",
+            "STYLE": "default",
+            "TRANSPARENT": true,
+            "FORMAT_OPTIONS": "dpi%3A113"
+        }
+    }, {
+        "title": "commLayer",
+        "url": "",
+        "isLocal": false,
+        "compo": "",
+        "navigation": ["epci", "commune"],
+        "opacity": 1,
+        "visible": true,
+        "type": "Vector",
+        "style": "styleCommLayer",
+        "minResolution": "min",
+        "maxResolution": "minComm",
+        "zindex": 21
     }, {
         "title": "surface_occ_agricole_e205_200",
         "type": "TileWMS",
@@ -141,7 +172,7 @@
         "compo": "E205",
         "navigation": ["globale"],
         "clickable": true,
-        "opacity": 1,
+        "opacity": 0.8,
         "maxResolution": 15,
         "visible": false,
         "transparent":"true",
@@ -163,7 +194,7 @@
         "minResolution": 15,
         "maxResolution": 35,
         "transparent":"true",
-        "opacity": 1,
+        "opacity": 0.8,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -182,7 +213,7 @@
         "visible": false,
         "clickable": true,
         "minResolution": 35,
-        "opacity": 1,
+        "opacity": 0.8,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -201,7 +232,7 @@
         "clickable": true,
         "maxResolution": 15,
         "visible": true,
-        "opacity": 1,
+        "opacity": 0.8,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -221,7 +252,7 @@
         "visible": true,
         "minResolution": 15,
         "maxResolution": 35,
-        "opacity": 1,
+        "opacity": 0.8,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -239,7 +270,7 @@
         "compo": "A101",
         "navigation": ["globale"],
         "visible": true,
-        "opacity": 1,
+        "opacity": 0.8,
         "minResolution": 35,
         "params": {
             "transparent":"true",
@@ -248,25 +279,6 @@
             "layers": "a101_800",
             "srs": "EPSG:3857",
             "version": "1.3.0"
-        }
-    }, {
-        "title": "carLayer",
-        "type": "ImageWMS",
-        "opacity": 0.8,
-        "url": "https://portail.indigeo.fr/geoserver/LETG-BREST/wms",
-        "compo": "",
-        "navigation": ["epci", "commune"],
-        "visible": false,
-        "zIndex": 20,
-        "clickable": true,
-        "params": {
-            "serverType": "geoserver",
-            "crossOrigin": "anonymous",
-            "format": "image/gif",
-            "layers": "osi_all_date",
-            "srs": "EPSG:3857",
-            "version": "1.3.0",
-            "STYLE": "default"
         }
     }],
     "zoomSizes": {

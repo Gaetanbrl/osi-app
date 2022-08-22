@@ -212,7 +212,8 @@ class Carlitto extends Component {
 		let view = new View({
 			...defaultViewProps,
 			projection: 'EPSG:3857',
-			resolution: zoomSizes.default
+			resolution: zoomSizes.default,
+			constrainResolution: true
 		});
 
 		this.carMap = new Map({
@@ -289,7 +290,7 @@ class Carlitto extends Component {
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
-			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && propsLayer.navigation.includes(navigationType);
+			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
 			layer.setVisible(isVisible);
 			// uncomment to change epci style or complet same to override some layers styles
 			// if (layer.get("name") === "epci") {
@@ -340,9 +341,12 @@ class Carlitto extends Component {
 				geometry: territoire.geom,
 				name: 'commName'
 			})
+
 			if (navigationType === "commune") {
-				commSource.addFeature(this.commGeom);	
+				commSource.addFeature(this.commGeom);
 			}
+		} else if (!territoire?.geom) {
+			carLayer.setVisible(false);
 		}
 
 		if (this.clickedFeature) {
@@ -360,7 +364,6 @@ class Carlitto extends Component {
 			// duration not work everytime
 			this.carMap.getView().fit(territoire.geom)
 		}
-
 		if (infos) {
 			// create polygon too zoom to extent click infos
 			addFeatureFromInfos(infos, selSource);
