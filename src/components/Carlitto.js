@@ -290,7 +290,7 @@ class Carlitto extends Component {
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
-			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && propsLayer.navigation.includes(navigationType);
+			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
 			layer.setVisible(isVisible);
 			// uncomment to change epci style or complet same to override some layers styles
 			// if (layer.get("name") === "epci") {
@@ -330,10 +330,6 @@ class Carlitto extends Component {
 			minResolution: zoomSizes.min
 		};
 
-		carLayer.getSource().updateParams({
-			STYLES: setRef.toLowerCase()
-		})
-
 		if (needChange && ["commune", "epci"].includes(navigationType) && territoire?.geom) {
 			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
@@ -341,6 +337,16 @@ class Carlitto extends Component {
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
 			clearSource(commSource);
+			this.commGeom = new Feature({
+				geometry: territoire.geom,
+				name: 'commName'
+			})
+
+			if (navigationType === "commune") {
+				commSource.addFeature(this.commGeom);
+			}
+		} else if (!territoire?.geom) {
+			carLayer.setVisible(false);
 		}
 
 		if (this.clickedFeature) {
@@ -358,7 +364,6 @@ class Carlitto extends Component {
 			// duration not work everytime
 			this.carMap.getView().fit(territoire.geom)
 		}
-
 		if (infos) {
 			// create polygon too zoom to extent click infos
 			addFeatureFromInfos(infos, selSource);

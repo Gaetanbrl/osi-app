@@ -104,7 +104,7 @@ export const getLayersFromConfig = (layers) => {
         }
         return new Tile({
             name: infos.title || infos.name,
-            opacity: 0.5,
+            opacity: infos.opacity,
             visible: infos.visible || false,
             minResolution: zoomSizes[infos.minResolution] || infos.minResolution,
             maxResolution: zoomSizes[infos.maxResolution] || infos.maxResolution,

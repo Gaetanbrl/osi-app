@@ -3,7 +3,7 @@ import { Fill, Stroke, Style } from "ol/style";
 export const styleBaseEpci = new Style({
 	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
-		width: 2
+		width: 1
 	}),
 	fill: new Fill({
 		color: [100, 100, 100, 0.1]
@@ -64,21 +64,21 @@ export const styleCommLayer = new Style({
 		width: 2.5
 	}),
 	fill: new Fill({
-		color: [255, 255, 255, .5]
+		color: [255, 255, 255, 0]
 	}),
 });
 
 export const styleSelectLayer = new Style({
 	stroke: new Stroke({
 		color: [255, 255, 255, 1],
-		width: 2.5
+		width: 2
 	})
 });
 
 export const styleEpciGlobal = new Style({
 	stroke: new Stroke({
 		color: [50, 50, 50, 0.8],
-		width: 2
+		width: 1
 	})
 })
 
