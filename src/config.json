@@ -141,6 +141,7 @@
         "compo": "E205",
         "navigation": ["globale"],
         "clickable": true,
+        "opacity": 1,
         "maxResolution": 15,
         "visible": false,
         "transparent":"true",
@@ -162,6 +163,7 @@
         "minResolution": 15,
         "maxResolution": 35,
         "transparent":"true",
+        "opacity": 1,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -180,6 +182,7 @@
         "visible": false,
         "clickable": true,
         "minResolution": 35,
+        "opacity": 1,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -198,6 +201,7 @@
         "clickable": true,
         "maxResolution": 15,
         "visible": true,
+        "opacity": 1,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -217,6 +221,7 @@
         "visible": true,
         "minResolution": 15,
         "maxResolution": 35,
+        "opacity": 1,
         "navigation": ["globale"],
         "params": {
             "transparent":"true",
@@ -234,6 +239,7 @@
         "compo": "A101",
         "navigation": ["globale"],
         "visible": true,
+        "opacity": 1,
         "minResolution": 35,
         "params": {
             "transparent":"true",
@@ -246,7 +252,7 @@
     }, {
         "title": "carLayer",
         "type": "ImageWMS",
-        "opacity": 0.4,
+        "opacity": 0.8,
         "url": "https://portail.indigeo.fr/geoserver/LETG-BREST/wms",
         "compo": "",
         "navigation": ["epci", "commune"],
