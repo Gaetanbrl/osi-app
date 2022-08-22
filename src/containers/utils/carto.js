@@ -79,6 +79,7 @@ export const getLayersFromConfig = (layers) => {
                 maxResolution: zoomSizes[infos.maxResolution],
                 zIndex: infos.zIndex,
                 visible: infos.visible,
+                opacity: infos.opacity,
                 navigation: infos.navigation,
                 compo: infos.compo,
                 clickable: infos.clickable,
@@ -103,7 +104,7 @@ export const getLayersFromConfig = (layers) => {
         }
         return new Tile({
             name: infos.title || infos.name,
-            opacity: infos.opacity,
+            opacity: 0.5,
             visible: infos.visible || false,
             minResolution: zoomSizes[infos.minResolution] || infos.minResolution,
             maxResolution: zoomSizes[infos.maxResolution] || infos.maxResolution,
@@ -121,7 +122,7 @@ export const getAllRealVisibleLayers = (map) => {
     const mapRes = map.getView().getResolution();
     return map.getLayers().getArray().filter(l =>
         l.getVisible()
-        && l.getMinResolution() < mapRes
+        && l.getMinResolution() <= mapRes
         && l.getMaxResolution() > mapRes
     );
 }

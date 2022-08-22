@@ -212,7 +212,8 @@ class Carlitto extends Component {
 		let view = new View({
 			...defaultViewProps,
 			projection: 'EPSG:3857',
-			resolution: zoomSizes.default
+			resolution: zoomSizes.default,
+			constrainResolution: true
 		});
 
 		this.carMap = new Map({
@@ -329,6 +330,10 @@ class Carlitto extends Component {
 			minResolution: zoomSizes.min
 		};
 
+		carLayer.getSource().updateParams({
+			STYLES: setRef.toLowerCase()
+		})
+
 		if (needChange && ["commune", "epci"].includes(navigationType) && territoire?.geom) {
 			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
 			carLayer.getSource().updateParams({
@@ -336,13 +341,6 @@ class Carlitto extends Component {
 				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
 			})
 			clearSource(commSource);
-			this.commGeom = new Feature({
-				geometry: territoire.geom,
-				name: 'commName'
-			})
-			if (navigationType === "commune") {
-				commSource.addFeature(this.commGeom);	
-			}
 		}
 
 		if (this.clickedFeature) {
