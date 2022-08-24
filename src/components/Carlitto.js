@@ -25,6 +25,8 @@ import BaseMapsSelector from "../components/BaseMapsSelector";
 
 import meta_com from '../data/meta_com.json';
 
+import InfosBox from "./InfosBox";
+
 import { getBaseLayers } from "../containers/utils/basemaps";
 
 import config from "../config";
@@ -427,6 +429,7 @@ class Carlitto extends Component {
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
+				<InfosBox isVisible={this.state.showBaseMapSelector} tpl={config.templates?.infos} />
 				<BaseMapsSelector
 					map={this.carMap}
 					layers={BASE_LAYERS}
