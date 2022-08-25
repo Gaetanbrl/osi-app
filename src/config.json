@@ -292,6 +292,6 @@
     "maddogUrl": "https://gis.jdev.fr/mviewer/?config=apps/maddog.xml",
     "templates": {
         "infos": "templates/infos.mst",
-        "useTemplateOnly": true
+        "useTemplateOnly": false
     }
 }

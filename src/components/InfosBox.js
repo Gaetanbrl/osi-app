@@ -5,7 +5,7 @@ import config from "../config.json";
 import Feature from '../containers/Feature';
 
 
-// const useTemplateOnly = config.templates?.useTemplateOnly;
+const useTemplateOnly = config.templates?.useTemplateOnly;
 
 /**
  * 
@@ -45,7 +45,6 @@ const InfosBox = (
                 allowedTags: false,
                 allowedAttributes: false
             });
-            var extractscript = /<script>(.+)<\/script>/gi.exec(dirtyRender);
             setContent(cleanRender);
         }
     }, [infos]);
@@ -74,7 +73,7 @@ const InfosBox = (
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="infosCanvas" aria-label="Close" onClick={handleClose}></button>
                 </div>
                 <div className="offcanvas-body small">
-                    {!isEmpty(infos) && 
+                    {!isEmpty(infos) && !useTemplateOnly && 
                         <div class="infos-body row">
                             <span className="col-3 row" dangerouslySetInnerHTML={{ __html: content }}></span>
                             <span className="col-6">
@@ -83,9 +82,9 @@ const InfosBox = (
                             </span> 
                         </div>
                     }
-                    {/* {!isEmpty(infos) && useTemplateOnly && 
+                    {!isEmpty(infos) && useTemplateOnly && 
                         <span className="row" dangerouslySetInnerHTML={{ __html: content }}></span>
-                    } */}
+                    }
                     { isEmpty(infos) && 
                         <p>Aucune information à afficher.</p>
                     }
