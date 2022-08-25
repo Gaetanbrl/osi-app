@@ -27,9 +27,9 @@ const MetaBox = ({ setRef, refIndic, territoire }) => {
 						refIndic = {refIndic}
 						setRef = {setRef}
 						territoire = {territoire}/>
-					<DataBox
+					{/* <DataBox
 						setRef = {setRef}
-						territoire = {territoire}/>
+						territoire = {territoire}/> */}
 					{/* <Feature /> */}
 				</div>
 			)
