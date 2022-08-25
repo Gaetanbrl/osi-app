@@ -389,7 +389,7 @@ class Carlitto extends Component {
 		 * TODO: DON't DISPLAY THIS MAP CAPTION WITH GLOBAL VIEW
 		 * OR DISPLAY VISIBLE LAYERS LEGEND
 		 */
-		let { setRef, navigationType, onSetLegendUrl, infos } = this.props;
+		let { setRef, navigationType, onSetLegendUrl, infos, onCarClick, url } = this.props;
 
 		let leg = "";
 		
@@ -425,12 +425,23 @@ class Carlitto extends Component {
 
 		onSetLegendUrl(leg);
 
+		const closeInfoPanel = () => {
+			this.clickedFeature = null;
+			onCarClick("");
+		}
+
 		return (
 			<div className="map-wrapper">
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
-				<InfosBox onLoad={this.props.onLoad} url={this.props.url} isVisible={!isEmpty(infos)} tpl={config.templates?.infos} infos={infos} />
+				<InfosBox
+					onLoad={this.props.onLoad}
+					onClose={closeInfoPanel}
+					url={url}
+					isVisible={!isEmpty(infos)}
+					tpl={config.templates?.infos}
+					infos={infos} />
 				<BaseMapsSelector
 					map={this.carMap}
 					layers={BASE_LAYERS}

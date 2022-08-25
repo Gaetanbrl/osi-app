@@ -19,9 +19,11 @@ const InfosBox = (
         infos = {},
         tpl = config.templates?.infos,
         url = "",
-        onLoad = () => {}
+        onLoad = () => { },
+        onClose = () => { }
     }
 ) => {
+
     let Mustache = require('mustache');
     let sanitizeHtml = require('sanitize-html');
     const [show, setShow] = useState(false);
@@ -30,6 +32,7 @@ const InfosBox = (
     const [template, setTemplate] = useState("");
     const handleClose = () => {
         setShow(false);
+        onClose();
     };
 
     // effect on visible change
@@ -64,7 +67,9 @@ const InfosBox = (
 		if (url) {
 			onLoad(url);
 		}
-	}, [url]);
+    }, [url]);
+    
+    if (!url) return null;
     return (
         <div className="offcanvas-parent flex-fill" id="offCanvas-parent">
             <div id="infosCanvas" style={{ position: "absolute" }} data-bs-backdrop="false" className={`offcanvas offcanvas-bottom ${show ? 'show' : ''} bg-primary text-white p-3`}>
@@ -74,7 +79,7 @@ const InfosBox = (
                 </div>
                 <div className="offcanvas-body small">
                     {!isEmpty(infos) && !useTemplateOnly && 
-                        <div class="infos-body row">
+                        <div className="infos-body row">
                             <span className="col-3 row" dangerouslySetInnerHTML={{ __html: content }}></span>
                             <span className="col-6">
                                 <p>Valeurs de la maille sélectionnée :</p>
