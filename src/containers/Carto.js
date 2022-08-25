@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Carlitto from '../components/Carlitto'
-import { setEpci, setCar, setComm, setLegendUrl, setNavigationView } from '../actions'
+import { setEpci, setCar, setComm, setLegendUrl, setNavigationView, fetchInfo } from '../actions'
 
 const mapStateToProps = state => ({
 	territoire: state.setTerritoire.comm,
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 	navigationView: state.setTerritoire.navigationView,
 	legendUrl: state.setTerritoire.legendUrl,
 	setRef: state.setRef.ref,
-	infos: state.infoReducer.infos
+	infos: state.infoReducer.infos,
+	url: state.setCar.url
 })
 
 const mapDispatchToProps = dispatch => {
@@ -29,6 +30,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		onSetNavigationView: navigationView => {
 			dispatch(setNavigationView(navigationView))
+		},
+		onLoad: url => {
+			dispatch(fetchInfo(url))
 		}
 	}
 }

@@ -143,11 +143,12 @@ class Carlitto extends Component {
 		clickedLayer = isClickable.filter(x => isResolutionVisible.includes(x.getProperties().name))[0];
 		if (!clickedLayer) return;
 		// will calcul GetFeatureInfo URL usefull to get info by map pixel clicked
+		const clickedParams = clickedLayer.getSource().getParams();
 		this.clickedLayerUrl = clickedLayer.getSource().getFeatureInfoUrl(
 			event.coordinate, viewResolution, 'EPSG:3857',
 			{
 				'INFO_FORMAT': 'application/json',
-				'QUERY_LAYERS': clickedLayer.getSource().getParams().layers
+				'QUERY_LAYERS': clickedParams.layers || clickedParams.LAYERS
 			},
 		);
 		if (this.clickedLayerUrl) {
@@ -388,7 +389,7 @@ class Carlitto extends Component {
 		 * TODO: DON't DISPLAY THIS MAP CAPTION WITH GLOBAL VIEW
 		 * OR DISPLAY VISIBLE LAYERS LEGEND
 		 */
-		let { setRef, navigationType, onSetLegendUrl } = this.props;
+		let { setRef, navigationType, onSetLegendUrl, infos } = this.props;
 
 		let leg = "";
 		
@@ -429,7 +430,7 @@ class Carlitto extends Component {
 				<div className="map" ref={this.olMap} id="map">
 					<div className="olTool" ref="olTool"></div>
 				</div>
-				<InfosBox isVisible={this.state.showBaseMapSelector} tpl={config.templates?.infos} />
+				<InfosBox onLoad={this.props.onLoad} url={this.props.url} isVisible={!isEmpty(infos)} tpl={config.templates?.infos} infos={infos} />
 				<BaseMapsSelector
 					map={this.carMap}
 					layers={BASE_LAYERS}

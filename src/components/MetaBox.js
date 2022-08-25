@@ -17,7 +17,7 @@ const MetaBox = ({ setRef, refIndic, territoire }) => {
 					refIndic = {refIndic}
 					setRef = {setRef}
 					territoire = {territoire}/>
-					<Feature />
+					{/* <Feature /> */}
 				</div>
 			)
 		} else {
@@ -30,7 +30,7 @@ const MetaBox = ({ setRef, refIndic, territoire }) => {
 					<DataBox
 						setRef = {setRef}
 						territoire = {territoire}/>
-					<Feature />
+					{/* <Feature /> */}
 				</div>
 			)
 		}

@@ -73,12 +73,13 @@ export default function FeatureBox({
 		},
 		autosize: true,
 		responsive: true,
-		showlegend: false,
+		showlegend: true,
 		margin: {
-			l: "auto",
-			r: 20,
-			b: 20,
-			t: 0
+			l: 200,
+			r: 50,
+			b: 100,
+			t: 20,
+			pad:5
 		}
 	}
 

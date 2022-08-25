@@ -1,0 +1,23 @@
+#infosCanvas{
+    .offcanvas-header {
+        padding: 5px;
+    }
+    &.offcanvas {
+        background-color: white !important;
+    }
+    .offcanvas-body {
+        overflow: hidden;
+    }
+    .offcanvas-body, .offcanvas-header {
+        color: black;
+    }
+    .infos-body {
+        label {
+            color: grey;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        font-size: 16px;
+    }
+}

@@ -1,2 +1,25 @@
-bonjour !
-<button class="my-cool-button">Hello World!</button>
+
+<div class="col-7">
+    <label>Commune</label>
+    <p>
+        {{nom_com}}
+    </p>
+    <label class="">Intercommunalité (EPCI)</label>
+    <p>
+        {{nom_epci}}
+    </p>
+    <label class="">Auteur(s)</label>
+    <p>
+        UBO
+    </p>
+</div>
+<div class="col-5">
+    <label class="">Source(s)</label>
+    <p>
+        CEREMA
+    </p>
+    <label class="">Données mise à jour en </label>
+    <p>
+        2018
+    </p>
+</div>
