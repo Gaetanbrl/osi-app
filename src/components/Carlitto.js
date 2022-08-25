@@ -315,7 +315,7 @@ class Carlitto extends Component {
 		let cqlFilter = null
 		clearSource(selSource);
 
-		if (prevProps.setRef !== setRef) {
+		if (setRef) {
 			carLayer.getSource().updateParams({
 				STYLES: setRef.toLowerCase()
 			})
