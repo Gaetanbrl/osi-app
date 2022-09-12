@@ -69,7 +69,8 @@ export default function FeatureBox({
 			zeroline: true,
 			showline: false,
 			showticklabels: true,
-			showgrid: true
+			showgrid: true,
+			dtick: 1
 		},
 		autosize: true,
 		responsive: true,
