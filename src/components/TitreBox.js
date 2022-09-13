@@ -56,17 +56,7 @@ const TitreBox = ({ isSidebar, setRef, territoire, onShowEPCIClick, onChangeNavi
     <div id="sidebar-title">
       <div>{name}</div>
       <div>
-        <ButtonGroup className="nav-btn-group" aria-label="">
-          {navigations.map((mode) => (
-            <Button
-              key={uniqueId() + "-" + mode}
-              variant="primary"
-              className={navigation === mode.label ? "active" : ""}
-              onClick={mode.click}>
-              {mode.label.toLowerCase()}
-            </Button>
-          ))}
-        </ButtonGroup>
+        {/* Insertt temporal switch HERE */}
       </div>
     </div>
   )
