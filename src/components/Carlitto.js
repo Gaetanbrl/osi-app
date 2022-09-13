@@ -330,6 +330,7 @@ class Carlitto extends Component {
 		const viewProps = {
 			...defaultViewProps,
 			...this.carMap.getView().getProperties(),
+			// min scrollable value (0 - n)
 			minResolution: zoomSizes.min
 		};
 
