@@ -40,9 +40,8 @@ const InfosBox = (
         if (!isEmpty(infos) && !isEqual(infos, view)) {
             setView(infos);
             setShow(!isEmpty(infos));
-
-
-            const dirtyRender = Mustache.render(template, infos);
+            const tplInfos = {...infos, date_data: new Date(infos.date_data).toLocaleDateString()}
+            const dirtyRender = Mustache.render(template, tplInfos);
             const cleanRender = sanitizeHtml(dirtyRender, {
                 // to custom sanitize-html config, see https://www.npmjs.com/package/sanitize-html
                 allowedTags: false,
@@ -80,8 +79,8 @@ const InfosBox = (
                 <div className="offcanvas-body small">
                     {!isEmpty(infos) && !useTemplateOnly && 
                         <div className="infos-body row">
-                            <span className="col-3 row" dangerouslySetInnerHTML={{ __html: content }}></span>
-                            <span className="col-6">
+                            <span className="col-4 row" dangerouslySetInnerHTML={{ __html: content }}></span>
+                            <span className="col-5">
                                 <p>Valeurs de la maille sélectionnée :</p>
                                 <Feature />
                             </span> 

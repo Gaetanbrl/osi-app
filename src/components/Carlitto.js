@@ -163,30 +163,12 @@ class Carlitto extends Component {
 	}
 
 	clickHandler(event) {
-		const { onEpciClick, onCommClick, navigationType, territoire } = this.props;
+		const { navigationType } = this.props;
 		this.setState({showBaseMapSelector: false});
 		const viewResolution = this.carMap.getView().getResolution();
 		if ( navigationType === "globale" || viewResolution < zoomSizes.minComm) {
 			this.updateClick(event)
 		}
-
-		// get vector layer only with forEachFeatureAtPixel
-		this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-			let nom = feature.get('nom')
-			let insee = feature.get('insee')
-			let siren = feature.get('siren_epci')
-			let nomEpci = feature.get('nom_comple')
-			let geom = feature.getGeometry()
-
-			if ((viewResolution < zoomSizes.maxComm && !insee) || (territoire && territoire.insee === insee)) {
-				return;
-			}
-			let epci = {siren: siren, nom: nom}
-			let comm = {insee: insee, nom: nom, geom: geom, epci: { siren: siren, nom: nomEpci } }
-			insee ? onCommClick(comm) : onEpciClick(epci)
-
-			this.carMap.getView().fit(feature.getGeometry(), {constrainResolution: false, padding: [40, 40, 40, 40] })
-	  }, { hitTolerance: 1});
 	  document.body.style.cursor = 'pointer';
 	}
 

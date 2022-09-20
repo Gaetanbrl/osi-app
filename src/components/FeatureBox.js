@@ -19,9 +19,9 @@ export default function FeatureBox({
 	}, [url]);
 
 	// Composante Bar chart colors
-	// const col = {
-	// 	A: "#c9302c",
-	// 	E: "#ec971f",
+	// const refColor = {
+	// 	A: "#e03c3b",
+	// 	E: "#f7b733",
 	// 	G: "#449d44",
 	// 	R: "#31b0d5",
 	// 	I: "#dedede"
@@ -42,29 +42,21 @@ export default function FeatureBox({
 		return null;
 	}
 
-	// create chart
-	let series = Object.keys(infos)
-		.filter(key => composition.includes(key.toUpperCase()))
-		.map(k => ({
-			values: infos[k],
-			name: String(refIndic[k.toUpperCase()].nom)
-		}));
-	let data = series.map(s => ({
+	let data = [{
 		type: "bar",
 		orientation: 'h',
-		x: series.map(z => z.values),
-		y: series.map(z => z.name),
-		// Récupération de la couleur de la composante
-		// color: col[k.charAt(0).toUpperCase()],
+		x: [infos.data_discr],
+		y: [String(refIndic[infos.id_meta.toUpperCase()].nom)],
 		marker: {
 			color: "#999999"
+			// Récupération de la couleur de la composante
+			// color: refColor[infos.id_meta.toUpperCase()[0]]
 		}
-	}));
-
+	}];
 	let layout = {
 		title: '',
 		xaxis: {
-			range: [0, Math.max(...series.map(z => z.values)) + 2],
+			range: [0, 5],
 			domain: [0, 1],
 			zeroline: true,
 			showline: false,
@@ -76,9 +68,9 @@ export default function FeatureBox({
 		responsive: true,
 		showlegend: false,
 		margin: {
-			l: 200,
+			l: 100,
 			r: 50,
-			b: 100,
+			b: 120,
 			t: 20,
 			pad:5
 		}
