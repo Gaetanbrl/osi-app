@@ -292,8 +292,9 @@ class Carlitto extends Component {
 
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
+			console.log(setRef);
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
-			const isVisible = (!propsLayer.compo || propsLayer?.compo === setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
+			const isVisible = (!propsLayer.compo || propsLayer?.compo.toUpperCase() == setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
 			layer.setVisible(isVisible);
 			// uncomment to change epci style or complet same to override some layers styles
 			// if (layer.get("name") === "epci") {
