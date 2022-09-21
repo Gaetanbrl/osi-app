@@ -1322,7 +1322,7 @@
         }
     }],
     "zoomSizes": {
-        "min": 7.48,
+        "min": 0,
         "minComm": 59,
         "maxComm": 200,
         "max": 480,
