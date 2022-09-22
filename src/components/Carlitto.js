@@ -303,7 +303,7 @@ class Carlitto extends Component {
 		
 		if (this.carMap && navigationType === "globale") {
 			const legendLayer = this.carMap.getLayers().getArray().
-				filter(layer => layer.getProperties().compo === setRef)
+				filter(layer => layer.getProperties().compo ? layer.getProperties().compo.toUpperCase() === setRef : false)
 			const layerSource = legendLayer[0]?.getSource();
 			/**
 			 * TODO : selectionner l'URL de la couche selon le niveau de vue (actuellement seul GS gère la visibilité, donc par défaut OL considère que les couches sont visibles)

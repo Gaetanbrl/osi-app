@@ -9,11 +9,9 @@ const maddogUrl = config.maddogUrl;
 class MethodeBox extends Component {
     render() {
 		let { setRef, refIndic, territoire } = this.props
-
-		const refAndTerritory = setRef && territoire.comm
-        const isITcompo = refAndTerritory && refIndic[setRef].composante === "IT"
+		const isITcompo = setRef && refIndic[setRef].composante === "IT"
 		let ref = refIndic[setRef]
-		if (refAndTerritory && refIndic[setRef].niveau > 1) {
+		if (setRef && refIndic[setRef].niveau > 1) {
 			return (
 				<MethodeBoxNiveau2
 					setRef={setRef}
@@ -21,7 +19,7 @@ class MethodeBox extends Component {
 					territoire={territoire}
 				/>
 			)
-		} else if (refAndTerritory && refIndic[setRef].composante) {
+		} else if (setRef && refIndic[setRef].composante) {
 			// code =
 			// 	ref.niveau === 3
 			// 		? ref.acronyme
