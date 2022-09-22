@@ -3,12 +3,10 @@ import React from 'react'
 import Feature from '../containers/Feature';
 
 import MethodeBox from './MethodeBox'
-import DataBox from './DataBox'
 
 
-const MetaBox = ({ setRef, refIndic, territoire }) => {
-	
-	if (refIndic[setRef] && territoire.legendUrl) {
+const MetaBox = ({ setRef, refIndic, territoire }) => {	
+	if (refIndic[setRef]) {
 		let ref = refIndic[setRef];
 		if (ref.niveau > 1 || ref.composante === "IT") {
 			return (
@@ -17,7 +15,6 @@ const MetaBox = ({ setRef, refIndic, territoire }) => {
 					refIndic = {refIndic}
 					setRef = {setRef}
 					territoire = {territoire}/>
-					{/* <Feature /> */}
 				</div>
 			)
 		} else {
@@ -27,10 +24,6 @@ const MetaBox = ({ setRef, refIndic, territoire }) => {
 						refIndic = {refIndic}
 						setRef = {setRef}
 						territoire = {territoire}/>
-					{/* <DataBox
-						setRef = {setRef}
-						territoire = {territoire}/> */}
-					{/* <Feature /> */}
 				</div>
 			)
 		}

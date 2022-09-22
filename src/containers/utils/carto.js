@@ -34,16 +34,6 @@ export const addFeatureFromInfos = (infos, src, map) => {
     });
     featureTest.setStyle(styleSelectLayer);
     src.addFeature(featureTest);
-
-
-    //// test
-    var writer = new GeoJSON();
-    var geoJsonStr = writer.writeFeatures([
-        new Feature(featureTest.getGeometry().clone())
-    ]);
-    console.log(geoJsonStr);
-
-    // map.getView().fit(src.getExtent())
 }
 
 export const getLayerByName = (map, name) => {
