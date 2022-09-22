@@ -37,7 +37,6 @@ export default class Compo extends Component{
 							(compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))
 						)
 							.map(compo => {
-								console.log(compo);
 								if (compo.id !== "I") {
 									return (
 										<div key = {compo.id} className={bsCol[compo.id]}>
