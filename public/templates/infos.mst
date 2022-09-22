@@ -1,25 +1,25 @@
 
 <div class="col-7">
     <label>Commune</label>
-    <p>
+    <p style="overflow-wrap: break-word;">
         {{nom_com}}
     </p>
     <label class="">Intercommunalité (EPCI)</label>
-    <p>
+    <p style="overflow-wrap: break-word;">
         {{nom_epci}}
     </p>
     <label class="">Auteur(s)</label>
-    <p>
-        UBO
+    <p style="overflow-wrap: break-word;">
+        {{auteur_data}}
     </p>
 </div>
-<div class="col-5">
+<div class="col-5" style="overflow-wrap: break-word;">
     <label class="">Source(s)</label>
-    <p>
-        CEREMA
+    <p style="overflow-wrap: break-word;">
+        {{source_data}}
     </p>
     <label class="">Données mise à jour en </label>
-    <p>
-        2018
+    <p style="overflow-wrap: break-word;">
+        {{date_data}}
     </p>
 </div>

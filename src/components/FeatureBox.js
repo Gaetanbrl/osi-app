@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { ListGroupItem } from "react-bootstrap";
-import Plot from 'react-plotly.js';;
+import Plot from 'react-plotly.js';
+import { isEmpty } from "lodash";
 
 export default function FeatureBox({
 	error,
@@ -31,10 +32,12 @@ export default function FeatureBox({
 		return <div className="loader"></div>;
 	}
 
-	if (error || !infos || !setRef) {
+	if (error || isEmpty(infos) || !setRef) {
 		return null;
 		// <div>Error! {error.message}</div>;
 	}
+
+	const propFeature = infos.properties;
 
 	let composition = refIndic[setRef].composition || [refIndic[setRef].id];
 
@@ -45,12 +48,12 @@ export default function FeatureBox({
 	let data = [{
 		type: "bar",
 		orientation: 'h',
-		x: [infos.data_discr],
-		y: [String(refIndic[infos.id_meta.toUpperCase()].nom)],
+		x: [propFeature.data_discr],
+		y: [String(refIndic[propFeature.id_meta.toUpperCase()].nom)],
 		marker: {
 			color: "#999999"
 			// Récupération de la couleur de la composante
-			// color: refColor[infos.id_meta.toUpperCase()[0]]
+			// color: refColor[.toUpperCase()[0]]
 		}
 	}];
 	let layout = {

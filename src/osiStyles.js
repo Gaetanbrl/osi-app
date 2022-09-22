@@ -26,7 +26,7 @@ export const styleEpciComm = new Style({
 		width: 1
 	}),
 	fill: new Fill({
-		color: [70, 70, 70, 0.3]
+		color: [70, 70, 70, 0.0]
 	}),
 })
 
@@ -36,7 +36,7 @@ export const styleEpciCommHover = new Style({
 		width: 1
 	}),
 	fill: new Fill({
-		color: [2, 149, 167, 0.8]
+		color: [2, 149, 167, 0.0]
 	}),
 })
 
@@ -70,8 +70,8 @@ export const styleCommLayer = new Style({
 
 export const styleSelectLayer = new Style({
 	stroke: new Stroke({
-		color: [255, 255, 255, 1],
-		width: 2
+		color: "#673ab7",
+		width: 4
 	})
 });
 

@@ -3,9 +3,8 @@ import proj4 from "proj4";
 import { register } from "ol/proj/proj4";
 import { View, Map, Overlay, Feature } from "ol";
 import { fromLonLat, get as getProjection } from "ol/proj";
-import { pointerMove } from "ol/events/condition";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
-import { Select, defaults as defaultInteraction } from "ol/interaction";
+import { defaults as defaultInteraction } from "ol/interaction";
 
 import { keyBy, get, isEmpty } from 'lodash';
 
@@ -14,8 +13,7 @@ import 'rc-slider/assets/index.css';
 
 import {
 	getLayersFromConfig,
-	 clearSource,
-	 addFeatureFromInfos,
+	addFeatureFromInfos,
 	getCapabilitiesDimension,
 	getLayerByName,
 	getAllRealVisibleLayers
@@ -30,13 +28,6 @@ import InfosBox from "./InfosBox";
 import { getBaseLayers } from "../containers/utils/basemaps";
 
 import config from "../config";
-
-import {
-	styleBaseEpci,
-	styleEpciCommHover,
-	styleEpciGlobal,
-	styleEpci
-} from "../osiStyles";
 
 const BASE_LAYERS = getBaseLayers(config.baselayers);
 const NAVIGATION_LAYERS = getLayersFromConfig(
@@ -103,10 +94,6 @@ class Carlitto extends Component {
 		let displayOverlay = false;
 		let overlayText = null;
 		const feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-			if (this.carMap.getView().getResolution() < zoomSizes.minComm) {
-				return feature;
-			}
-
 			displayOverlay = true;
 			const nom = feature.get('nom');
 			const code = feature.get('insee');
@@ -129,14 +116,13 @@ class Carlitto extends Component {
 		} else {
 			this.overlay.getElement().style.display = 'none';
 		}
-		document.body.style.cursor = feature ? 'pointer' : '';
 	}
 
 	updateClick(event) {
 		const viewResolution = this.carMap.getView().getResolution();
 		let clickedLayer = null;
 		// will only return visible layer as layerFilter option
-		const visibleLayers = getAllRealVisibleLayers(this.carMap);
+		const visibleLayers = getAllRealVisibleLayers(this.carMap);	
 		const isResolutionVisible = visibleLayers.map(l => l.getProperties().name);
 		const isClickable = visibleLayers.filter(l => l.getProperties().clickable);
 		// will return only one layer because we can only display one layer by navigation mode
@@ -214,8 +200,6 @@ class Carlitto extends Component {
 			view: view
 		});
 
-		const comm = this.carMap.getLayers().getArray().filter(e => e.get("name") === "communes")[0]
-
 		this.carMap.on('precompose', function(evt) {
 			if(evt.context){
 				evt.context.globalCompositeOperation = 'multiply';
@@ -235,21 +219,6 @@ class Carlitto extends Component {
 			}
 		});
 
-		// Add hover style interaction
-		let epciHover = new Select({
-			condition: pointerMove,
-			style: styleEpciCommHover,
-			layers: [this.carMap.getLayers().getArray().filter(e => e.get("name") === "epci")[0]],
-		})
-		this.carMap.addInteraction(epciHover);
-
-		let commHover = new Select({
-			condition: pointerMove,
-			style:  styleEpciCommHover,
-			layers: [comm]
-		})
-
-		this.carMap.addInteraction(commHover);
 
 		// Add Local Name overlay
 		this.overlay = new Overlay({
@@ -265,105 +234,50 @@ class Carlitto extends Component {
 
 		this.setState({
 			carMap: this.carMap,
-			carLayer: getLayerByName(this.carMap, "carLayer")
 		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { territoire, epci, setRef, infos, error, navigationType, onSetNavigationView } = this.props
+		let { setRef, infos, navigationType, onSetNavigationView } = this.props;
+
+		const isOtherYear = prevState?.selectedYear !== this.state.selectedYear;
 
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
-			console.log(setRef);
 			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
 			const isVisible = (!propsLayer.compo || propsLayer?.compo.toUpperCase() == setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
 			layer.setVisible(isVisible);
-			// uncomment to change epci style or complet same to override some layers styles
-			// if (layer.get("name") === "epci") {
-			// 	layer.setStyle(navigationType === "globale" ? styleEpciGlobal : styleEpci);
-			// }
-		})
-		
-		// save new SRS
-		let projCode = 'EPSG:3035';
-		proj4.defs(projCode, '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-		register(proj4);
-		let epsg3035 = getProjection('EPSG:3035');
-		epsg3035.setExtent([1896628.62, 1507846.05, 4656644.57, 6827128.02]);
+		});
 
-		let carLayer = getLayerByName(this.carMap, "carLayer");
-		let commSource = getLayerByName(this.carMap, "commLayer").getSource();
-		let selSource = getLayerByName(this.carMap, "selectedLayer").getSource();
+		let selLayer = getLayerByName(this.carMap, "selectedLayer");
+		let selSource = selLayer.getSource();
+		selSource.clear();
 
-		let cqlFilter = null
-		clearSource(selSource);
-
-		if (setRef) {
-			carLayer.getSource().updateParams({
-				STYLES: setRef.toLowerCase()
-			})
-		}
-		const previousTerritoire = prevProps?.territoire;
-		const isOtherNavigation = prevProps?.navigationType !== navigationType;
-		const isOtherYear = prevState?.selectedYear !== this.state.selectedYear;
-		const isOtherTerritoire = previousTerritoire?.insee !== territoire?.insee || previousTerritoire?.insee !== territoire?.insee;
-
-		const needChange = !!territoire && (isOtherNavigation || isOtherYear || isOtherTerritoire);
-
-		const viewProps = {
+		this.carMap.setView(new View({
 			...defaultViewProps,
 			...this.carMap.getView().getProperties(),
 			// min scrollable value (0 - n)
-			minResolution: zoomSizes.min
-		};
-
-		if (needChange && ["commune", "epci"].includes(navigationType) && territoire?.geom) {
-			cqlFilter = navigationType === "epci" ? `id_epci=${epci.siren}` : `id_com=${territoire.insee}`;
-			carLayer.getSource().updateParams({
-				CQL_FILTER: cqlFilter,
-				TIME: `${this.state.selectedYear}-01-01T00:00:00.000Z`,
-			})
-			clearSource(commSource);
-			this.commGeom = new Feature({
-				geometry: territoire.geom,
-				name: 'commName'
-			})
-
-			if (navigationType === "commune") {
-				commSource.addFeature(this.commGeom);
-			}
-		} else if (!territoire?.geom) {
-			carLayer.setVisible(false);
-		}
+			minResolution: zoomSizes.minResView
+		}));
 
 		if (this.clickedFeature) {
 			// simulate new click from same previous coordinates clicked
 			// will display chart for any navigation mode at same coordinate
 			this.updateClick(this.clickedFeature);
 		}
-		this.carMap.setView(new View(viewProps));
-
-		if (
-			navigationType != "globale" && territoire?.geom
-			&&
-			( prevProps.navigationType != navigationType || needChange )
-		) {
-			// duration not work everytime
-			this.carMap.getView().fit(territoire.geom)
-		}
 		if (infos) {
 			// create polygon too zoom to extent click infos
-			addFeatureFromInfos(infos, selSource);
-		}
-
-		if (error || !infos) {
-			clearSource(selSource);
+			// TODO : remplace infos by clicked GFI feature
+			selLayer.setVisible(true);
+			addFeatureFromInfos(infos, selSource, this.carMap);
 		}
 
 		this.carMap && this.carMap.updateSize();
 
 		this.carMap.on("moveend", (v) => {
 			let view = v.map.getView();
+			console.log("resolution >>> " + view.getResolution().toString());
+			console.log("zoom >>> " + view.getZoom().toString());
 			onSetNavigationView(`x=${view.getCenter()[0]}&y=${view.getCenter()[1]}&z=${view.getZoom()}`);
 		})
 	 }

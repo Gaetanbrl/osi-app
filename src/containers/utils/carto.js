@@ -2,6 +2,12 @@ import { WKT } from "ol/format";
 
 import { XYZ, TileWMS, Vector as VectorSource, ImageWMS } from "ol/source";
 import { GeoJSON } from "ol/format";
+import Feature from 'ol/Feature';
+import Polygon from 'ol/geom/Polygon';
+
+import {
+	styleSelectLayer,
+} from "../../osiStyles";
 
 import { Tile, Vector, Image } from "ol/layer";
 
@@ -21,25 +27,23 @@ export const clearSource = (src) => {
     }
 }
 
-export const addFeatureFromInfos = (infos, src) => {
-    let car = infos["id_car"];
+export const addFeatureFromInfos = (infos, src, map) => {
 
-    let E = Number(car.slice(5,12));
-    let N = Number(car.slice(13, 20));
-    // create geom as WKT
-    let wkt = `POLYGON((${E} ${N+200}, ${E+200} ${N+200}, ${E+200} ${N}, ${E} ${N}, ${E} ${N+200}))`
-    let format = new WKT({
-        defaultDataProjection: "EPSG:3035"
-    })
-
-    // create feature from WKT and 
-    const feature = format.readFeature(wkt, {
-        dataProjection: "EPSG:3035",
-        featureProjection: "EPSG:3857"
+    const featureTest = new Feature({
+        geometry: new Polygon(infos.geometry.coordinates)
     });
+    featureTest.setStyle(styleSelectLayer);
+    src.addFeature(featureTest);
 
-    clearSource(src);
-    src.addFeature(feature);
+
+    //// test
+    var writer = new GeoJSON();
+    var geoJsonStr = writer.writeFeatures([
+        new Feature(featureTest.getGeometry().clone())
+    ]);
+    console.log(geoJsonStr);
+
+    // map.getView().fit(src.getExtent())
 }
 
 export const getLayerByName = (map, name) => {

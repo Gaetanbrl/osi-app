@@ -81,7 +81,9 @@ export const fetchInfo = (url) => {
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        dispatch(fetchInfoSuccess(json["features"]["0"]["properties"]));
+        dispatch(fetchInfoSuccess(
+          json?.features["0"]
+        ));
         return json;
       })
       .catch(error => dispatch(fetchInfoError(error)));
