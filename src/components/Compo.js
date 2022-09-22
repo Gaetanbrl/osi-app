@@ -31,35 +31,59 @@ export default class Compo extends Component{
 		return (
 			<div>
 				<nav className="indicators-menu">
-					{filter(refIndic, (compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))).map(compo => {
-					if (compo.id !== "I") return (
-						<div key = {compo.id} className={bsCol[compo.id]}>
-							<div>
-								<Button
-								block
-								className={compo.id === setCompo ? expanded ? 'active expanded' : 'active' : null}
-								onClick={() => { this.setState({ expanded: !expanded}); onCompoClick(compo.id)}}>
-									<span>{ compo.description.toUpperCase()}</span>
-									<i className="far fa-angle-right"></i>
-								</Button>
-								{(!setCompo || compo.id === setCompo) && (
-									<Tableau />
-								)}
-								{niveau > 3 && (
-									<Compo
-										refIndic={refIndic}
-										setCompo={setCompo}
-										onCompoClick={onCompoClick}
-										territoire={territoire}
-										niveau={niveau - 1}
-										composition={compo.composition}
-									/>
-								)}
-							</div>
-						</div>
-					);
-					return null;}
-					)}
+					{
+						filter(
+							refIndic,
+							(compo) => (compo.niveau === niveau && (composition === null || composition.includes(compo.id)))
+						)
+							.map(compo => {
+								console.log(compo);
+								if (compo.id !== "I") {
+									return (
+										<div key = {compo.id} className={bsCol[compo.id]}>
+											<div>
+												{
+													compo.id !== "VS" && (
+														<Button
+															block
+															className={compo.id === setCompo ? expanded ? 'active expanded' : 'active' : null}
+															onClick={() => {
+																this.setState({ expanded: !expanded });
+																onCompoClick(compo.id)
+															}}>
+																<span>{compo.description.toUpperCase()}</span>
+																<i className="far fa-angle-right"></i>
+														</Button>
+													)
+												}
+												{
+													compo.id == "VS" && (
+														<Button block>
+															<span>{compo.description.toUpperCase()}</span>
+														</Button>
+													)
+												}
+												{
+													!setCompo || compo.id === setCompo && (<Tableau />)
+												}
+												{
+													niveau > 3 && (
+													<Compo
+														refIndic={refIndic}
+														setCompo={setCompo}
+														onCompoClick={onCompoClick}
+														territoire={territoire}
+														niveau={niveau - 1}
+														composition={compo.composition}
+														/>)
+												}
+											</div>
+										</div>
+									)
+								};
+								return null;
+							})
+					}
 				</nav>
 				{ niveau === 5 ?
 					<nav className="indicators-menu">

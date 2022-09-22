@@ -155,7 +155,6 @@ class Carlitto extends Component {
 		if ( navigationType === "globale" || viewResolution < zoomSizes.minComm) {
 			this.updateClick(event)
 		}
-	  document.body.style.cursor = 'pointer';
 	}
 
 	onSelectYear(year) {
