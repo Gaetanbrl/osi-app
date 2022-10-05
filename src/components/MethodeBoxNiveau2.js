@@ -41,7 +41,7 @@ const MethodeBoxNiveau2 = ({
             header="Méthode"
             tag="div"
         >
-            <div className="data-block-title">
+            <div className="data-block-title d-none d-lg-block">
                 <i className="far fa-chart-bar"></i>Indice
             </div>
             <div className="data-block-container">

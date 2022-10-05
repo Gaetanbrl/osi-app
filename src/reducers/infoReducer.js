@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit'
 
 const initialState = {
   infos: null,
+  infosCompare: null,
   loading: false,
   error: null
 };
@@ -15,11 +16,14 @@ const infoReducer = createReducer(initialState, {
     state.loading = action.false;
     state.error = null;
     state.infos = action.infos
+    state.infosCompare = action.infoCompare
   },
   FETCH_INFO_ERROR: (state, action) => {
     state.loading = false,
     state.error = action.error,
     state.infos = null
+    state.infosCompare = null
+
   }
 });
 

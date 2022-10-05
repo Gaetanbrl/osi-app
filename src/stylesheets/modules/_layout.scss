@@ -25,3 +25,12 @@ body {
   color: $first-txt-color;
 }
 
+@media screen and (max-width: 768px) {
+  #layout main{
+      flex-wrap: nowrap;
+      flex-direction: column;
+  }
+  .map-wrapper {
+    height: 50rem!important;
+  }
+}

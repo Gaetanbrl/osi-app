@@ -1,3 +1,17 @@
+.menu-btn {
+  padding: 10px;
+  border-radius: 3px;
+}
+.rotate-menu-on {
+  transform: rotate(90deg);
+  transition: all .2s linear;
+}
+
+.rotate-menu-off {
+  transform: rotate(0deg);
+  transition: all .2s linear;
+}
+
 #sidebar {
   @extend %flexbox;
   @include flex-direction(column);
@@ -17,12 +31,21 @@
 
 #sidebar-header {
   padding: 0 12px;
+  background-color: transparent !important;
+  button {
+    border: 1px solid white !important;
+    &:hover {
+      background-color: transparent;
+      color: white;
+      border: 0px solid transparent;
+    }
+  }
 }
 #sidebar-title {
   display: block;
   @include align-items(center);
   color: $second-txt-color;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 500;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
@@ -53,3 +76,17 @@ z-index: 9999;}
 .number-indicator {
   display: none;
 }
+
+
+@media screen and (max-width: 768px) {
+  
+  #sidebar{
+      width:100%;
+      flex: 0!important;
+  }
+  
+  #sidebar-footer {
+      display: none;
+  }
+}
+  

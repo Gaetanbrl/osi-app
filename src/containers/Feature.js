@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import FeatureBox from '../components/FeatureBox'
-import { fetchInfo } from '../actions'
+import FeatureBox from '../components/FeatureBox';
 
 const mapStateToProps = state => ({	
 	setRef: state.setRef.ref,
@@ -8,17 +7,15 @@ const mapStateToProps = state => ({
 	refIndic: state.refIndic,
 	url: state.setCar.url,
 	infos: state.infoReducer.infos,
+	infosCompare: state.infoReducer.infosCompare,
 	loading: state.infoReducer.loading,
 	error: state.infoReducer.error,
-	territoire: state.setTerritoire
+	territoire: state.setTerritoire,
+	timeActivated: state.setTerritoire.timeCompare
 })
 
 const mapDispatchToProps = dispatch => {
-	return {
-		onLoad: url => {
-			dispatch(fetchInfo(url))
-		}
-	}
+	return {}
 }
 
 const Feature = connect(

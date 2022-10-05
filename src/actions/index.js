@@ -5,37 +5,30 @@ export const doLogin = (password) => {
   }
 }
 
+export const displayResponsiveModal = (id) => {
+  return {
+    type: "DISPLAY_RESPONSIVE_MODAL",
+    id
+  }
+}
+
 export const doLogout = () => {
   return {
     type: 'DO_LOGOUT',
   }
 }
 
-export const setEpci = (epci) => {
+export const setTimeCompare = (timeCompare = false) => {
   return {
-    type: 'SET_EPCI',
-    epci
+    type: 'SET_TIME_COMPARE',
+    timeCompare
   }
 }
 
-export const setComm = (comm) => {
-	return {
-		type: 'SET_COMM',
-		comm
-	}
-}
-
-export const setShowEPCI = (showEPCI = true) => {
+export const setEnableTimeCompare = (enableTimeCompare = false) => {
   return {
-    type: 'SET_SHOW_EPCI',
-    showEPCI
-  }
-}
-
-export const setNavigationType = (navigationType = "") => {
-  return {
-    type: 'SET_NAVIGATION_TYPE',
-    navigationType
+    type: 'SET_ENABLE_TIME_COMPARE',
+    enableTimeCompare
   }
 }
 
@@ -67,26 +60,30 @@ export const setCompo = (compo) => {
 	}
 }
 
-export const setCar = (url) => {
+export const setCar = (url, urlCompare) => {
   return {
     type: 'SET_CAR',
-    url
+    url,
+    urlCompare
   }
 }
 
-export const fetchInfo = (url) => {
+export const fetchInfo = (url, urlCompare) => {
   return dispatch => {
     dispatch(fetchInfoBegin());
-    fetch(url)
-      .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
-        dispatch(fetchInfoSuccess(
-          json?.features["0"]
-        ));
-        return json;
-      })
-      .catch(error => dispatch(fetchInfoError(error)));
+
+    Promise.all(
+      [url, urlCompare].map((u, i) =>
+        fetch(u)
+          .then(handleErrors)
+          .then(res => res.json())
+          .catch(error => dispatch(fetchInfoError(error))))
+    ).then(responses => {
+      dispatch(fetchInfoSuccess(
+        _.first(_.get(responses[0], "features")),
+        _.first(_.get(responses[1], "features"))
+      ))
+    });
   };
 }
 
@@ -102,9 +99,10 @@ export const fetchInfoBegin = () => ({
   type: 'FETCH_INFO_BEGIN'
 });
 
-export const fetchInfoSuccess = (infos) => ({
+export const fetchInfoSuccess = (infos, infoCompare) => ({
   type: 'FETCH_INFO_SUCCESS',
-  infos
+  infos,
+  infoCompare
 });
 
 export const fetchInfoError = (error) => ({

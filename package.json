@@ -14,8 +14,7 @@
     "isomorphic-fetch": "^3.0.0",
     "lodash": "^4.17.21",
     "mustache": "^4.2.0",
-    "node-sass": "^7.0.1",
-    "ol": "^6.15.1",
+    "ol": "^7.1.0",
     "plotly.js": "^2.13.1",
     "proj4": "^2.8.0",
     "rc-slider": "^10.0.1",
@@ -29,7 +28,9 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "sanitize-html": "^2.7.1",
-    "sanitize-html-react": "^1.13.0"
+    "sanitize-html-react": "^1.13.0",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.0.2"
   },
   "devDependencies": {
     "react-scripts": "^5.0.1"

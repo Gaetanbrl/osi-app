@@ -19,6 +19,7 @@ const InfosBox = (
         infos = {},
         tpl = config.templates?.infos,
         url = "",
+        urlCompare = "",
         onLoad = () => { },
         onClose = () => { }
     }
@@ -30,6 +31,7 @@ const InfosBox = (
     const [view, setView] = useState({});
     const [content, setContent] = useState("");
     const [template, setTemplate] = useState("");
+
     const handleClose = () => {
         setShow(false);
         onClose();
@@ -40,7 +42,8 @@ const InfosBox = (
         if (!isEmpty(infos) && !isEqual(infos, view)) {
             setView(infos);
             setShow(!isEmpty(infos));
-            const tplInfos = {...infos, date_data: new Date(infos.date_data).toLocaleDateString()}
+            // TODO : VU en cotech le 27/09/2022 - l'année sera dispo dans un champ text pour ne pas avoir à le manipuler dans le JS
+            const tplInfos = {...infos.properties, date_data: new Date(infos.properties.date_data).toLocaleDateString()}
             const dirtyRender = Mustache.render(template, tplInfos);
             const cleanRender = sanitizeHtml(dirtyRender, {
                 // to custom sanitize-html config, see https://www.npmjs.com/package/sanitize-html
@@ -49,7 +52,7 @@ const InfosBox = (
             });
             setContent(cleanRender);
         }
-    }, [infos]);
+    }, [infos?.id]);
 
     // effect on init
     useEffect(() => {
@@ -61,27 +64,26 @@ const InfosBox = (
         }
     }, [])
 
-    // will call GFI on url change
     useEffect(() => {
 		if (url) {
-			onLoad(url);
+			onLoad(url, urlCompare);
 		}
     }, [url]);
-    
     if (!url) return null;
     return (
         <div className="offcanvas-parent flex-fill" id="offCanvas-parent">
-            <div id="infosCanvas" style={{ position: "absolute" }} data-bs-backdrop="false" className={`offcanvas offcanvas-bottom ${show ? 'show' : ''} bg-primary text-white p-3`}>
-                <div className="offcanvas-header">
-                    <h3 className="offcanvas-title" id="offcanvasBottomLabel">Informations</h3>
+            <div id="infosCanvas" style={{ position: "absolute" }} data-bs-backdrop="false" className={`offcanvas offcanvas-bottom ${show ? 'show' : ''} bg-primary text-white p-1`}>
+                <div className="offcanvas-header" style={{justifyContent: "right"}}>
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="infosCanvas" aria-label="Close" onClick={handleClose}></button>
                 </div>
                 <div className="offcanvas-body small">
                     {!isEmpty(infos) && !useTemplateOnly && 
                         <div className="infos-body row">
-                            <span className="col-4 row" dangerouslySetInnerHTML={{ __html: content }}></span>
+                            <span className="col-4">
+                                <h3 className="offcanvas-title" id="offcanvasBottomLabel">Informations</h3>
+                                <div className="row" dangerouslySetInnerHTML={{ __html: content }}></div>
+                            </span>
                             <span className="col-5">
-                                <p>Valeurs de la maille sélectionnée :</p>
                                 <Feature />
                             </span> 
                         </div>

@@ -1,20 +1,19 @@
 import {connect} from 'react-redux';
 import TitreBox from '../components/TitreBox';
-import { setShowEPCI, setNavigationType } from '../actions'
+import { setTimeCompare } from '../actions'
 
 const mapStateToProps = (state) => ({
 	refIndic: state.refIndic,
 	setRef: state.setRef.ref,
-	territoire: state.setTerritoire,
+  territoire: state.setTerritoire,
+  enableTimeCompare: state.setTerritoire.enableTimeCompare,
+	timeActivated: state.setTerritoire.timeCompare
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    onShowEPCIClick: showEPCI => {
-      dispatch(setShowEPCI(showEPCI));
-    },
-    onChangeNavigationClick: navigationType => {
-      dispatch(setNavigationType(navigationType))
+    onTimeCompareChange: activate => {
+      dispatch(setTimeCompare(activate))
     }
   }
 }

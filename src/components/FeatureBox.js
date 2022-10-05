@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { ListGroupItem } from "react-bootstrap";
 import Plot from 'react-plotly.js';
-import { isEmpty } from "lodash";
+import { isEmpty, keys, pickBy } from "lodash";
 
 export default function FeatureBox({
 	error,
@@ -9,15 +9,35 @@ export default function FeatureBox({
 	refIndic,
 	setRef,
 	infos,
-	url,
-	onLoad = () => {}
+	infosCompare,
+	timeActivated
 }) {
-	// on init and on url change
-	useEffect(() => {
-		if (url) {
-			onLoad(url);
+	const barData = (featureProps, color = "#078aa3") => {
+		if (featureProps.data_discr) {
+			return [{
+				type: "bar",
+				orientation: 'h',
+				x: [featureProps.data_discr],
+				y: [`${String(refIndic[featureCompo].nom)} - ${new Date(featureProps.date_data).getFullYear()}`],
+				marker: {
+					color: color
+				}
+			}]
 		}
-	}, [url]);
+		let subIndic = pickBy(featureProps, (i, j) => keys(refIndic).includes(j.toUpperCase()));
+		return keys(subIndic).map(indic => ({
+			type: "bar",
+			orientation: 'h',
+			x: [featureProps[indic]],
+			y: [`${String(refIndic[indic.toUpperCase()].description)} - ${new Date(featureProps.date_data).getFullYear()}`],
+			marker: {
+				color: indic && setRef === indic.toUpperCase() ? "grey" : color
+				// Récupération de la couleur de la composante
+				// color: refColor[.toUpperCase()[0]]
+			}
+		}))
+	}
+		
 
 	// Composante Bar chart colors
 	// const refColor = {
@@ -44,18 +64,16 @@ export default function FeatureBox({
 	if (!composition || !composition.length) {
 		return null;
 	}
+	const featureCompo = propFeature.id_meta.split("_")[0].toUpperCase();
 
-	let data = [{
-		type: "bar",
-		orientation: 'h',
-		x: [propFeature.data_discr],
-		y: [String(refIndic[propFeature.id_meta.toUpperCase()].nom)],
-		marker: {
-			color: "#999999"
-			// Récupération de la couleur de la composante
-			// color: refColor[.toUpperCase()[0]]
+	let data = barData(propFeature);
+	if (!isEmpty(infosCompare) && timeActivated) {
+		const propFeatureCompare = infosCompare?.properties;
+		if (propFeatureCompare?.date_data !== propFeature?.date_data) {
+			data = [...data, ...barData(propFeatureCompare, "#a23f97")];
 		}
-	}];
+	}
+
 	let layout = {
 		title: '',
 		xaxis: {
@@ -67,14 +85,17 @@ export default function FeatureBox({
 			showgrid: true,
 			dtick: 1
 		},
+		yaxis: {
+			automargin: true,
+			tickmode: "linear"
+		},
 		autosize: true,
 		responsive: true,
 		showlegend: false,
 		margin: {
-			l: 100,
 			r: 50,
+			t: 5,
 			b: 120,
-			t: 20,
 			pad:5
 		}
 	}

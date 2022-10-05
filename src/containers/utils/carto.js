@@ -59,10 +59,10 @@ export const getSource = (infos) => {
     }
 };
 
-export const getLayersFromConfig = (layers) => {
+export const getLayersFromConfig = (layers, params) => {
     if (!layers || !layers.length) return;
     return layers.map((infos) => {
-        const source = getSource(infos);
+        const source = getSource({...infos, ...params});
         if (isEmpty(source)) return null;
         if (infos.type === "Vector") {
             return new Vector({
@@ -121,7 +121,8 @@ export const getAllRealVisibleLayers = (map) => {
     );
 }
 
-export const getCapabilitiesDimension = (url) => {
+export const getCapabilitiesDimension = (url, filter) => {
+    if (isEmpty(filter)) return;
     const parser = new WMSCapabilities();
 
     return fetch(url)
@@ -133,13 +134,15 @@ export const getCapabilitiesDimension = (url) => {
     })
     .then(text => {
         const capabilities = parser.read(text);
-        const timeParameter = find(capabilities.Capability.Layer.Layer[0].Dimension, ["name", "time"])?.values;
-        
+        const layers = capabilities.Capability.Layer.Layer;
+        const layer = find(layers, ["Title", filter.value]);
+        const timeParameter = find(layer.Dimension, ["name", "time"])?.values;
         if (timeParameter.length) {
             const listYear = timeParameter.split(',').map(d => d.substring(0, 4));
             return {
-                yearsListAvailable: listYear,
+                yearsListAvailable: listYear.map(x => parseInt(x, 10)),
                 selectedYear: parseInt(listYear[listYear.length - 1], 10),
+                fullTimeList: timeParameter.split(',')
             }
         }
         // if not time dimension

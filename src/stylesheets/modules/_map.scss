@@ -1,8 +1,17 @@
-.map-wrapper, .map {
+.map-wrapper {
   height: 100%;
 }
 #map-container,
 .map-wrapper {
+  position: relative;
+}
+
+.mapDiv {
+  display: flex;
+}
+
+.map, .mapDiv{
+  height: 100%;
   position: relative;
 }
 
@@ -187,6 +196,19 @@
 #map-container {
   #comm-title {
     display: none;
+  }
+}
+
+#infos-buttons {
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
+  position: fixed;
+  button {
+    margin-left: 5px;
+  }
+  .btn:hover {
+    background-color: "#144960";
   }
 }
 

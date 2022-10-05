@@ -20,7 +20,6 @@ const checkLoginData = (password) =>
 
 const doLogin = createReducer(initialState, {
 	DO_LOGIN: (state, action) => {
-		console.log("doLogin");
 		state.isLogged = checkLoginData(action.password).isLogged;
 		state.errorMessage = checkLoginData(action.password)?.errorMessage || '';
 	},

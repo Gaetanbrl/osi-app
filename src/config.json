@@ -86,8 +86,6 @@
         "url": "/comm3857.json",
         "opacity": 1,
         "style": "styleEpciComm",
-        "minResolution": "minComm",
-        "maxResolution": "maxComm",
         "navigation": ["epci", "commune", "globale"],
         "visible": false,
         "type": "Vector",
@@ -1270,6 +1268,180 @@
             "version": "1.3.0"
         }
     }, {
+        "title": "Aléas (200m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "maxResolution": 15,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a_200",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Aléas (400m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 15,
+        "maxResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a_400",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Aléas (800m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a_800",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Erosion (200m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a1",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "maxResolution": 15,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a1_200",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Erosion (400m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a1",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 15,
+        "maxResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a1_400",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Erosion (800m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a1",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a1_800",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Submersion (200m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a2",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "maxResolution": 15,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a2_200",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Submersion (400m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a2",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 15,
+        "maxResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a2_400",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
+        "title": "Submersion (800m) (OSI)",
+        "type": "TileWMS",
+        "clickable": true,
+        "url": "https://portail.indigeo.fr/geoserver/OSI/wms",
+        "compo": "a2",
+        "navigation": ["globale"],
+        "visible": false,
+        "opacity": 0.8,
+        "minResolution": 35,
+        "zIndex": 9,
+        "params": {
+            "transparent": "true",
+            "crossOrigin": "anonymous",
+            "format": "image/png",
+            "layers": "a2_800",
+            "srs": "EPSG:3857",
+            "version": "1.3.0"
+        }
+    }, {
         "compo": "",
         "title": "selectedLayer",
         "url": "",
@@ -1289,6 +1461,7 @@
     },
     "maddogCompoLink": ["RI", "A", "A1", "A101", "A2", "A201"],
     "maddogUrl": "https://gis.jdev.fr/mviewer/?config=apps/maddog.xml",
+    "getCapabilitiesUrl": "https://portail.indigeo.fr/geoserver/OSI/",
     "templates": {
         "infos": "templates/infos.mst",
         "useTemplateOnly": false

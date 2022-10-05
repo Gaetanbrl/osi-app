@@ -1,12 +1,10 @@
 import React, { Component, createRef } from "react";
-import proj4 from "proj4";
-import { register } from "ol/proj/proj4";
-import { View, Map, Overlay, Feature } from "ol";
-import { fromLonLat, get as getProjection } from "ol/proj";
+import { View, Map, Overlay } from "ol";
+import { fromLonLat } from "ol/proj";
 import { ScaleLine, defaults as defaultControl } from "ol/control";
 import { defaults as defaultInteraction } from "ol/interaction";
 
-import { keyBy, get, isEmpty } from 'lodash';
+import { keyBy, get, isEmpty, first, last } from 'lodash';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -16,7 +14,8 @@ import {
 	addFeatureFromInfos,
 	getCapabilitiesDimension,
 	getLayerByName,
-	getAllRealVisibleLayers
+	getAllRealVisibleLayers,
+	getOverlayText
 } from "../containers/utils/carto";
 
 import BaseMapsSelector from "../components/BaseMapsSelector";
@@ -30,7 +29,11 @@ import { getBaseLayers } from "../containers/utils/basemaps";
 import config from "../config";
 
 const BASE_LAYERS = getBaseLayers(config.baselayers);
+const TIME_BASE_LAYERS = getBaseLayers(config.baselayers);
 const NAVIGATION_LAYERS = getLayersFromConfig(
+	config?.navigation.filter(l => l.navigation && l.navigation.length)
+);
+const TIME_NAVIGATION_LAYERS = getLayersFromConfig(
 	config?.navigation.filter(l => l.navigation && l.navigation.length)
 );
 
@@ -43,23 +46,29 @@ const sliderStyle = {
 };
 
 const defaultViewProps = {
-	center: fromLonLat([-3, 48.15]),
-	// minResolution: zoomSizes.minComm,
-	// maxResolution: zoomSizes.max - 1,
+	center: fromLonLat([-3, 48.15])
 };
+
+const defaultView = new View({
+	...defaultViewProps,
+	projection: 'EPSG:3857',
+	resolution: zoomSizes.default,
+	constrainResolution: true
+});
 
 class Carlitto extends Component {
 
 	constructor(props) {
 		super(props)
 		this.olMap = createRef()
+		this.olTimeMap = createRef()
 	}
+
+	showLayer = null
 
 	carMap = null
 
-	commGeom = null
-
-	selGeom = null
+	timeMap = null
 
 	overlay = null
 	overlayFeatureNom = null
@@ -71,29 +80,20 @@ class Carlitto extends Component {
 	clickedLayerUrl = ""
 
 	state = {
-		showBaseMapSelector: false
+		showBaseMapSelector: false,
+		showLayer: "",
+		selectedYear: "",
+		selectedYearCompare: "",
+		timeActivated: false,
+		blCompare: [],
+		fullTimeList: []
 	};
 
-	getOverlayText(nom, code, nbIndic, sitePilote) {
-		let overlayText = '<h6><strong>' + nom + '</strong>'
-		if (code) {
-			overlayText += ' (' + code + ')';
-		}
-		if (nbIndic) {
-			overlayText += '<br /><i>' + nbIndic +' indicateurs</i>';
-		}
-		if (sitePilote === true || sitePilote === 'true') {
-			overlayText += '<br /><i>Territoire pilote des projets OSIRISC et OSIRISC+</i>';
-		}
-		overlayText += '</h6>'
-
-		return overlayText;
-	}
 
 	moveHandler(event) {
 		let displayOverlay = false;
 		let overlayText = null;
-		const feature = this.carMap.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
+		this.carMap.forEachFeatureAtPixel(event.pixel, (feature) => {
 			displayOverlay = true;
 			const nom = feature.get('nom');
 			const code = feature.get('insee');
@@ -102,9 +102,13 @@ class Carlitto extends Component {
 			}
 			const sitePilote = feature.get('site_pilote');
 			const insee = feature.get('insee');
-			overlayText = this.getOverlayText(nom, code, get(this.commNbIndic, `${insee}.nb_indic`), sitePilote);
+			overlayText = getOverlayText(nom, code, get(this.commNbIndic, `${insee}.nb_indic`), sitePilote);
 			this.overlayFeatureNom = nom;
 			return feature;
+		}, {
+			layerFilter: (l) => {
+				return l.get("name") !== "selectedLayer" && l.get("visible") && !l.get("isBaseLayer");
+			}
 		});
 
 		if (displayOverlay) {
@@ -116,70 +120,92 @@ class Carlitto extends Component {
 		} else {
 			this.overlay.getElement().style.display = 'none';
 		}
+		document.body.style.cursor = displayOverlay ? 'pointer' : '';
 	}
 
-	updateClick(event) {
-		const viewResolution = this.carMap.getView().getResolution();
-		let clickedLayer = null;
+	getSelectedLayer(targetMap) {
 		// will only return visible layer as layerFilter option
-		const visibleLayers = getAllRealVisibleLayers(this.carMap);	
+		const visibleLayers = getAllRealVisibleLayers(targetMap);	
 		const isResolutionVisible = visibleLayers.map(l => l.getProperties().name);
-		const isClickable = visibleLayers.filter(l => l.getProperties().clickable);
+		const clickableLayersName = visibleLayers.filter(l => l.getProperties().clickable);
 		// will return only one layer because we can only display one layer by navigation mode
-		clickedLayer = isClickable.filter(x => isResolutionVisible.includes(x.getProperties().name))[0];
+		return clickableLayersName.filter(x => isResolutionVisible.includes(x.getProperties().name))[0];
+	}
+
+	getUrlFromLayer = (targetMap, event) => {
+		const viewResolution = targetMap.getView().getResolution();
+		let clickedLayer = this.getSelectedLayer(targetMap);
 		if (!clickedLayer) return;
 		// will calcul GetFeatureInfo URL usefull to get info by map pixel clicked
 		const clickedParams = clickedLayer.getSource().getParams();
-		this.clickedLayerUrl = clickedLayer.getSource().getFeatureInfoUrl(
+		let clickedLayerUrl = clickedLayer.getSource().getFeatureInfoUrl(
 			event.coordinate, viewResolution, 'EPSG:3857',
 			{
-				'INFO_FORMAT': 'application/json',
-				'QUERY_LAYERS': clickedParams.layers || clickedParams.LAYERS
-			},
+				INFO_FORMAT: 'application/json',
+				QUERY_LAYERS: clickedParams.layers || clickedParams.LAYERS
+			}
 		);
-		if (this.clickedLayerUrl) {
+		return {
+			clickedLayer: clickedLayer,
+			clickedLayerUrl: clickedLayerUrl
+		}
+	}
+
+	updateClick(event) {
+		// get layer URL for first map
+		let infosClickedLayer = this.getUrlFromLayer(this.carMap, event);
+
+		if (infosClickedLayer?.clickedLayer) {
+			// get layer URL for second compare map
+			let layerUrlCompare = this.getUrlFromLayer(this.timeMap, event).clickedLayerUrl;
+			this.clickedLayerUrl = infosClickedLayer.clickedLayerUrl;
+			this.clickedLayer = infosClickedLayer.clickedLayer;
 			this.clickedFeature = {
 				coordinate: event.coordinate,
-				pixel: event.pixel,
-				viewResolution,
+				pixel: event.pixel
 			};
 			// update store to refresh FeatureBox, MetaBox panels with correct info
-			this.props.onCarClick(this.clickedLayerUrl);
+			if (this.state.yearsListAvailable && this.state.yearsListAvailable.length > 1) {
+				this.props.onCarClick(this.clickedLayerUrl, layerUrlCompare);
+			} else {
+				// if only one year, just load one chart data
+				this.props.onCarClick(this.clickedLayerUrl, "");
+			}
 		}
 	}
 
 	clickHandler(event) {
-		const { navigationType } = this.props;
-		this.setState({showBaseMapSelector: false});
-		const viewResolution = this.carMap.getView().getResolution();
-		if ( navigationType === "globale" || viewResolution < zoomSizes.minComm) {
-			this.updateClick(event)
+		let selLayer = getLayerByName(this.carMap, "selectedLayer");
+		selLayer.getSource().clear();
+		this.setState({ showBaseMapSelector: false });
+		if (!isEmpty(event)) {
+			this.updateClick(event);
 		}
+
 	}
 
-	onSelectYear(year) {
+	onSelectYear(year, key) {
 		this.setState({
-			selectedYear: year,
+			[key]: year || this.state[key],
 		});
+	}
+
+	closeInfoPanel(props) {
+		this.clickedFeature = null;
+		props.onCarClick("");
+		this.clickHandler();
 	}
 
 	componentDidMount() {
 		window.onresize =
 			function() {
 				this.carMap && this.carMap.updateSize();
+				this.timeMap && this.timeMap.updateSize();
 			}
 		;
 		this.commNbIndic = keyBy(meta_com, c => c.id_com);
 
-		// Get list of years data available
-		getCapabilitiesDimension('https://portail.indigeo.fr/geoserver/LETG-BREST/osi_all_date/wms?REQUEST=GetCapabilities')
-			.then((r) => {
-				if (!isEmpty(r)) {
-					this.setState(r);
-				}
-			})
-
-		let view = new View({
+		this.state.view = new View({
 			...defaultViewProps,
 			projection: 'EPSG:3857',
 			resolution: zoomSizes.default,
@@ -196,28 +222,31 @@ class Carlitto extends Component {
 				new ScaleLine(),
 			]),
 			interactions: defaultInteraction({mouseWheelZoom:true}),
-			view: view
+			view: defaultView
 		});
-
-		this.carMap.on('precompose', function(evt) {
-			if(evt.context){
-				evt.context.globalCompositeOperation = 'multiply';
-			}
+		this.timeMap = new Map({
+			target: this.olTimeMap.current,
+			layers: [
+				...TIME_BASE_LAYERS,
+				...TIME_NAVIGATION_LAYERS
+			],
+			controls: defaultControl({
+				collapsible: false,
+				zoom: false
+			}).extend([
+				new ScaleLine(),
+			]),
+			interactions: defaultInteraction({
+				mouseWheelZoom: true,
+				doubleClickZoom: false,
+				dragAndDrop: false,
+				dragPan: false,
+				keyBoardPan: false,
+				keyBoardZoom: false,
+				mouseWheelZoom: false
+			}),
+			view: defaultView
 		});
-
-		const selectedLayer = getLayerByName(this.carMap, "selectedLayer");
-
-		selectedLayer.on('precompose', function(evt) {
-			if(evt.context){
-				evt.context.globalCompositeOperation = 'normal';
-			}
-		});
-		selectedLayer.on('precompose', function(evt) {
-			if(evt.context){
-				evt.context.globalCompositeOperation = 'source-over';
-			}
-		});
-
 
 		// Add Local Name overlay
 		this.overlay = new Overlay({
@@ -233,20 +262,73 @@ class Carlitto extends Component {
 
 		this.setState({
 			carMap: this.carMap,
+			timeMap: this.timeMap
 		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let { setRef, infos, navigationType, onSetNavigationView } = this.props;
-
-		const isOtherYear = prevState?.selectedYear !== this.state.selectedYear;
+		let { setRef, infos, onSetNavigationView, onEnableTimeCompare } = this.props;
+		// display selected layer by setRef value
+		const visibleLayers = getAllRealVisibleLayers(this.carMap);
+		let clickableLayer = visibleLayers.filter(x => x.get("clickable"))[0];
+		if (clickableLayer && config.getCapabilitiesUrl) {
+			if (this.showLayer !== clickableLayer) {
+				this.closeInfoPanel(this.props);
+				this.setState({
+					yearsListAvailable: []
+				});
+				onEnableTimeCompare(false);
+				const layerGsName = clickableLayer.getSource().getParams().layers;
+				// Get list of years data available
+				getCapabilitiesDimension(
+					`${config.getCapabilitiesUrl}/${layerGsName}/wms?REQUEST=GetCapabilities`,
+					{
+						field: "Title",
+						value:  clickableLayer.get("name")
+					}
+				).then((r) => {
+					onEnableTimeCompare(r.yearsListAvailable.length > 1);
+					this.setState({
+						...r,
+						selectedYear: last(r.yearsListAvailable),
+						selectedYearCompare: last(r.yearsListAvailable)
+					});
+				})
+				this.showLayer = clickableLayer;
+			}
+		}
 
 		this.carMap.getLayers().getArray().forEach(layer => {
 			const propsLayer = layer.getProperties();
-			if (propsLayer.isBaseLayer || !propsLayer.navigation) return;
-			const isVisible = (!propsLayer.compo || propsLayer?.compo.toUpperCase() == setRef) && (propsLayer.navigation.includes(navigationType) || !propsLayer.navigation);
+			if (propsLayer.isBaseLayer) return;
+			const isVisible = (!propsLayer.compo || propsLayer?.compo.toUpperCase() == setRef);
 			layer.setVisible(isVisible);
+			if (layer.getSource().updateParams && this.state.selectedYear) {
+				const fullTimeValue = this.state.fullTimeList.filter(x => x.includes(this.state.selectedYear))[0];
+				if (fullTimeValue) {
+					layer.getSource().updateParams({
+						time: fullTimeValue
+					})	
+				}
+			}
 		});
+
+		if (this.timeMap) {
+			this.timeMap.getLayers().getArray().forEach(layer => {
+				const propsLayer = layer.getProperties();
+				if (propsLayer.isBaseLayer) return;
+				const isVisible = (!propsLayer.compo || propsLayer?.compo.toUpperCase() == setRef);
+				layer.setVisible(isVisible);
+				if (layer.getSource().updateParams && this.state.selectedYearCompare) {
+					const fullTimeValue = this.state.fullTimeList.filter(x => x.includes(this.state.selectedYearCompare))[0];
+					if (fullTimeValue) {
+						layer.getSource().updateParams({
+							time: fullTimeValue
+						})	
+					}
+				}
+			});	
+		}
 
 		let selLayer = getLayerByName(this.carMap, "selectedLayer");
 		let selSource = selLayer.getSource();
@@ -258,6 +340,15 @@ class Carlitto extends Component {
 			// min scrollable value (0 - n)
 			minResolution: zoomSizes.minResView
 		}));
+
+		if (this.timeMap) {
+			this.timeMap.setView(new View({
+				...defaultViewProps,
+				...this.carMap.getView().getProperties(),
+				// min scrollable value (0 - n)
+				minResolution: zoomSizes.minResView
+			}));	
+		}
 
 		if (this.clickedFeature) {
 			// simulate new click from same previous coordinates clicked
@@ -272,6 +363,9 @@ class Carlitto extends Component {
 		}
 
 		this.carMap && this.carMap.updateSize();
+		if (this.timeMap) {
+			this.timeMap && this.timeMap.updateSize();
+		}
 
 		this.carMap.on("moveend", (v) => {
 			let view = v.map.getView();
@@ -286,28 +380,19 @@ class Carlitto extends Component {
 		 * TODO: DON't DISPLAY THIS MAP CAPTION WITH GLOBAL VIEW
 		 * OR DISPLAY VISIBLE LAYERS LEGEND
 		 */
-		let { setRef, navigationType, onSetLegendUrl, infos, onCarClick, url } = this.props;
+		let { changeModal, responsiveModal, setRef, onSetLegendUrl, infos, infosCompare, url, urlCompare, timeActivated } = this.props;
+
+
 
 		let leg = "";
-		
-		if (setRef && ["epci", "commune"].includes(navigationType)) {
-			leg = `https://portail.indigeo.fr/geoserver/LETG-BREST/wms?Service=WMS&REQUEST=GetLegendGraphic
-				&VERSION=1.0.0&FORMAT=image/png
-				&WIDTH=10&HEIGHT=10
-				&LAYER=osi_all_date
-				&STYLE=${setRef.toLowerCase()}
-				&STYLES=${setRef.toLowerCase()}
-				&legend_options=fontName:Helvetica;fontAntiAliasing:true;bgColor:0xFFFFFF;fontColor:0x707070;fontSize:6;dpi:220;
-				&TRANSPARENT=true`;
-		}
-		
-		if (this.carMap && navigationType === "globale") {
-			const legendLayer = this.carMap.getLayers().getArray().
+
+		let legendLayer = null;
+		if (this.carMap) {
+			legendLayer = this.carMap.getLayers().getArray().
 				filter(layer => layer.getProperties().compo ? layer.getProperties().compo.toUpperCase() === setRef : false)
 			const layerSource = legendLayer[0]?.getSource();
-			/**
-			 * TODO : selectionner l'URL de la couche selon le niveau de vue (actuellement seul GS gère la visibilité, donc par défaut OL considère que les couches sont visibles)
-			 */
+
+			// get legend URL
 			const legendUrl = layerSource?.getLegendUrl();
 			leg = legendUrl && layerSource?.getParams().layers ? `
 				${legendUrl}
@@ -322,46 +407,94 @@ class Carlitto extends Component {
 
 		onSetLegendUrl(leg);
 
-		const closeInfoPanel = () => {
-			this.clickedFeature = null;
-			onCarClick("");
+		let showCompareMap = false;
+		if (
+			!isEmpty(this.state.yearsListAvailable)
+			&& this.state.yearsListAvailable.length > 1
+			&& this.carMap
+			&& timeActivated
+		) {
+			showCompareMap = true;
 		}
+
+		this.timeMap && this.timeMap.updateSize();
 
 		return (
 			<div className="map-wrapper">
-				<div className="map" ref={this.olMap} id="map">
-					<div className="olTool" ref="olTool"></div>
+				<div className="mapDiv">
+					<div className="map" ref={this.olMap} id="map" style={{
+						position: "relative",
+						width: showCompareMap && timeActivated ? "50%" : "100%"
+					}}>
+						<div className="olTool" ref="olTool"></div>
+						{setRef && !isEmpty(this.state.yearsListAvailable) ? (
+						<div className="select-year-slider-container">
+								<div className="select-year-slider">
+								{
+									<Slider
+										min={first(this.state.yearsListAvailable)}
+										max={last(this.state.yearsListAvailable)}
+										defaultValue={this.state.selectedYear}
+										marks={keyBy(this.state.yearsListAvailable)}
+										step={null}
+										included={false}
+										onChange={y => this.onSelectYear(y, "selectedYear")}
+										{...sliderStyle}
+									/>
+								}
+
+							</div>
+						</div>
+						
+					) : null}
+					</div>
+					<div
+						className={`map ${showCompareMap ? "" : "d-none"}`}
+						ref={this.olTimeMap}
+						id="map-time"
+						style={{ width: "50%" }}
+					>
+						<div className="select-year-slider-container">
+								<div className="select-year-slider">
+								{
+									<Slider
+										min={first(this.state.yearsListAvailable)}
+										max={last(this.state.yearsListAvailable)}
+										value={this.state.selectedYearCompare}
+										marks={keyBy(this.state.yearsListAvailable)}
+										step={null}
+										included={false}
+										onChange={y => this.onSelectYear(y, "selectedYearCompare")}
+										{...sliderStyle}
+									/>
+								}
+							</div>
+						</div>
+					</div>
+
 				</div>
 				<InfosBox
 					onLoad={this.props.onLoad}
-					onClose={closeInfoPanel}
+					onClose={() => this.closeInfoPanel(this.props)}
 					url={url}
+					urlCompare={urlCompare}
 					isVisible={!isEmpty(infos)}
 					tpl={config.templates?.infos}
-					infos={infos} />
+					infos={infos}
+					infosCompare={infosCompare}
+				/>
 				<BaseMapsSelector
+					responsiveModal={responsiveModal}
+					changeModal={changeModal}
 					map={this.carMap}
+					timeMap={this.timeMap}
 					layers={BASE_LAYERS}
+					layersCompare={TIME_BASE_LAYERS}
 					updateShow={(v) => {
 						this.setState({showBaseMapSelector: v})
 					}}
 					show={this.state.showBaseMapSelector}
 				/>
-				{setRef && this.state.yearsListAvailable && this.state.yearsListAvailable.length > 0 && (
-					<div className="select-year-slider-container">
-						<div className="select-year-slider">
-							<Slider
-								min={parseInt(this.state.yearsListAvailable[0], 10)}
-								max={parseInt(this.state.yearsListAvailable[this.state.yearsListAvailable.length - 1], 10)}
-								defaultValue={this.state.selectedYear}
-								marks={keyBy(this.state.yearsListAvailable, v => v)}
-								included={false}
-								onChange={y => this.onSelectYear(y)}
-								{...sliderStyle}
-							/>
-						</div>
-					</div>
-				)}
 			</div>
 		)
 	}

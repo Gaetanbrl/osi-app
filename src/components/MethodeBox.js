@@ -29,7 +29,7 @@ class MethodeBox extends Component {
 
 			return (
 				<div className={`data-block ${isITcompo ? "" : "data-block-methode"}`} header="Méthode" tag="div">
-					<div className="data-block-title">
+					<div className="data-block-title d-none d-lg-block">
 						{
 							isITcompo ?
 								(<><i className="far fa-chart-bar"></i>Indice</>)
@@ -102,7 +102,7 @@ class MethodeBox extends Component {
 			)
 		} else if (territoire.legendUrl) {
 			return (<div className="data-block" header="Méthode" tag="div">
-				<div className="data-block-title">
+				<div className="data-block-title d-none d-lg-block">
 					<i className="far fa-chart-bar"></i>Indice
 				</div>
 				<div className="data-block-container">

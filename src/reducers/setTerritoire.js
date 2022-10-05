@@ -6,20 +6,17 @@ const initialState = {
 	showEPCI: false,
 	navigationType: "globale",
 	navigationView: "",
-	legendUrl: ""
+	legendUrl: "",
+	timeCompare: false,
+	enableTimeCompare: false
 };
 
 const setTerritoire = createReducer(initialState, {
-	'SET_EPCI': (state, action) => {
-		state.comm = null;
-		state.epci = action.epci;
+	'SET_ENABLE_TIME_COMPARE': (state, action) => {
+		state.enableTimeCompare = action.enableTimeCompare;
 	},
-	'SET_COMM': (state, action) => {
-		state.comm = action.comm;
-		state.epci = action.comm.epci;
-	},
-	'SET_SHOW_EPCI': (state, action) => {
-		state.showEPCI = action.showEPCI
+	'SET_TIME_COMPARE': (state, action) => {
+		state.timeCompare = action.timeCompare;
 	},
 	'SET_NAVIGATION_TYPE': (state, action) => {
 		state.navigationType = action.navigationType

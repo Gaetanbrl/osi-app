@@ -6,24 +6,22 @@ export default function Indic({
 }) {
   const [activeKey, setActiveKey] = useState("")
 
-  // detect on component refresh
-  useEffect(() => {
-    if (setCompo === currentIndic) {
-      setActiveKey(null)
-    }
-  }, [currentIndic, setCompo])
 
   const accordionHeaderToggle = (i) => {
-    const target = activeKey === i.id ? null : i.id
+    const target = activeKey === i.id ? null : i.id;
     setActiveKey(target)
     onClick(target ? i.id : setCompo)
   }
 
+  useEffect(() => {
+    currentIndic === setCompo ? setActiveKey(null) : null;
+  }, [currentIndic])
+
   return (
     <div className="submenu">
-      <Accordion>
+      <Accordion activeKey={activeKey}>
         {niveau2.map((i2) => (
-          <Accordion.Item eventKey={i2.id} key={uniqueId() + "-" + i2.id}>
+          <Accordion.Item  eventKey={i2.id} key={i2.id}>
             <Accordion.Header onClick={() => accordionHeaderToggle(i2)}>
               {i2.description}
             </Accordion.Header>
